@@ -3,7 +3,7 @@ name: Submit FlipperDevicesInc.qFlipper package to Windows Package Manager Commu
 
 on:
     schedule:
-        - cron: 30 3 0/4 * * *
+        - cron: 3 0/4 * * *
 
 jobs:
   winget:
