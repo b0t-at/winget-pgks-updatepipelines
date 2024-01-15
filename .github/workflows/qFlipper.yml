@@ -25,5 +25,5 @@ jobs:
         working-directory: Utesgui
         env:
           GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
-        run: .\Scripts\InstallWinGet.ps1
+        run: .\Scripts\Update-QFlipper.ps1
 
