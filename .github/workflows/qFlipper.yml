@@ -12,14 +12,9 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: Utesgui
-      - name: Checkout WinGet Repo
-        uses: actions/checkout@v3
-        with:
-          repository: microsoft/winget-pkgs
-          path: winget-pkgs
       - name: Install WinGet
         run: .\Scripts\InstallWinGet.ps1
         working-directory: Utesgui
@@ -29,40 +24,6 @@ jobs:
       - name: Submit package to Windows Package Manager Community Repository
         working-directory: Utesgui
         env:
-            GH_TOKEN: ${{ secrets.WINGET_PAT }}
-        run: |
+          GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
+        run: .\Scripts\Update-QFlipper.ps1
 
-        $wingetPackage = "FlipperDevicesInc.qFlipper"
-        $gitToken = "${{ secrets.WINGET_PAT }}"
-        $versionDirectoryUrl = "https://update.flipperzero.one/qFlipper/directory.json"
-        
-        $versionDirectory = Invoke-RestMethod -uri $versionDirectoryUrl 
-        $latestVersionDirectory = ($versionDirectory.channels | where-object id -eq "release").versions.version
-        $latestVersionUrl = (($versionDirectory.channels | where-object id -eq "release").versions.files | where-object { ($_.target -eq "windows/amd64") -and ($_.type -eq "installer") }).url
-        
-        
-        $foundMessage, $textVersion, $separator, $wingetVersions = (winget search --id $wingetPackage --source winget --versions).split("")
-        
-        if ($wingetVersions) {
-            $isNewerVersionAvailable = if ($wingetVersions -match $latestVersionDirectory) { $false } else { $true }
-            if ($isNewerVersionAvailable) {
-                $installerX64Url = $latestVersionUrl
-                $ver = $latestVersionDirectory
-                $prMessage = "Update version: $wingetPackage version $ver"
-        
-                # Check for existing PRs, if package has skip pr check set to false
-                $ExistingPRs = gh pr list --search "$($wingetPackage) version $($ver) in:title draft:false" --state 'all' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
-                If ($ExistingPRs.Count -gt 0) {
-                    $ExistingPRs.ForEach({
-                            Write-Output "Found existing PR: $($_.title)"
-                            Write-Output "-> $($_.url)"
-                        })
-                }
-                Else {     
-                    # getting latest wingetcreate file     
-                    iwr https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
-                    .\wingetcreate.exe update $wingetPackage -s -v $ver -u "$installerX64Url" --prtitle $prMessage -t $gitToken
-                }
-            }
-        }
-        Else { Write-Output "$foundMessage" - the app must be present in winget before it can be updated }
