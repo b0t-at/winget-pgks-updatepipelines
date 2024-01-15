@@ -11,6 +11,15 @@ jobs:
     name: Publish winget package
     runs-on: windows-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: Utesgui
+      - name: Checkout WinGet Repo
+        uses: actions/checkout@v3
+        with:
+          repository: microsoft/winget-pkgs
+          path: winget-pkgs
       - name: Install WinGet
         run: .\Scripts\InstallWinGet.ps1
         working-directory: Utesgui
@@ -18,6 +27,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
       - name: Submit package to Windows Package Manager Community Repository
+        working-directory: Utesgui
         run: |
 
             $wingetPackage = "FlipperDevicesInc.qFlipper"
