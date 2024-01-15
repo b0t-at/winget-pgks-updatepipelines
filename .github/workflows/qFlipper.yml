@@ -28,6 +28,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
       - name: Submit package to Windows Package Manager Community Repository
         working-directory: Utesgui
+        env:
+            GH_TOKEN: ${{ secrets.WINGET_PAT }}
         run: |
 
             $wingetPackage = "FlipperDevicesInc.qFlipper"
