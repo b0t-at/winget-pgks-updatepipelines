@@ -1,0 +1,47 @@
+name: Submit FlipperDevicesInc.qFlipper package to Windows Package Manager Community Repository
+# based off of https://github.com/nushell/nushell/blob/main/.github/workflows/winget-submission.yml
+
+on:
+    schedule:
+        - cron: 30 3 0/4 * * *
+
+jobs:
+  winget:
+    name: Publish winget package
+    runs-on: windows-latest
+    steps:
+      - name: Submit package to Windows Package Manager Community Repository
+        run: |
+
+            $wingetPackage = "FlipperDevicesInc.qFlipper"
+            $gitToken = "${{ secrets.WINGET_PAT }}"
+            $versionDirectoryUrl ="https://update.flipperzero.one/qFlipper/directory.json"
+
+            $versionDirectory = Invoke-RestMethod -uri $versionDirectoryUrl 
+            $latestVersionDirectory = ($versionDirectory.channels | where-object id -eq "release").versions.version
+            $latestVersionUrl = (($versionDirectory.channels | where-object id -eq "release").versions.files | where-object {($_.target -eq "windows/amd64") -and ($_.type -eq "installer")}).url
+
+
+            $foundMessage, $textVersion, $separator, $wingetVersions = (winget search --id $wingetPackage --source winget --versions).split("")
+
+
+            $isNewerVersionAvailable = if ($wingetVersions -match $latestVersionDirectory) {$false} else {$true}
+            if ($isNewerVersionAvailable) {
+                    $installerX64Url = $latestVersionUrl
+                    $ver = $latestVersionDirectory
+                    $prMessage = "Update version: $wingetPackage version $ver"
+
+                    # Check for existing PRs, if package has skip pr check set to false
+                    $ExistingPRs = gh pr list --search "$($wingetPackage) version $($ver) in:title draft:false" --state 'all' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
+                    If ($ExistingPRs.Count -gt 0) {
+                            $ExistingPRs.ForEach({
+                            Write-Output "Found existing PR: $($_.title)"
+                            Write-Output "-> $($_.url)"
+                            })
+                    }
+                    Else {     
+                            # getting latest wingetcreate file     
+                            iwr https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
+                            .\wingetcreate.exe update $wingetPackage -s -v $ver -u "$installerX64Url" --prtitle $prMessage -t $gitToken
+                    }
+            }
