@@ -11,6 +11,12 @@ jobs:
     name: Publish winget package
     runs-on: windows-latest
     steps:
+      - name: Install WinGet
+        run: .\Scripts\InstallWinGet.ps1
+        working-directory: Utesgui
+        shell: powershell
+        env:
+          GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
       - name: Submit package to Windows Package Manager Community Repository
         run: |
 
