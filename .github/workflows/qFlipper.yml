@@ -65,4 +65,4 @@ jobs:
                 }
             }
         }
-        Else { $foundMessage }
+        Else { Write-Output "$foundMessage" - the app must be present in winget before it can be updated }
