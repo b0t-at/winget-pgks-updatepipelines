@@ -1,0 +1,28 @@
+name: Loupedeck.Loupedeck PR
+# based off of https://github.com/nushell/nushell/blob/main/.github/workflows/winget-submission.yml
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: 3 0/4 * * *
+
+jobs:
+  winget:
+    name: Publish winget package
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: Utesgui
+      - name: Install WinGet
+        run: .\Scripts\InstallWinGet.ps1
+        working-directory: Utesgui
+        shell: powershell
+      - name: Submit package to Windows Package Manager Community Repository
+        working-directory: Utesgui
+        env:
+          GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
+          WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
+        run: .\Scripts\Update-Loupedeck.ps1
+
