@@ -21,6 +21,7 @@ $foundMessage, $textVersion, $separator, $wingetVersions = winget search --id $w
 $ExistingPRs = gh pr list --search "$($wingetPackage) version $($latestVersionDirectory) in:title draft:false" --state 'all' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
 
 if ($wingetVersions -and ($wingetVersions -notmatch $latestVersionDirectory) -and ($ExistingPRs.Count -eq 0)) {
+        gh repo sync $Env:WINGET_PKGS_FORK_REPO -b main
         # getting latest wingetcreate file     
         Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
         .\wingetcreate.exe update $wingetPackage -s -v $ver -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken
