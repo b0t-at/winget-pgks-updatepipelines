@@ -1,11 +1,14 @@
 $ProgressPreference = 'SilentlyContinue'
 
 $VCLibsUri = 'https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx'
+$UILibsUri = 'https://github.com/microsoft/microsoft-ui-xaml/releases/download/v2.7.3/Microsoft.UI.Xaml.2.7.x64.appx'
+# Timeout for the winget command to become available after installation
+$wingetAfterInstallTimeout = 90
+
 $VCLibsPath = New-TemporaryFile
 Write-Host "Downloading ${VCLibsUri}"
-Invoke-WebRequest -Uri 'https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx' -OutFile $VCLibsPath
+Invoke-WebRequest -Uri $VCLibsUri -OutFile $VCLibsPath
 
-$UILibsUri = 'https://github.com/microsoft/microsoft-ui-xaml/releases/download/v2.7.3/Microsoft.UI.Xaml.2.7.x64.appx'
 $UILibsPath = New-TemporaryFile
 Write-Host "Downloading ${UILibsUri}"
 Invoke-WebRequest -Uri $UILibsUri -OutFile $UILibsPath
@@ -36,3 +39,19 @@ Add-AppxProvisionedPackage -Online -PackagePath $WinGetPath -DependencyPackagePa
 
 Write-Host 'Cleaning environment'
 Remove-Item -Path @($VCLibsPath, $UILibsPath, $WinGetPath, $WinGetLicensePath) -Force
+
+Write-Host 'Waiting to ensure Winget is ready'
+$startTime = Get-Date
+$successfullInstall = $false
+while ((Get-Date) -lt ($startTime).AddSeconds($wingetAfterInstallTimeout)) {
+  if (Get-Command winget -ErrorAction SilentlyContinue) {
+    Write-Host 'Winget successfully installed'
+    $successfullInstall = $true
+    break
+  }
+  Start-Sleep -Seconds 5
+}
+if (-not $successfullInstall) {
+  Write-Error 'Winget could not be installed'
+  exit 1
+}
