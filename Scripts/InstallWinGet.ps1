@@ -1,3 +1,14 @@
+###
+###   Unused ATM but might switch back to own solution in the future
+###
+###     Example:
+###
+###      - name: Install WinGet
+###        run: .\Scripts\InstallWinGet.ps1
+###        working-directory: Utesgui
+###        shell: powershell
+###
+
 $ProgressPreference = 'SilentlyContinue'
 
 $VCLibsUri = 'https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx'

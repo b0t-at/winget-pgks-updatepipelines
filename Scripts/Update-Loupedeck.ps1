@@ -47,8 +47,6 @@ $ExistingPRs = gh pr list --search "$($wingetPackage) version $($versionInfo) in
 if ($wingetVersions -and ($wingetVersions -notmatch $versionInfo) -and ($ExistingPRs.Count -eq 0)) {
     gh repo sync $Env:WINGET_PKGS_FORK_REPO -b main
     $prMessage = "Update version: $wingetPackage version $versionInfo"
-    # getting latest wingetcreate file     
-    Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
     #architecture workaround: https://github.com/microsoft/winget-create/blob/main/doc/update.md
     .\wingetcreate.exe update $wingetPackage -s -v $versionInfo -u "$fullDownloadURL|x64" --prtitle $prMessage -t $gitToken
 }

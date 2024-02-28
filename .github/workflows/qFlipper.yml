@@ -15,10 +15,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: Utesgui
-      # - name: Install WinGet
-      #   run: .\Scripts\InstallWinGet.ps1
-      #   working-directory: Utesgui
-      #   shell: powershell
       - name: Install winget
         uses: Cyberboss/install-winget@v1
         with:
@@ -28,7 +24,7 @@ jobs:
       - name: Submit package to Windows Package Manager Community Repository
         working-directory: Utesgui
         env:
-            GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
-            WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
+          GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
+          WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
         run: .\Scripts\Update-QFlipper.ps1
 
