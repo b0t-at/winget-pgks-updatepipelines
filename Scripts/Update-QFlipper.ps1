@@ -17,19 +17,27 @@ $latestVersionUrl = (($versionDirectory.channels | Where-Object id -eq "release"
 
 $foundMessage, $textVersion, $separator, $wingetVersions = winget search --id $wingetPackage --source winget --versions
 
-# Check for existing PRs
-$ExistingPRs = gh pr list --search "$($wingetPackage) version $($latestVersionDirectory) in:title draft:false" --state 'all' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
-
-if ($wingetVersions -and ($wingetVersions -notmatch $latestVersionDirectory) -and ($ExistingPRs.Count -eq 0)) {
-        gh repo sync $Env:WINGET_PKGS_FORK_REPO -b main
-        .\wingetcreate.exe update $wingetPackage -s -v $ver -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken
+# Check for existing versions in winget
+if ($wingetVersions -contains $latestVersionDirectory) {
+    Write-Output "Latest version of $wingetPackage $latestVersionDirectory is already present in winget."
 }
-else { 
-    Write-Output "$foundMessage"
+else {
+    # Check for existing PRs
+    $ExistingPRs = gh pr list --search "$($wingetPackage) version $($latestVersionDirectory) in:title draft:false" --state 'all' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
+
     if ($ExistingPRs.Count -gt 0) {
+        Write-Output "$foundMessage"
         $ExistingPRs | ForEach-Object {
             Write-Output "Found existing PR: $($_.title)"
             Write-Output "-> $($_.url)"
         }
+    }
+    elseif ($wingetVersions -and ($wingetVersions -notmatch $latestVersionDirectory)) {
+        gh repo sync $Env:WINGET_PKGS_FORK_REPO -b main
+        .\wingetcreate.exe update $wingetPackage -s -v $ver -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken
+    }
+    else { 
+        Write-Output "$foundMessage"
+        Write-Output "No existing PRs found. Check why wingetcreate has not run."
     }
 }
