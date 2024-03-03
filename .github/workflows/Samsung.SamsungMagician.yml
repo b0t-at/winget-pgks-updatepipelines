@@ -21,19 +21,20 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - name: Install wingetcreate
       #   run: winget install wingetcreate --disable-interactivity --accept-source-agreements
-      - name: Get Samsung.SamsungMagician Version
+      - name: Update Samsung.SamsungMagician package
         id: get_version
         working-directory: Utesgui
         env:
           GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
-        run: .\Scripts\Update-Samsung.SamsungMagician.ps1
-      - name: Submit Samsung.SamsungMagician package
-        working-directory: Utesgui
-        env:
-          GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
           WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
-          wingetPackage: ${{ steps.get_version.outputs.wingetPackage }}
-          latestVersion: ${{ steps.get_version.outputs.latestVersion }}
-          latestVersionUrl: ${{ steps.get_version.outputs.latestVersionUrl }}
-        run: .\Scripts\create-winget-pr.ps1  
+        run: .\Scripts\Update-Samsung.SamsungMagician.ps1
+      # - name: Submit Samsung.SamsungMagician package
+      #   working-directory: Utesgui
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
+      #     WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
+      #     wingetPackage: ${{ steps.get_version.outputs.wingetPackage }}
+      #     latestVersion: ${{ steps.get_version.outputs.latestVersion }}
+      #     latestVersionUrl: ${{ steps.get_version.outputs.latestVersionUrl }}
+      #   run: .\Scripts\create-winget-pr.ps1  
 
