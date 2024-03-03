@@ -9,11 +9,13 @@ else {
 
 $wingetPackage = "FlipperDevicesInc.qFlipper"
 $versionDirectoryUrl = "https://update.flipperzero.one/qFlipper/directory.json"
-$prMessage = "Update version: $wingetPackage version $latestVersionDirectory"
+
 
 $versionDirectory = Invoke-RestMethod -Uri $versionDirectoryUrl 
 $latestVersionDirectory = ($versionDirectory.channels | Where-Object id -eq "release").versions.version
 $latestVersionUrl = (($versionDirectory.channels | Where-Object id -eq "release").versions.files | Where-Object { ($_.target -eq "windows/amd64") -and ($_.type -eq "installer") }).url
+
+$prMessage = "Update version: $wingetPackage version $latestVersionDirectory"
 
 $foundMessage, $textVersion, $separator, $wingetVersions = winget search --id $wingetPackage --source winget --versions
 
