@@ -17,6 +17,16 @@ $links = $websiteContent.Links | Where-Object { $_.href -like "*.exe" -and $_.hr
 
 $latestVersionUrl = $links[0].href
 
+# get full name of file from link
+$fileName = $latestVersionUrl.Split("/")[-1]
+
+#download exe File
+Invoke-WebRequest -Uri $latestVersionUrl -OutFile $fileName
+
+$file = Get-ChildItem -Path $fileName
+$latestVersion = $file.VersionInfo.ProductVersion
+
+
 
 $prMessage = "Update version: $wingetPackage version $latestVersion"
 
