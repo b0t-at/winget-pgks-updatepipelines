@@ -48,6 +48,7 @@ if ($wingetVersions -and ($wingetVersions -notmatch $versionInfo) -and ($Existin
     gh repo sync $Env:WINGET_PKGS_FORK_REPO -b main
     $prMessage = "Update version: $wingetPackage version $versionInfo"
     #architecture workaround: https://github.com/microsoft/winget-create/blob/main/doc/update.md
+    Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
     .\wingetcreate.exe update $wingetPackage -s -v $versionInfo -u "$fullDownloadURL|x64" --prtitle $prMessage -t $gitToken
 }
 else { 

@@ -19,8 +19,8 @@ jobs:
         uses: Cyberboss/install-winget@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Install wingetcreate
-        run: winget install wingetcreate --disable-interactivity --accept-source-agreements
+      # - name: Install wingetcreate
+      #   run: winget install wingetcreate --disable-interactivity --accept-source-agreements
       - name: Submit package to Windows Package Manager Community Repository
         working-directory: Utesgui
         env:
