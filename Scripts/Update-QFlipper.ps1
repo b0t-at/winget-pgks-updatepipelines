@@ -36,7 +36,7 @@ else {
     }
     elseif ($wingetVersions -and ($wingetVersions -notmatch $latestVersionDirectory)) {
         gh repo sync $Env:WINGET_PKGS_FORK_REPO -b main
-        .\wingetcreate.exe update $wingetPackage -s -v $ver -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken
+        .\wingetcreate.exe update $wingetPackage -s -v $latestVersionDirectory -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken
     }
     else { 
         Write-Output "$foundMessage"
