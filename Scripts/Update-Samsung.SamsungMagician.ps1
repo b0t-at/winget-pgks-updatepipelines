@@ -27,9 +27,9 @@ $file = Get-ChildItem -Path $fileName
 $latestVersion = $file.VersionInfo.ProductVersion
 
 return $latestVersion, $latestVersionUrl, $wingetPackage
-::set-output name=latestVersion::$latestVersion
-::set-output name=latestVersionUrl::$latestVersionUrl
-::set-output name=wingetPackage::$wingetPackage
+echo "::set-output name=latestVersion::$latestVersion"
+echo "::set-output name=latestVersionUrl::$latestVersionUrl"
+echo "::set-output name=wingetPackage::$wingetPackage"
 
 
 # $prMessage = "Update version: $wingetPackage version $latestVersion"
