@@ -21,7 +21,9 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Install wingetcreate
-        run: winget install wingetcreate --disable-interactivity --accept-source-agreements
+        run: |
+          winget install wingetcreate --disable-interactivity --accept-source-agreements
+          echo "C:\Program Files\WindowsApps\Microsoft.DesktopAppInstaller_1.16.12653.0_x64__8wekyb3d8bbwe" >> $GITHUB_PATH
 
   publish:
     name: Publish package to winget
@@ -32,9 +34,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: Utesgui
-      - name: Submit package to Windows Package Manager Community Repository
+      - name: Submit QFlipper Package
         working-directory: Utesgui
         env:
           GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
           WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
-        run: .\Scripts\Update-QFlipper.ps1
+        run: .\Scripts\Update-QFlipper.ps1  
