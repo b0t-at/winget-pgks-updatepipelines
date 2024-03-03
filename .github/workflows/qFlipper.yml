@@ -21,6 +21,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Install wingetcreate
         run: winget install wingetcreate --disable-interactivity --accept-source-agreements
+      - name: Sync repository
+        run: gh repo sync $Env:WINGET_PKGS_FORK_REPO -b main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Submit package to Windows Package Manager Community Repository
         working-directory: Utesgui
         env:
