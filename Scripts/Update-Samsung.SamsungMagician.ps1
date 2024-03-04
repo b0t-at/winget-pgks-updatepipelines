@@ -48,10 +48,8 @@ else {
         }
     }
     elseif ($wingetVersions -and ($wingetVersions -notmatch $latestVersion)) {
-        gh auth login --with-token $gitToken
-        gh repo sync $Env:WINGET_PKGS_FORK_REPO -b main
         Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
-        .\wingetcreate.exe update $wingetPackage -s -v $ver -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken
+        .\wingetcreate.exe update $wingetPackage -s -v $latestVersion -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken
     }
     else { 
         Write-Output "$foundMessage"

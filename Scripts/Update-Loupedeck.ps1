@@ -45,7 +45,6 @@ if ($fullDownloadURLResponse.StatusCode -ne 200) {
 $ExistingPRs = gh pr list --search "$($wingetPackage) version $($versionInfo) in:title draft:false" --state 'all' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
 
 if ($wingetVersions -and ($wingetVersions -notmatch $versionInfo) -and ($ExistingPRs.Count -eq 0)) {
-    gh repo sync $Env:WINGET_PKGS_FORK_REPO -b main
     $prMessage = "Update version: $wingetPackage version $versionInfo"
     #architecture workaround: https://github.com/microsoft/winget-create/blob/main/doc/update.md
     Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe

@@ -35,7 +35,6 @@ else {
         }
     }
     elseif ($wingetVersions -and ($wingetVersions -notmatch $latestVersionDirectory)) {
-        gh repo sync $Env:WINGET_PKGS_FORK_REPO -b main
         Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
         .\wingetcreate.exe update $wingetPackage -s -v $latestVersionDirectory -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken
     }
