@@ -24,7 +24,7 @@ $fileName = $latestVersionUrl.Split("/")[-1]
 Invoke-WebRequest -Uri $latestVersionUrl -OutFile $fileName
 
 $file = Get-ChildItem -Path $fileName
-$latestVersion = $file.VersionInfo.ProductVersion
+$latestVersion = $file.VersionInfo.ProductVersion.trim()
 
 
 
