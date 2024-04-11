@@ -41,7 +41,15 @@ if ($wingetVersions -contains $latestVersion) {
 }
 else {
     # Check for existing PRs
-    $ExistingPRs = gh pr list --search "$($wingetPackage) version $($latestVersion) in:title draft:false" --state 'open' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
+    $ExistingPRs = gh pr list --search "$($wingetPackage) version $($latestVersion) in:title draft:false" --state 'all' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
+
+    # TODO Check if PR is already merged, if so exit
+
+    # TODO if PR from us is already open, update PR with new version
+
+    # TODO if PR is closed, not from us and no PR got merged, create new PR
+
+    # TODO if PR is closed, from us and no PR got merged, throw error
 
     if ($ExistingPRs.Count -gt 0) {
         Write-Output "$foundMessage"
