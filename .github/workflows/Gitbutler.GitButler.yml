@@ -23,7 +23,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - name: Install wingetcreate
       #   run: winget install wingetcreate --disable-interactivity --accept-source-agreements
-      - name: Update ${{ env.PackageName }} package
+      - name: Update package
         id: get_version
         working-directory: Utesgui
         env:
