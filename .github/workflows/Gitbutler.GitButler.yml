@@ -29,7 +29,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
           WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
-        run: .\Scripts\Update-$env:PackageName.ps1
+        run: .\Scripts\Update-${env:PackageName}.ps1
       # - name: Submit Gitbutler.GitButler package
       #   working-directory: Utesgui
       #   env:
