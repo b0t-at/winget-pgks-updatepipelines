@@ -23,13 +23,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - name: Install wingetcreate
       #   run: winget install wingetcreate --disable-interactivity --accept-source-agreements
-      - name: Update package
+      - name: Update ${{ env.PackageName }} package
         id: get_version
         working-directory: Utesgui
         env:
           GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
           WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
-        run: .\Scripts\Update-Gitbutler.GitButler.ps1
+        run: .\Scripts\Update-${{ env.PackageName }}.ps1
       # - name: Submit Gitbutler.GitButler package
       #   working-directory: Utesgui
       #   env:
