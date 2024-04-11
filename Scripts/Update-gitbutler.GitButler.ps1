@@ -41,7 +41,7 @@ if ($wingetVersions -contains $latestVersion) {
 }
 else {
     # Check for existing PRs
-    $ExistingPRs = gh pr list --search "$($wingetPackage) version $($latestVersion) in:title draft:false" --state 'all' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
+    $ExistingPRs = gh pr list --search "$($wingetPackage) version $($latestVersion) in:title draft:false" --state 'open' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
 
     if ($ExistingPRs.Count -gt 0) {
         Write-Output "$foundMessage"
