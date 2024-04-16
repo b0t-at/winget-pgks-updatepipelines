@@ -1,5 +1,5 @@
 name: Run CI
-run-name: name ${{ github.job }}
+run-name: name ${{ github.actor }}
 on: [push, pull_request]
 
 jobs:
