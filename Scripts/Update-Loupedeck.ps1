@@ -33,8 +33,10 @@ if ($wingetVersions.Contains($versionInfo)) {
 }
 
 # extract major and minor version e.g. 5.9 from 5.9.10
-$majorMinorVersion = $versionInfo -replace '\.\d+.\d+$'
+$majorMinorVersion = $versionInfo -replace '\.\d+$'
 $fullDownloadURL = "https://5145542.fs1.hubspotusercontent-na1.net/hubfs/5145542/Knowledge%20Base/LD%20Software%20Downloads/$majorMinorVersion/LoupedeckInstaller_" + $versionInfo + ".exe"
+
+Write-Host "Full download URL: $fullDownloadURL"
 
 # check if full download URL is valid
 $fullDownloadURLResponse = Invoke-WebRequest -Uri $fullDownloadURL -UseBasicParsing -Method Head
