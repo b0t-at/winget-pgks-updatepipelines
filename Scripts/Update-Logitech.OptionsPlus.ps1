@@ -25,6 +25,8 @@ if ($null -eq $versionInfo) {
 
 Write-Host "Found latest version: $versionInfo"
 
+$latestVersion = $versionInfo
+
 $fullDownloadURL = $latestVersionUrl
 
 $prMessage = "Update version: $wingetPackage version $latestVersion"
@@ -57,8 +59,8 @@ else {
     }
     elseif ($wingetVersions -and ($wingetVersions -notmatch $latestVersion)) {
         Write-Output "Downloading wingetcreate and open PR for $wingetPackage Version $latestVersion"
-#        Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
-#        .\wingetcreate.exe update $wingetPackage -s -v $latestVersion -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken
+        Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
+        .\wingetcreate.exe update $wingetPackage -s -v $latestVersion -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken
     }
     else { 
         Write-Output "$foundMessage"
