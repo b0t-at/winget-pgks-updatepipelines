@@ -1,0 +1,67 @@
+if ($Env:GITHUB_TOKEN) {
+    Write-Host 'GITHUB_TOKEN detected'
+    $gitToken = ${Env:GITHUB_TOKEN}
+}
+else {
+    Write-Host 'GITHUB_TOKEN not detected'
+    exit 1
+}
+
+$wingetPackage = "Logitech.OptionsPlus"
+
+
+# download latest version from loupedeck.com and get version by filename
+$latestVersionUrl = "https://download01.logi.com/web/ftp/pub/techsupport/optionsplus/logioptionsplus_installer.exe"
+#create directory downloads and change into it
+$DownloadFileName = "logioptionsplus_installer.exe"
+Invoke-WebRequest -Uri $latestVersionUrl -OutFile $DownloadFileName
+$file = Get-ChildItem -Path $DownloadFileName
+$versionInfo = $file.VersionInfo.ProductVersion
+
+if ($null -eq $versionInfo) {
+    Write-Host "Could not find version info in file"
+    exit 1
+}
+
+Write-Host "Found latest version: $versionInfo"
+
+$fullDownloadURL = $latestVersionUrl
+
+$prMessage = "Update version: $wingetPackage version $latestVersion"
+
+$foundMessage, $textVersion, $separator, $wingetVersions = winget search --id $wingetPackage --source winget --versions
+
+# Check for existing versions in winget
+if ($wingetVersions -contains $latestVersion) {
+    Write-Output "Latest version of $wingetPackage $latestVersion is already present in winget."
+    exit 0
+}
+else {
+    # Check for existing PRs
+    $ExistingPRs = gh pr list --search "$($wingetPackage) version $($latestVersion) in:title draft:false" --state 'all' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
+
+    # TODO Check if PR is already merged, if so exit
+
+    # TODO if PR from us is already open, update PR with new version
+
+    # TODO if PR is closed, not from us and no PR got merged, create new PR
+
+    # TODO if PR is closed, from us and no PR got merged, throw error
+
+    if ($ExistingPRs.Count -gt 0) {
+        Write-Output "$foundMessage"
+        $ExistingPRs | ForEach-Object {
+            Write-Output "Found existing PR: $($_.title)"
+            Write-Output "-> $($_.url)"
+        }
+    }
+    elseif ($wingetVersions -and ($wingetVersions -notmatch $latestVersion)) {
+        Write-Output "Downloading wingetcreate and open PR for $wingetPackage Version $latestVersion"
+#        Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
+#        .\wingetcreate.exe update $wingetPackage -s -v $latestVersion -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken
+    }
+    else { 
+        Write-Output "$foundMessage"
+        Write-Output "No existing PRs found. Check why wingetcreate has not run."
+    }
+}
