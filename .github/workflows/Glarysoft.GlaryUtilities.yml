@@ -1,4 +1,4 @@
-name: .github/workflows/Gitbutler.GitButler.yml PR
+name: Glarysoft.GlaryUtilities PR
 # based off of https://github.com/nushell/nushell/blob/main/.github/workflows/winget-submission.yml
 
 on:
@@ -6,7 +6,7 @@ on:
     schedule:
         - cron: 3 0/4 * * *
 env:
-    PackageName: .github/workflows/Gitbutler.GitButler.yml
+    PackageName: Glarysoft.GlaryUtilities
 
 jobs:
   winget:
