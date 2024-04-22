@@ -25,8 +25,11 @@ if ($wingetVersions -contains $latestVersionDirectory) {
 }
 else {
     # Check for existing PRs
-    $ExistingPRs = gh pr list --search "$($wingetPackage) version $($latestVersionDirectory) in:title draft:false" --state 'all' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
+    $ExistingOpenPRs = gh pr list --search "$($wingetPackage) $($latestVersion) in:title draft:false" --state 'open' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
+    $ExistingMergedPRs = gh pr list --search "$($wingetPackage) $($latestVersion) in:title draft:false" --state 'merged' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
 
+    $ExistingPRs = $ExistingOpenPRs += $ExistingMergedPRs
+    
     if ($ExistingPRs.Count -gt 0) {
         Write-Output "$foundMessage"
         $ExistingPRs | ForEach-Object {
