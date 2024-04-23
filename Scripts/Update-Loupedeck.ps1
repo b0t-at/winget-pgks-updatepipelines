@@ -49,8 +49,8 @@ if ($fullDownloadURLResponse.StatusCode -ne 200) {
     $ExistingOpenPRs = gh pr list --search "$($wingetPackage) $($latestVersion) in:title draft:false" --state 'open' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
     $ExistingMergedPRs = gh pr list --search "$($wingetPackage) $($latestVersion) in:title draft:false" --state 'merged' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
 
-    $ExistingPRs = $ExistingOpenPRs + $ExistingMergedPRs
-
+    $ExistingPRs = $ExistingOpenPRs,$ExistingMergedPRs
+    
 if ($wingetVersions -and ($wingetVersions -notmatch $versionInfo) -and ($ExistingPRs.Count -eq 0)) {
     $prMessage = "Update version: $wingetPackage version $versionInfo"
     #architecture workaround: https://github.com/microsoft/winget-create/blob/main/doc/update.md

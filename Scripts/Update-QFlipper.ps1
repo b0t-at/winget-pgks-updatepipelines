@@ -28,8 +28,8 @@ else {
     $ExistingOpenPRs = gh pr list --search "$($wingetPackage) $($latestVersion) in:title draft:false" --state 'open' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
     $ExistingMergedPRs = gh pr list --search "$($wingetPackage) $($latestVersion) in:title draft:false" --state 'merged' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
 
-    $ExistingPRs = $ExistingOpenPRs + $ExistingMergedPRs
-    
+    $ExistingPRs = $ExistingOpenPRs,$ExistingMergedPRs
+        
     if ($ExistingPRs.Count -gt 0) {
         Write-Output "$foundMessage"
         $ExistingPRs | ForEach-Object {
