@@ -9,6 +9,8 @@ else {
 
 $wingetPackage = "Gitbutler.GitButler"
 
+Write-Host "Try to update $wingetPackage"
+
 # Follow redirect of https://app.gitbutler.com/downloads/release/windows/x86_64/msi
 $website = "https://app.gitbutler.com/downloads/release/windows/x86_64/msi"
 $absolutURL=[System.Net.HttpWebRequest]::Create($website).GetResponse().ResponseUri.AbsoluteUri
@@ -17,6 +19,7 @@ $absolutURL=[System.Net.HttpWebRequest]::Create($website).GetResponse().Response
 $regex = "^(http|https)://([\w-]+.)+[\w-]+(/[\w- ./?%&=])?$"
 if ($absolutURL -match $regex) {
     $latestVersionUrl = $absolutURL
+    Write-Host "URL is valid"
 }
 else {
     Write-Host "URL is not valid"
@@ -30,6 +33,7 @@ $fileName = $latestVersionUrl.Split("/")[-1]
 # Get Version via Regex. The version is the part betweet "GitButler_" and "_x64"
 $latestVersion = $fileName -replace ".*GitButler_(.*)_(x64|x86).*", '$1'
 
+Write-Host "Version found: $latestVersion"
 
 $prMessage = "Update version: $wingetPackage version $latestVersion"
 
@@ -41,6 +45,7 @@ if ($wingetVersions -contains $latestVersion) {
 }
 else {
     # Check for existing PRs
+    Write-Host "Fetching existing PRs"
     $ExistingOpenPRs = gh pr list --search "$($wingetPackage) $($latestVersion) in:title draft:false" --state 'open' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
     $ExistingMergedPRs = gh pr list --search "$($wingetPackage) $($latestVersion) in:title draft:false" --state 'merged' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
 
@@ -62,6 +67,7 @@ else {
         }
     }
     elseif ($wingetVersions -and ($wingetVersions -notmatch $latestVersion)) {
+        Write-Host "Open PR for update"
         Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
         .\wingetcreate.exe update $wingetPackage -s -v $latestVersion -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken
     }
