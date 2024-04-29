@@ -7,7 +7,7 @@ else {
     exit 1
 }
 
-$wingetPackage = "Gitbutler.GitButler"
+$wingetPackage = ${Env:PackageName}
 
 Write-Host "Try to update $wingetPackage"
 
