@@ -75,7 +75,7 @@ else {
     elseif ($wingetVersions -and ($wingetVersions -notmatch $latestVersion)) {
         Write-Host "Open PR for update"
         Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
-        .\wingetcreate.exe update $wingetPackage -s -v $latestVersion -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken
+        .\wingetcreate.exe update $wingetPackage -s -v $latestVersion -u "$latestVersionUrl|x64" --prtitle $prMessage -t $gitToken
     }
     else { 
         Write-Output "$foundMessage"
