@@ -10,7 +10,14 @@ else {
 $wingetPackage = ${Env:PackageName}
 $url = ${Env:WebsiteURL}
 
-Write-Host "Try to update $wingetPackage"
+# Placeholder for the release notes URL
+$releaseNotesUrl = "https://www.mongodb.com/docs/database-tools/release-notes/database-tools-changelog/#{version}-changelog"
+
+$PackageMapping = @{
+    "MongoDB.DatabaseTools" = "mongodb-database-tools"
+}
+
+Write-Host "Try to update MongoDB Tools"
 
 # Download the webpage
 $website = Invoke-WebRequest -Uri $url
@@ -20,7 +27,11 @@ $content = $website.Content
 
 # Find all strings that look like links and end with .msi
 $links = $content | Select-String -Pattern 'https?://[^"]+' -AllMatches | % { $_.Matches } | % { $_.Value }
-$mongoshlinks = $links | Select-String -Pattern 'https?://[^\s]*mongosh[^\s]*\.msi' -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Value }
+$msilinks = $links | Select-String -Pattern 'https?://[^\s]*\.msi' -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Value }
+
+foreach ($wingetPackage in $PackageMapping.Keys){
+$PackageFilter = $PackageMapping[$wingetPackage]
+$Packagelinks = $msilinks | Select-String -Pattern "https?://[^\s]*$PackageFilter[^\s]*\.msi" -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Value }| Where-Object { $_ -notmatch "$PackageFilter-isolated|$PackageFilter-readonly" }
 # Extract versions from the links
 $versions = $Packagelinks | ForEach-Object { $_ -match '(\d+\.\d+\.\d+(-rc\d*|-beta\d*)?)' | Out-Null; $matches[1] }
 
@@ -29,12 +40,14 @@ $stableVersions = $versions | Where-Object { $_ -notmatch '(-rc|beta)' }
 
 # Sort the versions and get the latest one
 $latestVersion = $stableVersions | Sort-Object {[Version]$_} | Select-Object -Last 1
-$latestVersionUrl = $mongoshlinks | Where-Object { $_ -match $latestVersion }
+$latestVersionUrl = $Packagelinks | Where-Object { $_ -match $latestVersion }
+Write-Host "Version found: $PackageFilter  $latestVersion. URL: $latestVersionUrl"
 
 
 Write-Host "Version found: $latestVersion"
 
 $prMessage = "Update version: $wingetPackage version $latestVersion"
+$actualReleaseNotesUrl = $releaseNotesUrl -replace "{version}", $latestVersion
 
 $foundMessage, $textVersion, $separator, $wingetVersions = winget search --id $wingetPackage --source winget --versions
 
@@ -76,4 +89,5 @@ else {
         Write-Output "$foundMessage"
         Write-Output "No existing PRs found. Check why wingetcreate has not run."
     }
+}
 }

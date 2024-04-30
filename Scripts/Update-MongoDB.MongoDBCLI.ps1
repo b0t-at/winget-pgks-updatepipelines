@@ -9,17 +9,7 @@ else {
 
 #$wingetPackage = ${Env:PackageName}
 $url = ${Env:WebsiteURL}
-
-$PackageMapping = @{
-    "MongoDB.Shell" = "mongosh"
-    "MongoDB.Compass.Community" = "mongodb-compass"
-    "MongoDB.Compass.Full" = "mongodb-compass"
-    "MongoDB.DatabaseTools" = "mongodb-database-tools"
-    "MongoDB.Compass.Isolated" = "mongodb-compass-isolated"
-    "MongoDB.Compass.Readonly" = "mongodb-compass-readonly"
-    "MongoDB.MongoDBCLI" = "mongocli"
-    "MongoDB.MongoDBAtlasCLI" = "mongodb-atlas-cli"
-}
+$PackageFilter = ${Env:PackageFilter}
 
 Write-Host "Try to update MongoDB Tools"
 
@@ -33,8 +23,8 @@ $content = $website.Content
 $links = $content | Select-String -Pattern 'https?://[^"]+' -AllMatches | % { $_.Matches } | % { $_.Value }
 $msilinks = $links | Select-String -Pattern 'https?://[^\s]*\.msi' -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Value }
 
-foreach ($wingetPackage in $PackageMapping.Keys){
-$PackageFilter = $PackageMapping[$wingetPackage]
+
+
 $Packagelinks = $msilinks | Select-String -Pattern "https?://[^\s]*$PackageFilter[^\s]*\.msi" -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Value }| Where-Object { $_ -notmatch "$PackageFilter-isolated|$PackageFilter-readonly" }
 # Extract versions from the links
 $versions = $Packagelinks | ForEach-Object { $_ -match '(\d+\.\d+\.\d+(-rc\d*|-beta\d*)?)' | Out-Null; $matches[1] }
@@ -93,4 +83,4 @@ else {
         Write-Output "No existing PRs found. Check why wingetcreate has not run."
     }
 }
-}
+
