@@ -7,11 +7,11 @@ else {
     exit 1
 }
 
-#$wingetPackage = ${Env:PackageName}
+$wingetPackage = ${Env:PackageName}
 $url = ${Env:WebsiteURL}
 $PackageFilter = ${Env:PackageFilter}
 
-Write-Host "Try to update MongoDB Tools"
+Write-Host "Try to update wingetPackage"
 
 # Download the webpage
 $website = Invoke-WebRequest -Uri $url
