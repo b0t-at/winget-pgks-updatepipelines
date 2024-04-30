@@ -24,7 +24,6 @@ $content = $website.Content
 $links = $content | Select-String -Pattern 'https?://[^"]+' -AllMatches | % { $_.Matches } | % { $_.Value }
 $msilinks = $links | Select-String -Pattern 'https?://[^\s]*\.msi' -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Value }
 
-foreach ($wingetPackage in $PackageMapping.Keys){
 $PackageFilter = $PackageMapping[$wingetPackage]
 $Packagelinks = $msilinks | Select-String -Pattern "https?://[^\s]*$PackageFilter[^\s]*\.msi" -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Value }| Where-Object { $_ -notmatch "$PackageFilter-isolated|$PackageFilter-readonly" }
 # Extract versions from the links
@@ -84,4 +83,4 @@ else {
         Write-Output "No existing PRs found. Check why wingetcreate has not run."
     }
 }
-}
+

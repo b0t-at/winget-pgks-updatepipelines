@@ -11,7 +11,7 @@ $wingetPackage = ${Env:PackageName}
 $url = ${Env:WebsiteURL}
 $PackageFilter = ${Env:PackageFilter}
 
-Write-Host "Try to update wingetPackage"
+Write-Host "Try to update $wingetPackage"
 
 # Download the webpage
 $website = Invoke-WebRequest -Uri $url
