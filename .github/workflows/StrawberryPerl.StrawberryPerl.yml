@@ -19,8 +19,6 @@ jobs:
         uses: Cyberboss/install-winget@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Install Komac
-        run: winget install --id RussellBanks.Komac --accept-source-agreements --accept-package-agreements
       - name: Update package
         env:
           GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
