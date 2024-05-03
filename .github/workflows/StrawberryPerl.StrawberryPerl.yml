@@ -10,7 +10,7 @@ env:
 
 jobs:
   winget:
-    name: Publish winget package
+    name: update winget package
     runs-on: windows-latest
     steps:
       - name: Checkout
@@ -19,8 +19,6 @@ jobs:
         uses: Cyberboss/install-winget@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Install Komac
-        run: winget install Komac --accept-package-agreements
       - name: Update package
         env:
           GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
