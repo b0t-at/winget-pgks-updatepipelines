@@ -20,7 +20,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Install Komac
-        run: winget install Komac
+        run: winget install Komac --accept-package-agreements
       - name: Update package
         env:
           GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
