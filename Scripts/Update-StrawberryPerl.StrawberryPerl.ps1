@@ -60,7 +60,7 @@ else {
         Write-Host "Open PR for update"
         #Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
         #.\wingetcreate.exe update $wingetPackage -s -v $latestVersion -u "$latestVersionUrl|x64" --prtitle $prMessage -t $gitToken
-        Invoke-WebRequest "https://github.com/russellbanks/Komac/releases/download/v2.2.1/KomacPortable-arm64.exe" -OutFile komac.exe
+        Invoke-WebRequest "https://github.com/russellbanks/Komac/releases/download/v2.2.1/KomacPortable-x64.exe" -OutFile komac.exe
         .\komac.exe update --identifier $wingetPackage --version $latestVersion --urls $msiAsset -s -t $gitToken
     }
     else { 
