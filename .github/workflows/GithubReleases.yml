@@ -1,4 +1,4 @@
-name: Update WinGet Packages
+name: GH Release based Update
 
 on:
   workflow_dispatch:
