@@ -35,6 +35,7 @@ $latestVersion = $versionInfo
 
 $ghVersionURL = "https://raw.githubusercontent.com/microsoft/winget-pkgs/master/manifests/$($wingetPackage.Substring(0, 1).ToLower())/$($wingetPackage.replace(".","/"))/$latestVersion/$wingetPackage.yaml"
 $ghCheckURL = "https://github.com/microsoft/winget-pkgs/blob/master/manifests/$($wingetPackage.Substring(0, 1).ToLower())/$($wingetPackage.replace(".","/"))/"
+$prMessage = "Update version: $wingetPackage version $latestVersion"
 
 
 # Check if package is already in winget
@@ -66,8 +67,11 @@ else {
     }
     elseif ($ghCheck.StatusCode -eq 200) {
         Write-Output "Downloading wingetcreate and open PR for $wingetPackage Version $latestVersion"
-        Invoke-WebRequest "https://github.com/russellbanks/Komac/releases/download/v2.2.1/KomacPortable-x64.exe" -OutFile komac.exe
-        .\komac.exe update --identifier $wingetPackage --version $latestVersion --urls $latestVersionUrl -s -t $gitToken
+    #    Invoke-WebRequest "https://github.com/russellbanks/Komac/releases/download/v2.2.1/KomacPortable-x64.exe" -OutFile komac.exe
+    #    .\komac.exe update --identifier $wingetPackage --version $latestVersion --urls $latestVersionUrl -s -t $gitToken
+    Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
+    .\wingetcreate.exe update $wingetPackage -s -v $latestVersion -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken
+
     }
     else { 
         Write-Output "$foundMessage"
