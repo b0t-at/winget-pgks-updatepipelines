@@ -25,10 +25,8 @@ Write-Host "Version found: $latestVersion"
 
 $prMessage = "Update version: $wingetPackage version $latestVersion"
 
-$PublisherShort = $wingetPackage.Substring(0, 1).ToLower()
-
-$ghVersionURL = "https://raw.githubusercontent.com/microsoft/winget-pkgs/master/manifests/$PublisherShort/$($wingetPackage.replace(".","/"))/$latestVersion/$wingetPackage.yaml"
-$ghCheckURL = "https://github.com/microsoft/winget-pkgs/blob/master/manifests/$PublisherShort/$($wingetPackage.replace(".","/"))/"
+$ghVersionURL = "https://raw.githubusercontent.com/microsoft/winget-pkgs/master/manifests/$wingetPackage.Substring(0, 1).ToLower()/$($wingetPackage.replace(".","/"))/$latestVersion/$wingetPackage.yaml"
+$ghCheckURL = "https://github.com/microsoft/winget-pkgs/blob/master/manifests/$wingetPackage.Substring(0, 1).ToLower()/$($wingetPackage.replace(".","/"))/"
 
 
 # Check if package is already in winget
