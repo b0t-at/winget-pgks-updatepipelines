@@ -16,12 +16,10 @@ jobs:
           - PackageName: "MongoDB.Server"
             WebsiteURL: "https://www.mongodb.com/try/download/community"          
           - PackageName: "MongoDB.MongoDBCLI"
-            PackageFilter: "mongocli"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
           - PackageName: "MongoDB.Shell"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"          
           - PackageName: "MongoDB.MongoDBAtlasCLI"
-            PackageFilter: "mongodb-atlas-cli"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
           - PackageName: "MongoDB.DatabaseTools"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"          
@@ -55,7 +53,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
           WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
-          PackageFilter: ${{ matrix.PackageFilter }}
           WebsiteURL: ${{ matrix.WebsiteURL }}
           PackageName: ${{ matrix.PackageName }}
         run: .\Scripts\Update-${{ matrix.PackageName }}.ps1

@@ -9,8 +9,8 @@ else {
 
 $wingetPackage = ${Env:PackageName}
 $url = ${Env:WebsiteURL}
-$PackageFilter = ${Env:PackageFilter}
 
+$PackageFilter = "mongodb-atlas-cli"
 
 Write-Host "Try to update $wingetPackage"
 

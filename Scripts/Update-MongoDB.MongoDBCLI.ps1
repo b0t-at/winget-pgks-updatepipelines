@@ -9,7 +9,8 @@ else {
 
 $wingetPackage = ${Env:PackageName}
 $url = ${Env:WebsiteURL}
-$PackageFilter = ${Env:PackageFilter}
+
+$PackageFilter = "mongocli"
 
 Write-Host "Try to update $wingetPackage"
 
