@@ -32,10 +32,30 @@ $fullDownloadURL = $latestVersionUrl
 
 $prMessage = "Update version: $wingetPackage version $latestVersion"
 
-$foundMessage, $textVersion, $separator, $wingetVersions = winget search --id $wingetPackage --source winget --versions
+$Publisher, $Moniker, $Subversion = $wingetPackage -split '\.'
+$PublisherShort = $Publisher.Substring(0, 1).ToLower()
 
-# Check for existing versions in winget
-if ($wingetVersions -contains $latestVersion) {
+if ($Subversion) {
+    $ghVersionURL = "https://raw.githubusercontent.com/microsoft/winget-pkgs/master/manifests/$PublisherShort/$Publisher/$Moniker/$Subversion/$latestVersion/$wingetPackage.yaml"
+    $ghCheckURL = "https://github.com/microsoft/winget-pkgs/blob/master/manifests/$PublisherShort/$Publisher/$Moniker/$Subversion/"
+}
+else {
+    $ghVersionURL = "https://raw.githubusercontent.com/microsoft/winget-pkgs/master/manifests/$PublisherShort/$Publisher/$Moniker/$latestVersion/$wingetPackage.yaml"
+    $ghCheckURL = "https://github.com/microsoft/winget-pkgs/blob/master/manifests/$PublisherShort/$Publisher/$Moniker/"
+}
+
+# Check if package is already in winget
+$ghCheck = Invoke-WebRequest -Uri $ghCheckURL -Method Head -SkipHttpErrorCheck 
+if ($ghVersionCheck.StatusCode -eq 404) {
+    Write-Output "Packet not yet in winget. Please add new Packet manually"
+    exit 1
+} 
+
+$ghVersionCheck = Invoke-WebRequest -Uri $ghVersionURL -Method Head -SkipHttpErrorCheck  
+
+#$foundMessage, $textVersion, $separator, $wingetVersions = winget search --id $wingetPackage --source winget --versions
+
+if ($ghVersionCheck.StatusCode -eq 200) {
     Write-Output "Latest version of $wingetPackage $latestVersion is already present in winget."
     exit 0
 }
