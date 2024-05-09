@@ -38,4 +38,5 @@ jobs:
     - name: Run Komac
       uses: michidk/run-komac@v2
       with:
-        args: 'branch cleanup --token=${{ secrets.WINGET_PAT }}'
+        args: 'cleanup --token=${{ secrets.WINGET_PAT }}'
+        custom-fork-owner: damn-good-b0t
