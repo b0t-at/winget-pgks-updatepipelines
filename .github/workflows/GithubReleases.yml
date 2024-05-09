@@ -3,7 +3,7 @@ name: GH Release based Update
 on:
   workflow_dispatch:
   schedule:
-    - cron:  '0 3 * * *' # Scheduled to run daily at 03:00
+    - cron:  '3 0/4 * * *' # every 4 hours
 
 jobs:
   update:
