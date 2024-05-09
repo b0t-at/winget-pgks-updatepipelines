@@ -24,7 +24,7 @@ if ($null -eq $versionInfo) {
 }
 
 Write-Host "Found latest version: $versionInfo"
-
+$latestversion = $versionInfo
 # extract major and minor version e.g. 5.9 from 5.9.10
 $majorMinorVersion = $versionInfo -replace '\.\d+$'
 $fullDownloadURL = "https://5145542.fs1.hubspotusercontent-na1.net/hubfs/5145542/Knowledge%20Base/LD%20Software%20Downloads/$majorMinorVersion/LoupedeckInstaller_" + $versionInfo + ".exe"
