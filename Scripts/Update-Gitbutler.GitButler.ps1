@@ -8,11 +8,12 @@ else {
 }
 
 $wingetPackage = ${Env:PackageName}
+$url = ${Env:WebsiteURL}
 
 Write-Host "Try to update $wingetPackage"
 
 # Follow redirect of https://app.gitbutler.com/downloads/release/windows/x86_64/msi
-$website = "https://app.gitbutler.com/downloads/release/windows/x86_64/msi"
+$website = $url
 $absolutURL=[System.Net.HttpWebRequest]::Create($website).GetResponse().ResponseUri.AbsoluteUri
 
 # regex to check if variable absolutURL is valid URL

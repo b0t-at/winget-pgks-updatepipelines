@@ -7,11 +7,12 @@ else {
     exit 1
 }
 
-$wingetPackage = "Glarysoft.GlaryUtilities"
+$wingetPackage = ${Env:PackageName}
+$url = ${Env:WebsiteURL}
 
 
 # download latest version from loupedeck.com and get version by filename
-$latestVersionUrl = "https://download.glarysoft.com/gusetup.exe"
+$latestVersionUrl = $url
 #create directory downloads and change into it
 $DownloadFileName = "gusetup.exe"
 Invoke-WebRequest -Uri $latestVersionUrl -OutFile $DownloadFileName

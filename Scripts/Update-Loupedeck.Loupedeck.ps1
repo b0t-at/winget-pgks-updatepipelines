@@ -7,13 +7,14 @@ else {
     exit 1
 }
 
-$wingetPackage = "Loupedeck.Loupedeck"
+$url = ${Env:WebsiteURL}
+$wingetPackage = ${Env:PackageName}
 
 # check current version in winget
 $foundMessage, $textVersion, $separator, $wingetVersions = winget search --id $wingetPackage --source winget --versions
 
 # download latest version from loupedeck.com and get version by filename
-$latestVersionUrl = "https://download.loupedeck.com/software/latest-win"
+$latestVersionUrl = $url
 #create directory downloads and change into it
 $DownloadFileName = "latest-win.exe"
 Invoke-WebRequest -Uri $latestVersionUrl -OutFile $DownloadFileName

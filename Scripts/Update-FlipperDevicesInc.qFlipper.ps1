@@ -7,7 +7,9 @@ else {
     exit 1
 }
 
-$wingetPackage = "FlipperDevicesInc.qFlipper"
+$url = ${Env:WebsiteURL}
+$wingetPackage = ${Env:PackageName}
+
 $versionDirectoryUrl = "https://update.flipperzero.one/qFlipper/directory.json"
 
 

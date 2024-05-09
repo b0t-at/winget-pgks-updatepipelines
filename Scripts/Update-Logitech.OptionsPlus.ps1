@@ -8,10 +8,11 @@ else {
 }
 
 $wingetPackage = "Logitech.OptionsPlus"
+$url = ${Env:WebsiteURL}
 
 
 # download latest version from loupedeck.com and get version by filename
-$latestVersionUrl = "https://download01.logi.com/web/ftp/pub/techsupport/optionsplus/logioptionsplus_installer.exe"
+$latestVersionUrl = $url
 #create directory downloads and change into it
 $DownloadFileName = "logioptionsplus_installer.exe"
 Invoke-WebRequest -Uri $latestVersionUrl -OutFile $DownloadFileName

@@ -1,0 +1,70 @@
+name: Generic Flow
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 3 0/4 * * *
+
+jobs:
+  update:
+    name: Update ${{ matrix.PackageName }}
+    runs-on: windows-latest
+    
+    strategy:
+      matrix:
+        include:
+          - PackageName: "MongoDB.Server"
+            PackageFilter: ""
+            WebsiteURL: "https://www.mongodb.com/try/download/community"          
+          - PackageName: "MongoDB.MongoDBCLI"
+            PackageFilter: "mongocli"
+            WebsiteURL: "https://www.mongodb.com/try/download/tools"
+          - PackageName: "MongoDB.Shell"
+            PackageFilter: ""
+            WebsiteURL: "https://www.mongodb.com/try/download/tools"          
+          - PackageName: "MongoDB.MongoDBAtlasCLI"
+            PackageFilter: "mongodb-atlas-cli"
+            WebsiteURL: "https://www.mongodb.com/try/download/tools"
+          - PackageName: "MongoDB.DatabaseTools"
+            PackageFilter: ""
+            WebsiteURL: "https://www.mongodb.com/try/download/tools"          
+          - PackageName: "MongoDB.Compass"
+            PackageFilter: ""
+            WebsiteURL: "https://www.mongodb.com/try/download/tools"
+          - PackageName: "Logitech.OptionsPlus"
+            PackageFilter: ""
+            WebsiteURL: "https://download01.logi.com/web/ftp/pub/techsupport/optionsplus/logioptionsplus_installer.exe"          
+          - PackageName: "Glarysoft.GlaryUtilities"
+            PackageFilter: ""
+            WebsiteURL: "https://download.glarysoft.com/gusetup.exe"
+          - PackageName: "Gitbutler.GitButler"
+            PackageFilter: ""
+            WebsiteURL: "https://app.gitbutler.com/downloads/release/windows/x86_64/msi"          
+          - PackageName: "FlipperDevicesInc.qFlipper"
+            PackageFilter: ""
+            WebsiteURL: "https://update.flipperzero.one/qFlipper/directory.json"
+          - PackageName: "Loupedeck.Loupedeck"
+            PackageFilter: ""
+            WebsiteURL: "https://download.loupedeck.com/software/latest-win"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          path: Utesgui
+      - name: Install winget
+        uses: Cyberboss/install-winget@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update package
+        id: get_version
+        working-directory: Utesgui
+        env:
+          GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
+          WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
+          PackageFilter: ${{ matrix.PackageFilter }}
+          WebsiteURL: ${{ matrix.WebsiteURL }}
+          PackageName: ${{ matrix.PackageName }}
+        run: .\Scripts\Update-${{ matrix.PackageName }}.ps1
+
+
