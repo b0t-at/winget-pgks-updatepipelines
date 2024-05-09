@@ -46,7 +46,8 @@ jobs:
 #        with:
 #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Update package
-        id: get_version
+        id: update_version
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
           WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}

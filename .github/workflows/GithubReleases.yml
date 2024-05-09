@@ -25,6 +25,7 @@ jobs:
             
     steps:
     - name: Update Packages
+      continue-on-error: true
       uses: michidk/winget-updater@v1
       with:
         identifier: ${{ matrix.id }}
