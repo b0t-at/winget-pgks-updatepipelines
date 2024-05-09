@@ -10,7 +10,7 @@ else {
 $url = ${Env:WebsiteURL}
 $wingetPackage = ${Env:PackageName}
 
-$versionDirectoryUrl = "https://update.flipperzero.one/qFlipper/directory.json"
+$versionDirectoryUrl = $url
 
 
 $versionDirectory = Invoke-RestMethod -Uri $versionDirectoryUrl 
