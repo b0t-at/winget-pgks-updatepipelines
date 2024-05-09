@@ -7,16 +7,21 @@ else {
     exit 1
 }
 
-$wingetPackage = "Logitech.OptionsPlus"
+$wingetPackage = ${Env:PackageName}
 $url = ${Env:WebsiteURL}
 
 
 # download latest version from loupedeck.com and get version by filename
 $latestVersionUrl = $url
 #create directory downloads and change into it
-$DownloadFileName = "logioptionsplus_installer.exe"
+$DownloadFileName = "storage-executive-win-64.zip"
 Invoke-WebRequest -Uri $latestVersionUrl -OutFile $DownloadFileName
-$file = Get-ChildItem -Path $DownloadFileName
+
+# Unzip the downloaded file
+$UnzipPath = "."
+Expand-Archive -Path $DownloadFileName -DestinationPath $UnzipPath
+
+$file = Get-ChildItem -Path . -Filter "*.exe"
 $versionInfo = $file.VersionInfo.ProductVersion
 
 if ($null -eq $versionInfo) {
@@ -27,10 +32,6 @@ if ($null -eq $versionInfo) {
 Write-Host "Found latest version: $versionInfo"
 
 $latestVersion = $versionInfo
-
-$fullDownloadURL = $latestVersionUrl
-
-$prMessage = "Update version: $wingetPackage version $latestVersion"
 
 $ghVersionURL = "https://raw.githubusercontent.com/microsoft/winget-pkgs/master/manifests/$($wingetPackage.Substring(0, 1).ToLower())/$($wingetPackage.replace(".","/"))/$latestVersion/$wingetPackage.yaml"
 $ghCheckURL = "https://github.com/microsoft/winget-pkgs/blob/master/manifests/$($wingetPackage.Substring(0, 1).ToLower())/$($wingetPackage.replace(".","/"))/"
@@ -45,8 +46,6 @@ if ($ghVersionCheck.StatusCode -eq 404) {
 
 $ghVersionCheck = Invoke-WebRequest -Uri $ghVersionURL -Method Head -SkipHttpErrorCheck  
 
-#$foundMessage, $textVersion, $separator, $wingetVersions = winget search --id $wingetPackage --source winget --versions
-
 if ($ghVersionCheck.StatusCode -eq 200) {
     Write-Output "Latest version of $wingetPackage $latestVersion is already present in winget."
     exit 0
@@ -57,13 +56,6 @@ else {
     $ExistingMergedPRs = gh pr list --search "$($wingetPackage) $($latestVersion) in:title draft:false" --state 'merged' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
 
     $ExistingPRs = @($ExistingOpenPRs) + @($ExistingMergedPRs)    
-    # TODO Check if PR is already merged, if so exit
-
-    # TODO if PR from us is already open, update PR with new version
-
-    # TODO if PR is closed, not from us and no PR got merged, create new PR
-
-    # TODO if PR is closed, from us and no PR got merged, throw error
 
     if ($ExistingPRs.Count -gt 0) {
         Write-Output "$foundMessage"
@@ -74,8 +66,8 @@ else {
     }
     elseif ($ghCheck -eq 200) {
         Write-Output "Downloading wingetcreate and open PR for $wingetPackage Version $latestVersion"
-        Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
-        .\wingetcreate.exe update $wingetPackage -s -v $latestVersion -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken
+        Invoke-WebRequest "https://github.com/russellbanks/Komac/releases/download/v2.2.1/KomacPortable-x64.exe" -OutFile komac.exe
+        .\komac.exe update --identifier $wingetPackage --version $latestVersion --urls $latestVersionUrl -s -t $gitToken
     }
     else { 
         Write-Output "$foundMessage"

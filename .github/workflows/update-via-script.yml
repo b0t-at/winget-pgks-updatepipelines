@@ -37,6 +37,8 @@ jobs:
             WebsiteURL: "https://download.loupedeck.com/software/latest-win"
           - PackageName: "StrawberryPerl.StrawberryPerl"
             WebsiteURL: "https://github.com/StrawberryPerl/Perl-Dist-Strawberry"
+          - PackageName: "Crucial.StorageExecutive"
+            WebsiteURL: "https://www.crucial.com/content/dam/crucial/support/storage-executive-win-64.zip"
 
     steps:
       - name: Checkout
