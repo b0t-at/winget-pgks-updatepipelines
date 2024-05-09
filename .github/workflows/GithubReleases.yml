@@ -22,9 +22,7 @@ jobs:
           - id: "Yubico.YubikeyManagerCLI"
             repo: "Yubico/yubikey-manager"
             url: "https://developers.yubico.com/yubikey-manager/Releases/yubikey-manager-{VERSION}-win64.msi"
-          - id: "StrawberryPerl.StrawberryPerl"
-            repo: "StrawberryPerl/Perl-Dist-Strawberry"
-            url: "https://developers.yubico.com/yubikey-manager/Releases/yubikey-manager-{VERSION}-win64.msi"
+            
     steps:
     - name: Update Packages
       uses: michidk/winget-updater@v1
