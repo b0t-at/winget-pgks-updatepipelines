@@ -8,7 +8,7 @@ else {
 }
 
 $wingetPackage = ${Env:PackageName}
-$repo = ${Env:Repo}
+$repo = ${Env:WebsiteURL}
 
 Write-Host "Try to update $wingetPackage"
 

@@ -37,6 +37,8 @@ jobs:
             WebsiteURL: "https://update.flipperzero.one/qFlipper/directory.json"
           - PackageName: "Loupedeck.Loupedeck"
             WebsiteURL: "https://download.loupedeck.com/software/latest-win"
+          - PackageName: "StrawberryPerl/Perl-Dist-Strawberry"
+            WebsiteURL: "https://github.com/StrawberryPerl/Perl-Dist-Strawberry"
 
     steps:
       - name: Checkout
