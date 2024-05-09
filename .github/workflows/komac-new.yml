@@ -1,4 +1,4 @@
-name: GH Release based Update
+name: New komac Package
 
 on:
   workflow_dispatch:
