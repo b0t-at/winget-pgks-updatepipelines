@@ -18,7 +18,7 @@ jobs:
             url: "https://github.com/Yubico/yubioath-flutter/releases/download/{VERSION}/yubico-authenticator-{VERSION}-win64.msi"
           - id: "Yubico.YubikeyManager"
             repo: "Yubico/yubikey-manager-qt"
-            url: "https://developers.yubico.com/yubikey-manager-qt/Releases/{VERSION}-win32.exe"
+            url: "https://developers.yubico.com/yubikey-manager-qt/Releases/yubikey-manager-qt-{VERSION}-win32.exe"
           - id: "Yubico.YubiKeyManagerCLI"
             repo: "Yubico/yubikey-manager"
             url: "https://developers.yubico.com/yubikey-manager/Releases/yubikey-manager-{VERSION}-win64.msi"
