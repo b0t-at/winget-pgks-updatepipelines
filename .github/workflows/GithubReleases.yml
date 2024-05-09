@@ -33,16 +33,3 @@ jobs:
         url: ${{ matrix.url }}
         komac-token: ${{ secrets.WINGET_PAT }}
         custom-fork-owner: damn-good-b0t
-  
-
-  cleanup:
-    name: Cleanup branches
-    needs: update-releasebased  # Not necessarily needed as PRs don't get closed that quick but still nice to have it in order
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Run Komac
-      uses: michidk/run-komac@v2
-      with:
-        args: 'cleanup --token=${{ secrets.WINGET_PAT }}'
-        custom-fork-owner: damn-good-b0t
