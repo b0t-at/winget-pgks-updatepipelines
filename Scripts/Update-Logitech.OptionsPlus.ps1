@@ -72,7 +72,7 @@ else {
             Write-Output "-> $($_.url)"
         }
     }
-    elseif ($ghCheck -eq 200) {
+    elseif ($ghCheck.StatusCode -eq 200) {
         Write-Output "Downloading wingetcreate and open PR for $wingetPackage Version $latestVersion"
         Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
         .\wingetcreate.exe update $wingetPackage -s -v $latestVersion -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken

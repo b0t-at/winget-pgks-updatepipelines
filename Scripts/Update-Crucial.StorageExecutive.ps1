@@ -64,7 +64,7 @@ else {
             Write-Output "-> $($_.url)"
         }
     }
-    elseif ($ghCheck -eq 200) {
+    elseif ($ghCheck.StatusCode -eq 200) {
         Write-Output "Downloading wingetcreate and open PR for $wingetPackage Version $latestVersion"
         Invoke-WebRequest "https://github.com/russellbanks/Komac/releases/download/v2.2.1/KomacPortable-x64.exe" -OutFile komac.exe
         .\komac.exe update --identifier $wingetPackage --version $latestVersion --urls $latestVersionUrl -s -t $gitToken
