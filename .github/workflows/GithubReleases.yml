@@ -6,8 +6,8 @@ on:
     - cron:  '3 0/4 * * *' # every 4 hours
 
 jobs:
-  update:
-    name: Update package ${{ matrix.id }}
+  update-releasebased:
+    name: ${{ matrix.id }}
     runs-on: ubuntu-latest
 
     strategy:
@@ -32,10 +32,11 @@ jobs:
         url: ${{ matrix.url }}
         komac-token: ${{ secrets.WINGET_PAT }}
         custom-fork-owner: damn-good-b0t
+  
 
   cleanup:
     name: Cleanup branches
-    needs: update # Not necessarily needed as PRs don't get closed that quick but still nice to have it in order
+    needs: update-releasebased  # Not necessarily needed as PRs don't get closed that quick but still nice to have it in order
     runs-on: ubuntu-latest
 
     steps:

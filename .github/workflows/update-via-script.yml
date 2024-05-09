@@ -3,11 +3,11 @@ name: Update via Scripts
 on:
   workflow_dispatch:
   schedule:
-    - cron: 3 0/4 * * *
+    - cron: 7 0/4 * * *
 
 jobs:
-  update:
-    name: Update ${{ matrix.PackageName }}
+  update-scriptbased:
+    name: ${{ matrix.PackageName }}
     runs-on: windows-latest
     
     strategy:
@@ -41,15 +41,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          path: Utesgui
       - name: Install winget
         uses: Cyberboss/install-winget@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Update package
         id: get_version
-        working-directory: Utesgui
         env:
           GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
           WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
