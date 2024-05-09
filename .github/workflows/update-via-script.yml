@@ -1,4 +1,4 @@
-name: Generic Flow
+name: Update via Scripts
 
 on:
   workflow_dispatch:
@@ -14,37 +14,28 @@ jobs:
       matrix:
         include:
           - PackageName: "MongoDB.Server"
-            PackageFilter: ""
             WebsiteURL: "https://www.mongodb.com/try/download/community"          
           - PackageName: "MongoDB.MongoDBCLI"
             PackageFilter: "mongocli"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
           - PackageName: "MongoDB.Shell"
-            PackageFilter: ""
             WebsiteURL: "https://www.mongodb.com/try/download/tools"          
           - PackageName: "MongoDB.MongoDBAtlasCLI"
             PackageFilter: "mongodb-atlas-cli"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
           - PackageName: "MongoDB.DatabaseTools"
-            PackageFilter: ""
             WebsiteURL: "https://www.mongodb.com/try/download/tools"          
           - PackageName: "MongoDB.Compass"
-            PackageFilter: ""
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
           - PackageName: "Logitech.OptionsPlus"
-            PackageFilter: ""
             WebsiteURL: "https://download01.logi.com/web/ftp/pub/techsupport/optionsplus/logioptionsplus_installer.exe"          
           - PackageName: "Glarysoft.GlaryUtilities"
-            PackageFilter: ""
             WebsiteURL: "https://download.glarysoft.com/gusetup.exe"
           - PackageName: "Gitbutler.GitButler"
-            PackageFilter: ""
             WebsiteURL: "https://app.gitbutler.com/downloads/release/windows/x86_64/msi"          
           - PackageName: "FlipperDevicesInc.qFlipper"
-            PackageFilter: ""
             WebsiteURL: "https://update.flipperzero.one/qFlipper/directory.json"
           - PackageName: "Loupedeck.Loupedeck"
-            PackageFilter: ""
             WebsiteURL: "https://download.loupedeck.com/software/latest-win"
 
     steps:
