@@ -19,6 +19,9 @@ jobs:
           - id: "Yubico.YubikeyManager"
             repo: "Yubico/yubikey-manager-qt"
             url: "https://developers.yubico.com/yubikey-manager-qt/Releases/yubikey-manager-qt-{VERSION}-win32.exe"
+          - id: "Yubico.YubikeyManagerCLI"
+            repo: "Yubico/yubikey-manager"
+            url: "https://developers.yubico.com/yubikey-manager/Releases/yubikey-manager-{VERSION}-win64.msi"
     steps:
     - name: Update Packages
       uses: michidk/winget-updater@v1
