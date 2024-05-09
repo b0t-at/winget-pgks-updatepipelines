@@ -32,8 +32,8 @@ $fullDownloadURL = $latestVersionUrl
 
 $prMessage = "Update version: $wingetPackage version $latestVersion"
 
-$ghVersionURL = "https://raw.githubusercontent.com/microsoft/winget-pkgs/master/manifests/$wingetPackage.Substring(0, 1).ToLower()/$($wingetPackage.replace(".","/"))/$latestVersion/$wingetPackage.yaml"
-$ghCheckURL = "https://github.com/microsoft/winget-pkgs/blob/master/manifests/$wingetPackage.Substring(0, 1).ToLower()/$($wingetPackage.replace(".","/"))/"
+$ghVersionURL = "https://raw.githubusercontent.com/microsoft/winget-pkgs/master/manifests/$($wingetPackage.Substring(0, 1).ToLower())/$($wingetPackage.replace(".","/"))/$latestVersion/$wingetPackage.yaml"
+$ghCheckURL = "https://github.com/microsoft/winget-pkgs/blob/master/manifests/$($wingetPackage.Substring(0, 1).ToLower())/$($wingetPackage.replace(".","/"))/"
 
 
 # Check if package is already in winget
