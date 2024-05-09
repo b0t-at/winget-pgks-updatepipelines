@@ -16,9 +16,9 @@ jobs:
           - id: "Yubico.Authenticator"
             repo: "Yubico/yubioath-flutter"
             url: "https://github.com/Yubico/yubioath-flutter/releases/download/{VERSION}/yubico-authenticator-{VERSION}-win64.msi"
-#          - id: "Casey.Just"
-#            repo: "casey/just"
-#            url: "https://github.com/casey/just/releases/download/{VERSION}/just-{VERSION}-x86_64-pc-windows-msvc.zip"
+          - id: "Yubico.YubikeyManager"
+            repo: "Yubico/yubikey-manager-qt"
+            url: "https://developers.yubico.com/yubikey-manager-qt/Releases/yubikey-manager-qt-{VERSION}-win32.exe"
     steps:
     - name: Update Packages
       uses: michidk/winget-updater@v1
