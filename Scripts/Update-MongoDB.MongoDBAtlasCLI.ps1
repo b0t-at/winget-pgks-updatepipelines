@@ -41,17 +41,11 @@ Write-Host "Version found: $latestVersion"
 
 $prMessage = "Update version: $wingetPackage version $latestVersion"
 
-$Publisher, $Moniker, $Subversion = $wingetPackage -split '\.'
-$PublisherShort = $Publisher.Substring(0, 1).ToLower()
+$PublisherShort = $wingetPackage.Substring(0, 1).ToLower()
 
-if ($Subversion) {
-    $ghVersionURL = "https://raw.githubusercontent.com/microsoft/winget-pkgs/master/manifests/$PublisherShort/$Publisher/$Moniker/$Subversion/$latestVersion/$wingetPackage.yaml"
-    $ghCheckURL = "https://github.com/microsoft/winget-pkgs/blob/master/manifests/$PublisherShort/$Publisher/$Moniker/$Subversion/"
-}
-else {
-    $ghVersionURL = "https://raw.githubusercontent.com/microsoft/winget-pkgs/master/manifests/$PublisherShort/$Publisher/$Moniker/$latestVersion/$wingetPackage.yaml"
-    $ghCheckURL = "https://github.com/microsoft/winget-pkgs/blob/master/manifests/$PublisherShort/$Publisher/$Moniker/"
-}
+$ghVersionURL = "https://raw.githubusercontent.com/microsoft/winget-pkgs/master/manifests/$PublisherShort/$($wingetPackage.replace(".","/"))/$latestVersion/$wingetPackage.yaml"
+$ghCheckURL = "https://github.com/microsoft/winget-pkgs/blob/master/manifests/$PublisherShort/$($wingetPackage.replace(".","/"))/"
+
 
 # Check if package is already in winget
 $ghCheck = Invoke-WebRequest -Uri $ghCheckURL -Method Head -SkipHttpErrorCheck 
