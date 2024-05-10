@@ -29,7 +29,7 @@ jobs:
             WebsiteURL: "https://download01.logi.com/web/ftp/pub/techsupport/optionsplus/logioptionsplus_installer.exe"          
           - PackageName: "Glarysoft.GlaryUtilities"
             WebsiteURL: "https://download.glarysoft.com/gusetup.exe"
-          - PackageName: "Gitbutler.GitButler"
+          - PackageName: "GitButler.GitButler"
             WebsiteURL: "https://app.gitbutler.com/downloads/release/windows/x86_64/msi"          
           - PackageName: "FlipperDevicesInc.qFlipper"
             WebsiteURL: "https://update.flipperzero.one/qFlipper/directory.json"
