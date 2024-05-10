@@ -1,6 +1,9 @@
 name: Update Package Count Badge
 on:
     workflow_dispatch:
+    push:
+        branches:
+            - main
 jobs:
     update-package-count:
         runs-on: ubuntu-latest
