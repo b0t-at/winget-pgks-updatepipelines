@@ -7,7 +7,7 @@ else {
     exit 1
 }
 
-$wingetPackage = "Logitech.OptionsPlus"
+$wingetPackage = ${Env:PackageName}
 $url = ${Env:WebsiteURL}
 
 # download latest version from loupedeck.com and get version by filename

@@ -7,7 +7,7 @@ else {
     exit 1
 }
 
-$wingetPackage = "Logitech.OptionsPlus"
+$wingetPackage = ${Env:PackageName}
 $url = ${Env:WebsiteURL}
 
 
