@@ -1,0 +1,35 @@
+name: Update Package Count Badge
+on:
+    workflow_dispatch:
+jobs:
+    update-package-count:
+        runs-on: ubuntu-latest
+
+        permissions:
+            contents: write
+
+        steps:
+            - name: Check out code
+              uses: actions/checkout@v4
+            - name: Set up Python
+              uses: actions/setup-python@v2
+              with:
+                python-version: '3.x'
+            - name: Install dependencies
+              run: pip install pyyaml
+            - name: Count packages
+              id: count
+              run: |
+                echo "::set-output name=countgithub::$(python3 Scripts/package_count.py .github/workflows/GithubReleases.yml)"
+                echo "::set-output name=countscript::$(python3 Scripts/package_count.py .github/workflows/update-via-script.yml)"
+            - name: Update README
+              run: |
+                countgithub=${{ steps.count.outputs.countgithub }}
+                countscript=${{ steps.count.outputs.countscript }}
+                sed -i "s/packages-[0-9]*-blue/packages-$count-blue/g" README.md
+                sed -i "s/packages-[0-9]*-blue/packages-$count-blue/g" README.md
+            - name: Commit and push
+              uses: stefanzweifel/git-auto-commit-action@v5
+              with:
+                commit_message: Update package count badge
+                file_pattern: README.md

@@ -1,4 +1,7 @@
 # winget-pgks-updatepipelines
-keep certain software in winget up to date
+**winget-pkgs** Pull requests by [damn-good-b0t](https://github.com/microsoft/winget-pkgs/pulls/damn-good-b0t)
 
-**winget-pkgs Pull requests by:** [damn-good-b0t](https://github.com/microsoft/winget-pkgs/pulls/damn-good-b0t)
+| Package Version Handling| Count|
+|----------------------------|---------------------------------------------------------------|
+| Script based     | ![Script based Packages](https://img.shields.io/badge/ScriptPackages-10-green) |
+| GitHub Release based     | ![GitHub based Packages](https://img.shields.io/badge/GithubPackages-10-blue) |
