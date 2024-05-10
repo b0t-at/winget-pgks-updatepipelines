@@ -16,18 +16,15 @@ jobs:
           - id: "Yubico.Authenticator"
             repo: "Yubico/yubioath-flutter"
             url: "https://github.com/Yubico/yubioath-flutter/releases/download/{VERSION}/yubico-authenticator-{VERSION}-win64.msi"
-          - id: "Yubico.YubikeyManager"
-            repo: "Yubico/yubikey-manager-qt"
-            url: "https://developers.yubico.com/yubikey-manager-qt/Releases/yubikey-manager-qt-{VERSION}-win32.exe"
+#          - id: "Yubico.YubikeyManager"
+#            repo: "Yubico/yubikey-manager-qt"
+#            url: "https://developers.yubico.com/yubikey-manager-qt/Releases/yubikey-manager-qt-{VERSION}-win32.exe"
           - id: "Yubico.YubiKeyManagerCLI"
             repo: "Yubico/yubikey-manager"
             url: "https://developers.yubico.com/yubikey-manager/Releases/yubikey-manager-{VERSION}-win64.msi"
           - id: "Anki.Anki"
             repo: "ankitects/anki"
             url: "https://github.com/ankitects/anki/releases/download/{VERSION}/anki-{VERSION}-windows-qt6.exe"
-          - id: "Insecure.Npcap"
-            repo: "nmap/npcap"
-            url: "https://npcap.com/dist/npcap-{VERSION}.exe"
             
     steps:
     - name: Update Packages
