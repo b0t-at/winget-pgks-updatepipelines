@@ -22,6 +22,9 @@ jobs:
           - id: "Yubico.YubiKeyManagerCLI"
             repo: "Yubico/yubikey-manager"
             url: "https://developers.yubico.com/yubikey-manager/Releases/yubikey-manager-{VERSION}-win64.msi"
+          - id: "Anki.Anki"
+            repo: "ankitects/anki"
+            url: "https://github.com/ankitects/anki/releases/download/{VERSION}/anki-{VERSION}-windows-qt6.exe"
             
     steps:
     - name: Update Packages
