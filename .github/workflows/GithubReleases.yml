@@ -25,6 +25,9 @@ jobs:
           - id: "Anki.Anki"
             repo: "ankitects/anki"
             url: "https://github.com/ankitects/anki/releases/download/{VERSION}/anki-{VERSION}-windows-qt6.exe"
+#          - id: "EdgeTX.Companion"
+#            repo: "EdgeTX/edgetx"
+#            url: "https://github.com/EdgeTX/edgetx/releases/download/{VERSION}/edgetx-cpn-win64-{VERSION}.zip"
             
     steps:
     - name: Update Packages
