@@ -59,7 +59,7 @@ $ghCheckURL = "https://github.com/microsoft/winget-pkgs/blob/master/manifests/$(
 
 # Check if package is already in winget
 $ghCheck = Invoke-WebRequest -Uri $ghCheckURL -Method Head -SkipHttpErrorCheck 
-if ($ghVersionCheck.StatusCode -eq 404) {
+if ($ghCheck.StatusCode -eq 404) {
     Write-Output "Packet not yet in winget. Please add new Packet manually"
     exit 1
 } 

@@ -11,11 +11,14 @@ $url = ${Env:WebsiteURL}
 $wingetPackage = ${Env:PackageName}
 
 $versionDirectoryUrl = $url
+Write-Host "Try to update $wingetPackage"
 
 
 $versionDirectory = Invoke-RestMethod -Uri $versionDirectoryUrl 
 $latestVersionDirectory = ($versionDirectory.channels | Where-Object id -eq "release").versions.version
 $latestVersionUrl = (($versionDirectory.channels | Where-Object id -eq "release").versions.files | Where-Object { ($_.target -eq "windows/amd64") -and ($_.type -eq "installer") }).url
+
+Write-Host "Version found: $latestVersion"
 
 $prMessage = "Update version: $wingetPackage version $latestVersionDirectory"
 
@@ -25,7 +28,7 @@ $ghCheckURL = "https://github.com/microsoft/winget-pkgs/blob/master/manifests/$(
 
 # Check if package is already in winget
 $ghCheck = Invoke-WebRequest -Uri $ghCheckURL -Method Head -SkipHttpErrorCheck 
-if ($ghVersionCheck.StatusCode -eq 404) {
+if ($ghCheck.StatusCode -eq 404) {
     Write-Output "Packet not yet in winget. Please add new Packet manually"
     exit 1
 } 
@@ -39,6 +42,7 @@ if ($ghVersionCheck.StatusCode -eq 200) {
     exit 0
 }
 else {
+    Write-Host "Fetching existing PRs"
     # Check for existing PRs
     $ExistingOpenPRs = gh pr list --search "$($wingetPackage) $($latestVersion) in:title draft:false" --state 'open' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
     $ExistingMergedPRs = gh pr list --search "$($wingetPackage) $($latestVersion) in:title draft:false" --state 'merged' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
@@ -52,6 +56,7 @@ else {
         }
     }
     elseif ($ghCheck.StatusCode -eq 200) {
+        Write-Host "Open PR for update"
         Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
         .\wingetcreate.exe update $wingetPackage -s -v $latestVersionDirectory -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken
     }
