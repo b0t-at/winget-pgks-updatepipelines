@@ -39,6 +39,8 @@ jobs:
             WebsiteURL: "https://github.com/StrawberryPerl/Perl-Dist-Strawberry"
           - PackageName: "Crucial.StorageExecutive"
             WebsiteURL: "https://www.crucial.com/content/dam/crucial/support/storage-executive-win-64.zip"
+          - PackageName: "SmartProjects.IsoBuster"
+            WebsiteURL: "https://www.isobuster.com/downloads/isobuster/isobuster_install_64bit.exe https://www.isobuster.com/downloads/isobuster/isobuster_install.exe"
 
     steps:
       - name: Checkout
