@@ -78,7 +78,7 @@ else {
 #        Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
 #        .\wingetcreate.exe update $wingetPackage -s -v $latestVersion -u "$latestVersionUrl" --prtitle $prMessage -t $gitToken
         Invoke-WebRequest "https://github.com/russellbanks/Komac/releases/download/v2.2.1/KomacPortable-x64.exe" -OutFile komac.exe
-        .\komac.exe update --identifier $wingetPackage --version $latestVersion --urls "https://www.isobuster.com/downloads/isobuster/isobuster_install_64bit.exe https://www.isobuster.com/downloads/isobuster/isobuster_install.exe" -s -t $gitToken
+        .\komac.exe update --identifier $wingetPackage --version $latestVersion --urls "https://www.isobuster.com/downloads/isobuster/isobuster_install_64bit.exe" "https://www.isobuster.com/downloads/isobuster/isobuster_install.exe" -s -t $gitToken
     }
     else { 
         Write-Output "$foundMessage"
