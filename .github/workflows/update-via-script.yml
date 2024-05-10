@@ -11,6 +11,7 @@ jobs:
     runs-on: windows-latest
     
     strategy:
+      fail-fast: false
       matrix:
         include:
           - PackageName: "MongoDB.Server"
@@ -51,7 +52,6 @@ jobs:
 #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Update package
         id: update_version
-        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
           WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}

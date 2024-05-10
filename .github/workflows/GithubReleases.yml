@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
         include:
           - id: "Yubico.Authenticator"
@@ -31,7 +32,6 @@ jobs:
             
     steps:
     - name: Update Packages
-      continue-on-error: true
       uses: michidk/winget-updater@v1
       with:
         identifier: ${{ matrix.id }}
