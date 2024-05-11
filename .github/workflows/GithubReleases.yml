@@ -29,6 +29,9 @@ jobs:
           - id: "EdgeTX.Companion"
             repo: "EdgeTX/edgetx"
             url: "https://github.com/EdgeTX/edgetx/releases/download/{VERSION}/edgetx-cpn-win64-{VERSION}.zip"
+          - id: "Betaflight.Betaflight-Configurator"
+            repo: "betaflight/betaflight-configurator"
+            url: "https://github.com/betaflight/betaflight-configurator/releases/download/{VERSION}/betaflight-configurator_{VERSION}_win64-installer.exe"
             
     steps:
     - name: Update Packages
