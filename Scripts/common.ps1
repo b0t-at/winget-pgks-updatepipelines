@@ -110,7 +110,7 @@ function Get-VersionAndUrl {
 
     if (!($Latest | Get-Member -Name "Version") -and !($Latest | Get-Member -Name "URLs")) {
 
-        $lines = $Latest -split "`n"
+        $lines = $Latest -split "`n" -split " "
 
         $versionPattern = '^\d+(\.\d+)*$'
         $urlPattern = '^http[s]?:\/\/[^\s]+$'
@@ -125,7 +125,7 @@ function Get-VersionAndUrl {
             }
         }
         else {
-            Write-Host "No Version ($version) or URL ($($URLs -join ',') found."
+            Write-Host "No Version ($version) or URL ($($URLs -join ',')) found."
             exit 1
         }
     }
