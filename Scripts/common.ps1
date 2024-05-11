@@ -123,10 +123,10 @@ function Update-WingetPackage {
 function Get-VersionAndUrl {
     param(
         [Parameter(Mandatory = $false)] [string] $wingetPackage = ${Env:PackageName},
-        [Parameter(Mandatory = $false)] [string] $VersionInfoURL
+        [Parameter(Mandatory = $false)] [string] $WebsiteURL = ${Env:WebsiteURL}
     )
 
-    $Latest = .\Update-$($wingetPackage).ps1 -VersionInfoURL $VersionInfoURL -wingetPackage $wingetPackage
+    $Latest = .\Update-$($wingetPackage).ps1 -WebsiteURL $WebsiteURL -wingetPackage $wingetPackage
 
     if (!($Latest | Get-Member -Name "Version") -and ($Latest | Get-Member -Name "URLs")) {
 
@@ -157,7 +157,7 @@ function Get-VersionAndUrl {
 function Start-Update {
     $wingetPackage = ${Env:PackageName}
     $url = ${Env:WebsiteURL}
-    $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -url $url
+    $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $url
 
     Update-WingetPackage -wingetPackage $wingetPackage -latestVersion $Latest.version -with Komac -latestVersionUrls $Latest.URLs
 }
