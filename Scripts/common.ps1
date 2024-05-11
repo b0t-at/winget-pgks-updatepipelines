@@ -188,7 +188,7 @@ function Update-WingetPackage {
         exit 1
     }
 
-    if (!($Latest | Get-Member -Name "Version") -and !($Latest | Get-Member -Name "Url")) {
+    if (!($Latest | Get-Member -Name "Version") -and !($Latest | Get-Member -Name "URLs")) {
         Write-Host "Version or Url property not found in the returned object"
         exit 1
     }
