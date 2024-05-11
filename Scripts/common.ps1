@@ -147,8 +147,9 @@ function Get-ProductVersionFromFile {
     if ($DownloadFileName -like "*.zip") {
         $UnzipPath = "."
         Expand-Archive -Path $DownloadFileName -DestinationPath $UnzipPath
-        $file = Get-ChildItem -Path $UnzipPath -Include "*.exe","*.msi" -Recurse | Select-Object -First 1
-    } else {
+        $file = Get-ChildItem -Path $UnzipPath -Include "*.exe", "*.msi" -Recurse | Select-Object -First 1
+    }
+    else {
         $file = Get-ChildItem -Path $DownloadFileName
     }
 
@@ -201,16 +202,33 @@ function Update-WingetPackage {
         $ExistingPRs = Test-ExistingPRs -wingetPackage $wingetPackage -latestVersion $($Latest.Version)
         
         if ($ExistingPRs) {
-            Write-Host "Downloading $with and open PR for $wingetPackage Version $($Latest.Version)"
-            Switch ($with) {
+            Write-Host "Downloading $With and open PR for $wingetPackage Version $($Latest.Version)"
+            Switch ($With) {
                 "Komac" {
-                    $latestKomacRelease = (Invoke-RestMethod -Uri "https://api.github.com/repos/russellbanks/Komac/releases/latest").assets | ? {$_.browser_download_url.EndsWith("KomacSetup-x64.exe")} | Select-Object -First 1 -ExpandProperty browser_download_url
+                    $latestKomacRelease = (Invoke-RestMethod -Uri "https://api.github.com/repos/russellbanks/Komac/releases/latest").assets | ? { $_.browser_download_url.EndsWith("KomacSetup-x64.exe") } | Select-Object -First 1 -ExpandProperty browser_download_url
                     Invoke-WebRequest  -Uri $latestKomacRelease -OutFile komac.exe
+                    if (Test-Path ".\komac.exe") {
+                        Write-Host "Komac successfully downloaded"
+                    }
+                    else {
+                        Write-Error "Komac not downloaded"
+                        exit 1
+                    }
                     .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls "$($Latest.URLs.replace(' ','" "'))" -s -t $gitToken
                 }
                 "WinGetCreate" {
                     Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
+                    if (Test-Path ".\wingetcreate.exe") {
+                        Write-Host "wingetcreate successfully downloaded"
+                    }
+                    else {
+                        Write-Error "wingetcreate not downloaded"
+                        exit 1
+                    }
                     .\wingetcreate.exe update $wingetPackage -s -v $Latest.Version -u "$($Latest.URLs.replace(' ','" "'))" --prtitle $prMessage -t $gitToken
+                }
+                default { 
+                    Write-Error "Invalid value \"$With\" for -With parameter. Valid values are 'Komac' and 'WinGetCreate'"
                 }
             }
         }
@@ -229,17 +247,17 @@ function Get-LatestMongoDBVersions {
     $links = $content | Select-String -Pattern 'https?://[^"]+' -AllMatches | % { $_.Matches } | % { $_.Value }
     $msilinks = $links | Select-String -Pattern 'https?://[^\s]*\.msi' -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Value }
 
-    $Packagelinks = $msilinks | Select-String -Pattern "https?://[^\s]*$PackageFilter[^\s]*\.msi" -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Value }| Where-Object { $_ -notmatch "$PackageFilter-isolated|$PackageFilter-readonly" }
+    $Packagelinks = $msilinks | Select-String -Pattern "https?://[^\s]*$PackageFilter[^\s]*\.msi" -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Value } | Where-Object { $_ -notmatch "$PackageFilter-isolated|$PackageFilter-readonly" }
 
     $versions = $Packagelinks | ForEach-Object { $_ -match '(\d+\.\d+\.\d+(-rc\d*|-beta\d*)?)' | Out-Null; $matches[1] }
     $stableVersions = $versions | Where-Object { $_ -notmatch '(-rc|beta)' }
 
-    $latestVersion = $stableVersions | Sort-Object {[Version]$_} | Select-Object -Last 1
+    $latestVersion = $stableVersions | Sort-Object { [Version]$_ } | Select-Object -Last 1
     $latestVersionUrl = $Packagelinks | Where-Object { $_ -match $latestVersion }
 
     return @{
         Version = $latestVersion
-        Url = $latestVersionUrl
+        Url     = $latestVersionUrl
     }
 }
 
