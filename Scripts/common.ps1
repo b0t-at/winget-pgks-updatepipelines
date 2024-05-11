@@ -108,7 +108,7 @@ function Get-VersionAndUrl {
     $Latest = & $scriptPath -WebsiteURL $WebsiteURL -wingetPackage $wingetPackage
 
 
-    if (!($Latest | Get-Member -Name "Version") -and !($Latest | Get-Member -Name "URLs")) {
+    if (!($Latest | Get-Member -Name "Version") -or !($Latest | Get-Member -Name "URLs")) {
 
         $lines = $Latest -split "`n" -split " "
 
@@ -182,6 +182,16 @@ function Update-WingetPackage {
     $gitToken = Test-GitHubToken
 
     $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $WebsiteURL
+
+    if ($null -eq $Latest) {
+        Write-Host "No version info found"
+        exit 1
+    }
+
+    if (!($Latest | Get-Member -Name "Version") -and !($Latest | Get-Member -Name "Url")) {
+        Write-Host "Version or Url property not found in the returned object"
+        exit 1
+    }
 
     $prMessage = "Update version: $wingetPackage version $($Latest.Version)"
 
