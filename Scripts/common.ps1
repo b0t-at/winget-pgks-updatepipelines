@@ -15,23 +15,34 @@ function Test-PackageAndVersionInGithub {
         [Parameter(Mandatory = $true)] [string] $latestVersion,
         [Parameter(Mandatory = $false)] [string] $wingetPackage = ${Env:PackageName}
     )
-    Write-Output "Checking if $wingetPackage is already in winget (via GH) and Version $($Latest.Version) already present"
+    Write-Host "Checking if $wingetPackage is already in winget (via GH) and Version $($Latest.Version) already present"
     $ghVersionURL = "https://raw.githubusercontent.com/microsoft/winget-pkgs/master/manifests/$($wingetPackage.Substring(0, 1).ToLower())/$($wingetPackage.replace(".","/"))/$latestVersion/$wingetPackage.yaml"
     $ghCheckURL = "https://github.com/microsoft/winget-pkgs/blob/master/manifests/$($wingetPackage.Substring(0, 1).ToLower())/$($wingetPackage.replace(".","/"))/"
 
     $ghCheck = Invoke-WebRequest -Uri $ghCheckURL -Method Head -SkipHttpErrorCheck 
-    if ($ghCheck.StatusCode -eq 404) {
-        Write-Output "Packet not yet in winget. Please add new Packet manually"
-        exit 1
-    } 
-
     $ghVersionCheck = Invoke-WebRequest -Uri $ghVersionURL -Method Head -SkipHttpErrorCheck
-    if ($ghVersionCheck.StatusCode -eq 200) {
-        Write-Output "Latest version of $wingetPackage $latestVersion is already present in winget."
-        exit 0
+    if ($ghCheck.StatusCode -eq 404) {
+        $return = @{
+            message  = "Packet not yet in winget. Please add new Packet manually"
+            exitCode = 1
+        }
+        return $return
+    } 
+    elseif ($ghVersionCheck.StatusCode -eq 200) {
+        $return = @{
+            message  = "Latest version of $wingetPackage $latestVersion is already present in winget."
+            exitCode = 0
+        }
+        return $return
     }
-    Write-Output "Latest version of $wingetPackage $latestVersion is not yet present in winget."
-    return true
+    else {
+        $return = @{
+            message  = "Latest version of $wingetPackage $latestVersion is not yet present in winget."
+            exitCode = ""
+        }
+        return $return
+    }
+
 }
 
 function Test-PackageAndVersionInWinget {
@@ -39,12 +50,12 @@ function Test-PackageAndVersionInWinget {
         [Parameter(Mandatory = $true)] [string] $latestVersion,
         [Parameter(Mandatory = $false)] [string] $wingetPackage = ${Env:PackageName}
     )
-    Write-Output "Checking if $wingetPackage is already in winget and Version $($Latest.Version) already present"
+    Write-Host "Checking if $wingetPackage is already in winget and Version $($Latest.Version) already present"
 
     $progressPreference = 'silentlyContinue'
     $latestWingetMsixBundleUri = $(Invoke-RestMethod https://api.github.com/repos/microsoft/winget-cli/releases/latest).assets.browser_download_url | Where-Object { $_.EndsWith(".msixbundle") }
     $latestWingetMsixBundle = $latestWingetMsixBundleUri.Split("/")[-1]
-    Write-Information "Downloading winget to artifacts directory..."
+    Write-Host "Downloading winget to artifacts directory..."
     Invoke-WebRequest -Uri $latestWingetMsixBundleUri -OutFile "./$latestWingetMsixBundle"
     Invoke-WebRequest -Uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -OutFile Microsoft.VCLibs.x64.14.00.Desktop.appx
     Add-AppxPackage Microsoft.VCLibs.x64.14.00.Desktop.appx
@@ -55,15 +66,26 @@ function Test-PackageAndVersionInWinget {
     $foundMessage, $textVersion, $separator, $wingetVersions = winget search --id $wingetPackage --source winget --versions
 
     if (!$wingetVersions) {
-        Write-Output "Packet not yet in winget. Please add new Packet manually"
-        exit 1
+        $return = @{
+            message  = "Packet not yet in winget. Please add new Packet manually"
+            exitCode = 1
+        }
+        return $return
     } 
-    if ($wingetVersions.contains($latestVersion)) {
-        Write-Output "Latest version of $wingetPackage $latestVersion is already present in winget."
-        exit 0
+    elseif ($wingetVersions.contains($latestVersion)) {
+        $return = @{
+            message  = "Latest version of $wingetPackage $latestVersion is already present in winget."
+            exitCode = 0
+        }
+        return $return
     }
-
-    return $foundMessage, $wingetVersions
+    else {
+        $return = @{
+            message  = "Latest version of $wingetPackage $latestVersion is not yet present in winget."
+            exitCode = ""
+        }
+        return $return
+    }
 }
 
 function Test-ExistingPRs {
@@ -71,22 +93,29 @@ function Test-ExistingPRs {
         [Parameter(Mandatory = $true)] [string] $latestVersion,
         [Parameter(Mandatory = $false)] [string] $wingetPackage = ${Env:PackageName}
     )
-    Write-Output "Checking for exisitng PRs for $wingetPackage $($Latest.Version)"
+    Write-Host "Checking for exisitng PRs for $wingetPackage $($Latest.Version)"
     $ExistingOpenPRs = gh pr list --search "$($wingetPackage) $($latestVersion) in:title draft:false" --state 'open' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
     $ExistingMergedPRs = gh pr list --search "$($wingetPackage) $($latestVersion) in:title draft:false" --state 'merged' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
     $ExistingPRs = @($ExistingOpenPRs) + @($ExistingMergedPRs)    
 
     if ($ExistingPRs.Count -gt 0) {
-        Write-Output "$foundMessage"
+        $message = ""
         $ExistingPRs | ForEach-Object {
-            Write-Output "Found existing PR: $($_.title)"
-            Write-Output "-> $($_.url)"
-            exit 0
+            $message += "Found existing PR: $($_.title)`n"
+            $message += "-> $($_.url)`n"
         }
+        $return = @{
+            message  = $message
+            exitCode = 0
+        }
+        return $return
     }
     else {
-        Write-Output "No existing PRs found"
-        return true
+        $return = @{
+            message  = "No existing PRs found"
+            exitCode = ""
+        }
+        return $return
     }
 }
 
@@ -147,10 +176,14 @@ function Update-WingetPackage {
 
     $prMessage = "Update version: $wingetPackage version $($Latest.Version)"
 
+    $PackageAndVersionInWinget = Test-PackageAndVersionInGithub -wingetPackage $wingetPackage -latestVersion $($Latest.Version)
 
-    if (Test-PackageAndVersionInGithub -wingetPackage $wingetPackage -latestVersion $($Latest.Version)) {
+
+    if (!$PackageAndVersionInWinget.exitCode) {
+
+        $ExistingPRs = Test-ExistingPRs -wingetPackage $wingetPackage -latestVersion $($Latest.Version)
         
-        if (Test-ExistingPRs -wingetPackage $wingetPackage -latestVersion $($Latest.Version)) {
+        if (!$PackageAndVersionInWinget.exitCode) {
             Write-Output "Downloading wingetcreate and open PR for $wingetPackage Version $($Latest.Version)"
             Switch ($with) {
                 "Komac" {
@@ -164,11 +197,13 @@ function Update-WingetPackage {
             }
         }
         else {
-            Write-Output "No existing PRs found. Check why wingetcreate has not run."
+            Write-Host $ExistingPRs.message
+            exit $ExistingPRs.exitCode
         }
     }
     else {
-        Write-Output "Latest version of $wingetPackage $($Latest.Version) already present in winget or packet missing."
+        Write-Host $PackageAndVersionInWinget.message
+        exit $PackageAndVersionInWinget.exitCode
     }
 }
 
