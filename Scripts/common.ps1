@@ -21,26 +21,17 @@ function Test-PackageAndVersionInGithub {
 
     $ghCheck = Invoke-WebRequest -Uri $ghCheckURL -Method Head -SkipHttpErrorCheck 
     $ghVersionCheck = Invoke-WebRequest -Uri $ghVersionURL -Method Head -SkipHttpErrorCheck
+
     if ($ghCheck.StatusCode -eq 404) {
-        $return = @{
-            message  = "Packet not yet in winget. Please add new Packet manually"
-            exitCode = 1
-        }
-        return $return
+        Write-Host "Packet not yet in winget. Please add new Packet manually"
+        exit 1
     } 
     elseif ($ghVersionCheck.StatusCode -eq 200) {
-        $return = @{
-            message  = "Latest version of $wingetPackage $latestVersion is already present in winget."
-            exitCode = 0
-        }
-        return $return
+        Write-Host "Latest version of $wingetPackage $latestVersion is already present in winget."
+        exit 0
     }
     else {
-        $return = @{
-            message  = "Latest version of $wingetPackage $latestVersion is not yet present in winget."
-            exitCode = ""
-        }
-        return $return
+        return $true
     }
 
 }
@@ -66,25 +57,15 @@ function Test-PackageAndVersionInWinget {
     $foundMessage, $textVersion, $separator, $wingetVersions = winget search --id $wingetPackage --source winget --versions
 
     if (!$wingetVersions) {
-        $return = @{
-            message  = "Packet not yet in winget. Please add new Packet manually"
-            exitCode = 1
-        }
-        return $return
+        Write-Host "Packet not yet in winget. Please add new Packet manually"
+        exit 1
     } 
     elseif ($wingetVersions.contains($latestVersion)) {
-        $return = @{
-            message  = "Latest version of $wingetPackage $latestVersion is already present in winget."
-            exitCode = 0
-        }
-        return $return
+        Write-Host "Latest version of $wingetPackage $latestVersion is already present in winget."
+        exit 0
     }
     else {
-        $return = @{
-            message  = "Latest version of $wingetPackage $latestVersion is not yet present in winget."
-            exitCode = ""
-        }
-        return $return
+        return $true
     }
 }
 
@@ -99,23 +80,15 @@ function Test-ExistingPRs {
     $ExistingPRs = @($ExistingOpenPRs) + @($ExistingMergedPRs)    
 
     if ($ExistingPRs.Count -gt 0) {
-        $message = ""
         $ExistingPRs | ForEach-Object {
-            $message += "Found existing PR: $($_.title)`n"
-            $message += "-> $($_.url)`n"
+            Write-Host "Found existing PR: $($_.title)"
+            Write-Host "-> $($_.url)"
         }
-        $return = @{
-            message  = $message
-            exitCode = 0
-        }
-        return $return
+        exit 0
     }
     else {
-        $return = @{
-            message  = "No existing PRs found"
-            exitCode = ""
-        }
-        return $return
+
+        return $true
     }
 }
 
@@ -179,12 +152,12 @@ function Update-WingetPackage {
     $PackageAndVersionInWinget = Test-PackageAndVersionInGithub -wingetPackage $wingetPackage -latestVersion $($Latest.Version)
 
 
-    if (!$PackageAndVersionInWinget.exitCode) {
+    if ($PackageAndVersionInWinget) {
 
         $ExistingPRs = Test-ExistingPRs -wingetPackage $wingetPackage -latestVersion $($Latest.Version)
         
-        if (!$PackageAndVersionInWinget.exitCode) {
-            Write-Output "Downloading wingetcreate and open PR for $wingetPackage Version $($Latest.Version)"
+        if ($ExistingPRs) {
+            Write-Host "Downloading $with and open PR for $wingetPackage Version $($Latest.Version)"
             Switch ($with) {
                 "Komac" {
                     Invoke-WebRequest "https://github.com/russellbanks/Komac/releases/download/v2.2.1/KomacPortable-x64.exe" -OutFile komac.exe
@@ -196,14 +169,6 @@ function Update-WingetPackage {
                 }
             }
         }
-        else {
-            Write-Host $ExistingPRs.message
-            exit $ExistingPRs.exitCode
-        }
-    }
-    else {
-        Write-Host $PackageAndVersionInWinget.message
-        exit $PackageAndVersionInWinget.exitCode
     }
 }
 
