@@ -5,7 +5,7 @@ $PackageFilter = "mongodb-database-tools"
 Write-Host "Try to update MongoDB Tools"
 
 # Download the webpage
-$website = Invoke-WebRequest -Uri $WebsiteURLrl
+$website = Invoke-WebRequest -Uri $WebsiteURL
 
 # Extract the content of the webpage
 $content = $website.Content

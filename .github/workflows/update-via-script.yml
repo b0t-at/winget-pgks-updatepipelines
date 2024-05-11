@@ -35,7 +35,7 @@ jobs:
           - PackageName: "MongoDB.Compass.Isolated"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
             With: WinGetCreate
-          - PackageName: "MongoDB.Compass.ReadOnly"
+          - PackageName: "MongoDB.Compass.Readonly"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
             With: WinGetCreate
           - PackageName: "Logitech.OptionsPlus"

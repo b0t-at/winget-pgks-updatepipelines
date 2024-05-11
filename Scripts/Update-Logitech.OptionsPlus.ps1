@@ -14,4 +14,4 @@ if ($null -eq $versionInfo) {
     exit 1
 }
 
-return $latestVersion, $latestVersionUrl
+return $versionInfo, $latestVersionUrl
