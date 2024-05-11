@@ -2,5 +2,5 @@
 
 #### Main
 
-Start-Update -wingetPackage $wingetPackage -url $WebsiteURL
+Start-Update
 
