@@ -27,9 +27,15 @@ jobs:
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
             With: WinGetCreate
           - PackageName: "MongoDB.DatabaseTools"
-            WebsiteURL: "https://www.mongodb.com/try/download/tools"   
-            With: WinGetCreate       
-          - PackageName: "MongoDB.Compass"
+            WebsiteURL: "https://www.mongodb.com/try/download/tools" 
+            With: WinGetCreate
+          - PackageName: "MongoDB.Compass.Full"
+            WebsiteURL: "https://www.mongodb.com/try/download/tools"
+            With: WinGetCreate
+          - PackageName: "MongoDB.Compass.Isolated"
+            WebsiteURL: "https://www.mongodb.com/try/download/tools"
+            With: WinGetCreate
+          - PackageName: "MongoDB.Compass.ReadOnly"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
             With: WinGetCreate
           - PackageName: "Logitech.OptionsPlus"

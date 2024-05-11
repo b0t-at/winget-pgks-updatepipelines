@@ -1,11 +1,11 @@
 . .\Scripts\common.ps1
 
-$PackageFilter = "mongodb-database-tools"
+$PackageFilter = "mongodb-compass-isolated"
 
 Write-Host "Try to update MongoDB Tools"
 
 # Download the webpage
-$website = Invoke-WebRequest -Uri $WebsiteURLrl
+$website = Invoke-WebRequest -Uri $WebsiteURL
 
 # Extract the content of the webpage
 $content = $website.Content
@@ -24,5 +24,13 @@ $stableVersions = $versions | Where-Object { $_ -notmatch '(-rc|beta)' }
 # Sort the versions and get the latest one
 $latestVersion = $stableVersions | Sort-Object {[Version]$_} | Select-Object -Last 1
 $latestVersionUrl = $Packagelinks | Where-Object { $_ -match $latestVersion }
+Write-Host "Version found: $PackageFilter $latestVersion. URL: $latestVersionUrl"
+
+# Bring $latestVersion in correct format x.x.x.x
+# Check if $latestVersion is in the x.x.x format
+if ($latestVersion -match '^\d+\.\d+\.\d+$') {
+    # Append .0 to $latestVersion
+    $latestVersion = "$latestVersion.0"
+}
 
 return $latestVersion, $latestVersionUrl

@@ -2,6 +2,7 @@
 
 # Download the webpage
 $website = Invoke-WebRequest -Uri $WebsiteURL
+$PackageFilter = "mongodb-atlas-cli"
 
 # Extract the content of the webpage
 $content = $website.Content
