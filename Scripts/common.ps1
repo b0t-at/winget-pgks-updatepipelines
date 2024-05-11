@@ -133,7 +133,7 @@ function Get-VersionAndUrl {
         exit 1
     }
 
-    $Latest = .\Scripts\Update-$($wingetPackage).ps1 -WebsiteURL $WebsiteURL -wingetPackage $wingetPackage
+    $Latest = & $scriptPath -WebsiteURL $WebsiteURL -wingetPackage $wingetPackage
 
 
     if (!($Latest | Get-Member -Name "Version") -and ($Latest | Get-Member -Name "URLs")) {
