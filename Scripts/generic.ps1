@@ -2,5 +2,5 @@
 
 #### Main
 
-Update-WingetPackage -wingetPackage ${Env:PackageName} -with ${Env:With}
+Update-WingetPackage -wingetPackage ${Env:PackageName} -with ${Env:With} -WebsiteURL ${Env:WebsiteURL}
 
