@@ -163,6 +163,12 @@ function Update-WingetPackage {
                 }
             }
         }
+        else {
+            Write-Output "No existing PRs found. Check why wingetcreate has not run."
+        }
+    }
+    else {
+        Write-Output "Latest version of $wingetPackage $($Latest.Version) already present in winget or packet missing."
     }
 }
 
