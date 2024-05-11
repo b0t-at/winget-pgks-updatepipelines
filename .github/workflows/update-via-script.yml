@@ -15,7 +15,8 @@ jobs:
       matrix:
         include:
           - PackageName: "MongoDB.Server"
-            WebsiteURL: "https://www.mongodb.com/try/download/community"          
+            WebsiteURL: "https://www.mongodb.com/try/download/community"
+            With: WinGetCreate          
           - PackageName: "MongoDB.MongoDBCLI"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
             With: WinGetCreate
