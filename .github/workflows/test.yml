@@ -8,20 +8,20 @@ jobs:
     name: Test manifest
     runs-on: windows-latest
     steps:
-      # - name: Checkout
-      #   uses: actions/checkout@v4
-      # - name: Get Sandbox Script
-      #   run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/microsoft/winget-pkgs/master/Tools/SandboxTest.ps1 -OutFile SandboxTest.ps1
-      # - name: Run Sandbox Script
-      #   run: .\SandboxTest.ps1 -WinGetVersion 1.7 -Script {winget install Git.Git --accept-source-agreements}
-        - name: Checkout
-          uses: actions/checkout@v4
-        - name: Update package
-          id: update_version
-          env:
-            GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
-            WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
-            WebsiteURL: "https://www.isobuster.com/downloads/isobuster/isobuster_install_64bit.exe https://www.isobuster.com/downloads/isobuster/isobuster_install.exe"
-            PackageName: "SmartProjects.IsoBuster"
-            With: "Komac"
-          run: .\Scripts\generic.ps1
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Get Sandbox Script
+        run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/microsoft/winget-pkgs/master/Tools/SandboxTest.ps1 -OutFile SandboxTest.ps1
+      - name: Run Sandbox Script
+        run: .\SandboxTest.ps1 -WinGetVersion 1.7 -Script {winget install Git.Git --accept-source-agreements}
+        # - name: Checkout
+        #   uses: actions/checkout@v4
+        # - name: Update package
+        #   id: update_version
+        #   env:
+        #     GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
+        #     WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
+        #     WebsiteURL: "https://www.isobuster.com/downloads/isobuster/isobuster_install_64bit.exe https://www.isobuster.com/downloads/isobuster/isobuster_install.exe"
+        #     PackageName: "SmartProjects.IsoBuster"
+        #     With: "Komac"
+        #   run: .\Scripts\generic.ps1
