@@ -1,12 +1,13 @@
 . .\Scripts\common.ps1
 
 #### Main
-
-if (${Env:With}) {
-    Update-WingetPackage -wingetPackage ${Env:PackageName} -With ${Env:With} -WebsiteURL ${Env:WebsiteURL}
+$params = @{
+    wingetPackage = ${Env:PackageName}
+    WebsiteURL = ${Env:WebsiteURL}
 }
-else {
-    Update-WingetPackage -wingetPackage ${Env:PackageName} -WebsiteURL ${Env:WebsiteURL}
+if($Env:With) {
+    $params.Add("With", $Env:With)
 }
 
+Update-WingetPackage @params
 

@@ -23,7 +23,7 @@ function Test-PackageAndVersionInGithub {
     $ghVersionCheck = Invoke-WebRequest -Uri $ghVersionURL -Method Head -SkipHttpErrorCheck
 
     if ($ghCheck.StatusCode -eq 404) {
-        Write-Host "Packet not yet in winget. Please add new Packet manually"
+        Write-Host "Package not yet in winget. Please add new package manually"
         exit 1
     } 
     elseif ($ghVersionCheck.StatusCode -eq 200) {
@@ -57,7 +57,7 @@ function Test-PackageAndVersionInWinget {
     $foundMessage, $textVersion, $separator, $wingetVersions = winget search --id $wingetPackage --source winget --versions
 
     if (!$wingetVersions) {
-        Write-Host "Packet not yet in winget. Please add new Packet manually"
+        Write-Host "Package not yet in winget. Please add new package manually"
         exit 1
     } 
     elseif ($wingetVersions.contains($latestVersion)) {
@@ -176,8 +176,8 @@ function Get-ProductVersionFromFile {
 function Update-WingetPackage {
     param(
         [Parameter(Mandatory = $true)] [string] $WebsiteURL,
-        [Parameter(Mandatory = $false)] [string] $wingetPackage = ${Env:PackageName},
-        [Parameter(Mandatory = $false)][AllowEmptyString()] [ValidateSet("Komac", "WinGetCreate")] [string] $With = "Komac"
+        [Parameter(Mandatory = $false)] [string] $WingetPackage = ${Env:PackageName},
+        [Parameter(Mandatory = $false)][ValidateSet("Komac", "WinGetCreate")] [string] $With = "Komac"
     )
     $gitToken = Test-GitHubToken
 
@@ -204,7 +204,8 @@ function Update-WingetPackage {
             Write-Host "Downloading $with and open PR for $wingetPackage Version $($Latest.Version)"
             Switch ($with) {
                 "Komac" {
-                    Invoke-WebRequest "https://github.com/russellbanks/Komac/releases/download/v2.2.1/KomacPortable-x64.exe" -OutFile komac.exe
+                    $latestKomacRelease = (Invoke-RestMethod -Uri "https://api.github.com/repos/russellbanks/Komac/releases/latest").assets | ? {$_.browser_download_url.EndsWith("KomacSetup-x64.exe")} | Select-Object -First 1 -ExpandProperty browser_download_url
+                    Invoke-WebRequest  -Uri $latestKomacRelease -OutFile komac.exe
                     .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls "$($Latest.URLs.replace(' ','" "'))" -s -t $gitToken
                 }
                 "WinGetCreate" {
@@ -249,7 +250,7 @@ function Get-LatestMongoDBVersions {
 #     $url = ${Env:WebsiteURL}
 #     $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $url
 
-#     Update-WingetPackage -wingetPackage $wingetPackage -latestVersion $Latest.Version -with Komac -latestVersionUrls $Latest.URLs
+#     Update-WingetPackage -WingetPackage $wingetPackage -latestVersion $Latest.Version -with Komac -latestVersionUrls $Latest.URLs
 # }
 
 
