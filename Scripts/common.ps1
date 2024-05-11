@@ -152,7 +152,17 @@ function Get-ProductVersionFromFile {
         $file = Get-ChildItem -Path $DownloadFileName
     }
 
-    $versionInfo = $file.VersionInfo.$($VersionInfoProperty)
+    if ($null -eq $file) {
+        Write-Host "File not found"
+        exit 1
+    }
+
+    if ($null -eq $file.VersionInfo) {
+        Write-Host "No version info found in file"
+        exit 1
+    }
+
+    $versionInfo = $file.VersionInfo.$VersionInfoProperty
     $versionInfo = $versionInfo.Trim()
 
     if ($null -eq $versionInfo) {
