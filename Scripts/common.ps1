@@ -30,7 +30,7 @@ function Test-PackageAndVersionInGithub {
         Write-Output "Latest version of $wingetPackage $latestVersion is already present in winget."
         exit 0
     }
-
+    Write-Output "Latest version of $wingetPackage $latestVersion is not yet present in winget."
     return true
 }
 
@@ -84,6 +84,7 @@ function Test-ExistingPRs {
         }
     }
     else {
+        Write-Output "No existing PRs found"
         return true
     }
 }
