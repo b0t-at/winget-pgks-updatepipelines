@@ -188,10 +188,8 @@ function Update-WingetPackage {
         exit 1
     }
     Write-Host $Latest
-    if (!($Latest | Get-Member -Name "Version") -and !($Latest | Get-Member -Name "URLs")) {
-        Write-Host "Version or Url property not found in the returned object"
-        exit 1
-    }
+    Write-Host $($Latest.Version)
+    Write-Host $($Latest.URLs)
 
     $prMessage = "Update version: $wingetPackage version $($Latest.Version)"
 
