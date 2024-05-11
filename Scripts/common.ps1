@@ -133,7 +133,7 @@ function Get-VersionAndUrl {
         exit 1
     }
 
-    $Latest = & $scriptPath -WebsiteURL $WebsiteURL -wingetPackage $wingetPackage
+    $Latest = .\Scripts\Update-$($wingetPackage).ps1 -WebsiteURL $WebsiteURL -wingetPackage $wingetPackage
 
 
     if (!($Latest | Get-Member -Name "Version") -and ($Latest | Get-Member -Name "URLs")) {
@@ -167,7 +167,7 @@ function Start-Update {
     $url = ${Env:WebsiteURL}
     $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $url
 
-    Update-WingetPackage -wingetPackage $wingetPackage -latestVersion $Latest.version -with Komac -latestVersionUrls $Latest.URLs
+    Update-WingetPackage -wingetPackage $wingetPackage -latestVersion $Latest.Version -with Komac -latestVersionUrls $Latest.URLs
 }
 
 
