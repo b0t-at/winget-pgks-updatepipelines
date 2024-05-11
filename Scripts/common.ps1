@@ -138,7 +138,7 @@ function Update-WingetPackage {
     param(
         [Parameter(Mandatory = $true)] [string] $WebsiteURL,
         [Parameter(Mandatory = $false)] [string] $wingetPackage = ${Env:PackageName},
-        [Parameter(Mandatory = $false)] [ValidateSet("Komac", "WinGetCreate")] [string] $with = "Komac",
+        [Parameter(Mandatory = $false)] [ValidateSet("Komac", "WinGetCreate")] [string] $With = "Komac",
         [Parameter(Mandatory = $false)] [string] $gitToken
     )
     if ($null -eq $gitToken) {
@@ -185,4 +185,4 @@ function Update-WingetPackage {
 
 
 $wingetPackage = ${Env:PackageName}
-$url = ${Env:WebsiteURL}
+$WebsiteURL = ${Env:WebsiteURL}

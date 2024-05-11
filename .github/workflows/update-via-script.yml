@@ -18,28 +18,39 @@ jobs:
             WebsiteURL: "https://www.mongodb.com/try/download/community"          
           - PackageName: "MongoDB.MongoDBCLI"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
+            With: WinGetCreate
           - PackageName: "MongoDB.Shell"
-            WebsiteURL: "https://www.mongodb.com/try/download/tools"          
+            WebsiteURL: "https://www.mongodb.com/try/download/tools"     
+            With: WinGetCreate     
           - PackageName: "MongoDB.MongoDBAtlasCLI"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
+            With: WinGetCreate
           - PackageName: "MongoDB.DatabaseTools"
-            WebsiteURL: "https://www.mongodb.com/try/download/tools"          
+            WebsiteURL: "https://www.mongodb.com/try/download/tools"   
+            With: WinGetCreate       
           - PackageName: "MongoDB.Compass"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
+            With: WinGetCreate
           - PackageName: "Logitech.OptionsPlus"
-            WebsiteURL: "https://download01.logi.com/web/ftp/pub/techsupport/optionsplus/logioptionsplus_installer.exe"          
+            WebsiteURL: "https://download01.logi.com/web/ftp/pub/techsupport/optionsplus/logioptionsplus_installer.exe"     
+            With: WinGetCreate     
           - PackageName: "Glarysoft.GlaryUtilities"
             WebsiteURL: "https://download.glarysoft.com/gusetup.exe"
+            With: WinGetCreate
           - PackageName: "GitButler.GitButler"
-            WebsiteURL: "https://app.gitbutler.com/downloads/release/windows/x86_64/msi"          
+            WebsiteURL: "https://app.gitbutler.com/downloads/release/windows/x86_64/msi"   
+            With: WinGetCreate       
           - PackageName: "FlipperDevicesInc.qFlipper"
             WebsiteURL: "https://update.flipperzero.one/qFlipper/directory.json"
+            With: WinGetCreate
           - PackageName: "Loupedeck.Loupedeck"
             WebsiteURL: "https://download.loupedeck.com/software/latest-win"
+            With: WinGetCreate
           - PackageName: "StrawberryPerl.StrawberryPerl"
             WebsiteURL: "https://github.com/StrawberryPerl/Perl-Dist-Strawberry"
           - PackageName: "Crucial.StorageExecutive"
             WebsiteURL: "https://www.crucial.com/content/dam/crucial/support/storage-executive-win-64.zip"
+            With: WinGetCreate
           - PackageName: "SmartProjects.IsoBuster"
             WebsiteURL: "https://www.isobuster.com/downloads/isobuster/isobuster_install_64bit.exe https://www.isobuster.com/downloads/isobuster/isobuster_install.exe"
 
@@ -57,6 +68,7 @@ jobs:
           WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
           WebsiteURL: ${{ matrix.WebsiteURL }}
           PackageName: ${{ matrix.PackageName }}
-        run: .\Scripts\Update-${{ matrix.PackageName }}.ps1
+          With: ${{ matrix.With }}
+        run: .\Scripts\generic.ps1
 
 
