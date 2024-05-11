@@ -163,7 +163,7 @@ function Get-ProductVersionFromFile {
     }
 
     $versionInfo = $file.VersionInfo.$VersionInfoProperty
-    $versionInfo = $versionInfo.Trim()
+    $versionInfo = $versionInfo.ToString().Trim()
 
     if ($null -eq $versionInfo) {
         Write-Host "Could not find version info in file"
