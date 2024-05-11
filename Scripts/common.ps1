@@ -88,39 +88,6 @@ function Test-ExistingPRs {
     }
 }
 
-function Update-WingetPackage {
-    param(
-        [Parameter(Mandatory = $true)] [string] $WebsiteURL,
-        [Parameter(Mandatory = $false)] [string] $wingetPackage = ${Env:PackageName},
-        [Parameter(Mandatory = $false)] [ValidateSet("Komac", "WinGetCreate")] [string] $with = "Komac",
-        [Parameter(Mandatory = $false)] [string] $gitToken
-    )
-    if ($null -eq $gitToken) {
-        $gitToken = Test-GitHubToken
-    }
-
-    $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $WebsiteURL
-
-    $prMessage = "Update version: $wingetPackage version $latestVersion"
-
-    if (Test-PackageAndVersionInGithub -wingetPackage $wingetPackage -latestVersion $latestVersion) {
-
-        if (Test-ExistingPRs -wingetPackage $wingetPackage -latestVersion $latestVersion) {
-            Write-Output "Downloading wingetcreate and open PR for $wingetPackage Version $latestVersion"
-            Switch ($with) {
-                "Komac" {
-                    Invoke-WebRequest "https://github.com/russellbanks/Komac/releases/download/v2.2.1/KomacPortable-x64.exe" -OutFile komac.exe
-                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls "$($Latest.URLs.replace(' ','" "'))" -s -t $gitToken
-                }
-                "WinGetCreate" {
-                    Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
-                    .\wingetcreate.exe update $wingetPackage -s -v $Latest.Version -u "$($Latest.URLs.replace(' ','" "'))" --prtitle $prMessage -t $gitToken
-                }
-            }
-        }
-    }
-}
-
 function Get-VersionAndUrl {
     param(
         [Parameter(Mandatory = $false)] [string] $wingetPackage = ${Env:PackageName},
@@ -159,9 +126,44 @@ function Get-VersionAndUrl {
         }
     }
 
-    Write-Host "Found latest version: $versionInfo with URLs: $($Latest.URLs -join ',')"
+    Write-Host "Found latest version: $version with URLs: $($Latest.URLs -join ',')"
     return $Latest
 }
+
+function Update-WingetPackage {
+    param(
+        [Parameter(Mandatory = $true)] [string] $WebsiteURL,
+        [Parameter(Mandatory = $false)] [string] $wingetPackage = ${Env:PackageName},
+        [Parameter(Mandatory = $false)] [ValidateSet("Komac", "WinGetCreate")] [string] $with = "Komac",
+        [Parameter(Mandatory = $false)] [string] $gitToken
+    )
+    if ($null -eq $gitToken) {
+        $gitToken = Test-GitHubToken
+    }
+
+    $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $WebsiteURL
+
+    $prMessage = "Update version: $wingetPackage version $($Latest.Version)"
+
+    if (Test-PackageAndVersionInGithub -wingetPackage $wingetPackage -latestVersion $($Latest.Version)) {
+
+        if (Test-ExistingPRs -wingetPackage $wingetPackage -latestVersion $($Latest.Version)) {
+            Write-Output "Downloading wingetcreate and open PR for $wingetPackage Version $($Latest.Version)"
+            Switch ($with) {
+                "Komac" {
+                    Invoke-WebRequest "https://github.com/russellbanks/Komac/releases/download/v2.2.1/KomacPortable-x64.exe" -OutFile komac.exe
+                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls "$($Latest.URLs.replace(' ','" "'))" -s -t $gitToken
+                }
+                "WinGetCreate" {
+                    Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
+                    .\wingetcreate.exe update $wingetPackage -s -v $Latest.Version -u "$($Latest.URLs.replace(' ','" "'))" --prtitle $prMessage -t $gitToken
+                }
+            }
+        }
+    }
+}
+
+
 
 # function Start-Update {
 #     $wingetPackage = ${Env:PackageName}
