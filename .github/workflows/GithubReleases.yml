@@ -34,7 +34,7 @@ jobs:
             url: "https://github.com/betaflight/betaflight-configurator/releases/download/{VERSION}/betaflight-configurator_{VERSION}_win64-installer.exe"
           - id: "AdGuard.dnsproxy"
             repo: "AdguardTeam/dnsproxy"
-            url: " https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-386-v{VERSION}.zip, https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-amd64-v{VERSION}.zip, https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-arm64-v{VERSION}.zip"
+            url: "\"https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-386-v{VERSION}.zip https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-amd64-v{VERSION}.zip https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-arm64-v{VERSION}.zip\""
             
     steps:
     - name: Update Packages
