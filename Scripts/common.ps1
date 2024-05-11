@@ -126,7 +126,15 @@ function Get-VersionAndUrl {
         [Parameter(Mandatory = $false)] [string] $WebsiteURL = ${Env:WebsiteURL}
     )
 
-    $Latest = .\Update-$($wingetPackage).ps1 -WebsiteURL $WebsiteURL -wingetPackage $wingetPackage
+    $scriptPath = ".\Scripts\Update-$($wingetPackage).ps1"
+
+    if (-not (Test-Path -Path $scriptPath)) {
+        Write-Host "The script '$scriptPath' does not exist. Please check the wingetPackage parameter and the current directory."
+        exit 1
+    }
+
+    $Latest = & $scriptPath -WebsiteURL $WebsiteURL -wingetPackage $wingetPackage
+
 
     if (!($Latest | Get-Member -Name "Version") -and ($Latest | Get-Member -Name "URLs")) {
 
