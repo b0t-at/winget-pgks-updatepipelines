@@ -15,7 +15,7 @@ function Test-PackageAndVersionInGithub {
         [Parameter(Mandatory = $true)] [string] $latestVersion,
         [Parameter(Mandatory = $false)] [string] $wingetPackage = ${Env:PackageName}
     )
-
+    Write-Output "Checking if $wingetPackage is already in winget (via GH) and Version $($Latest.Version) already present"
     $ghVersionURL = "https://raw.githubusercontent.com/microsoft/winget-pkgs/master/manifests/$($wingetPackage.Substring(0, 1).ToLower())/$($wingetPackage.replace(".","/"))/$latestVersion/$wingetPackage.yaml"
     $ghCheckURL = "https://github.com/microsoft/winget-pkgs/blob/master/manifests/$($wingetPackage.Substring(0, 1).ToLower())/$($wingetPackage.replace(".","/"))/"
 
@@ -39,6 +39,7 @@ function Test-PackageAndVersionInWinget {
         [Parameter(Mandatory = $true)] [string] $latestVersion,
         [Parameter(Mandatory = $false)] [string] $wingetPackage = ${Env:PackageName}
     )
+    Write-Output "Checking if $wingetPackage is already in winget and Version $($Latest.Version) already present"
 
     $progressPreference = 'silentlyContinue'
     $latestWingetMsixBundleUri = $(Invoke-RestMethod https://api.github.com/repos/microsoft/winget-cli/releases/latest).assets.browser_download_url | Where-Object { $_.EndsWith(".msixbundle") }
@@ -70,7 +71,7 @@ function Test-ExistingPRs {
         [Parameter(Mandatory = $true)] [string] $latestVersion,
         [Parameter(Mandatory = $false)] [string] $wingetPackage = ${Env:PackageName}
     )
-
+    Write-Output "Checking for exisitng PRs for $wingetPackage $($Latest.Version)"
     $ExistingOpenPRs = gh pr list --search "$($wingetPackage) $($latestVersion) in:title draft:false" --state 'open' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
     $ExistingMergedPRs = gh pr list --search "$($wingetPackage) $($latestVersion) in:title draft:false" --state 'merged' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
     $ExistingPRs = @($ExistingOpenPRs) + @($ExistingMergedPRs)    
@@ -146,8 +147,9 @@ function Update-WingetPackage {
 
     $prMessage = "Update version: $wingetPackage version $($Latest.Version)"
 
-    if (Test-PackageAndVersionInGithub -wingetPackage $wingetPackage -latestVersion $($Latest.Version)) {
 
+    if (Test-PackageAndVersionInGithub -wingetPackage $wingetPackage -latestVersion $($Latest.Version)) {
+        
         if (Test-ExistingPRs -wingetPackage $wingetPackage -latestVersion $($Latest.Version)) {
             Write-Output "Downloading wingetcreate and open PR for $wingetPackage Version $($Latest.Version)"
             Switch ($with) {
