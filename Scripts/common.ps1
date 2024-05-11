@@ -133,6 +133,35 @@ function Get-VersionAndUrl {
     Write-Host "Found latest version: $version with URLs: $($Latest.URLs -join ',')"
     return $Latest
 }
+function Get-ProductVersionFromFile {
+    param(
+        [Parameter(Mandatory = $true)] [string] $WebsiteURL,
+        [Parameter(Mandatory = $true)] [string] $VersionInfoProperty
+    )
+
+    $latestVersionUrl = $WebsiteURL
+    $DownloadFileName = [System.IO.Path]::GetFileName($latestVersionUrl)
+    Invoke-WebRequest -Uri $latestVersionUrl -OutFile $DownloadFileName
+
+    # If the file is a ZIP file, unzip it and search for .exe or .msi files
+    if ($DownloadFileName -like "*.zip") {
+        $UnzipPath = "."
+        Expand-Archive -Path $DownloadFileName -DestinationPath $UnzipPath
+        $file = Get-ChildItem -Path $UnzipPath -Filter "*.exe,*.msi" | Select-Object -First 1
+    } else {
+        $file = Get-ChildItem -Path $DownloadFileName
+    }
+
+    $versionInfo = $file.VersionInfo.$($VersionInfoProperty)
+    $versionInfo = $versionInfo.Trim()
+
+    if ($null -eq $versionInfo) {
+        Write-Host "Could not find version info in file"
+        exit 1
+    }
+
+    return $versionInfo
+}
 
 function Update-WingetPackage {
     param(
@@ -169,6 +198,32 @@ function Update-WingetPackage {
     }
 }
 
+function Get-LatestMongoDBVersions {
+    param(
+        [Parameter(Mandatory = $true)] [string] $WebsiteURL,
+        [Parameter(Mandatory = $true)] [string] $PackageFilter
+    )
+
+    $website = Invoke-WebRequest -Uri $WebsiteURL
+    $content = $website.Content
+
+    $links = $content | Select-String -Pattern 'https?://[^"]+' -AllMatches | % { $_.Matches } | % { $_.Value }
+    $msilinks = $links | Select-String -Pattern 'https?://[^\s]*\.msi' -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Value }
+
+    $Packagelinks = $msilinks | Select-String -Pattern "https?://[^\s]*$PackageFilter[^\s]*\.msi" -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Value }| Where-Object { $_ -notmatch "$PackageFilter-isolated|$PackageFilter-readonly" }
+
+    $versions = $Packagelinks | ForEach-Object { $_ -match '(\d+\.\d+\.\d+(-rc\d*|-beta\d*)?)' | Out-Null; $matches[1] }
+    $stableVersions = $versions | Where-Object { $_ -notmatch '(-rc|beta)' }
+
+    $latestVersion = $stableVersions | Sort-Object {[Version]$_} | Select-Object -Last 1
+    $latestVersionUrl = $Packagelinks | Where-Object { $_ -match $latestVersion }
+
+    return @{
+        Version = $latestVersion
+        Url = $latestVersionUrl
+    }
+}
+
 
 
 # function Start-Update {
@@ -183,4 +238,3 @@ function Update-WingetPackage {
 
 $wingetPackage = ${Env:PackageName}
 $WebsiteURL = ${Env:WebsiteURL}
-$githubToken
