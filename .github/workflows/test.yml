@@ -23,4 +23,5 @@ jobs:
             WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
             WebsiteURL: "https://www.isobuster.com/downloads/isobuster/isobuster_install_64bit.exe https://www.isobuster.com/downloads/isobuster/isobuster_install.exe"
             PackageName: "SmartProjects.IsoBuster"
+            With: "Komac"
           run: .\Scripts\generic.ps1

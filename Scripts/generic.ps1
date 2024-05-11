@@ -2,5 +2,5 @@
 
 #### Main
 
-Start-Update
+Update-WingetPackage -wingetPackage ${Env:PackageName} -with ${Env:With}
 

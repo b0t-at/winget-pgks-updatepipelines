@@ -90,8 +90,7 @@ function Test-ExistingPRs {
 
 function Update-WingetPackage {
     param(
-        [Parameter(Mandatory = $true)] [string] $latestVersion,
-        [Parameter(Mandatory = $true)] [string] $latestVersionUrls,
+        [Parameter(Mandatory = $true)] [string] $WebsiteURL,
         [Parameter(Mandatory = $false)] [string] $wingetPackage = ${Env:PackageName},
         [Parameter(Mandatory = $false)] [ValidateSet("Komac", "WinGetCreate")] [string] $with = "Komac",
         [Parameter(Mandatory = $false)] [string] $gitToken
@@ -99,6 +98,8 @@ function Update-WingetPackage {
     if ($null -eq $gitToken) {
         $gitToken = Test-GitHubToken
     }
+
+    $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $WebsiteURL
 
     $prMessage = "Update version: $wingetPackage version $latestVersion"
 
@@ -109,11 +110,11 @@ function Update-WingetPackage {
             Switch ($with) {
                 "Komac" {
                     Invoke-WebRequest "https://github.com/russellbanks/Komac/releases/download/v2.2.1/KomacPortable-x64.exe" -OutFile komac.exe
-                    .\komac.exe update --identifier $wingetPackage --version $latestVersion --urls "$($latestVersionUrls.replace(' ','" "'))" -s -t $gitToken
+                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls "$($Latest.URLs.replace(' ','" "'))" -s -t $gitToken
                 }
                 "WinGetCreate" {
                     Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
-                    .\wingetcreate.exe update $wingetPackage -s -v $latestVersion -u "$($latestVersionUrls.replace(' ','" "'))" --prtitle $prMessage -t $gitToken
+                    .\wingetcreate.exe update $wingetPackage -s -v $Latest.Version -u "$($Latest.URLs.replace(' ','" "'))" --prtitle $prMessage -t $gitToken
                 }
             }
         }
@@ -136,7 +137,7 @@ function Get-VersionAndUrl {
     $Latest = & $scriptPath -WebsiteURL $WebsiteURL -wingetPackage $wingetPackage
 
 
-    if (!($Latest | Get-Member -Name "Version") -and ($Latest | Get-Member -Name "URLs")) {
+    if (!($Latest | Get-Member -Name "Version") -and !($Latest | Get-Member -Name "URLs")) {
 
         $lines = $Latest -split "`n"
 
@@ -162,13 +163,13 @@ function Get-VersionAndUrl {
     return $Latest
 }
 
-function Start-Update {
-    $wingetPackage = ${Env:PackageName}
-    $url = ${Env:WebsiteURL}
-    $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $url
+# function Start-Update {
+#     $wingetPackage = ${Env:PackageName}
+#     $url = ${Env:WebsiteURL}
+#     $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $url
 
-    Update-WingetPackage -wingetPackage $wingetPackage -latestVersion $Latest.Version -with Komac -latestVersionUrls $Latest.URLs
-}
+#     Update-WingetPackage -wingetPackage $wingetPackage -latestVersion $Latest.Version -with Komac -latestVersionUrls $Latest.URLs
+# }
 
 
 
