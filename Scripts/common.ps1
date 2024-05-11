@@ -147,7 +147,7 @@ function Get-ProductVersionFromFile {
     if ($DownloadFileName -like "*.zip") {
         $UnzipPath = "."
         Expand-Archive -Path $DownloadFileName -DestinationPath $UnzipPath
-        $file = Get-ChildItem -Path $UnzipPath -Filter "*.exe,*.msi" | Select-Object -First 1
+        $file = Get-ChildItem -Path $UnzipPath -Include "*.exe","*.msi" -Recurse | Select-Object -First 1
     } else {
         $file = Get-ChildItem -Path $DownloadFileName
     }
