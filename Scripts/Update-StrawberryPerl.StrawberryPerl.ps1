@@ -1,21 +1,9 @@
-if ($Env:GITHUB_TOKEN) {
-    Write-Host 'GITHUB_TOKEN detected'
-    $gitToken = ${Env:GITHUB_TOKEN}
-}
-else {
-    Write-Host 'GITHUB_TOKEN not detected'
-    exit 1
-}
+. .\common.ps1
 
-$wingetPackage = ${Env:PackageName}
-$repo = ${Env:WebsiteURL}
-
-Write-Host "Try to update $wingetPackage"
-
-$latestVersionTag = gh release view --repo $repo --json tagName -q ".tagName"
-$latestVersionName = gh release view --repo $repo --json name -q ".name"
+$latestVersionTag = gh release view --repo $WebsiteURL --json tagName -q ".tagName"
+$latestVersionName = gh release view --repo $WebsiteURL --json name -q ".name"
 $latestVersion = $latestVersionName -replace '.*?(\d+\.\d+\.\d+(.\d+)).*', '$1'
-$assets = gh release view --repo $repo --json assets -q ".assets[] .url"
+$assets = gh release view --repo $WebsiteURL --json assets -q ".assets[] .url"
 $msiAsset = $assets | Where-Object { $_ -like "*.msi" }
 
 
