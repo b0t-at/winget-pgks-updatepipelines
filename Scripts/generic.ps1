@@ -1,4 +1,4 @@
-. .\common.ps1
+. .\Scripts\common.ps1
 
 #### Main
 

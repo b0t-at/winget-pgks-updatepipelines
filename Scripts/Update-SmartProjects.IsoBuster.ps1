@@ -1,4 +1,4 @@
-. .\common.ps1
+. .\Scripts\common.ps1
 
 $latestVersionUrl = $WebsiteURL -split " " | Select-Object -First 1
 $DownloadFileName = "IsoBuster_installer.exe"
