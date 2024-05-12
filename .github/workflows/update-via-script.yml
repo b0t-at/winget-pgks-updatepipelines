@@ -79,7 +79,7 @@ jobs:
           WebsiteURL: ${{ matrix.WebsiteURL }}
           PackageName: ${{ matrix.PackageName }}
           With: ${{ matrix.With }}
-          Submit: ${{ env.SUBMIT_PR }}
+          Submit: ${{ vars.SUBMIT_PR }}
         run: .\Scripts\generic.ps1
 
 

@@ -53,4 +53,4 @@ jobs:
         komac-token: ${{ secrets.WINGET_PAT }}
         komac-version: latest
         custom-fork-owner: damn-good-b0t
-        submit: ${{ env.SUBMIT_PR }}
+        submit: ${{ vars.SUBMIT_PR }}
