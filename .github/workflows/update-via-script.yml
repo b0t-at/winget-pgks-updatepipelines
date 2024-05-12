@@ -9,6 +9,7 @@ jobs:
   update-scriptbased:
     name: ${{ matrix.PackageName }}
     runs-on: windows-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Test' }}
     
     strategy:
       fail-fast: false
@@ -78,6 +79,7 @@ jobs:
           WebsiteURL: ${{ matrix.WebsiteURL }}
           PackageName: ${{ matrix.PackageName }}
           With: ${{ matrix.With }}
+          Submit: ${{ env.SUBMIT_PR }}
         run: .\Scripts\generic.ps1
 
 

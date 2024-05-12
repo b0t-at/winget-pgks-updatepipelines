@@ -179,7 +179,8 @@ function Update-WingetPackage {
     param(
         [Parameter(Mandatory = $true)] [string] $WebsiteURL,
         [Parameter(Mandatory = $false)] [string] $WingetPackage = ${Env:PackageName},
-        [Parameter(Mandatory = $false)][ValidateSet("Komac", "WinGetCreate")] [string] $With = "Komac"
+        [Parameter(Mandatory = $false)][ValidateSet("Komac", "WinGetCreate")] [string] $With = "Komac",
+        [Parameter(Mandatory = $false)] [switch] $Submit = $false
     )
     $gitToken = Test-GitHubToken
 
@@ -215,7 +216,7 @@ function Update-WingetPackage {
                         Write-Error "Komac not downloaded"
                         exit 1
                     }
-                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls "$($Latest.URLs.replace(' ','" "'))" -s -t $gitToken
+                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls "$($Latest.URLs.replace(' ','" "'))" ($Submit -eq $true ? "-s" : "") -t $gitToken
                 }
                 "WinGetCreate" {
                     Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
@@ -226,7 +227,7 @@ function Update-WingetPackage {
                         Write-Error "wingetcreate not downloaded"
                         exit 1
                     }
-                    .\wingetcreate.exe update $wingetPackage -s -v $Latest.Version -u "$($Latest.URLs.replace(' ','" "'))" --prtitle $prMessage -t $gitToken
+                    .\wingetcreate.exe update $wingetPackage ($Submit -eq $true ? "-s" : "") -v $Latest.Version -u "$($Latest.URLs.replace(' ','" "'))" --prtitle $prMessage -t $gitToken
                 }
                 default { 
                     Write-Error "Invalid value \"$With\" for -With parameter. Valid values are 'Komac' and 'WinGetCreate'"

@@ -9,6 +9,7 @@ jobs:
   update-releasebased:
     name: ${{ matrix.id }}
     runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Test' }}
 
     strategy:
       fail-fast: false
@@ -52,3 +53,4 @@ jobs:
         komac-token: ${{ secrets.WINGET_PAT }}
         komac-version: latest
         custom-fork-owner: damn-good-b0t
+        submit: ${{ env.SUBMIT_PR }}
