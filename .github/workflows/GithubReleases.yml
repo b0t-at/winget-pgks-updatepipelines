@@ -29,7 +29,7 @@ jobs:
             url: "https://github.com/ankitects/anki/releases/download/{VERSION}/anki-{VERSION}-windows-qt6.exe"
           - id: "EdgeTX.Companion"
             repo: "EdgeTX/edgetx"
-            url: "https://github.com/EdgeTX/edgetx/releases/download/{VERSION}/edgetx-cpn-win64-{VERSION}.zip"
+            url: "https://github.com/EdgeTX/edgetx/releases/download/v{VERSION}/edgetx-cpn-win64-v{VERSION}.zip"
           - id: "Betaflight.Betaflight-Configurator"
             repo: "betaflight/betaflight-configurator"
             url: "https://github.com/betaflight/betaflight-configurator/releases/download/{VERSION}/betaflight-configurator_{VERSION}_win64-installer.exe"
