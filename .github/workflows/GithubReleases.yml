@@ -40,11 +40,11 @@ jobs:
             url: "https://github.com/hoppscotch/releases/releases/download/v{VERSION}/Hoppscotch_win_x64.msi"
           - id: "AdGuard.dnsproxy"
             repo: "AdguardTeam/dnsproxy"
-            url: "\"https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-386-v{VERSION}.zip https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-amd64-v{VERSION}.zip https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-arm64-v{VERSION}.zip\""
+            url: "https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-386-v{VERSION}.zip https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-amd64-v{VERSION}.zip https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-arm64-v{VERSION}.zip"
             
     steps:
     - name: Update Packages
-      uses: michidk/winget-updater@v1
+      uses: b0t-at/winget-updater@b0t-main
       with:
         identifier: ${{ matrix.id }}
         repo: ${{ matrix.repo }}
