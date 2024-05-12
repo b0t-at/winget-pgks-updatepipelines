@@ -42,7 +42,9 @@ jobs:
           - id: "AdGuard.dnsproxy"
             repo: "AdguardTeam/dnsproxy"
             url: "https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-386-v{VERSION}.zip https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-amd64-v{VERSION}.zip https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-arm64-v{VERSION}.zip"
-            
+          - id: "OpenTofu.Tofu"
+            repo: "opentofu/opentofu"
+            url: "https://github.com/opentofu/opentofu/releases/download/v{VERSION}/tofu_{VERSION}_windows_386.zip https://github.com/opentofu/opentofu/releases/download/v{VERSION}/tofu_{VERSION}_windows_amd64.zip"            
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
