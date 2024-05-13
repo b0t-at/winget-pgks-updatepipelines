@@ -1,7 +1,8 @@
 param(
     [Parameter(Mandatory = $true)] [string] $PackageIdentifier,
     [Parameter(Mandatory = $true)] [string] $OutputDir,
-    [Parameter(Mandatory = $true)] [string] $Token
+    [Parameter(Mandatory = $true)] [string] $Token,
+    [Parameter(Mandatory = $false)] [string] $Message
 )
 
 # Check if powershell-yaml module is installed
@@ -93,12 +94,16 @@ function Update-WingetPackage {
         git add $version
         # Commit the changes
         git commit -am "Update existing $PackageIdentifier version $($directory.Name) Manifest"
+        # Push the branch to the remote
+        git push origin $branchName
         # Checkout the master branch and merge the changes
         git checkout master
         git reset --hard master
 
-        # Push the branch to the remote
-        git push origin $branchName
+
+
+        # create a pull request to the microsoft/winget-pkgs repository with the github cli
+        #gh pr create --title "Update existing $PackageIdentifier version $($directory.Name) Manifest" --body "This PR updates the manifest for $PackageIdentifier to version $($directory.Name). $($Message)" --base master --head $branchName
     }
 
 }
