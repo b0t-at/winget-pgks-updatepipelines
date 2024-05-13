@@ -175,6 +175,18 @@ function Get-ProductVersionFromFile {
     return $versionInfo
 }
 
+function Install-Komac {
+    $latestKomacRelease = (Invoke-RestMethod -Uri "https://api.github.com/repos/russellbanks/Komac/releases/latest").assets | Where-Object { $_.browser_download_url.EndsWith("KomacPortable-x64.exe") } | Select-Object -First 1 -ExpandProperty browser_download_url
+    Invoke-WebRequest  -Uri $latestKomacRelease -OutFile komac.exe
+    if (Test-Path ".\komac.exe") {
+        Write-Host "Komac successfully downloaded"
+    }
+    else {
+        Write-Error "Komac not downloaded"
+        exit 1
+    }
+}
+
 function Update-WingetPackage {
     param(
         [Parameter(Mandatory = $true)] [string] $WebsiteURL,
@@ -207,15 +219,7 @@ function Update-WingetPackage {
             Write-Host "Downloading $With and open PR for $wingetPackage Version $($Latest.Version)"
             Switch ($With) {
                 "Komac" {
-                    $latestKomacRelease = (Invoke-RestMethod -Uri "https://api.github.com/repos/russellbanks/Komac/releases/latest").assets | Where-Object { $_.browser_download_url.EndsWith("KomacPortable-x64.exe") } | Select-Object -First 1 -ExpandProperty browser_download_url
-                    Invoke-WebRequest  -Uri $latestKomacRelease -OutFile komac.exe
-                    if (Test-Path ".\komac.exe") {
-                        Write-Host "Komac successfully downloaded"
-                    }
-                    else {
-                        Write-Error "Komac not downloaded"
-                        exit 1
-                    }
+                    Install-Komac
                     .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls "$($Latest.URLs.replace(' ','" "'))" ($Submit -eq $true ? "-s" : "") -t $gitToken
                 }
                 "WinGetCreate" {

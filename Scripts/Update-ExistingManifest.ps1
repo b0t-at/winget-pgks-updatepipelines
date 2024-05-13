@@ -11,6 +11,8 @@ if (-not (Get-Module -Name powershell-yaml -ListAvailable)) {
 
 # Import powershell-yaml module
 Import-Module -Name powershell-yaml
+. .\Scripts\common.ps1
+Install-Komac
 
 function Get-InstallerManifestContentGH {
     param(

@@ -29,4 +29,6 @@ jobs:
       - name: Trigger Mass Package Update
         run: |
           Write-Host "Currently in: $(Get-Location)"
-          pipeline/Scripts/Update-ExistingManifest.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir fork
+          $fullPathFork = "$(Get-Location)\fork"
+          Set-Location pipeline
+          pipeline/Scripts/Update-ExistingManifest.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPath
