@@ -11,7 +11,7 @@ jobs:
     name: Update manifests
     runs-on: windows-latest
     env:
-      WINGET_PKGS_FORK: ${{vars.WINGET_PKGS_FORK}}
+      WINGET_PKGS_FORK_REPO: ${{vars.WINGET_PKGS_FORK_REPO}}
       WINGET_PAT: ${{secrets.WINGET_PAT}}
     steps:
       - name: Checkout
@@ -21,7 +21,9 @@ jobs:
       - name: Checkout winget-pkgs fork
         uses: actions/checkout@v4
         with:
-          repository: ${{env.WINGET_PKGS_FORK}}
+          repository: ${{env.WINGET_PKGS_FORK_REPO}}
           token: ${{env.WINGET_PAT}}
       - name: Trigget Mass Package Update
-        run: ./Scripts/UpdateManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }}
+        run: |
+          pwd
+          ./Scripts/UpdateManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }}
