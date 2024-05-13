@@ -27,6 +27,7 @@ function Get-AllInstallerManifestsGH {
     param(
         [Parameter(Mandatory = $true)] [string] $PackageIdentifier
     )
+    Install-Komac
     $versions = (komac.exe  list-versions --identifier $PackageIdentifier --json) | ConvertFrom-Json
 
     $manifestDict = @{}
@@ -86,7 +87,7 @@ function Update-WingetPackage {
         # Create a new branch on the remote
         git checkout -b $branchName
         Install-Komac
-        .\komac.exe update --version $version --identifier  $PackageIdentifier --urls ($installerLinks -join ' ') -o $OutputDir
+        komac.exe update --version $version --identifier  $PackageIdentifier --urls ($installerLinks -join ' ') -o $OutputDir
 
         git add $version
         # Commit the changes
