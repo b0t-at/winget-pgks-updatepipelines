@@ -12,7 +12,6 @@ if (-not (Get-Module -Name powershell-yaml -ListAvailable)) {
 # Import powershell-yaml module
 Import-Module -Name powershell-yaml
 . .\Scripts\common.ps1
-Install-Komac
 
 function Get-InstallerManifestContentGH {
     param(
@@ -86,13 +85,15 @@ function Update-WingetPackage {
         $branchName = "manual_" + $PackageIdentifier + "_" + $version
         # Create a new branch on the remote
         git checkout -b $branchName
-
-        Komac.exe update --version $version --identifier  $PackageIdentifier --urls ($installerLinks -join ' ') -o $OutputDir
+        Install-Komac
+        .\komac.exe update --version $version --identifier  $PackageIdentifier --urls ($installerLinks -join ' ') -o $OutputDir
 
         git add $version
         # Commit the changes
         git commit -am "Update existing $PackageIdentifier version $($directory.Name) Manifest"
+        # Checkout the master branch and merge the changes
         git checkout master
+        git reset --hard master
 
         # Push the branch to the remote
         git push origin $branchName
