@@ -1,6 +1,7 @@
 param(
     [Parameter(Mandatory = $true)] [string] $PackageIdentifier,
-    [Parameter(Mandatory = $true)] [string] $OutputDir
+    [Parameter(Mandatory = $true)] [string] $OutputDir,
+    [Parameter(Mandatory = $true)] [string] $Token
 )
 
 # Check if powershell-yaml module is installed
@@ -28,7 +29,7 @@ function Get-AllInstallerManifestsGH {
         [Parameter(Mandatory = $true)] [string] $PackageIdentifier
     )
     Install-Komac
-    $versions = (.\komac.exe  list-versions --identifier $PackageIdentifier --json) | ConvertFrom-Json
+    $versions = (.\komac.exe  list-versions --identifier $PackageIdentifier --json -t $Token) | ConvertFrom-Json
 
     $manifestDict = @{}
     foreach ($version in $versions) {
@@ -87,7 +88,7 @@ function Update-WingetPackage {
         # Create a new branch on the remote
         git checkout -b $branchName
         Install-Komac
-        .\komac.exe update --version $version --identifier  $PackageIdentifier --urls ($installerLinks -join ' ') -o $OutputDir
+        .\komac.exe update --version $version --identifier  $PackageIdentifier --urls ($installerLinks -join ' ') -o $OutputDir -t $Token
 
         git add $version
         # Commit the changes

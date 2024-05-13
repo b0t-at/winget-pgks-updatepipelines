@@ -31,4 +31,4 @@ jobs:
           Write-Host "Currently in: $(Get-Location)"
           $fullPathFork = "$(Get-Location)\fork"
           Set-Location pipeline
-          Scripts/Update-ExistingManifest.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPathFork
+          Scripts/Update-ExistingManifest.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPathFork -Token ${{env.WINGET_PAT}}
