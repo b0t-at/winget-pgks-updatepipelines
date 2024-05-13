@@ -23,7 +23,8 @@ jobs:
         with:
           repository: ${{env.WINGET_PKGS_FORK_REPO}}
           token: ${{env.WINGET_PAT}}
+          fetch-depth: 1
       - name: Trigget Mass Package Update
         run: |
-          pwd
-          ./Scripts/UpdateManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }}
+          Write-Host "Currently in: $(Get-Location)"
+          ${{env.WINGET_PKGS_FORK_REPO}}/Scripts/UpdateManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }}
