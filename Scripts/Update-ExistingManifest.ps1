@@ -1,8 +1,16 @@
-#Import-Module powershell-yaml
-# param(
-#     [Parameter(Mandatory = $true)] [string] $PackageIdentifier,
-#     [Parameter(Mandatory = $true)] [string] $OutputDir
-# )
+param(
+    [Parameter(Mandatory = $true)] [string] $PackageIdentifier,
+    [Parameter(Mandatory = $true)] [string] $OutputDir
+)
+
+# Check if powershell-yaml module is installed
+if (-not (Get-Module -Name powershell-yaml -ListAvailable)) {
+    # Install powershell-yaml module
+    Install-Module -Name powershell-yaml -Scope CurrentUser -Force
+}
+
+# Import powershell-yaml module
+Import-Module -Name powershell-yaml
 
 function Get-InstallerManifestContentGH {
     param(
@@ -85,13 +93,13 @@ function Update-WingetPackage {
         git checkout master
 
         # Push the branch to the remote
-        #git push origin $branchName
+        git push origin $branchName
     }
 
 }
 
-Update-WingetPackage -PackageIdentifier "hoppscotch.Hoppscotch" -OutputDir "C:\Programming\winget-pkgs" -All
-
+#Update-WingetPackage -PackageIdentifier "hoppscotch.Hoppscotch" -OutputDir "C:\Programming\winget-pkgs" -All
+Update-WingetPackage -PackageIdentifier $PackageIdentifier -OutputDir $OutputDir -All
 
 
 

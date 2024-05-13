@@ -18,13 +18,15 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository }}
+          path: pipeline
       - name: Checkout winget-pkgs fork
         uses: actions/checkout@v4
         with:
           repository: ${{env.WINGET_PKGS_FORK_REPO}}
           token: ${{env.WINGET_PAT}}
-          fetch-depth: 1
-      - name: Trigget Mass Package Update
+          fetch-depth: 2
+          path: fork
+      - name: Trigger Mass Package Update
         run: |
           Write-Host "Currently in: $(Get-Location)"
-          ${{env.WINGET_PKGS_FORK_REPO}}/Scripts/UpdateManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }}
+          pipeline/Scripts/Update-ExistingManifest.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir fork
