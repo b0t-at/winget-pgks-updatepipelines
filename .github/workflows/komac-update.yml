@@ -18,7 +18,7 @@ on:
         default: false
       resolves: 
         description: 'resolves this issues'
-        required: true
+        required: false
 #  schedule:
 #    - cron:  '3 12 * * *' # every 4 hours
 
@@ -32,7 +32,7 @@ jobs:
     - name: Run Komac
       uses: michidk/run-komac@v2
       with:
-        args: 'new --identifier ${{ inputs.identifier }} --version ${{ inputs.version }} --urls "${{ inputs.urls }}" --token=${{ secrets.WINGET_PAT }} --resolves ${{ inputs.version }} --submit'
+        args: 'update --identifier ${{ inputs.identifier }} --version ${{ inputs.version }} --urls "${{ inputs.urls }}" --token=${{ secrets.WINGET_PAT }} --resolves ${{ inputs.version }} --submit'
         custom-fork-owner: damn-good-b0t
 
   komac-new:
@@ -43,5 +43,5 @@ jobs:
        - name: Run Komac
          uses: michidk/run-komac@v2
          with:
-           args: 'new --identifier ${{ inputs.identifier }} --version ${{ inputs.version }} --urls "${{ inputs.urls }}" --token=${{ secrets.WINGET_PAT }}'
+           args: 'update --identifier ${{ inputs.identifier }} --version ${{ inputs.version }} --urls "${{ inputs.urls }}" --token=${{ secrets.WINGET_PAT }}'
            custom-fork-owner: damn-good-b0t
