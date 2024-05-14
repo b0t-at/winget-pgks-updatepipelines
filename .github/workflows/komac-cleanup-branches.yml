@@ -1,7 +1,7 @@
 name: Cleanup Branches
 on:
   workflow_dispatch:
-    inputs:
+#    inputs:
 #      identifier:
 #        description: Package.Identifier
 #        required: true
