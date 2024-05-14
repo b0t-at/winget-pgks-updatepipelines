@@ -24,7 +24,7 @@ on:
 
 jobs:
   komac-new-submit:
-    name: komac update (NO submit)
+    name: komac update and submit
     if:  ${{ inputs.submit }} 
     runs-on: ubuntu-latest
 
@@ -36,7 +36,7 @@ jobs:
         custom-fork-owner: damn-good-b0t
 
   komac-new:
-       name: komac update and submit
+       name: komac update (NO submit)
        if:  ${{ inputs.submit != 'true' }}
        runs-on: ubuntu-latest   
        steps:
