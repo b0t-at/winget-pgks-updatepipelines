@@ -37,7 +37,7 @@ jobs:
 
   komac-new:
        name: komac new and submit
-       if:  ! ${{ inputs.submit }} 
+       if:  false == ${{ inputs.submit }} 
        runs-on: ubuntu-latest   
        steps:
        - name: Run Komac
