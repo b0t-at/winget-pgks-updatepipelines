@@ -10,7 +10,20 @@ Param(
 )
 $ManifestURL = $ManifestURL.TrimEnd('/')
 $SplittedURL = $ManifestURL -split '/'
-$package = "$($SplittedURL[-2]).$($SplittedURL[-3])"
+
+# Define the regular expression to find values between a single lowercase char and the version number
+$regex = '/([a-z])/(.*?)/([0-9.]*$)'
+
+# Find all values between a single letter and the version number
+if ($ManifestURL -match $regex) {
+    # Split the matched string by '/'
+    $package = ($Matches[2]).replace("/",".")
+}
+else {
+    $package = "$($SplittedURL[-2]).$($SplittedURL[-3])"
+}
+
+
 if (Test-Path -Path (Join-Path -Path ([System.IO.Path]::GetTempPath()) -ChildPath 'ManifestDownload')) {
     Remove-Item -Path (Join-Path -Path ([System.IO.Path]::GetTempPath()) -ChildPath 'ManifestDownload') -Force -Recurse
 }
