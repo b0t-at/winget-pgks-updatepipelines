@@ -2,6 +2,10 @@ name: Test Manifest
 
 on:
   workflow_dispatch:
+    inputs:
+      ManifestURL:
+        description: "Manifest URL"
+        required: true
 
 jobs:
   test:
@@ -10,18 +14,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Get Sandbox Script
-        run: Invoke-WebRequest -Uri https://raw.githubusercontent.com/microsoft/winget-pkgs/master/Tools/SandboxTest.ps1 -OutFile SandboxTest.ps1
-      - name: Run Sandbox Script
-        run: .\SandboxTest.ps1 -WinGetVersion 1.7 -Script {winget install Git.Git --accept-source-agreements}
-        # - name: Checkout
-        #   uses: actions/checkout@v4
-        # - name: Update package
-        #   id: update_version
-        #   env:
-        #     GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
-        #     WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
-        #     WebsiteURL: "https://www.isobuster.com/downloads/isobuster/isobuster_install_64bit.exe https://www.isobuster.com/downloads/isobuster/isobuster_install.exe"
-        #     PackageName: "SmartProjects.IsoBuster"
-        #     With: "Komac"
-        #   run: .\Scripts\generic.ps1
+      - name: Install winget
+        uses: Cyberboss/install-winget@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run Test Script
+        run: .\Scripts\Test-Manifest.ps1 -ManifestURL ${{inputs.ManifestURL}}
+        #run: .\Scripts\Test-Manifest.ps1-Script {winget install Git.Git --accept-source-agreements}
