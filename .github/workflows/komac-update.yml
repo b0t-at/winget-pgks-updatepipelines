@@ -1,0 +1,47 @@
+name: Update Package
+on:
+  workflow_dispatch:
+    inputs:
+      identifier:
+        description: Package.Identifier
+        required: true
+      urls:
+        description: URLs space separated
+        required: true
+      version:
+        description: Version
+        required: true
+      submit:
+        description: 'True to auto-submit'
+        required: true
+        type: boolean
+        default: false
+      resolves: 
+        description: 'resolves this issues'
+        required: true
+#  schedule:
+#    - cron:  '3 12 * * *' # every 4 hours
+
+jobs:
+  komac-new-submit:
+    name: komac new and submit
+    if:  ${{ inputs.submit }} 
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Run Komac
+      uses: michidk/run-komac@v2
+      with:
+        args: 'new --identifier ${{ inputs.identifier }} --version ${{ inputs.version }} --urls "${{ inputs.urls }}" --token=${{ secrets.WINGET_PAT }} --resolves ${{ inputs.version }} --submit'
+        custom-fork-owner: damn-good-b0t
+
+  komac-new:
+       name: komac new and submit
+       if:  false == ${{ inputs.submit }} 
+       runs-on: ubuntu-latest   
+       steps:
+       - name: Run Komac
+         uses: michidk/run-komac@v2
+         with:
+           args: 'new --identifier ${{ inputs.identifier }} --version ${{ inputs.version }} --urls "${{ inputs.urls }}" --token=${{ secrets.WINGET_PAT }}'
+           custom-fork-owner: damn-good-b0t
