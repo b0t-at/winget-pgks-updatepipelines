@@ -1,0 +1,34 @@
+name: Rebuild Package Manifests
+on:
+  workflow_dispatch:
+    inputs:
+      PackageIdentifier:
+        description: "Package Identifier"
+        required: true
+      Message: 
+        description: "Message"
+        required: false
+
+jobs:
+  update:
+    name: Rebuild manifests
+    runs-on: windows-latest
+    env:
+      WINGET_PKGS_FORK_REPO: ${{vars.WINGET_PKGS_FORK_REPO}}
+      WINGET_PAT: ${{secrets.WINGET_PAT}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Trigger Mass Package Update
+        run: |
+          Write-Host "Currently in: $(Get-Location)"
+          $fullPathFork = "$(Get-Location)"
+          if($message -eq $null) {
+            Scripts/Update-PackageManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPathFork -Token ${{env.WINGET_PAT}}
+          } else {
+            Scripts/Update-PackageManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPathFork -Token ${{env.WINGET_PAT}} -Message ${{ github.event.inputs.Message }}
+          }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: manifests
+          path: manifests

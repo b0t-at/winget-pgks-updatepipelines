@@ -1,8 +1,19 @@
-#Import-Module powershell-yaml
-# param(
-#     [Parameter(Mandatory = $true)] [string] $PackageIdentifier,
-#     [Parameter(Mandatory = $true)] [string] $OutputDir
-# )
+param(
+    [Parameter(Mandatory = $true)] [string] $PackageIdentifier,
+    [Parameter(Mandatory = $true)] [string] $OutputDir,
+    [Parameter(Mandatory = $true)] [string] $Token,
+    [Parameter(Mandatory = $false)] [string] $Message
+)
+
+# Check if powershell-yaml module is installed
+if (-not (Get-Module -Name powershell-yaml -ListAvailable)) {
+    # Install powershell-yaml module
+    Install-Module -Name powershell-yaml -Scope CurrentUser -Force
+}
+
+# Import powershell-yaml module
+Import-Module -Name powershell-yaml
+. .\Scripts\common.ps1
 
 function Get-InstallerManifestContentGH {
     param(
@@ -18,7 +29,8 @@ function Get-AllInstallerManifestsGH {
     param(
         [Parameter(Mandatory = $true)] [string] $PackageIdentifier
     )
-    $versions = (komac.exe  list-versions --identifier $PackageIdentifier --json) | ConvertFrom-Json
+    Install-Komac
+    $versions = (.\komac.exe  list-versions --identifier $PackageIdentifier --json -t $Token) | ConvertFrom-Json
 
     $manifestDict = @{}
     foreach ($version in $versions) {
@@ -63,35 +75,17 @@ function Update-WingetPackage {
         $manifestDict[$Version] = Get-InstallerManifestContentGH -PackageIdentifier $PackageIdentifier -Version $Version
     }
 
-    $packageFolder = "$OutputDir\manifests\$($PackageIdentifier.Substring(0, 1).ToLower())/$($PackageIdentifier.replace(".", "/"))"
-    Set-Location $packageFolder
-    git checkout master
-
     foreach ($version in $manifestDict.Keys) {
         $manifest = $manifestDict[$version]
         # Extract the installer links from the manifest
         $installerLinks = Export-InstallerLinks -Manifest $manifest
 
-        # Create the branch name
-        $branchName = "manual_" + $PackageIdentifier + "_" + $version
-        # Create a new branch on the remote
-        git checkout -b $branchName
-
-        Komac.exe update --version $version --identifier  $PackageIdentifier --urls ($installerLinks -join ' ') -o $OutputDir
-
-        git add $version
-        # Commit the changes
-        git commit -am "Update existing $PackageIdentifier version $($directory.Name) Manifest"
-        git checkout master
-
-        # Push the branch to the remote
-        #git push origin $branchName
-    }
-
+        Install-Komac
+        .\komac.exe update --version $version --identifier  $PackageIdentifier --urls ($installerLinks -join ' ') -o $OutputDir -t $Token --dry-run
+        }
 }
 
-Update-WingetPackage -PackageIdentifier "hoppscotch.Hoppscotch" -OutputDir "C:\Programming\winget-pkgs" -All
-
+Update-WingetPackage -PackageIdentifier $PackageIdentifier -OutputDir $OutputDir -All
 
 
 
