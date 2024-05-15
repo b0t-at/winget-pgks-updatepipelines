@@ -1,4 +1,4 @@
-name: Mass Update Manifest
+name: Rebuild Package Manifests
 on:
   workflow_dispatch:
     inputs:
@@ -11,7 +11,7 @@ on:
 
 jobs:
   update:
-    name: Update manifests
+    name: Rebuild manifests
     runs-on: windows-latest
     env:
       WINGET_PKGS_FORK_REPO: ${{vars.WINGET_PKGS_FORK_REPO}}
@@ -23,7 +23,11 @@ jobs:
         run: |
           Write-Host "Currently in: $(Get-Location)"
           $fullPathFork = "$(Get-Location)"
-          Scripts/Update-ExistingManifest.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPathFork -Token ${{env.WINGET_PAT}} -Message ${{ github.event.inputs.Message }}
+          if($message -eq $null) {
+            Scripts/Update-PackageManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPathFork -Token ${{env.WINGET_PAT}}
+          } else {
+            Scripts/Update-PackageManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPathFork -Token ${{env.WINGET_PAT}} -Message ${{ github.event.inputs.Message }}
+          }
       - uses: actions/upload-artifact@v4
         with:
           name: manifests
