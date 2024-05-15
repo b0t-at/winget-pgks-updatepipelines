@@ -75,10 +75,6 @@ function Update-WingetPackage {
         $manifestDict[$Version] = Get-InstallerManifestContentGH -PackageIdentifier $PackageIdentifier -Version $Version
     }
 
-    $packageFolder = "$OutputDir\manifests\$($PackageIdentifier.Substring(0, 1).ToLower())/$($PackageIdentifier.replace(".", "/"))"
-    Set-Location $packageFolder
-    git checkout master
-
     foreach ($version in $manifestDict.Keys) {
         $manifest = $manifestDict[$version]
         # Extract the installer links from the manifest
