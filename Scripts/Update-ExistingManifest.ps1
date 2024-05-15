@@ -84,31 +84,11 @@ function Update-WingetPackage {
         # Extract the installer links from the manifest
         $installerLinks = Export-InstallerLinks -Manifest $manifest
 
-        # Create the branch name
-        $branchName = "manual_" + $PackageIdentifier + "_" + $version
-        # Create a new branch on the remote
-        git checkout -b $branchName
         Install-Komac
-        .\komac.exe update --version $version --identifier  $PackageIdentifier --urls ($installerLinks -join ' ') -o $OutputDir -t $Token
-
-        git add $version
-        # Commit the changes
-        git commit -am "Update existing $PackageIdentifier version $($directory.Name) Manifest"
-        # Push the branch to the remote
-        git push origin $branchName
-        # Checkout the master branch and merge the changes
-        git checkout master
-        git reset --hard master
-
-
-
-        # create a pull request to the microsoft/winget-pkgs repository with the github cli
-        #gh pr create --title "Update existing $PackageIdentifier version $($directory.Name) Manifest" --body "This PR updates the manifest for $PackageIdentifier to version $($directory.Name). $($Message)" --base master --head $branchName
-    }
-
+        .\komac.exe update --version $version --identifier  $PackageIdentifier --urls ($installerLinks -join ' ') -o $OutputDir -t $Token --dry-run
+        }
 }
 
-#Update-WingetPackage -PackageIdentifier "hoppscotch.Hoppscotch" -OutputDir "C:\Programming\winget-pkgs" -All
 Update-WingetPackage -PackageIdentifier $PackageIdentifier -OutputDir $OutputDir -All
 
 

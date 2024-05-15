@@ -19,19 +19,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository }}
-          path: pipeline
-      - name: Checkout winget-pkgs fork
-        uses: actions/checkout@v4
-        with:
-          repository: ${{env.WINGET_PKGS_FORK_REPO}}
-          token: ${{env.WINGET_PAT}}
-          fetch-depth: 2
-          path: fork
       - name: Trigger Mass Package Update
         run: |
           Write-Host "Currently in: $(Get-Location)"
-          $fullPathFork = "$(Get-Location)\fork"
-          Set-Location pipeline
+          $fullPathFork = "$(Get-Location)"
           Scripts/Update-ExistingManifest.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPathFork -Token ${{env.WINGET_PAT}} -Message ${{ github.event.inputs.Message }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: manifests
+          path: manifests
