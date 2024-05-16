@@ -200,7 +200,7 @@ function ConvertTo-Bool {
         return $input
     }
 
-    switch ($input.ToLower()) {
+    switch ($input) {
         "true" { return $true }
         "false" { return $false }
         '$true' { return $true }
