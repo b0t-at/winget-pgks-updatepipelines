@@ -196,7 +196,7 @@ function Update-WingetPackage {
         [Parameter(Mandatory = $false)] [string] $WebsiteURL,
         [Parameter(Mandatory = $false)] [string] $WingetPackage = ${Env:PackageName},
         [Parameter(Mandatory = $false)][ValidateSet("Komac", "WinGetCreate")] [string] $With = "Komac",
-        [Parameter(Mandatory = $false)] [string] $resolves = ${Env:resolves},
+        [Parameter(Mandatory = $false)] [string] $resolves = (${Env:resolves} -match '^\d+$' ? ${Env:resolves} : ""),
         [Parameter(Mandatory = $false)] [switch] $Submit = $false,
         [Parameter(Mandatory = $false)] [string] $latestVersion,
         [Parameter(Mandatory = $false)] [string] $latestVersionURL
@@ -247,7 +247,7 @@ function Update-WingetPackage {
             Switch ($With) {
                 "Komac" {
                     Install-Komac
-                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls $Latest.URLs ($Submit -eq $true ? "-s" : "-dry_run") -t $gitToken -output $ManifestOutPath
+                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls $Latest.URLs ($Submit -eq $true ? "-s" : "-dry_run") ($resolves -match '^\d+$' ? "-resolves $resolves": "") -t $gitToken -output "$ManifestOutPath"
                 }
                 "WinGetCreate" {
                     Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe

@@ -15,7 +15,7 @@ on:
         description: 'True to auto-submit'
         required: true
         type: boolean
-        default: false
+        default: $false
       resolves: 
         description: 'resolves this issues'
         required: false
