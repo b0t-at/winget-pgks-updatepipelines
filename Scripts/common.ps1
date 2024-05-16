@@ -122,7 +122,7 @@ function Get-VersionAndUrl {
         if ($version -and $URLs) {
             $Latest = @{
                 Version = $version
-                URLs    = $URLs
+                URLs    = $URLs.split(",").trim().split(" ")
             }
         }
         else {
@@ -176,7 +176,7 @@ function Get-ProductVersionFromFile {
 }
 
 function Install-Komac {
-    if(-not (Test-Path ".\komac.exe")) {
+    if (-not (Test-Path ".\komac.exe")) {
         #$latestKomacRelease = (Invoke-RestMethod -Uri "https://api.github.com/repos/russellbanks/Komac/releases/latest").assets | Where-Object { $_.browser_download_url.EndsWith("KomacPortable-x64.exe") } | Select-Object -First 1 -ExpandProperty browser_download_url
         $latestKomacRelease = "https://github.com/b0t-at/Komac/releases/download/v2.99/KomacPortable-x64.exe"
         Invoke-WebRequest  -Uri $latestKomacRelease -OutFile komac.exe
@@ -191,16 +191,60 @@ function Install-Komac {
     }
 }
 
+function ConvertTo-Bool {
+    param(
+        [Parameter(Mandatory = $true)] $input
+    )
+
+    if ($input -is [bool]) {
+        return $input
+    }
+
+    switch ($input) {
+        "true" { return $true }
+        "false" { return $false }
+        '$true' { return $true }
+        '$false' { return $false }
+        "yes" { return $true }
+        "no" { return $false }
+        "1" { return $true }
+        "0" { return $false }
+        default { throw "Invalid boolean string: $input" }
+    }
+}
+
 function Update-WingetPackage {
     param(
-        [Parameter(Mandatory = $true)] [string] $WebsiteURL,
+        [Parameter(Mandatory = $false)] [string] $WebsiteURL,
         [Parameter(Mandatory = $false)] [string] $WingetPackage = ${Env:PackageName},
         [Parameter(Mandatory = $false)][ValidateSet("Komac", "WinGetCreate")] [string] $With = "Komac",
-        [Parameter(Mandatory = $false)] [switch] $Submit = $false
+        [Parameter(Mandatory = $false)] [string] $resolves = (${Env:resolves} -match '^\d+$' ? ${Env:resolves} : ""),
+        [Parameter(Mandatory = $false)] [switch] $Submit = $false,
+        [Parameter(Mandatory = $false)] [string] $latestVersion,
+        [Parameter(Mandatory = $false)] [string] $latestVersionURL
     )
+
+    # Custom validation
+    if (-not $WebsiteURL -and (-not $latestVersion -or -not $latestVersionURL)) {
+        throw "Either WebsiteURL or both latestVersion and latestVersionURL are required."
+    }
+
+    # if ($Submit -eq $false) {
+    #     $env:DRY_RUN = $true
+    # }
+
+
     $gitToken = Test-GitHubToken
 
-    $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $WebsiteURL
+    if ($latestVersion -and $latestVersionURL) {
+        $Latest = @{
+            Version = $latestVersion
+            URLs    = $latestVersionURL.split(",").trim().split(" ")
+        }
+    }
+    else {
+        $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $WebsiteURL
+    }
 
     if ($null -eq $Latest) {
         Write-Host "No version info found"
@@ -215,7 +259,6 @@ function Update-WingetPackage {
     $PackageAndVersionInWinget = Test-PackageAndVersionInGithub -wingetPackage $wingetPackage -latestVersion $($Latest.Version)
 
     $ManifestOutPath = "./manifests/$($wingetPackage.Substring(0, 1).ToLower())/$($wingetPackage.replace(".","/"))/$latestVersion/"
-    
 
     if ($PackageAndVersionInWinget) {
 
@@ -226,7 +269,7 @@ function Update-WingetPackage {
             Switch ($With) {
                 "Komac" {
                     Install-Komac
-                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls "$($Latest.URLs.replace(' ','" "'))" ($Submit -eq $true ? "-s" : "-dry_run") -t $gitToken -output $ManifestOutPath
+                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls ($Latest.URLs).split(" ") ($Submit -eq $true ? '-s' : '--dry-run') ($resolves -match '^\d+$' ? "--resolves" : $null ) ($resolves -match '^\d+$' ? $resolves : $null ) -t $gitToken --output "$ManifestOutPath"
                 }
                 "WinGetCreate" {
                     Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
@@ -237,7 +280,7 @@ function Update-WingetPackage {
                         Write-Error "wingetcreate not downloaded"
                         exit 1
                     }
-                    .\wingetcreate.exe update $wingetPackage ($Submit -eq $true ? "-s" : "") -v $Latest.Version -u "$($Latest.URLs.replace(' ','" "'))" --prtitle $prMessage -t $gitToken -o $ManifestOutPath
+                    .\wingetcreate.exe update $wingetPackage ($Submit -eq $true ? "-s" : $null ) -v $Latest.Version -u ($Latest.URLs).split(" ") --prtitle $prMessage -t $gitToken -o $ManifestOutPath
                 }
                 default { 
                     Write-Error "Invalid value \"$With\" for -With parameter. Valid values are 'Komac' and 'WinGetCreate'"
