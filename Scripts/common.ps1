@@ -122,7 +122,7 @@ function Get-VersionAndUrl {
         if ($version -and $URLs) {
             $Latest = @{
                 Version = $version
-                URLs    = $URLs
+                URLs    = $URLs.split(",").trim().split(" ")
             }
         }
         else {
@@ -239,7 +239,7 @@ function Update-WingetPackage {
     if ($latestVersion -and $latestVersionURL) {
         $Latest = @{
             Version = $latestVersion
-            URLs    = $latestVersionURL
+            URLs    = $latestVersionURL.split(",").trim().split(" ")
         }
     }
     else {
