@@ -10,7 +10,7 @@ if($Env:WebsiteURL) {
 if($Env:With) {
     $params.Add("With", $Env:With)
 }
-if($Env:Submit) {
+if($null -ne $Env:Submit) {
     $params.Add("Submit", (ConvertTo-Bool -input $Env:Submit))
 }
 if($Env:latestVersion) {
