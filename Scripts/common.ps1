@@ -229,9 +229,9 @@ function Update-WingetPackage {
         throw "Either WebsiteURL or both latestVersion and latestVersionURL are required."
     }
 
-    if ($Submit -eq $false) {
-        $env:DRY_RUN = $true
-    }
+    # if ($Submit -eq $false) {
+    #     $env:DRY_RUN = $true
+    # }
 
 
     $gitToken = Test-GitHubToken
@@ -260,8 +260,8 @@ function Update-WingetPackage {
 
     $ManifestOutPath = "./manifests/$($wingetPackage.Substring(0, 1).ToLower())/$($wingetPackage.replace(".","/"))/$latestVersion/"
 
-    write-host "($resolves -match '^\d+$' ? "-resolves $resolves": "")"
-    write-host ($resolves -match '^\d+$' ? "-resolves $resolves": "")
+    write-host "($Submit -eq $true ? '-s' : '')"
+    write-host ($Submit -eq $true ? '-s' : '')
     write-host "($resolves -match '^\d+$' ? ('-resolves '+$resolves) : "")"
     write-host ($resolves -match '^\d+$' ? ('-resolves '+$resolves) : "")
     
@@ -275,7 +275,7 @@ function Update-WingetPackage {
             Switch ($With) {
                 "Komac" {
                     Install-Komac
-                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls $Latest.URLs ($Submit -eq $true ? '-s' : '') ($resolves -match '^\d+$' ? ('-resolves '+$resolves) : "") -t $gitToken -output "$ManifestOutPath"
+                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls "$Latest.URLs" ($Submit -eq $true ? '-s' : '--dry_run') ($resolves -match '^\d+$' ? ('-resolves '+$resolves) : "") -t $gitToken --output "$ManifestOutPath"
                 }
                 "WinGetCreate" {
                     Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
