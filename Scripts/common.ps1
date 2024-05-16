@@ -200,7 +200,7 @@ function ConvertTo-Bool {
         return $input
     }
 
-    switch ($str.ToLower()) {
+    switch ($input.ToLower()) {
         "true" { return $true }
         "false" { return $false }
         '$true' { return $true }
@@ -209,7 +209,7 @@ function ConvertTo-Bool {
         "no" { return $false }
         "1" { return $true }
         "0" { return $false }
-        default { throw "Invalid boolean string: $str" }
+        default { throw "Invalid boolean string: $input" }
     }
 }
 
