@@ -244,7 +244,7 @@ function Update-WingetPackage {
             Switch ($With) {
                 "Komac" {
                     Install-Komac
-                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls "$($Latest.URLs.replace(' ','" "'))" ($Submit -eq $true ? "-s" : "-dry_run") ($resolves ? "-resolves $resolves" : '') -t $gitToken -output $ManifestOutPath
+                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls "$($Latest.URLs.replace(' ','" "'))" ($Submit -eq $true ? "-s" : "-dry_run") ($resolves ? "-resolves $resolves") -t $gitToken -output $ManifestOutPath
                 }
                 "WinGetCreate" {
                     Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
