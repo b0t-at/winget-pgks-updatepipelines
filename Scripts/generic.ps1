@@ -3,7 +3,9 @@
 #### Main
 $params = @{
     wingetPackage = ${Env:PackageName}
-    WebsiteURL = ${Env:WebsiteURL}
+}
+if($Env:WebsiteURL) {
+    $params.Add("WebsiteURL", $Env:WebsiteURL)
 }
 if($Env:With) {
     $params.Add("With", $Env:With)

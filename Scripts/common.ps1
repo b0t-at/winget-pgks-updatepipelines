@@ -193,32 +193,20 @@ function Install-Komac {
 
 function Update-WingetPackage {
     param(
-        [parameter(ValueFromRemainingArguments)]
-        [ValidateScript({if ($WebsiteURL -or ($latestVersion -and $latestVersionURL)) {
-            $True
-        } Else {
-            throw "Either WebsiteURL or both latestVersion and latestVersionURL are required."
-        }})]
-        [string] $WebsiteURL,
+        [Parameter(Mandatory = $false)] [string] $WebsiteURL,
         [Parameter(Mandatory = $false)] [string] $WingetPackage = ${Env:PackageName},
         [Parameter(Mandatory = $false)][ValidateSet("Komac", "WinGetCreate")] [string] $With = "Komac",
         [Parameter(Mandatory = $false)] [string] $resolves = ${Env:resolves},
         [Parameter(Mandatory = $false)] [switch] $Submit = $false,
-        [parameter(ValueFromRemainingArguments)]
-        [ValidateScript({if ($WebsiteURL -or ($latestVersion -and $latestVersionURL)) {
-            $True
-        } Else {
-            throw "Either WebsiteURL or both latestVersion and latestVersionURL are required."
-        }})]
-        [string] $latestVersion,
-        [parameter(ValueFromRemainingArguments)]
-        [ValidateScript({if ($WebsiteURL -or ($latestVersion -and $latestVersionURL)) {
-            $True
-        } Else {
-            throw "Either WebsiteURL or both latestVersion and latestVersionURL are required."
-        }})]
-        [string] $latestVersionURL
+        [Parameter(Mandatory = $false)] [string] $latestVersion,
+        [Parameter(Mandatory = $false)] [string] $latestVersionURL
     )
+
+    # Custom validation
+    if (-not $WebsiteURL -and (-not $latestVersion -or -not $latestVersionURL)) {
+        throw "Either WebsiteURL or both latestVersion and latestVersionURL are required."
+    }
+
 
     $gitToken = Test-GitHubToken
 
