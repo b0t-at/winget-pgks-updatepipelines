@@ -23,25 +23,32 @@ on:
 #    - cron:  '3 12 * * *' # every 4 hours
 
 jobs:
-  komac-new-submit:
+  komac-update:
     name: komac update and submit
-    if:  ${{ inputs.submit }} 
+#    if:  ${{ inputs.submit }} 
     runs-on: ubuntu-latest
 
     steps:
-    - name: Run Komac
-      uses: michidk/run-komac@v2
-      with:
-        args: 'update --identifier ${{ inputs.identifier }} --version ${{ inputs.version }} --urls ${{ inputs.urls }} --token=${{ secrets.WINGET_PAT }} --resolves ${{ inputs.resolves }} --submit'
-        custom-fork-owner: damn-good-b0t
+      - name: Update package
+        id: update_version
+        env:
+          GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
+          WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
+          PackageName: ${{ inputs.identifier }}
+          With: ${{ inputs.With }}
+          Submit: ${{ inputs.submit }}
+          latestVersion: ${{ inputs.version }}
+          latestVersionUrl: ${{ inputs.urls }}
+          resolves: ${{ inputs.resolves }}
+        run: .\Scripts\generic.ps1
 
-  komac-new:
-       name: komac update (NO submit)
-       if:  ${{ inputs.submit != 'true' }}
-       runs-on: ubuntu-latest   
-       steps:
-       - name: Run Komac
-         uses: michidk/run-komac@v2
-         with:
-           args: 'update --identifier ${{ inputs.identifier }} --version ${{ inputs.version }} --urls ${{ inputs.urls }} --token=${{ secrets.WINGET_PAT }}'
-           custom-fork-owner: damn-good-b0t
+#  komac-update-no-submit:
+#       name: komac update (NO submit)
+#       if:  ${{ inputs.submit != 'true' }}
+#       runs-on: ubuntu-latest   
+#       steps:
+#       - name: Run Komac
+#         uses: michidk/run-komac@v2
+#         with:
+#           args: 'update --identifier ${{ inputs.identifier }} --version ${{ inputs.version }} --urls ${{ inputs.urls }} --token=${{ secrets.WINGET_PAT }}'
+#           custom-fork-owner: damn-good-b0t

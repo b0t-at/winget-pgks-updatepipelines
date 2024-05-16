@@ -176,7 +176,7 @@ function Get-ProductVersionFromFile {
 }
 
 function Install-Komac {
-    if(-not (Test-Path ".\komac.exe")) {
+    if (-not (Test-Path ".\komac.exe")) {
         #$latestKomacRelease = (Invoke-RestMethod -Uri "https://api.github.com/repos/russellbanks/Komac/releases/latest").assets | Where-Object { $_.browser_download_url.EndsWith("KomacPortable-x64.exe") } | Select-Object -First 1 -ExpandProperty browser_download_url
         $latestKomacRelease = "https://github.com/b0t-at/Komac/releases/download/v2.99/KomacPortable-x64.exe"
         Invoke-WebRequest  -Uri $latestKomacRelease -OutFile komac.exe
@@ -193,14 +193,44 @@ function Install-Komac {
 
 function Update-WingetPackage {
     param(
-        [Parameter(Mandatory = $true)] [string] $WebsiteURL,
+        [parameter(ValueFromRemainingArguments)]
+        [ValidateScript({if ($WebsiteURL -or ($latestVersion -and $latestVersionURL)) {
+            $True
+        } Else {
+            throw "Either WebsiteURL or both latestVersion and latestVersionURL are required."
+        }})]
+        [string] $WebsiteURL,
         [Parameter(Mandatory = $false)] [string] $WingetPackage = ${Env:PackageName},
         [Parameter(Mandatory = $false)][ValidateSet("Komac", "WinGetCreate")] [string] $With = "Komac",
-        [Parameter(Mandatory = $false)] [switch] $Submit = $false
+        [Parameter(Mandatory = $false)] [string] $resolves = ${Env:resolves},
+        [Parameter(Mandatory = $false)] [switch] $Submit = $false,
+        [parameter(ValueFromRemainingArguments)]
+        [ValidateScript({if ($WebsiteURL -or ($latestVersion -and $latestVersionURL)) {
+            $True
+        } Else {
+            throw "Either WebsiteURL or both latestVersion and latestVersionURL are required."
+        }})]
+        [string] $latestVersion,
+        [parameter(ValueFromRemainingArguments)]
+        [ValidateScript({if ($WebsiteURL -or ($latestVersion -and $latestVersionURL)) {
+            $True
+        } Else {
+            throw "Either WebsiteURL or both latestVersion and latestVersionURL are required."
+        }})]
+        [string] $latestVersionURL
     )
+
     $gitToken = Test-GitHubToken
 
-    $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $WebsiteURL
+    if ($latestVersion -and $latestVersionURL) {
+        $Latest = @{
+            Version = $latestVersion
+            URLs    = $latestVersionURL
+        }
+    }
+    else {
+        $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $WebsiteURL
+    }
 
     if ($null -eq $Latest) {
         Write-Host "No version info found"
@@ -226,7 +256,7 @@ function Update-WingetPackage {
             Switch ($With) {
                 "Komac" {
                     Install-Komac
-                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls "$($Latest.URLs.replace(' ','" "'))" ($Submit -eq $true ? "-s" : "-dry_run") -t $gitToken -output $ManifestOutPath
+                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls "$($Latest.URLs.replace(' ','" "'))" ($Submit -eq $true ? "-s" : "-dry_run") ($resolves ? "-resolves $resolves" : "") -t $gitToken -output $ManifestOutPath
                 }
                 "WinGetCreate" {
                     Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
