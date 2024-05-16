@@ -260,12 +260,6 @@ function Update-WingetPackage {
 
     $ManifestOutPath = "./manifests/$($wingetPackage.Substring(0, 1).ToLower())/$($wingetPackage.replace(".","/"))/$latestVersion/"
 
-    write-host "($Submit -eq $true ? '-s' : '')"
-    write-host ($Submit -eq $true ? '-s' : '')
-    write-host "($resolves -match '^\d+$' ? ('-resolves '+$resolves) : "")"
-    write-host ($resolves -match '^\d+$' ? ('-resolves '+$resolves) : "")
-    
-
     if ($PackageAndVersionInWinget) {
 
         $ExistingPRs = Test-ExistingPRs -wingetPackage $wingetPackage -latestVersion $($Latest.Version)
@@ -275,7 +269,7 @@ function Update-WingetPackage {
             Switch ($With) {
                 "Komac" {
                     Install-Komac
-                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls "$($Latest.URLs.replace(' ','" "'))" ($Submit -eq $true ? '-s' : '--dry-run') ($resolves -match '^\d+$' ? "--resolves" : $null ) ($resolves -match '^\d+$' ? $resolves : $null ) -t $gitToken --output "$ManifestOutPath"
+                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls $Latest.URLs ($Submit -eq $true ? '-s' : '--dry-run') ($resolves -match '^\d+$' ? "--resolves" : $null ) ($resolves -match '^\d+$' ? $resolves : $null ) -t $gitToken --output "$ManifestOutPath"
                 }
                 "WinGetCreate" {
                     Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
@@ -286,7 +280,7 @@ function Update-WingetPackage {
                         Write-Error "wingetcreate not downloaded"
                         exit 1
                     }
-                    .\wingetcreate.exe update $wingetPackage ($Submit -eq $true ? "-s" : "") -v $Latest.Version -u "$($Latest.URLs.replace(' ','" "'))" --prtitle $prMessage -t $gitToken -o $ManifestOutPath
+                    .\wingetcreate.exe update $wingetPackage ($Submit -eq $true ? "-s" : "") -v $Latest.Version -u $Latest.URLs --prtitle $prMessage -t $gitToken -o $ManifestOutPath
                 }
                 default { 
                     Write-Error "Invalid value \"$With\" for -With parameter. Valid values are 'Komac' and 'WinGetCreate'"
