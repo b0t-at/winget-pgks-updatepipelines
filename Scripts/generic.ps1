@@ -11,7 +11,7 @@ if($Env:With) {
     $params.Add("With", $Env:With)
 }
 if($Env:Submit) {
-    $params.Add("Submit", $true)
+    $params.Add("Submit", (ConvertTo-Bool -input $Env:Submit))
 }
 if($Env:latestVersion) {
     $params.Add("latestVersion", $Env:latestVersion)

@@ -191,6 +191,28 @@ function Install-Komac {
     }
 }
 
+function ConvertTo-Bool {
+    param(
+        [Parameter(Mandatory = $true)] $input
+    )
+
+    if ($input -is [bool]) {
+        return $input
+    }
+
+    switch ($str.ToLower()) {
+        "true" { return $true }
+        "false" { return $false }
+        '$true' { return $true }
+        '$false' { return $false }
+        "yes" { return $true }
+        "no" { return $false }
+        "1" { return $true }
+        "0" { return $false }
+        default { throw "Invalid boolean string: $str" }
+    }
+}
+
 function Update-WingetPackage {
     param(
         [Parameter(Mandatory = $false)] [string] $WebsiteURL,
