@@ -19,6 +19,11 @@ on:
       resolves: 
         description: 'resolves this issues'
         required: false
+      With:
+        description: 'WinGetCreate or komac'
+        required: true
+        type: string
+        default: 'komac'
 #  schedule:
 #    - cron:  '3 12 * * *' # every 4 hours
 
