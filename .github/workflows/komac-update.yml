@@ -29,7 +29,7 @@ on:
 
 jobs:
   komac-update:
-    name: komac update and submit
+    name: komac update and submit = ${{ inputs.submit }} 
 #    if:  ${{ inputs.submit }} 
     runs-on: windows-latest
 
