@@ -60,6 +60,9 @@ jobs:
           - id: "AquaSecurity.Trivy"
             repo: "aquasecurity/trivy"
             url: "https://github.com/aquasecurity/trivy/releases/download/v{VERSION}/trivy_{VERSION}_windows-64bit.zip"
+          - id: "TeXstudio.TeXstudio"
+            repo: "texstudio-org/texstudio"
+            url: " https://github.com/texstudio-org/texstudio/releases/download/{VERSION}/texstudio-{VERSION}-win-qt6.exe"
 
     steps:
     - name: Update Packages
