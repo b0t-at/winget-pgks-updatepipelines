@@ -286,7 +286,7 @@ function Update-WingetPackage {
                         Write-Error "wingetcreate not downloaded"
                         exit 1
                     }
-                    .\wingetcreate.exe update $wingetPackage ($Submit -eq $true ? "-s" : "") -v $Latest.Version -u "$($Latest.URLs.replace(' ','" "'))" --prtitle $prMessage -t $gitToken -o $ManifestOutPath
+                    .\wingetcreate.exe update $wingetPackage ($Submit -eq $true ? "-s" : $null) -v $Latest.Version -u "$($Latest.URLs.replace(' ','" "'))" --prtitle $prMessage -t $gitToken -o $ManifestOutPath
                 }
                 default { 
                     Write-Error "Invalid value \"$With\" for -With parameter. Valid values are 'Komac' and 'WinGetCreate'"
