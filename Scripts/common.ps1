@@ -275,7 +275,7 @@ function Update-WingetPackage {
             Switch ($With) {
                 "Komac" {
                     Install-Komac
-                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls "$($Latest.URLs)" ($Submit -eq $true ? '-s' : '--dry-run') ($resolves -match '^\d+$' ? "--resolves"," ",$resolves : $null ) -t $gitToken --output "$ManifestOutPath"
+                    .\komac.exe update --identifier $wingetPackage --version $Latest.Version --urls "$($Latest.URLs)" ($Submit -eq $true ? '-s' : '--dry-run') ($resolves -match '^\d+$' ? "--resolves" : $null ) ($resolves -match '^\d+$' ? $resolves : $null ) -t $gitToken --output "$ManifestOutPath"
                 }
                 "WinGetCreate" {
                     Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
@@ -286,7 +286,7 @@ function Update-WingetPackage {
                         Write-Error "wingetcreate not downloaded"
                         exit 1
                     }
-                    .\wingetcreate.exe update $wingetPackage ($Submit -eq $true ? "-s" : $null) -v $Latest.Version -u "$($Latest.URLs.replace(' ','" "'))" --prtitle $prMessage -t $gitToken -o $ManifestOutPath
+                    .\wingetcreate.exe update $wingetPackage ($Submit -eq $true ? "-s" : "") -v $Latest.Version -u "$($Latest.URLs.replace(' ','" "'))" --prtitle $prMessage -t $gitToken -o $ManifestOutPath
                 }
                 default { 
                     Write-Error "Invalid value \"$With\" for -With parameter. Valid values are 'Komac' and 'WinGetCreate'"
