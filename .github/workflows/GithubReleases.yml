@@ -54,6 +54,9 @@ jobs:
           - id: "JohnMacFarlane.Pandoc"
             repo: "jgm/pandoc"
             url: "https://github.com/jgm/pandoc/releases/download/{VERSION}/pandoc-{VERSION}-windows-x86_64.msi"
+          - id: "Neovim.Neovim"
+            repo: "neovim/neovim"
+            url: "https://github.com/neovim/neovim/releases/download/v{VERSION}/nvim-win64.msi"
 #          - id: "RustDesk.RustDesk"
 #            repo: "rustdesk/rustdesk"
 #            url: "https://github.com/rustdesk/rustdesk/releases/download/{VERSION}/rustdesk-{VERSION}-x86-sciter.exe https://github.com/rustdesk/rustdesk/releases/download/{VERSION}/rustdesk-{VERSION}-x86_64.exe"
@@ -63,6 +66,7 @@ jobs:
           - id: "TeXstudio.TeXstudio"
             repo: "texstudio-org/texstudio"
             url: " https://github.com/texstudio-org/texstudio/releases/download/{VERSION}/texstudio-{VERSION}-win-qt6.exe"
+
 
     steps:
     - name: Update Packages
