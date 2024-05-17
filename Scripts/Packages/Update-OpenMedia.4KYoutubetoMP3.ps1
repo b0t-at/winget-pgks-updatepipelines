@@ -6,7 +6,7 @@ $PackageName = $versionParts[1]
 $ProductName = ($PackageName -replace '4K', '').Trim().ToLower()
 
 $versionPattern = "$($ProductName)_(\d+\.\d+\.\d+\.\d+)"
-$URLFilter = "$($ProductName)_windows_(x32|x64)"
+$URLFilter = "$($ProductName)_windows"
 
 # Download the webpage
 $website = Invoke-WebRequest -Uri $WebsiteURL
@@ -25,11 +25,13 @@ $latestVersionUrl = $FilteredLinks | ForEach-Object { ($_.href -replace '\?.*', 
 
 Write-Host "latestVersionUrl: $latestVersionUrl"
 
-$64bitCheckURL = $($latestVersionUrl| Where-Object { $_ -match "_online.exe" })
+$64bitCheckURL = $($latestVersionUrl| Where-Object { $_ -match "_online.exe" }).replace("_online.exe", "_x64_online.exe)
 
 Write-Host "Checking: $64bitCheckURL"
 
 $latestVersion = Get-ProductVersionFromFile -VersionInfoProperty "ProductVersion" -WebsiteURL $64bitCheckURL
+
+$latestVersionUrl =+ $64bitCheckURL
 
 #$latestVersion = $versions | Sort-Object -Descending -Unique | Select-Object -First 1
 
