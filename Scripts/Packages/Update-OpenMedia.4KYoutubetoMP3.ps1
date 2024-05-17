@@ -25,7 +25,7 @@ $latestVersionUrl = $FilteredLinks | ForEach-Object { ($_.href -replace '\?.*', 
 
 Write-Host "latestVersionUrl: $latestVersionUrl"
 
-$64bitCheckURL = $($latestVersionUrl| Where-Object { $_ -match "_online.exe" }).replace("_online.exe", "_x64_online.exe)
+$64bitCheckURL = $($latestVersionUrl| Where-Object { $_ -match "_online.exe" }).replace("_online.exe", "_x64_online.exe")
 
 Write-Host "Checking: $64bitCheckURL"
 
