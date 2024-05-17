@@ -27,6 +27,7 @@ on:
         required: true
         type: string
         default: 'komac'
+        enum: ['WinGetCreate', 'komac']
 #  schedule:
 #    - cron:  '3 12 * * *' # every 4 hours
 
