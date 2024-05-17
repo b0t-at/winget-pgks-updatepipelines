@@ -105,7 +105,7 @@ function Get-VersionAndUrl {
         Write-Host "The script '$scriptPath' does not exist. Please check the wingetPackage parameter and the current directory."
         exit 1
     }
-
+    Write-Host "Running $scriptPath"
     $Latest = & $scriptPath -WebsiteURL $WebsiteURL -wingetPackage $wingetPackage
 
 
