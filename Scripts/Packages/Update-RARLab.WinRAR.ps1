@@ -20,7 +20,7 @@ if ($latestVersion -notmatch '^\d+\.\d+\.\d+$') {
     $latestVersion = "$latestVersion.0"
 }
 
-$URLFilter = "winrar-(x64|x86)-$UrlVersion"
+$URLFilter = "winrar-(x64|x32)-$UrlVersion"
 
 $FilteredLinks = $WebsiteLinks | Where-Object { $_ -match $URLFilter }
 $latestVersionUrl = $FilteredLinks | ForEach-Object { (($WebsiteURL -replace '/$', '') + $_.href) }
