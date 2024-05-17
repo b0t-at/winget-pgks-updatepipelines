@@ -7,10 +7,13 @@ on:
         required: true
       urls:
         description: URLs space separated
-        required: true
+        required: false
       version:
         description: Version
-        required: true
+        required: false
+      WebsiteURL:
+        description: WebsiteURL
+        required: false
       submit:
         description: 'True to auto-submit'
         required: true
@@ -47,6 +50,7 @@ jobs:
           latestVersion: ${{ inputs.version }}
           latestVersionUrl: ${{ inputs.urls }}
           resolves: ${{ inputs.resolves }}
+          WebsiteURL: ${{ inputs.WebsiteURL }}
         run: .\Scripts\generic.ps1
 
 #  komac-update-no-submit:
