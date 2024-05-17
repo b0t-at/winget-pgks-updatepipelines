@@ -1,7 +1,12 @@
 . .\Scripts\common.ps1
 
-$versionPattern = "videodownloader_(\d+\.\d+\.\d+\.\d+)_windows_(x86|x64)"
-$URLFilter = "videodownloader_windows_(x32|x64)_installer"
+$versionParts = $wingetPackage.Split('.')
+$PackageName = $versionParts[1]
+
+$ProductName = ($PackageName -replace '4K', '').Trim().ToLower()
+
+$versionPattern = "$($ProductName)_(\d+\.\d+\.\d+\.\d+)_windows_(x86|x64)"
+$URLFilter = "$($ProductName)_windows_(x32|x64)_installer"
 
 # Download the webpage
 $website = Invoke-WebRequest -Uri $WebsiteURL

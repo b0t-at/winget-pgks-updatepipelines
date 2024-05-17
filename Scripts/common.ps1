@@ -219,7 +219,7 @@ function Update-WingetPackage {
         [Parameter(Mandatory = $false)] [string] $WingetPackage = ${Env:PackageName},
         [Parameter(Mandatory = $false)][ValidateSet("Komac", "WinGetCreate")] [string] $With = "Komac",
         [Parameter(Mandatory = $false)] [string] $resolves = (${Env:resolves} -match '^\d+$' ? ${Env:resolves} : ""),
-        [Parameter(Mandatory = $false)] [switch] $Submit = $false,
+        [Parameter(Mandatory = $false)] [bool] $Submit = $false,
         [Parameter(Mandatory = $false)] [string] $latestVersion,
         [Parameter(Mandatory = $false)] [string] $latestVersionURL
     )
