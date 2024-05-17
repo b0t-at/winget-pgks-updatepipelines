@@ -23,11 +23,13 @@ on:
         description: 'resolves this issues'
         required: false
       With:
-        description: 'WinGetCreate or komac'
         required: true
-        type: string
+        type: choice
+        description: 'WinGetCreate or komac'
         default: 'komac'
-        enum: ['WinGetCreate', 'komac']
+        options:
+        - komac
+        - WinGetCreate
 #  schedule:
 #    - cron:  '3 12 * * *' # every 4 hours
 
