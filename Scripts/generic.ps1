@@ -10,8 +10,11 @@ if($Env:WebsiteURL) {
 if($Env:With) {
     $params.Add("With", $Env:With)
 }
-if($null -ne $Env:Submit) {
-    $params.Add("Submit", $Env:Submit)
+if($Env:Submit -eq $true) {
+    $params.Add("Submit", $true)
+}
+else {
+    $params.Add("Submit", $false)
 }
 if($Env:latestVersion) {
     $params.Add("latestVersion", $Env:latestVersion)
