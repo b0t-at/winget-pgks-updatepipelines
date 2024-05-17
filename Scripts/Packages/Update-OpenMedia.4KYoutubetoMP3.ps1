@@ -21,7 +21,7 @@ $versions = $FilteredLinks.outerHTML | Select-String -Pattern $versionPattern -A
 
 $latestVersionUrl = $FilteredLinks | ForEach-Object { ($_.href -replace '\?.*', '') }
 
-$latestVersion = Get-ProductVersionFromFile -VersionInfoProperty "ProductVersion" -WebsiteURL "($latestVersionUrl| Where-Object { $_ -match "x64_online.exe" })"
+$latestVersion = Get-ProductVersionFromFile -VersionInfoProperty "ProductVersion" -WebsiteURL "$($latestVersionUrl| Where-Object { $_ -match "x64_online.exe" })"
 
 #$latestVersion = $versions | Sort-Object -Descending -Unique | Select-Object -First 1
 
