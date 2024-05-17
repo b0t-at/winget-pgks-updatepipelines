@@ -29,7 +29,7 @@ $64bitCheckURL = $($latestVersionUrl| Where-Object { $_ -match "_online.exe" }).
 
 Write-Host "Checking: $64bitCheckURL"
 
-$latestVersion = Get-ProductVersionFromFile -VersionInfoProperty "ProductVersion" -WebsiteURL $64bitCheckURL
+$latestVersion = Get-ProductVersionFromFile -VersionInfoProperty "ProductVersion" -WebsiteURL "$64bitCheckURL"
 
 $latestVersionUrl =+ $64bitCheckURL
 
