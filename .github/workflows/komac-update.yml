@@ -32,7 +32,7 @@ on:
 
 jobs:
   komac-update:
-    name: update with submit = ${{ inputs.submit }} 
+    name: ${{ inputs.identifier }} -s ${{ inputs.submit }} 
 #    if:  ${{ inputs.submit }} 
     runs-on: windows-latest
 
