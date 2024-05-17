@@ -196,19 +196,25 @@ function ConvertTo-Bool {
         [Parameter(Mandatory = $true)] $input
     )
 
-    if ($input -is [bool]) {
-        return $input
+    if (-not $input) {
+        throw "No input provided"
     }
 
+    if ($input -is [bool]) {
+        return [bool]$input
+    }
+
+    Write-Host "Input: $input"
+
     switch ($input) {
-        "true" { return $true }
-        "false" { return $false }
-        '$true' { return $true }
-        '$false' { return $false }
-        "yes" { return $true }
-        "no" { return $false }
-        "1" { return $true }
-        "0" { return $false }
+        "true" { return [bool]$true }
+        "false" { return [bool]$false }
+        '$true' { return [bool]$true }
+        '$false' { return [bool]$false }
+        "yes" { return [bool]$true }
+        "no" { return [bool]$false }
+        "1" { return [bool]$true }
+        "0" { return [bool]$false }
         default { throw "Invalid boolean string: $input" }
     }
 }
