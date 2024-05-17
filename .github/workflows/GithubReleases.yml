@@ -66,7 +66,10 @@ jobs:
           - id: "TeXstudio.TeXstudio"
             repo: "texstudio-org/texstudio"
             url: " https://github.com/texstudio-org/texstudio/releases/download/{VERSION}/texstudio-{VERSION}-win-qt6.exe"
-
+          - id: "Levminer.Authme"
+            repo: "Levminer/authme"
+            url: "https://github.com/Levminer/authme/releases/download/{VERSION}/authme-{VERSION}-windows-x64.msi"
+ 
 
     steps:
     - name: Update Packages
