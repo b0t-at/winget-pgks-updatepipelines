@@ -31,7 +31,7 @@ Write-Host "Checking: $64bitCheckURL"
 
 $latestVersion = Get-ProductVersionFromFile -VersionInfoProperty "ProductVersion" -WebsiteURL "$64bitCheckURL"
 
-$latestVersionUrl = $latestVersionUrl+$64bitCheckURL
+$latestVersionUrl = ($latestVersionUrl+$64bitCheckURL) | Select-Object -unique
 
 #$latestVersion = $versions | Sort-Object -Descending -Unique | Select-Object -First 1
 
