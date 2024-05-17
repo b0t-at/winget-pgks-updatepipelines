@@ -249,6 +249,7 @@ function Update-WingetPackage {
         }
     }
     else {
+        Write-Host "Getting latest version and URL for $wingetPackage from $WebsiteURL"
         $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $WebsiteURL
     }
 
