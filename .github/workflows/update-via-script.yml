@@ -63,6 +63,10 @@ jobs:
             WebsiteURL: "https://www.isobuster.com/downloads/isobuster/isobuster_install_64bit.exe https://www.isobuster.com/downloads/isobuster/isobuster_install.exe"
           - PackageName: "Fork.Fork"
             WebsiteURL: "https://fork.dev"
+          - PackageName: "OpenMedia.4KYoutubetoMP3"
+            WebsiteURL: "https://www.4kdownload.com/downloads/34"
+          - PackageName: "OpenMedia.4KVideoDownloader"
+            WebsiteURL: "https://www.4kdownload.com/downloads/34"
 
     steps:
       - name: Checkout
