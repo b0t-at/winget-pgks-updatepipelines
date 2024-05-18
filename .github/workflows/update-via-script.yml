@@ -73,6 +73,8 @@ jobs:
             WebsiteURL: "https://www.4kdownload.com/downloads/34"
           - PackageName: "OpenMedia.4KStogram"
             WebsiteURL: "https://www.4kdownload.com/downloads/34"
+          - PackageName: "Egnyte.EgnyteWebEdit"
+            WebsiteURL: "https://egnyte-cdn.egnyte.com/webedit/win/en-us/latest/EgnyteWebEdit.msi"
 
     steps:
       - name: Checkout
