@@ -424,7 +424,7 @@ function Get-MSIFileInformation {
     }
     catch {
         Write-Warning "Unable to get file $FilePath $($_.Exception.Message)"
-        return
+        exit 1
     }
 
     $object = [PSCustomObject][ordered]@{
