@@ -3,10 +3,10 @@
 $versionParts = $wingetPackage.Split('.')
 $PackageName = $versionParts[1]
 
-$ProductName = ($PackageName -replace '4K', '').Trim().ToLower()
+$ProductName = ($PackageName).Trim().ToLower()
 
-$versionPattern = "$($ProductName)_(\d+\.\d+\.\d+\.\d+)_windows_(x86|x64)"
-$URLFilter = "$($ProductName)_windows"
+$versionPattern = "$($ProductName)-(\d+\.\d+\.\d+)_(\d+)-win"
+$URLFilter = "$($ProductName)-(\d+\.\d+\.\d+)_(\d+)-win"
 
 # Download the webpage
 $website = Invoke-WebRequest -Uri $WebsiteURL
@@ -14,16 +14,21 @@ $website = Invoke-WebRequest -Uri $WebsiteURL
 # Extract the content of the webpage
 $WebsiteLinks = $website.Links
 
-$FilteredLinks = $WebsiteLinks | Where-Object { $_.Id -match $URLFilter }
+$FilteredLinks = $WebsiteLinks | Where-Object { $_.href -match $URLFilter }
 
-$versions = $FilteredLinks.outerHTML | Select-String -Pattern $versionPattern -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Groups[1].Value }
-
+$versions = $FilteredLinks.href | Select-String -Pattern $versionPattern -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Groups[1].Value }
 $latestVersion = $versions | Sort-Object -Descending -Unique | Select-Object -First 1
+$builds = $FilteredLinks.href | Select-String -Pattern $versionPattern -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Groups[2].Value }
+$latestBuild = $builds | Sort-Object -Descending -Unique | Select-Object -First 1
 
-$latestVersionUrl = $FilteredLinks | ForEach-Object { ($_.href -replace '\?.*', '') }
+$FullVersion = $latestVersion+"."+$latestBuild
 
-$64bitCheckURL = $($latestVersionUrl| Where-Object { $_ -match "_online.exe" }).replace("_x64_online.exe", "_online.exe").replace("_online.exe", "_x64_online.exe") | Select-Object -unique
+$latestVersionUrls = $FilteredLinks | ForEach-Object { ($WebsiteURL+$_.href ) } | Select-Object -unique
 
-$latestVersionUrl = ($latestVersionUrl+$64bitCheckURL) | Select-Object -unique
+# Check if the URLs are valid
+$validUrls = $latestVersionUrls | Where-Object {
+    $result = $null
+    [System.Uri]::TryCreate($_, [System.UriKind]::Absolute, [ref]$result)
+}
 
-return $latestVersion, $latestVersionUrl
+return $FullVersion, $validUrls
