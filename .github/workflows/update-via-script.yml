@@ -83,6 +83,8 @@ jobs:
             WebsiteURL: "https://curl.se/windows/"
           - PackageName: "Oracle.MySQL"
             WebsiteURL: "https://dev.mysql.com/downloads/windows/installer/"
+          - PackageName: "Insecure.Npcap"
+            WebsiteURL: "https://npcap.com/dist/"
 
     steps:
       - name: Checkout
