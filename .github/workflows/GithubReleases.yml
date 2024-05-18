@@ -69,7 +69,9 @@ jobs:
           - id: "Levminer.Authme"
             repo: "Levminer/authme"
             url: "https://github.com/Levminer/authme/releases/download/{VERSION}/authme-{VERSION}-windows-x64.msi"
- 
+          - id: "StephanDilly.gitui"
+            repo: "extrawurst/gitui"
+            url: "https://github.com/extrawurst/gitui/releases/download/v{VERSION}/gitui-win.msi" 
 
     steps:
     - name: Update Packages
