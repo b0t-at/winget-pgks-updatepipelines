@@ -3,7 +3,7 @@
 
 | Package Version Handling| Count|
 |----------------------------|---------------------------------------------------------------|
-| Script based     | ![Script based Packages](https://img.shields.io/badge/ScriptPackages-25-green) |
+| Script based     | ![Script based Packages](https://img.shields.io/badge/ScriptPackages-26-green) |
 | GitHub Release based     | ![GitHub based Packages](https://img.shields.io/badge/GithubPackages-16-blue) |
 
 ## Repology
