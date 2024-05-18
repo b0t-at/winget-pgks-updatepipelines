@@ -33,6 +33,10 @@ on:
 #  schedule:
 #    - cron:  '3 12 * * *' # every 4 hours
 
+permissions: 
+  contents: write
+  pull-requests: write
+
 jobs:
   komac-update:
     name: ${{ inputs.identifier }} -s ${{ inputs.submit }} 
