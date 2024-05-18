@@ -81,6 +81,8 @@ jobs:
             WebsiteURL: "https://egnyte-cdn.egnyte.com/webedit/win/en-us/latest/EgnyteWebEdit.msi"
           - PackageName: "cURL.cURL"
             WebsiteURL: "https://curl.se/windows/"
+          - PackageName: "Oracle.MySQL"
+            WebsiteURL: "https://dev.mysql.com/downloads/windows/installer/"
 
     steps:
       - name: Checkout
