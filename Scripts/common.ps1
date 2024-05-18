@@ -265,7 +265,7 @@ function Update-WingetPackage {
 
     $PackageAndVersionInWinget = Test-PackageAndVersionInGithub -wingetPackage $wingetPackage -latestVersion $($Latest.Version)
 
-    $ManifestOutPath = "manifests"
+    $ManifestOutPath = "./"
 
     if ($PackageAndVersionInWinget) {
 
