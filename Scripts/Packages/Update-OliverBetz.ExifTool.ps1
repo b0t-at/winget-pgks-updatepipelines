@@ -19,7 +19,10 @@ $FilteredLinks = $WebsiteLinks | Where-Object { $_.href -match $URLFilter }
 $versions = $FilteredLinks.href | Select-String -Pattern $versionPattern -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Groups[1].Value }
 $latestVersion = $versions | Sort-Object -Descending -Unique | Select-Object -First 1
 
-$latestVersionUrls = $FilteredLinks | ForEach-Object { ($WebsiteURL+$_.href ) } | Select-Object -unique
+# extract website domain from the url
+$parsedUri = New-Object System.Uri($WebsiteURL)
+$baseUrl = $parsedUri.Scheme + "://" + $parsedUri.Host
+$latestVersionUrls = $FilteredLinks | ForEach-Object { ($baseUrl+$_.href ) } | Select-Object -unique
 
 # Check if the URLs are valid
 $validUrls = $latestVersionUrls | Where-Object {
