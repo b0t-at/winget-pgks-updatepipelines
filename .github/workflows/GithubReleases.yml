@@ -72,7 +72,10 @@ jobs:
           - id: "StephanDilly.gitui"
             repo: "extrawurst/gitui"
             url: "https://github.com/extrawurst/gitui/releases/download/v{VERSION}/gitui-win.msi" 
-
+          - id: "ameshkov.dnslookup"
+            repo: "ameshkov/dnslookup"
+            url: "https://github.com/ameshkov/dnslookup/releases/download/v{VERSION}/dnslookup-windows-386-v{VERSION}.zip https://github.com/ameshkov/dnslookup/releases/download/v{VERSION}/dnslookup-windows-amd64-v{VERSION}.zip" 
+            
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
