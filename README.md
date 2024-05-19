@@ -1,5 +1,7 @@
 # winget-pgks-updatepipelines
-[**winget-pkgs**](https://github.com/microsoft/winget-pkgs.git) Pull requests by [damn-good-b0t](https://github.com/microsoft/winget-pkgs/pulls/damn-good-b0t)
+**PR repo:** [winget-pkgs](https://github.com/microsoft/winget-pkgs.git)  
+**open PRs:** [damn-good-b0t](https://github.com/microsoft/winget-pkgs/pulls/damn-good-b0t)  
+**Fork repo:** [damn-good-b0t/winget-pkgs](https://github.com/damn-good-b0t/winget-pkgs)
 
 | Package Version Handling| Count|
 |----------------------------|---------------------------------------------------------------|
