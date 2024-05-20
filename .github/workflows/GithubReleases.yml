@@ -78,6 +78,9 @@ jobs:
           - id: "CrowdSecurity.CrowdSec"
             repo: "crowdsecurity/crowdsec"
             url: "https://github.com/crowdsecurity/crowdsec/releases/download/v{VERSION}/crowdsec_{VERSION}.msi" 
+          - id: "JanProchazka.dbgate"
+            repo: "dbgate/dbgate"
+            url: "https://github.com/dbgate/dbgate/releases/download/v{VERSION}/dbgate-{VERSION}-win_arm64.exe https://github.com/dbgate/dbgate/releases/download/v{VERSION}/dbgate-{VERSION}-win_x64.exe https://github.com/dbgate/dbgate/releases/download/v{VERSION}/dbgate-{VERSION}-win.exe"      
             
     steps:
     - name: Update Packages
