@@ -84,7 +84,12 @@ jobs:
           - id: "terreng.SimpleWebServer"
             repo: "terreng/simple-web-server"
             url: " https://github.com/terreng/simple-web-server/releases/download/v{VERSION}/Simple-Web-Server-Installer-{VERSION}-x64.exe"
-
+          - id: "jendrikseipp.RedNotebook"
+            repo: "jendrikseipp/rednotebook"
+            url: " https://github.com/jendrikseipp/rednotebook/releases/download/v{VERSION}/rednotebook-{VERSION}.exe"          
+          - id: "f4exb.sdrangel"
+            repo: "f4exb/sdrangel"
+            url: " https://github.com/f4exb/sdrangel/releases/download/v{VERSION}/sdrangel-{VERSION}-win64.exe"
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
