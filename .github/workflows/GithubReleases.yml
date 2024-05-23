@@ -90,6 +90,9 @@ jobs:
           - id: "f4exb.sdrangel"
             repo: "f4exb/sdrangel"
             url: "https://github.com/f4exb/sdrangel/releases/download/v{VERSION}/sdrangel-{VERSION}-win64.exe"
+          - id: "Fabio286.antares"
+            repo: "antares-sql/antares"
+            url: "https://github.com/antares-sql/antares/releases/download/v{VERSION}/Antares-{VERSION}-win_x64.exe"            
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
