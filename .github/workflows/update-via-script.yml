@@ -86,7 +86,7 @@ jobs:
           # - PackageName: "Insecure.Npcap"
           #   WebsiteURL: "https://npcap.com/dist/"
           - PackageName: "OliverBetz.ExifTool"
-            WebsiteURL: "https://oliverbetz.de/pages/Artikel/ExifTool-for-Windows"
+            WebsiteURL: "https://oliverbetz.de/cms/files/Artikel/ExifTool-for-Windows"
           - PackageName: "Bitwarden.CLI"
             WebsiteURL: "https://github.com/bitwarden/clients"
 
