@@ -1,33 +1,17 @@
 . .\Scripts\common.ps1
 
-$PackageParts = $wingetPackage.Split('.')
-$PackageName = $PackageParts[1]
+$latestVersion = Invoke-RestMethod -Method Get -Uri "https://oliverbetz.de/cms/files/Artikel/ExifTool-for-Windows/exiftool_latest_version.txt"
 
-$ProductName = ($PackageName).Trim().ToLower()
+$validUrls = @("$WebsiteURL/ExifTool_install_$($latestVersion)_32.exe","$WebsiteURL/ExifTool_install_$($latestVersion)_64.exe")
 
-$versionPattern = "$($ProductName)_install_(\d+\.\d+)_(\d+)"
-$URLFilter = "$($ProductName)_install_(\d+\.\d+)_(\d+)"
-
-# Download the webpage
-$website = Invoke-WebRequest -Uri $WebsiteURL
-
-# Extract the content of the webpage
-$WebsiteLinks = $website.Links
-
-$FilteredLinks = $WebsiteLinks | Where-Object { $_.href -match $URLFilter }
-
-$versions = $FilteredLinks.href | Select-String -Pattern $versionPattern -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Groups[1].Value }
-$latestVersion = $versions | Sort-Object -Descending -Unique | Select-Object -First 1
-
-# extract website domain from the url
-$parsedUri = New-Object System.Uri($WebsiteURL)
-$baseUrl = $parsedUri.Scheme + "://" + $parsedUri.Host
-$latestVersionUrls = $FilteredLinks | ForEach-Object { ($baseUrl+$_.href ) } | Where-Object { $_ -notmatch $WebsiteURL } | Select-Object -unique
-
-# Check if the URLs are valid
-$validUrls = $latestVersionUrls | Where-Object {
-    $result = $null
-    [System.Uri]::TryCreate($_, [System.UriKind]::Absolute, [ref]$result)
+foreach($url in $validUrls)
+{
+    $response = Invoke-WebRequest -Uri $url -Method Head
+    if($response.StatusCode -ne 200)
+    {
+        throw "URL $url is not valid."
+        exit 1
+    }
 }
 
 return $latestVersion, $validUrls
