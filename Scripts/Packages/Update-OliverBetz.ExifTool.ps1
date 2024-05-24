@@ -22,7 +22,7 @@ $latestVersion = $versions | Sort-Object -Descending -Unique | Select-Object -Fi
 # extract website domain from the url
 $parsedUri = New-Object System.Uri($WebsiteURL)
 $baseUrl = $parsedUri.Scheme + "://" + $parsedUri.Host
-$latestVersionUrls = $FilteredLinks | ForEach-Object { ($baseUrl+$_.href ) } | Select-Object -unique
+$latestVersionUrls = $FilteredLinks | ForEach-Object { ($baseUrl+$_.href ) } | Where-Object { $_ -notmatch $WebsiteURL } | Select-Object -unique
 
 # Check if the URLs are valid
 $validUrls = $latestVersionUrls | Where-Object {
