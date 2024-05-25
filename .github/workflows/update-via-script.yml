@@ -89,6 +89,8 @@ jobs:
             WebsiteURL: "https://oliverbetz.de/cms/files/Artikel/ExifTool-for-Windows"
           - PackageName: "Bitwarden.CLI"
             WebsiteURL: "https://github.com/bitwarden/clients"
+          - PackageName: "Microsoft.NuGet"
+            WebsiteURL: "https://dist.nuget.org/win-x86-commandline/latest"
 
     steps:
       - name: Checkout
