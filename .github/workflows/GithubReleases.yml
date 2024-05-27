@@ -92,7 +92,10 @@ jobs:
             url: "https://github.com/f4exb/sdrangel/releases/download/v{VERSION}/sdrangel-{VERSION}-win64.exe"
           - id: "Fabio286.antares"
             repo: "antares-sql/antares"
-            url: "https://github.com/antares-sql/antares/releases/download/v{VERSION}/Antares-{VERSION}-win_x64.exe"            
+            url: "https://github.com/antares-sql/antares/releases/download/v{VERSION}/Antares-{VERSION}-win_x64.exe"       
+          - id: "svenstaro.miniserve"
+            repo: "svenstaro/miniserve"
+            url: "https://github.com/svenstaro/miniserve/releases/download/v{VERSION}/miniserve-{VERSION}-x86_64-pc-windows-msvc.exe"   
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
