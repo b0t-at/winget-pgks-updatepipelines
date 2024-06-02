@@ -5,9 +5,7 @@ try {
 } catch {
     if ($_.Exception.Response.StatusCode -eq 302) {
         $RedirectUrl = $_.Exception.Response.Headers.Location
-        Write-Host $RedirectUrl
     }
-    Write-Host $_.Exception.Message
 }
 
 $latestVersionUrl = $RedirectUrl.AbsoluteUri

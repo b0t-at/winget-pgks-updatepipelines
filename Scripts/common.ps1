@@ -113,7 +113,7 @@ function Get-VersionAndUrl {
 
         $lines = $Latest -split "`n" -split " "
 
-        $versionPattern = '^\d+(\.\d+)*$'
+        $versionPattern = '^\d+(\.\d+)*-(alpha|beta)\.?\d+$'
         $urlPattern = '^http[s]?:\/\/[^\s]+$'
 
         $version = $lines | Where-Object { $_ -match $versionPattern }
