@@ -89,8 +89,8 @@ jobs:
             WebsiteURL: "https://oliverbetz.de/cms/files/Artikel/ExifTool-for-Windows"
           - PackageName: "Bitwarden.CLI"
             WebsiteURL: "https://github.com/bitwarden/clients"
-          - PackageName: "GitHub.GitHubDesktop.Beta"
-            WebsiteURL: "https://central.github.com/deployments/desktop/desktop/latest/win32?format=msi&env=beta"
+#          - PackageName: "GitHub.GitHubDesktop.Beta"
+#            WebsiteURL: "https://central.github.com/deployments/desktop/desktop/latest/win32?format=msi&env=beta"
 
     steps:
       - name: Checkout
