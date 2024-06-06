@@ -63,8 +63,8 @@ jobs:
           - PackageName: "Crucial.StorageExecutive"
             WebsiteURL: "https://www.crucial.com/content/dam/crucial/support/storage-executive-win-64.zip"
             With: WinGetCreate
-          - PackageName: "SmartProjects.IsoBuster"
-            WebsiteURL: "https://www.isobuster.com/downloads/isobuster/isobuster_install_64bit.exe https://www.isobuster.com/downloads/isobuster/isobuster_install.exe"
+          # - PackageName: "SmartProjects.IsoBuster"
+          #   WebsiteURL: "https://www.isobuster.com/downloads/isobuster/isobuster_install_64bit.exe https://www.isobuster.com/downloads/isobuster/isobuster_install.exe"
           - PackageName: "Fork.Fork"
             WebsiteURL: "https://fork.dev"
           - PackageName: "OpenMedia.4KYoutubetoMP3"
