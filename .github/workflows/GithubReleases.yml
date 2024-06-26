@@ -99,9 +99,9 @@ jobs:
           - id: "altair-graphql.altair"
             repo: "altair-graphql/altair"
             url: "https://github.com/altair-graphql/altair/releases/download/v{VERSION}/altair_{VERSION}_x64_win.exe"  
-          - id: "ViGEm.HidHide"
-            repo: "nefarius/HidHide"
-            url: "https://github.com/nefarius/HidHide/releases/download/v{VERSION}/HidHide_{VERSION}_x64.exe"
+#          - id: "ViGEm.HidHide"
+#            repo: "nefarius/HidHide"
+#            url: "https://github.com/nefarius/HidHide/releases/download/v{VERSION}/HidHide_{VERSION}_x64.exe"
   
     
     steps:
