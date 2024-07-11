@@ -102,6 +102,9 @@ jobs:
 #          - id: "ViGEm.HidHide"
 #            repo: "nefarius/HidHide"
 #            url: "https://github.com/nefarius/HidHide/releases/download/v{VERSION}/HidHide_{VERSION}_x64.exe"
+          - id: "LibreHardwareMonitor.LibreHardwareMonitor"
+            repo: "LibreHardwareMonitor/LibreHardwareMonitor"
+            url: "https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/releases/download/v{VERSION}/LibreHardwareMonitor-net472.zip"  
   
     
     steps:
