@@ -8,7 +8,3 @@
 | Script based     | ![Script based Packages](https://img.shields.io/badge/ScriptPackages-26-green) |
 | GitHub Release based     | ![GitHub based Packages](https://img.shields.io/badge/GithubPackages-26-blue) |
 
-## Repology
-[Repology](https://repology.org/), the packaging hub monitors package repositories comparing package versions and other information.
-
-[![Repository status](https://repology.org/badge/repository-big/winget.svg)](https://repology.org/repository/winget)
