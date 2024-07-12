@@ -59,29 +59,18 @@ jobs:
           resolves: ${{ inputs.resolves }}
           WebsiteURL: ${{ inputs.WebsiteURL }}
         run: .\Scripts\generic.ps1
-      - name: Create Pull Request
-        if: ${{ inputs.submit == true }}
-        id: cpr
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Update manifests for ${{ matrix.PackageName }}
-          branch: manifest-update-${{ matrix.PackageName }}
-          add-paths: 'manifests'
-          delete-branch: true
-          title: '[Manifest] Update ${{ matrix.PackageName }}'
-          body: |
-            Update manifest of ${{ matrix.PackageName }}
-          labels: |
-            automated pr
-
-#  komac-update-no-submit:
-#       name: komac update (NO submit)
-#       if:  ${{ inputs.submit != 'true' }}
-#       runs-on: ubuntu-latest   
-#       steps:
-#       - name: Run Komac
-#         uses: michidk/run-komac@v2
-#         with:
-#           args: 'update --identifier ${{ inputs.identifier }} --version ${{ inputs.version }} --urls ${{ inputs.urls }} --token=${{ secrets.WINGET_PAT }}'
-#           custom-fork-owner: damn-good-b0t
+      # - name: Create Pull Request
+      #   if: ${{ inputs.submit == true }}
+      #   id: cpr
+      #   uses: peter-evans/create-pull-request@v6
+      #   with:
+      #     token: ${{ secrets.GITHUB_TOKEN }}
+      #     commit-message: Update manifests for ${{ matrix.PackageName }}
+      #     branch: manifest-update-${{ matrix.PackageName }}
+      #     add-paths: 'manifests'
+      #     delete-branch: true
+      #     title: '[Manifest] Update ${{ matrix.PackageName }}'
+      #     body: |
+      #       Update manifest of ${{ matrix.PackageName }}
+      #     labels: |
+      #       automated pr

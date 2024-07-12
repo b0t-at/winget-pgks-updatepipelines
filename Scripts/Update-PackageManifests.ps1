@@ -30,7 +30,7 @@ function Get-AllInstallerManifestsGH {
         [Parameter(Mandatory = $true)] [string] $PackageIdentifier
     )
     Install-Komac
-    $versions = (.\komac.exe  list-versions --identifier $PackageIdentifier --json -t $Token) | ConvertFrom-Json
+    $versions = (.\komac.exe  list-versions $PackageIdentifier --json -t $Token) | ConvertFrom-Json
 
     $manifestDict = @{}
     foreach ($version in $versions) {
