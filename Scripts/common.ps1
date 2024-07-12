@@ -177,8 +177,8 @@ function Get-ProductVersionFromFile {
 
 function Install-Komac {
     if (-not (Test-Path ".\komac.exe")) {
-        #$latestKomacRelease = (Invoke-RestMethod -Uri "https://api.github.com/repos/russellbanks/Komac/releases/latest").assets | Where-Object { $_.browser_download_url.EndsWith("KomacPortable-x64.exe") } | Select-Object -First 1 -ExpandProperty browser_download_url
-        $latestKomacRelease = "https://github.com/b0t-at/Komac/releases/download/v2.99/KomacPortable-x64.exe"
+        $latestKomacRelease = (Invoke-RestMethod -Uri "https://api.github.com/repos/russellbanks/Komac/releases/latest").assets | Where-Object { $_.browser_download_url.EndsWith("komac-setup-2.3.0-x86_64-pc-windows-msvc.exe") } | Select-Object -First 1 -ExpandProperty browser_download_url
+        #$latestKomacRelease = "https://github.com/b0t-at/Komac/releases/download/v2.99/KomacPortable-x64.exe"
         Invoke-WebRequest  -Uri $latestKomacRelease -OutFile komac.exe
     }
 
@@ -484,18 +484,6 @@ function Get-MSIFileInformation {
 
     return $object  
 } 
-
-
-
-# function Start-Update {
-#     $wingetPackage = ${Env:PackageName}
-#     $url = ${Env:WebsiteURL}
-#     $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $url
-
-#     Update-WingetPackage -WingetPackage $wingetPackage -latestVersion $Latest.Version -with Komac -latestVersionUrls $Latest.URLs
-# }
-
-
 
 $wingetPackage = ${Env:PackageName}
 $WebsiteURL = ${Env:WebsiteURL}

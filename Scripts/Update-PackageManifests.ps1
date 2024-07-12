@@ -81,7 +81,7 @@ function Update-WingetPackage {
         $installerLinks = Export-InstallerLinks -Manifest $manifest
 
         Install-Komac
-        .\komac.exe update --version $version --identifier  $PackageIdentifier --urls $installerLinks -o $OutputDir -t $Token --dry-run
+        .\komac.exe update $PackageIdentifier --version $version --urls $installerLinks -o $OutputDir -t $Token --dry-run
         }
 }
 
