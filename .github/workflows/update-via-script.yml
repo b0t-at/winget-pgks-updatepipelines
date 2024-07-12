@@ -91,6 +91,8 @@ jobs:
             WebsiteURL: "https://github.com/bitwarden/clients"
 #          - PackageName: "GitHub.GitHubDesktop.Beta"
 #            WebsiteURL: "https://central.github.com/deployments/desktop/desktop/latest/win32?format=msi&env=beta"
+          - PackageName: "Microsoft.AzureMonitorAgent"
+            WebsiteURL: "https://go.microsoft.com/fwlink/?linkid=2192409"
 
     steps:
       - name: Checkout
