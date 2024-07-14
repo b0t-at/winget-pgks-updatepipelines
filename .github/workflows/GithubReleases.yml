@@ -105,7 +105,9 @@ jobs:
           - id: "LibreHardwareMonitor.LibreHardwareMonitor"
             repo: "LibreHardwareMonitor/LibreHardwareMonitor"
             url: "https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/releases/download/v{VERSION}/LibreHardwareMonitor-net472.zip"  
-  
+          - id: "WerWolv.ImHex"
+            repo: "WerWolv/ImHex"
+            url: "https://github.com/WerWolv/ImHex/releases/download/v{VERSION}/imhex-{VERSION}-Windows-x86_64.msi"    
     
     steps:
     - name: Update Packages
