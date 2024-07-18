@@ -107,7 +107,10 @@ jobs:
             url: "https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/releases/download/v{VERSION}/LibreHardwareMonitor-net472.zip"  
           - id: "WerWolv.ImHex"
             repo: "WerWolv/ImHex"
-            url: "https://github.com/WerWolv/ImHex/releases/download/v{VERSION}/imhex-{VERSION}-Windows-x86_64.msi"    
+            url: "https://github.com/WerWolv/ImHex/releases/download/v{VERSION}/imhex-{VERSION}-Windows-x86_64.msi" 
+          - id: "Microsoft.Sqlcmd"
+            repo: "microsoft/go-sqlcmd"
+            url: "https://github.com/microsoft/go-sqlcmd/releases/download/v{VERSION}/sqlcmd-amd64.msi https://github.com/microsoft/go-sqlcmd/releases/download/v{VERSION}/sqlcmd-arm.msi https://github.com/microsoft/go-sqlcmd/releases/download/v{VERSION}/sqlcmd-arm64.msi"       
     
     steps:
     - name: Update Packages
