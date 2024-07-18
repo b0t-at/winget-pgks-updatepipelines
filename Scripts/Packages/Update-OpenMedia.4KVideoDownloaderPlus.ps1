@@ -16,7 +16,9 @@ $WebsiteLinks = $website.Links
 
 $FilteredLinks = $WebsiteLinks | Where-Object { $_.Id -match $URLFilter }
 
-$versions = $FilteredLinks.outerHTML | Select-String -Pattern $versionPattern -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Groups[1].Value }
+$BigVersion = $FilteredLinks | ForEach-Object { $_.href -replace '.*_(\d+\.\d+\.\d+).*', '$1' } | Sort-Object -Descending -Unique | Select-Object -First 1
+$versionPattern = "($($BigVersion)\.\d+)"
+$versions = $WebsiteContent | Select-String -Pattern $versionPattern -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Groups[1].Value }
 
 $latestVersion = $versions | Sort-Object -Descending -Unique | Select-Object -First 1
 
@@ -24,6 +26,6 @@ $latestVersionUrl = $FilteredLinks | ForEach-Object { ($_.href -replace '\?.*', 
 
 $64bitCheckURL = $($latestVersionUrl| Where-Object { $_ -match "_online.exe" }).replace("_x64_online.exe", "_online.exe").replace("_online.exe", "_x64_online.exe") | Select-Object -unique
 
-$latestVersionUrl = ($latestVersionUrl+$64bitCheckURL) | Select-Object -unique
+$latestVersionUrl = ($latestVersionUrl+$64bitCheckURL) | Select-Object -unique | Where-Object { $_ -ne '' }
 
 return $latestVersion, $latestVersionUrl
