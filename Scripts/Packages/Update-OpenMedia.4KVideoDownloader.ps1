@@ -13,6 +13,7 @@ $website = Invoke-WebRequest -Uri $WebsiteURL
 
 # Extract the content of the webpage
 $WebsiteLinks = $website.Links
+$WebsiteContent = $website.Content
 
 $FilteredLinks = $WebsiteLinks | Where-Object { $_.Id -match $URLFilter }
 
