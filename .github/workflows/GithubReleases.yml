@@ -117,6 +117,10 @@ jobs:
           - id: "Governikus.AusweisApp2"
             repo: "Governikus/AusweisApp"
             url: "https://github.com/Governikus/AusweisApp/releases/download/{VERSION}/AusweisApp-{VERSION}.msi"       
+          - id: "SomePythonThings.WingetUIStore.Pre-release"
+            repo: "marticliment/UniGetUI"
+            pre-release: "true"
+            url: "https://github.com/marticliment/UniGetUI/releases/download/{VERSION}/UniGetUI.Installer.exe"  
     
     steps:
     - name: Update Packages
