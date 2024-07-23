@@ -134,3 +134,4 @@ jobs:
         komac-version: 2.2.1
         custom-fork-owner: damn-good-b0t
         submit: ${{ vars.SUBMIT_PR }}
+        pre-release: ${{ matrix.pre-release == "true" }}
