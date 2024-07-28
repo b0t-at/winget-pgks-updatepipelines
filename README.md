@@ -8,3 +8,6 @@
 | Script based     | ![Script based Packages](https://img.shields.io/badge/ScriptPackages-25-green) |
 | GitHub Release based     | ![GitHub based Packages](https://img.shields.io/badge/GithubPackages-31-blue) |
 
+
+## Tools:
+**[Orca](https://learn.microsoft.com/de-de/windows/win32/msi/orca-exe)**: database table editor for creating and editing Windows Installer packages
