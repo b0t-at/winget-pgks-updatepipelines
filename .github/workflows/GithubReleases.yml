@@ -124,7 +124,12 @@ jobs:
             repo: "marticliment/UniGetUI"
             pre-release: "true"
             url: "https://github.com/marticliment/UniGetUI/releases/download/{VERSION}/UniGetUI.Installer.exe"  
-    
+          - id: "restic.restic"
+            repo: "restic/restic"
+            url: "https://github.com/restic/restic/releases/download/v{VERSION}/restic_{VERSION}_windows_386.zip https://github.com/restic/restic/releases/download/v{VERSION}/restic_{VERSION}_windows_amd64.zip"       
+          - id: "Sigstore.Cosign"
+            repo: "sigstore/cosign"
+            url: "https://github.com/sigstore/cosign/releases/download/v{VERSION}/cosign-windows-amd64.exe"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
