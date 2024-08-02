@@ -130,6 +130,11 @@ jobs:
           - id: "Sigstore.Cosign"
             repo: "sigstore/cosign"
             url: "https://github.com/sigstore/cosign/releases/download/v{VERSION}/cosign-windows-amd64.exe"  
+          - id: "Gather.Gather"
+            repo: "gathertown/gather-town-desktop-releases"
+            url: "https://github.com/gathertown/gather-town-desktop-releases/releases/download/v{VERSION}/Gather-{VERSION}-Setup.exe"       
+
+
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
