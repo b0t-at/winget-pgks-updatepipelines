@@ -18,7 +18,7 @@ $WebsiteContent = $website.Content
 $FilteredLinks = $WebsiteLinks | Where-Object { $_.Id -match $URLFilter }
 
 $BigVersion = $FilteredLinks | ForEach-Object { $_.href -replace '.*_(\d+\.\d+\.\d+).*', '$1' } | Sort-Object -Descending -Unique | Select-Object -First 1
-$versionPattern = "($($BigVersion)\.\d+)"
+$versionPattern = "($($BigVersion.Replace(".","\."))\.\d+)"
 $versions = $WebsiteContent | Select-String -Pattern $versionPattern -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Groups[1].Value }
 
 $latestVersion = $versions | Sort-Object -Descending -Unique | Select-Object -First 1
