@@ -133,6 +133,9 @@ jobs:
           - id: "Gather.Gather"
             repo: "gathertown/gather-town-desktop-releases"
             url: "https://github.com/gathertown/gather-town-desktop-releases/releases/download/v{VERSION}/Gather-{VERSION}-Setup.exe"       
+          - id: "Microsoft.PerfView"
+            repo: "microsoft/perfview"
+            url: "https://github.com/microsoft/perfview/releases/download/v{VERSION}/PerfView.exe"       
 
 
     steps:
