@@ -14,6 +14,7 @@ $matchesResult = Select-String -InputObject $WebsiteContent -Pattern $regexPatte
 $buildNumbers = $matchesResult.Matches | ForEach-Object { $_.Groups[1].Value }
 $latestVersion = $buildNumbers | Sort-Object -Descending | Select-Object -First 1
 
-$downLoadLink = "https://download.sublimetext.com/sublime_merge_build_${latestVersion}_x64_setup.exe"
+$downLoadLinkExe = "https://download.sublimetext.com/sublime_merge_build_${latestVersion}_x64_setup.exe"
+$downloadLinkZip = "https://download.sublimetext.com/sublime_merge_build_${latestVersion}_x64.zip"
 
-return $latestVersion, $downLoadLink
+return $latestVersion, @($downLoadLinkExe,$downloadLinkZip)
