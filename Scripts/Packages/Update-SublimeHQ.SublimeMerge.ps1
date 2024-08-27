@@ -12,7 +12,6 @@ $regexPattern = "\bBuild\s+(\d+)\b"
 $matchesResult = Select-String -InputObject $WebsiteContent -Pattern $regexPattern -AllMatches
 # Extract and display the build numbers
 $buildNumbers = $matchesResult.Matches | ForEach-Object { $_.Groups[1].Value }
-$buildNumbers
 $latestVersion = $buildNumbers | Sort-Object -Descending | Select-Object -First 1
 
 $downLoadLink = "https://download.sublimetext.com/sublime_merge_build_${latestVersion}_x64_setup.exe"
