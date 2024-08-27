@@ -93,8 +93,8 @@ jobs:
 #            WebsiteURL: "https://central.github.com/deployments/desktop/desktop/latest/win32?format=msi&env=beta"
 #          - PackageName: "Microsoft.AzureMonitorAgent"
 #            WebsiteURL: "https://go.microsoft.com/fwlink/?linkid=2192409"
-#          - PackageName: "SublimeHQ.SublimeMerge"
-#            WebsiteURL: "https://www.sublimemerge.com/download"
+          - PackageName: "SublimeHQ.SublimeMerge"
+            WebsiteURL: "https://www.sublimemerge.com/download"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
