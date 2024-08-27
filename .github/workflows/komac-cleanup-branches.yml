@@ -6,10 +6,8 @@ on:
 
 jobs:
   komac-cleanup:
-       name: komac new and submit
-       if:  false == ${{ inputs.submit }} 
+       name: cleanup branches
        runs-on: ubuntu-latest
-   
        steps:
        - name: Run Komac
          uses: michidk/run-komac@v2
