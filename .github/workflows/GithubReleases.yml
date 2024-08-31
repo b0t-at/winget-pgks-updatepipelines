@@ -146,8 +146,8 @@ jobs:
         repo: ${{ matrix.repo }}
         url: ${{ matrix.url }}
         komac-token: ${{ secrets.WINGET_PAT }}
-        #komac-version: nightly
-        komac-version: 2.3.0
+        #komac-version: 2.3.0
+        komac-version: latest
         custom-fork-owner: damn-good-b0t
         submit: ${{ vars.SUBMIT_PR }}
         pre-release: ${{ matrix.pre-release }}
