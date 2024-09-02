@@ -136,7 +136,9 @@ jobs:
           - id: "Microsoft.PerfView"
             repo: "microsoft/perfview"
             url: "https://github.com/microsoft/perfview/releases/download/v{VERSION}/PerfView.exe"       
-
+          - id: "Microsoft.DevProxy"
+            repo: "microsoft/dev-proxy"
+            url: "https://github.com/microsoft/dev-proxy/releases/download/v{VERSION}/dev-proxy-installer-win-x64-v{VERSION}.exe"  
 
     steps:
     - name: Update Packages
