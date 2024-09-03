@@ -139,6 +139,9 @@ jobs:
           - id: "Microsoft.DevProxy"
             repo: "microsoft/dev-proxy"
             url: "https://github.com/microsoft/dev-proxy/releases/download/v{VERSION}/dev-proxy-installer-win-x64-v{VERSION}.exe"  
+          - id: "Toxblh.WinToLinux"
+            repo: "Toxblh/WinToLinux"
+            url: "https://github.com/Toxblh/WinToLinux/releases/download/v{VERSION}/WinToLinux.zip"  
 
     steps:
     - name: Update Packages
