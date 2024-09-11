@@ -4,6 +4,7 @@ $versionPattern = "<h3>Betterbird (\d+\.\d+\.\d+-bb\d+)"
 
 $URLFilter = "(.exe|.zip)"
 
+$WebsiteUrl = "https://www.betterbird.eu/downloads/"
 # Download the webpage
 $website = Invoke-WebRequest -Uri $WebsiteURL
 
@@ -19,4 +20,9 @@ $latestVersion = $versions | Sort-Object -Descending -Unique | Select-Object -Fi
 
 $latestVersionUrl = $FilteredLinks | ForEach-Object { ($_.href -replace '\?.*', '') } | Where-Object { $_ -ne '' -and $_ -match $latestVersion -and $_ -notmatch "latest-build|Previous" } | ForEach-Object { $WebsiteURL + $_ }
 
-return $latestVersion, $latestVersionUrl
+$returnObject = [PSCustomObject]@{
+    Version = $latestVersion
+    URLs = $latestVersionUrl
+}
+
+return $returnObject
