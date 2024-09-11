@@ -95,6 +95,8 @@ jobs:
 #            WebsiteURL: "https://go.microsoft.com/fwlink/?linkid=2192409"
           - PackageName: "SublimeHQ.SublimeMerge"
             WebsiteURL: "https://www.sublimemerge.com/download"
+          - PackageName: "Betterbird.Betterbird"
+            WebsiteURL: "https://www.betterbird.eu/downloads/"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
