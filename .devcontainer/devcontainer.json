@@ -11,8 +11,8 @@
 			"upgradePackages": "false",
 			"nonFreePackages": "true"
 		},
-        "ghcr.io/devcontainers/features/powershell": {},
-        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+        "ghcr.io/devcontainers/features/powershell": {}
+       // "ghcr.io/devcontainers/features/docker-in-docker:2": {}
 	},
 
 	"postCreateCommand": "sudo chsh vscode -s \"$(which pwsh)\"",
