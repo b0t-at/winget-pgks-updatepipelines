@@ -1,0 +1,18 @@
+name: Remove Dead Versions
+on:
+  workflow_dispatch:
+    inputs:
+      PackageIdentifier:
+        description: "Package Identifier"
+        required: true
+
+jobs:
+  komac-cleanup:
+       name: cleanup branches
+       runs-on: ubuntu-latest
+       steps:
+       - name: Run Komac
+         uses: michidk/run-komac@v2
+         with:
+            args: 'remove-dead-versions --token=${{ secrets.WINGET_PAT }} ${{ github.event.inputs.PackageIdentifier }}'
+            custom-fork-owner: damn-good-b0t
