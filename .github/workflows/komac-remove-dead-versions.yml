@@ -7,12 +7,12 @@ on:
         required: true
 
 jobs:
-  komac-cleanup:
-       name: cleanup branches
+  komac-remove-dead:
+       name: remove dead versions
        runs-on: ubuntu-latest
        steps:
        - name: Run Komac
          uses: michidk/run-komac@v2
          with:
-            args: 'remove-dead-versions --token=${{ secrets.WINGET_PAT }} ${{ github.event.inputs.PackageIdentifier }}'
+            args: 'remove-dead-versions --auto --token=${{ secrets.WINGET_PAT }} ${{ github.event.inputs.PackageIdentifier }}'
             custom-fork-owner: damn-good-b0t
