@@ -9,8 +9,20 @@ foreach ($package in $packages) {
     if ($LASTEXITCODE -ne 0) {
         if([string]::Join('`n',$output).Contains($package.http_codes)) {
             Write-Host "Package $($package.package_identifier) | $($package.package_version) | Failed to download"
-            if($DRY_RUN -eq $false) {
-            . komac.exe remove --reason $prBody --submit -v $package.package_version  $package.package_identifier        
+            
+            $ExistingPRs = gh pr list --search "Remove version: $($package.package_identifier) version $($package.package_version) in:title draft:false" --state 'all' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
+            if ($ExistingPRs.Count -gt 0) {
+                Write-Output "$foundMessage"
+                $ExistingPRs | ForEach-Object {
+                    Write-Output "Found existing PR: $($_.title)"
+                    Write-Output "-> $($_.url)"
+                }
+            }
+            else {
+                Write-Output "No existing PR found for $($package.package_identifier) | $($package.package_version)"
+                if($DRY_RUN -eq $false) {
+                    . komac.exe remove --reason $prBody --submit -v $package.package_version  $package.package_identifier        
+                    }
             }
         } else {
             Write-Warning "HTTP status code mismatch for package $($package.package_identifier) | $($package.package_version)"
