@@ -60,9 +60,9 @@ jobs:
             With: WinGetCreate
           - PackageName: "StrawberryPerl.StrawberryPerl"
             WebsiteURL: "https://github.com/StrawberryPerl/Perl-Dist-Strawberry"
-          - PackageName: "Crucial.StorageExecutive"
-            WebsiteURL: "https://www.crucial.com/content/dam/crucial/support/storage-executive-win-64.zip"
-            With: WinGetCreate
+          #- PackageName: "Crucial.StorageExecutive"
+          #  WebsiteURL: "https://www.crucial.com/content/dam/crucial/support/storage-executive-win-64.zip"
+          #  With: WinGetCreate
           # - PackageName: "SmartProjects.IsoBuster"
           #   WebsiteURL: "https://www.isobuster.com/downloads/isobuster/isobuster_install_64bit.exe https://www.isobuster.com/downloads/isobuster/isobuster_install.exe"
           - PackageName: "Fork.Fork"
@@ -95,8 +95,8 @@ jobs:
 #            WebsiteURL: "https://go.microsoft.com/fwlink/?linkid=2192409"
           - PackageName: "SublimeHQ.SublimeMerge"
             WebsiteURL: "https://www.sublimemerge.com/download"
-          - PackageName: "Betterbird.Betterbird"
-            WebsiteURL: "https://www.betterbird.eu/downloads/"
+#          - PackageName: "Betterbird.Betterbird"
+#            WebsiteURL: "https://www.betterbird.eu/downloads/"
     steps:
       - name: Checkout
         uses: actions/checkout@v4

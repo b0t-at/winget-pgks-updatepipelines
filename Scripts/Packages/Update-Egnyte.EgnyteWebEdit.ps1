@@ -11,7 +11,7 @@ $FullVersion = $MSIFileInformation.ProductVersion
 $versionParts = $FullVersion.Split(".")
 
 # The first three parts make up the version
-$MajorVersion = [string]::Join(".", $versionParts[0..2]).TrimEnd('0')
+$MajorVersion = [string]::Join(".", ($versionParts[0..2] -replace '00$',''))
 
 # The last part is the second value
 $MinorVersion = $versionParts[3]
