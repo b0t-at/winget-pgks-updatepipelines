@@ -145,6 +145,9 @@ jobs:
           # - id: "Toxblh.WinToLinux"
           #   repo: "Toxblh/WinToLinux"
           #   url: "https://github.com/Toxblh/WinToLinux/releases/download/v{VERSION}/WinToLinux.zip"  
+          - id: "Dystroy.broot"
+            repo: "Canop/broot"
+            url: "https://github.com/Canop/broot/releases/download/v{VERSION}/broot_{VERSION}.zip"  
 
     steps:
     - name: Update Packages
