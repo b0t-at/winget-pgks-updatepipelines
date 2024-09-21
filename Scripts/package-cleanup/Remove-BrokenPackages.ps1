@@ -1,33 +1,74 @@
 Import-Module Microsoft.WinGet.Client
 $ErrorActionPreference = "Stop"
-$packages = Import-Csv -Path .\broken_packages.csv
-$ignored_packages = Import-Csv -Path .\ignored_packages.csv
+
 $DRY_RUN = $false
 $REMOVE_HIGHEST_VERSIONS = $false
+#$timeoutSeconds = 60  # Set your desired timeout in seconds
+
+# check if Microsoft.WinGet.Client module is installed
+if (-not (Get-Module -Name Microsoft.WinGet.Client -ListAvailable)) {
+    Write-Host "Microsoft.WinGet.Client module is not installed. Please install it"
+}
+else {
+    Import-Module Microsoft.WinGet.Client
+}
+
+# get current script directory
+$scriptDirectory = Split-Path -Parent $MyInvocation.MyCommand.Definition
+
+# get files that start with naming "Broken Packages-data-"
+$brokenPackagesFiles = Get-ChildItem -Path $scriptDirectory -Filter "Broken Packages-data-*" | Sort-Object -Property LastWriteTime -Descending
+if ($brokenPackagesFiles.Count -eq 0) {
+    Write-Host "No broken packages data file found"
+    exit 1
+}
+if ($brokenPackagesFiles.Count -gt 1) {
+    Write-Warning "Multiple broken packages data files files found. Aborting"
+    exit 1
+}
+$brokenPackageFileAbsolutePath = $brokenPackagesFiles[0].FullName
+
+$packages = Import-Csv -Path $brokenPackageFileAbsolutePath
+$ignored_packages = Import-Csv -Path $scriptDirectory\ignored_packages.csv
 
 $successfullPackages = @()
+#$timeoutPackages = @()
 foreach ($package in $packages) {
-    if ($ignored_packages | Where-Object { $_.package_identifier -eq $package.package_identifier -and ($_.package_version -eq "*" -or $_.package_version -eq $package.package_version) }) {
+    if ($ignored_packages | Where-Object { $package.package_identifier -like $_.package_identifier -and ($_.package_version -eq "*" -or $_.package_version -eq $package.package_version) }) {
         write-host "Ignoring package $($package.package_identifier) | $($package.package_version)"
         continue
     }
 
     Write-Host "Checking package $($package.package_identifier) | $($package.package_version)"
     $output = & winget.exe download --id $package.package_identifier --version $package.package_version
+
+    # $process = Start-Process -FilePath "winget.exe" -ArgumentList "download --id $($package.package_identifier) --version $($package.package_version)" -NoNewWindow -PassThru
+    # if ($process.WaitForExit($timeoutSeconds * 1000)) {
+    #     $output = $process.StandardOutput.ReadToEnd()
+    #     $exitCode = $process.ExitCode
+    # }
+    # else {
+    #     $process.Kill()
+    #     Write-Warning "The download command timed out after $timeoutSeconds seconds for package $($package.package_identifier) | $($package.package_version)"
+    #     $exitCode = -1
+    #     $output = ""
+    #     $timeoutPackages += $package
+    #     continue
+    # }
+
     $lastOutputLine = $output | Select-Object -Last 1
     if ($LASTEXITCODE -ne 0) {
         if ([string]::Join('`n', $output).Contains($package.http_codes) -or $lastOutputLine.Contains("Hash-Wert")) {
             Write-Host "Package $($package.package_identifier) | $($package.package_version) | Failed to download"
             
             $ExistingPRs = gh pr list --search "Remove version: $($package.package_identifier) version $($package.package_version) in:title draft:false" --state 'all' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
-            #$isHighestVersion =  (Find-WinGetPackage --id $package.package_identifier).version -eq $package.package_version
             $isHighestVersion = (& winget.exe search --id $package.package_identifier --exact ) -contains $package.package_version
             
-            if($isHighestVersion -eq $true -and $REMOVE_HIGHEST_VERSIONS -eq $false) {
+            if ($isHighestVersion -eq $true -and $REMOVE_HIGHEST_VERSIONS -eq $false) {
                 Write-Host "Ignoring package $($package.package_identifier) | $($package.package_version) as it is the highest version"
                 continue
             }
-            if($isHighestVersion -and $lastOutputLine.Contains("Hash-Wert")) {
+            if ($isHighestVersion -and $lastOutputLine.Contains("Hash-Wert")) {
                 Write-Host "Ignoring package $($package.package_identifier) | $($package.package_version) as it has hash mismatch and is the highest version"
                 continue
             }
@@ -41,9 +82,10 @@ foreach ($package in $packages) {
             else {
                 Write-Output "No existing PR found for $($package.package_identifier) | $($package.package_version)"
                 if ($DRY_RUN -eq $false) {
-                    if($lastOutputLine.Contains("Hash-Wert")) {
+                    if ($lastOutputLine.Contains("Hash-Wert")) {
                         $prBody = "installer has hash mismatch while a new version is available"
-                    } else {
+                    }
+                    else {
                         $prBody = "installers return following HTTP status code: $($package.http_codes)"            
                     }
                     . komac.exe remove --reason $prBody --submit -v $package.package_version  $package.package_identifier 
@@ -56,8 +98,9 @@ foreach ($package in $packages) {
         continue
     }
 
-    Write-Host "$($package.package_identifier) | $($package.package_version) | Package does not need PR as it is not broken"
+    Write-Warning "$($package.package_identifier) | $($package.package_version) | Package does not need PR as it is not broken"
     $successfullPackages += $package
 }
 
 Write-Host "Successfull Packages: $($successfullPackages | ConvertTo-Json)"
+#Write-Host "Timeout Packages: $($timeoutPackages | ConvertTo-Json)"

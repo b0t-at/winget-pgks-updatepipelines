@@ -1,4 +1,9 @@
 "package_identifier","package_version"
+IGNORED-PACKAGES-BECAUSE-OF-POTENTIAL-DOWNLOAD-PROBLEMS-BELOW,*
+iFlytek.iFlyIME,*
+JetBrains.*,*
+Verizon.OneTalk,*
+NORMAL-IGNORES-DUE-TO-POTENtIAL-DATACENTER-BLOCK,*
 Adobe.CreativeCloud,*
 Baidu.BaiduSIAssistant,*
 Baidu.BaiduSIMeeting,*
@@ -9,3 +14,6 @@ Codemao.Lessons,3.5.0
 Fiorilli.FiorilliWebExtensionClient,*
 Hitencent.JisuPDF,*
 GloopProgramming.Gloop,*
+Codemao.kitten.4,*
+Ocenaudio.Ocenaudio,*
+wiznote.*,*
