@@ -9,7 +9,7 @@ $versionInfo = Get-ProductVersionFromFile -WebsiteURL $WebsiteURL -VersionInfoPr
 Write-Host "Found latest version: $versionInfo"
 $latestversion = $versionInfo
 # extract major and minor version e.g. 5.9 from 5.9.10
-$majorMinorVersion = $versionInfo -replace '\.\d+$'
+$majorMinorVersion = $versionInfo -replace '\.\d+\.\d+$'
 $fullDownloadURL = "https://support.loupedeck.com/hubfs/Knowledge%20Base/LD%20Software%20Downloads/$majorMinorVersion/LoupedeckInstaller_" + $versionInfo + ".exe"
 Write-Host "Full download URL: $fullDownloadURL"
 
