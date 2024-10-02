@@ -57,7 +57,6 @@ jobs:
             With: WinGetCreate
           - PackageName: "Loupedeck.Loupedeck"
             WebsiteURL: "https://download.loupedeck.com/software/latest-win"
-            With: WinGetCreate
           - PackageName: "StrawberryPerl.StrawberryPerl"
             WebsiteURL: "https://github.com/StrawberryPerl/Perl-Dist-Strawberry"
           #- PackageName: "Crucial.StorageExecutive"
