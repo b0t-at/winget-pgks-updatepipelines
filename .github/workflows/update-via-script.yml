@@ -94,6 +94,7 @@ jobs:
 #            WebsiteURL: "https://go.microsoft.com/fwlink/?linkid=2192409"
           - PackageName: "SublimeHQ.SublimeMerge"
             WebsiteURL: "https://www.sublimemerge.com/download"
+          - PackageName: "Bandisoft.Bandizip"
 #          - PackageName: "Betterbird.Betterbird"
 #            WebsiteURL: "https://www.betterbird.eu/downloads/"
     steps:
@@ -109,19 +110,5 @@ jobs:
           With: ${{ matrix.With }}
           Submit: ${{ vars.SUBMIT_PR }}
         run: .\Scripts\generic.ps1
-      # - name: Create Pull Request
-      #   id: cpr
-      #   uses: peter-evans/create-pull-request@v6
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-      #     commit-message: Update manifests for ${{ matrix.PackageName }}
-      #     branch: manifest-update-${{ matrix.PackageName }}
-      #     add-paths: 'manifests'
-      #     delete-branch: true
-      #     title: '[Manifest] Update ${{ matrix.PackageName }}'
-      #     body: |
-      #       Update manifest of ${{ matrix.PackageName }}
-      #     labels: |
-      #       automated pr
 
 
