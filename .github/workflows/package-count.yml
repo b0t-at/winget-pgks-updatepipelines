@@ -26,8 +26,8 @@ jobs:
             - name: Count packages
               id: count
               run: |
-                echo "countgithub=$(python3 Scripts/package_count.py .github/workflows/GithubReleases.yml)" >> $GITHUB_OUTPUT
-                echo "countscript=$(python3 Scripts/package_count.py .github/workflows/update-via-script.yml)" >> $GITHUB_OUTPUT
+                echo "countgithub=$(python3 scripts/package_count.py .github/workflows/GithubReleases.yml)" >> $GITHUB_OUTPUT
+                echo "countscript=$(python3 scripts/package_count.py .github/workflows/update-via-script.yml)" >> $GITHUB_OUTPUT
             - name: Update README
               run: |
                 countgithub=${{ steps.count.outputs.countgithub }}

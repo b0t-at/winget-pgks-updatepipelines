@@ -26,5 +26,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
           WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
-        run: .\Scripts\Update-QFlipper.ps1
+        run: .\scripts\Update-QFlipper.ps1
 

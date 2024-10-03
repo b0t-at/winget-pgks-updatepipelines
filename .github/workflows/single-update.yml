@@ -58,7 +58,7 @@ jobs:
           latestVersionUrl: ${{ inputs.urls }}
           resolves: ${{ inputs.resolves }}
           WebsiteURL: ${{ inputs.WebsiteURL }}
-        run: .\Scripts\generic.ps1
+        run: .\scripts\generic.ps1
       # - name: Create Pull Request
       #   if: ${{ inputs.submit == true }}
       #   id: cpr

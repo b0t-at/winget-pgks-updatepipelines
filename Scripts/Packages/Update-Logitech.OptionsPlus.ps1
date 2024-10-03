@@ -1,4 +1,4 @@
-. .\Scripts\common.ps1
+. .\scripts\common.ps1
 
 $latestVersionUrl = $WebsiteURL
 # download latest version from loupedeck.com and get version by filename

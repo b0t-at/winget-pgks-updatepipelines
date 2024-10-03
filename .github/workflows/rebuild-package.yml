@@ -24,9 +24,9 @@ jobs:
           Write-Host "Currently in: $(Get-Location)"
           $fullPathFork = "$(Get-Location)"
           if($message -eq $null) {
-            Scripts/Update-PackageManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPathFork -Token ${{env.WINGET_PAT}}
+            scripts/Update-PackageManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPathFork -Token ${{env.WINGET_PAT}}
           } else {
-            Scripts/Update-PackageManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPathFork -Token ${{env.WINGET_PAT}} -Message ${{ github.event.inputs.Message }}
+            scripts/Update-PackageManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPathFork -Token ${{env.WINGET_PAT}} -Message ${{ github.event.inputs.Message }}
           }
       - uses: actions/upload-artifact@v4
         with:

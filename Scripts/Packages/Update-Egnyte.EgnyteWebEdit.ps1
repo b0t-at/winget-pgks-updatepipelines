@@ -1,4 +1,4 @@
-. .\Scripts\common.ps1
+. .\scripts\common.ps1
 
 $latestVersionUrlTemplate = "https://egnyte-cdn.egnyte.com/webedit/win/en-us/{0}/EgnyteWebEdit_{0}_{1}.msi"
 

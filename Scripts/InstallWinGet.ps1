@@ -4,7 +4,7 @@
 ###     Example:
 ###
 ###      - name: Install WinGet
-###        run: .\Scripts\InstallWinGet.ps1
+###        run: .\scripts\InstallWinGet.ps1
 ###        working-directory: Utesgui
 ###        shell: powershell
 ###

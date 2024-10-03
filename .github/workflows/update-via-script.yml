@@ -1,4 +1,4 @@
-name: Update via Scripts
+name: Update via scripts
 
 on:
   workflow_dispatch:
@@ -109,6 +109,6 @@ jobs:
           PackageName: ${{ matrix.PackageName }}
           With: ${{ matrix.With }}
           Submit: ${{ vars.SUBMIT_PR }}
-        run: .\Scripts\generic.ps1
+        run: .\scripts\generic.ps1
 
 

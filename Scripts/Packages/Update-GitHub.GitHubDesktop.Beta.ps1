@@ -1,4 +1,4 @@
-. .\Scripts\common.ps1
+. .\scripts\common.ps1
 
 try {
   Invoke-WebRequest -Method Get -Uri $WebsiteURL -MaximumRedirection 0  -ErrorAction Stop 

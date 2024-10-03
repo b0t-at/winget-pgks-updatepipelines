@@ -29,7 +29,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
           WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
-        run: .\Scripts\Update-${{ env.PackageName }}.ps1
+        run: .\scripts\Update-${{ env.PackageName }}.ps1
       # - name: Submit Gitbutler.GitButler package
       #   working-directory: Utesgui
       #   env:
@@ -38,5 +38,5 @@ jobs:
       #     wingetPackage: ${{ steps.get_version.outputs.wingetPackage }}
       #     latestVersion: ${{ steps.get_version.outputs.latestVersion }}
       #     latestVersionUrl: ${{ steps.get_version.outputs.latestVersionUrl }}
-      #   run: .\Scripts\create-winget-pr.ps1  
+      #   run: .\scripts\create-winget-pr.ps1  
 

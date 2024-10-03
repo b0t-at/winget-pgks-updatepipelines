@@ -1,4 +1,4 @@
-. .\Scripts\common.ps1
+. .\scripts\common.ps1
 
 $latestRelease = gh release list --repo bitwarden/clients --limit 100 --json isLatest,name,tagName,createdAt | ConvertFrom-Json  | Where-Object { $_.tagName -like "cli-*" } | Select-Object -First 1
 
