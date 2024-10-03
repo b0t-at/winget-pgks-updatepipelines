@@ -23,7 +23,6 @@ else {
     $package = "$($SplittedURL[-2]).$($SplittedURL[-3])"
 }
 
-
 if (Test-Path -Path (Join-Path -Path ([System.IO.Path]::GetTempPath()) -ChildPath 'ManifestDownload')) {
     Remove-Item -Path (Join-Path -Path ([System.IO.Path]::GetTempPath()) -ChildPath 'ManifestDownload') -Force -Recurse
 }
@@ -32,9 +31,6 @@ Invoke-WebRequest -Uri "$ManifestURL\$package.yaml" -OutFile "$Manifest\$package
 Invoke-WebRequest -Uri "$ManifestURL\$package.installer.yaml" -OutFile "$Manifest\$package.installer.yaml"
 Invoke-WebRequest -Uri "$ManifestURL\$package.locale.en-US.yaml" -OutFile "$Manifest\$package.locale.en-US.yaml"
 Write-Host "Manifest Path: $Manifest"
-
-
-
 
 function Update-EnvironmentVariables {
     foreach ($level in "Machine", "User") {
@@ -128,7 +124,6 @@ if (-Not [String]::IsNullOrWhiteSpace($Manifest)) {
 
 if (-Not [String]::IsNullOrWhiteSpace($Script)) {
     Write-Host '--> Running the following script:'
-  
     {
         $Script
     }
