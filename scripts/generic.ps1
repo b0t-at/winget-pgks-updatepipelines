@@ -26,7 +26,7 @@ if($Env:resolves) {
     $params.Add("resolves", $Env:resolves)
 }
 # make use of truthy evaluation to convert to clean bool
-if($Env:TemplateUpgrade -eq $true) {
+if($Env:IsTemplateUpdate -eq $true) {
     $params.Add("IsTemplateUpdate", $true)
 }
 else {

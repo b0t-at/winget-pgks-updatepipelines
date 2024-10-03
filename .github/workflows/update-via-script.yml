@@ -109,7 +109,7 @@ jobs:
           PackageName: ${{ matrix.PackageName }}
           With: ${{ matrix.With }}
           Submit: ${{ vars.SUBMIT_PR }}
-          IsTemplateUpdate: true
+          IsTemplateUpdate: "true"
         run: .\scripts\generic.ps1
 
 
