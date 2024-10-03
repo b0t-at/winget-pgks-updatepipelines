@@ -95,8 +95,8 @@ function Test-ExistingPRs {
 
 function Get-VersionAndUrl {
     param(
-        [Parameter(Mandatory = $false)] [string] $wingetPackage = ${Env:PackageName},
-        [Parameter(Mandatory = $false)] [string] $WebsiteURL = ${Env:WebsiteURL}
+        [Parameter(Mandatory = $true)] [string] $wingetPackage,
+        [Parameter(Mandatory = $false)] [string] $WebsiteURL
     )
 
     $scriptPath = ".\scripts\Packages\Update-$($wingetPackage).ps1"
@@ -227,11 +227,12 @@ function Update-WingetPackage {
         [Parameter(Mandatory = $false)] [string] $resolves = (${Env:resolves} -match '^\d+$' ? ${Env:resolves} : ""),
         [Parameter(Mandatory = $false)] [bool] $Submit = $false,
         [Parameter(Mandatory = $false)] [string] $latestVersion,
-        [Parameter(Mandatory = $false)] [string] $latestVersionURL
+        [Parameter(Mandatory = $false)] [string] $latestVersionURL,
+        [Parameter(Mandatory = $false)] [bool] $IsTemplateUpdate = $false
     )
 
     # Custom validation
-    if (-not $WebsiteURL -and (-not $latestVersion -or -not $latestVersionURL)) {
+    if (-not $IsTemplateUpdate -and -not $WebsiteURL -and (-not $latestVersion -or -not $latestVersionURL)) {
         throw "Either WebsiteURL or both latestVersion and latestVersionURL are required."
     }
 

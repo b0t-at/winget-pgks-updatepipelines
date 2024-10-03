@@ -25,6 +25,13 @@ if($Env:latestVersionURL) {
 if($Env:resolves) {
     $params.Add("resolves", $Env:resolves)
 }
+# make use of truthy evaluation to convert to clean bool
+if($Env:TemplateUpgrade -eq $true) {
+    $params.Add("IsTemplateUpdate", $true)
+}
+else {
+    $params.Add("IsTemplateUpdate", $false)
+}
 
 
 Update-WingetPackage @params
