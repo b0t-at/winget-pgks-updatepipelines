@@ -1,0 +1,34 @@
+name: Update Hash Mismatch
+
+on:
+  workflow_dispatch:
+#  schedule:
+#    - cron: 7 0/4 * * *
+
+jobs:
+  update-scriptbased:
+    name: ${{ matrix.PackageName }}
+    runs-on: windows-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Test' }}
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - PackageName: "Bandisoft.Bandizip"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Update package
+        id: update_version
+        env:
+          GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
+          WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
+          WebsiteURL: ${{ matrix.WebsiteURL }}
+          PackageName: ${{ matrix.PackageName }}
+          With: ${{ matrix.With }}
+          Submit: ${{ vars.SUBMIT_PR }}
+          IsTemplateUpdate: "true"
+        run: .\scripts\generic.ps1
+
+

@@ -1,4 +1,6 @@
-. .\scripts\common.ps1
+$scriptPath = $MyInvocation.MyCommand.Path
+$scriptDirectory = Split-Path -Parent $scriptPath
+Import-Module "$scriptDirectory\..\modules\WingetMaintainerModule"
 
 #### Main
 $params = @{
@@ -35,4 +37,3 @@ else {
 
 
 Update-WingetPackage @params
-

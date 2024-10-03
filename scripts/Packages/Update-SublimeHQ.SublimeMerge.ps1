@@ -1,4 +1,4 @@
-. .\scripts\common.ps1
+
 
 $WebsiteURL = "https://www.sublimemerge.com/download"
 $website = Invoke-WebRequest -Uri $WebsiteURL

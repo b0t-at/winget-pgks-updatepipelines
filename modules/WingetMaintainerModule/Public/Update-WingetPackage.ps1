@@ -1,0 +1,78 @@
+function Update-WingetPackage {
+    param(
+        [Parameter(Mandatory = $false)] [string] $WebsiteURL,
+        [Parameter(Mandatory = $false)] [string] $WingetPackage = ${Env:PackageName},
+        [Parameter(Mandatory = $false)][ValidateSet("Komac", "WinGetCreate")] [string] $With = "Komac",
+        [Parameter(Mandatory = $false)] [string] $resolves = (${Env:resolves} -match '^\d+$' ? ${Env:resolves} : ""),
+        [Parameter(Mandatory = $false)] [bool] $Submit = $false,
+        [Parameter(Mandatory = $false)] [string] $latestVersion,
+        [Parameter(Mandatory = $false)] [string] $latestVersionURL,
+        [Parameter(Mandatory = $false)] [bool] $IsTemplateUpdate = $false
+    )
+
+    # Custom validation
+    if (-not $IsTemplateUpdate -and -not $WebsiteURL -and (-not $latestVersion -or -not $latestVersionURL)) {
+        throw "Either WebsiteURL or both latestVersion and latestVersionURL are required."
+    }
+
+    # if ($Submit -eq $false) {
+    #     $env:DRY_RUN = $true
+    # }
+
+
+    $gitToken = Test-GitHubToken
+
+    if ($latestVersion -and $latestVersionURL) {
+        $Latest = @{
+            Version = $latestVersion
+            URLs    = $latestVersionURL.split(",").trim().split(" ")
+        }
+    }
+    else {
+        Write-Host "Getting latest version and URL for $wingetPackage from $WebsiteURL"
+        $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $WebsiteURL
+    }
+
+    if ($null -eq $Latest) {
+        Write-Host "No version info found"
+        exit 1
+    }
+    Write-Host $Latest
+    Write-Host $($Latest.Version)
+    Write-Host $($Latest.URLs)
+
+    $prMessage = "Update version: $wingetPackage version $($Latest.Version)"
+
+    $PackageAndVersionInWinget = Test-PackageAndVersionInGithub -wingetPackage $wingetPackage -latestVersion $($Latest.Version)
+
+    $ManifestOutPath = "./"
+
+    if ($PackageAndVersionInWinget) {
+
+        $ExistingPRs = Test-ExistingPRs -wingetPackage $wingetPackage -latestVersion $($Latest.Version)
+        
+        if ($ExistingPRs) {
+            Write-Host "Downloading $With and open PR for $wingetPackage Version $($Latest.Version)"
+            Switch ($With) {
+                "Komac" {
+                    Install-Komac
+                    .\komac.exe update $wingetPackage --version $Latest.Version --urls ($Latest.URLs).split(" ") ($Submit -eq $true ? '-s' : '--dry-run') ($resolves -match '^\d+$' ? "--resolves" : $null ) ($resolves -match '^\d+$' ? $resolves : $null ) -t $gitToken --output "$ManifestOutPath"
+                }
+                "WinGetCreate" {
+                    Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
+                    if (Test-Path ".\wingetcreate.exe") {
+                        Write-Host "wingetcreate successfully downloaded"
+                    }
+                    else {
+                        Write-Error "wingetcreate not downloaded"
+                        exit 1
+                    }
+                    .\wingetcreate.exe update $wingetPackage ($Submit -eq $true ? "-s" : $null ) -v $Latest.Version -u ($Latest.URLs).split(" ") --prtitle $prMessage -t $gitToken -o $ManifestOutPath
+                }
+                default { 
+                    Write-Error "Invalid value \"$With\" for -With parameter. Valid values are 'Komac' and 'WinGetCreate'"
+                }
+            }
+        }
+    }
+}

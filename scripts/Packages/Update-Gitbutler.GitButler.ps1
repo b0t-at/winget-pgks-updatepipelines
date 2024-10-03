@@ -1,4 +1,4 @@
-. .\scripts\common.ps1
+
 
 
 # Follow redirect of https://app.gitbutler.com/downloads/release/windows/x86_64/msi
