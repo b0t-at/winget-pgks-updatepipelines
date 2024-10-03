@@ -13,7 +13,7 @@ if (-not (Get-Module -Name powershell-yaml -ListAvailable)) {
 
 # Import powershell-yaml module
 Import-Module -Name powershell-yaml
-. .\scripts\common.ps1
+
 
 function Get-InstallerManifestContentGH {
     param(

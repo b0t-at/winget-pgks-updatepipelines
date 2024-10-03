@@ -1,4 +1,4 @@
-. .\scripts\common.ps1
+
 
 $PackageFilter = "mongodb-database-tools"
 

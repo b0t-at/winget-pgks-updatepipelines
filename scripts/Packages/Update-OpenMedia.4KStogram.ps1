@@ -1,4 +1,4 @@
-. .\scripts\common.ps1
+
 
 $versionParts = $wingetPackage.Split('.')
 $PackageName = $versionParts[1]

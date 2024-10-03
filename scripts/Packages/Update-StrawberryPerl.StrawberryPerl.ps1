@@ -1,4 +1,4 @@
-. .\scripts\common.ps1
+
 
 $latestVersionTag = gh release view --repo $WebsiteURL --json tagName -q ".tagName"
 $latestVersionName = gh release view --repo $WebsiteURL --json name -q ".name"

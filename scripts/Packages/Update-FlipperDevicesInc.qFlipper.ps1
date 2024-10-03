@@ -1,4 +1,4 @@
-. .\scripts\common.ps1
+
 
 
 $versionDirectory = Invoke-RestMethod -Uri $WebsiteURL 

@@ -1,4 +1,4 @@
-. .\scripts\common.ps1
+
 
 $latestVersion = Invoke-RestMethod -Method Get -Uri "https://oliverbetz.de/cms/files/Artikel/ExifTool-for-Windows/exiftool_latest_version.txt"
 

@@ -1,4 +1,4 @@
-. .\scripts\common.ps1
+
 
 
 # Currently not all versions have .exe installers
