@@ -154,6 +154,10 @@ jobs:
           - id: "UltimateGadgetLaboratories.UHKAgent"
             repo: "UltimateHackingKeyboard/agent"
             url: "https://github.com/UltimateHackingKeyboard/agent/releases/download/v{VERSION}/UHK.Agent-{VERSION}-win-ia32.exe https://github.com/UltimateHackingKeyboard/agent/releases/download/v{VERSION}/UHK.Agent-{VERSION}-win-x64.exe https://github.com/UltimateHackingKeyboard/agent/releases/download/v{VERSION}/UHK.Agent-{VERSION}-win.exe" 
+          - id: "stevencohn.OneMore"
+            repo: "stevencohn/OneMore"
+            url: "https://github.com/stevencohn/OneMore/releases/download/{VERSION}/OneMore_{VERSION}_Setupx64.msi https://github.com/stevencohn/OneMore/releases/download/{VERSION}/OneMore_{VERSION}_Setupx86.msi"
+    
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
