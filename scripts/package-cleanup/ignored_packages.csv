@@ -8,6 +8,8 @@ Adobe.CreativeCloud,*
 Baidu.BaiduSIAssistant,*
 Baidu.BaiduSIMeeting,*
 Baidu.BaiduTranslate,*
+Baidu.BaiduSIAssistan,*
+Baidu.TeraBox,*
 Betterbird.Betterbird,*
 BranchBlocks.Branch,1.1
 Codemao.Lessons,3.5.0
@@ -17,3 +19,5 @@ GloopProgramming.Gloop,*
 Codemao.kitten.4,*
 Ocenaudio.Ocenaudio,*
 wiznote.*,*
+OutsourcedGuru.octopi-init,*
+

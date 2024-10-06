@@ -16,6 +16,11 @@ else {
 # get current script directory
 $scriptDirectory = Split-Path -Parent $MyInvocation.MyCommand.Definition
 
+if ([string]::IsNullOrEmpty($scriptDirectory)) {
+    Write-Host "Failed to get script directory. Falling back to current directory"
+    $scriptDirectory = (Get-Location).Path
+}
+
 # get files that start with naming "Broken Packages-data-"
 $brokenPackagesFiles = Get-ChildItem -Path $scriptDirectory -Filter "Broken Packages-data-*" | Sort-Object -Property LastWriteTime -Descending
 if ($brokenPackagesFiles.Count -eq 0) {
@@ -36,6 +41,12 @@ $successfullPackages = @()
 foreach ($package in $packages) {
     if ($ignored_packages | Where-Object { $package.package_identifier -like $_.package_identifier -and ($_.package_version -eq "*" -or $_.package_version -eq $package.package_version) }) {
         write-host "Ignoring package $($package.package_identifier) | $($package.package_version)"
+        continue
+    }
+    # check if it is already in cleaned_packages.csv
+    $cleanedPackages = Import-Csv -Path $scriptDirectory\cleaned_packages.csv
+    if ($cleanedPackages | Where-Object { $_.package_identifier -eq $package.package_identifier -and $_.package_version -eq $package.package_version }) {
+        Write-Host "Ignoring package $($package.package_identifier) | $($package.package_version) as it is already cleaned"
         continue
     }
 
@@ -62,7 +73,7 @@ foreach ($package in $packages) {
             Write-Host "Package $($package.package_identifier) | $($package.package_version) | Failed to download"
             
             $ExistingPRs = gh pr list --search "Remove version: $($package.package_identifier) version $($package.package_version) in:title draft:false" --state 'all' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
-            $isHighestVersion = (& winget.exe search --id $package.package_identifier --exact ) -contains $package.package_version
+            $isHighestVersion = ((Find-WinGetPackage -Id $package.package_identifier) | Where-Object { $_.Version -eq $package.package_version -and $_.Id -eq $package.package_identifier }).Count -gt 0
             
             if ($isHighestVersion -eq $true -and $REMOVE_HIGHEST_VERSIONS -eq $false) {
                 Write-Host "Ignoring package $($package.package_identifier) | $($package.package_version) as it is the highest version"
@@ -89,6 +100,8 @@ foreach ($package in $packages) {
                         $prBody = "installers return following HTTP status code: $($package.http_codes)"            
                     }
                     . komac.exe remove --reason $prBody --submit -v $package.package_version  $package.package_identifier 
+                    # add it to cleaned_packages.csv
+                    $package | Export-Csv -Path $scriptDirectory\cleaned_packages.csv -Append -NoTypeInformation
                 }
             }
         }

@@ -1,3 +1,4 @@
 manifests/
 Tests
 scripts/package-cleanup/broken_packages.csv
+scripts/package-cleanup/cleaned_packages.csv
