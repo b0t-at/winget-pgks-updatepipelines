@@ -5,7 +5,7 @@ on:
         branches:
             - main
         paths:
-            - .github/workflows/GithubReleases.yml
+            - .github/workflows/github-releases.yml
             - .github/workflows/update-via-script.yml
 jobs:
     update-package-count:
