@@ -160,6 +160,10 @@ jobs:
           - id: "FrancisBanyikwa.MediaDownloader"
             repo: "mhogomchungu/media-downloader"
             url: "https://github.com/mhogomchungu/media-downloader/releases/download/{VERSION}/MediaDownloader-{VERSION}.setup.exe"   
+          - id: "StuntRally.StuntRally"
+            repo: "stuntrally/stuntrally3"
+            url: "https://github.com/stuntrally/stuntrally3/releases/download/{VERSION}/StuntRally-{VERSION}-installer.exe"   
+
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
