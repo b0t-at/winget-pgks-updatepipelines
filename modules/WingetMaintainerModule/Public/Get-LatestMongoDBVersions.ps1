@@ -14,9 +14,12 @@ function Get-LatestMongoDBVersions {
 
     $versions = $Packagelinks | ForEach-Object { $_ -match '(\d+\.\d+\.\d+(-rc\d*|-beta\d*)?)' | Out-Null; $matches[1] }
     $stableVersions = $versions | Where-Object { $_ -notmatch '(-rc|beta)' }
-
+    
     $latestVersion = $stableVersions | Sort-Object { [Version]$_ } | Select-Object -Last 1
-    $latestVersionUrl = $Packagelinks | Where-Object { $_ -match $latestVersion }
+    $latestVersionUrls = $Packagelinks | Where-Object { $_ -match $latestVersion }
+    
+    # remove -beta versions from URLs
+    $latestVersionUrl = $latestVersionUrls | Where-Object { $_ -notmatch 'beta' }
 
     return @{
         Version = $latestVersion
