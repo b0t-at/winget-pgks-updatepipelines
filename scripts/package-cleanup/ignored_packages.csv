@@ -3,6 +3,8 @@ IGNORED-PACKAGES-BECAUSE-OF-POTENTIAL-DOWNLOAD-PROBLEMS-BELOW,*
 iFlytek.iFlyIME,*
 JetBrains.*,*
 Verizon.OneTalk,*
+BranchBlocks.Branch,*
+Cube.CubePlatform,*
 NORMAL-IGNORES-DUE-TO-POTENtIAL-DATACENTER-BLOCK,*
 Adobe.CreativeCloud,*
 Baidu.BaiduSIAssistant,*
