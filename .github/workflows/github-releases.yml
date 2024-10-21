@@ -163,7 +163,7 @@ jobs:
           - id: "StuntRally.StuntRally"
             repo: "stuntrally/stuntrally3"
             url: "https://github.com/stuntrally/stuntrally3/releases/download/{VERSION}/StuntRally-{VERSION}-installer.exe"   
-          - id: "ActivityWatch.ActivityWatc"
+          - id: "ActivityWatch.ActivityWatch"
             repo: "ActivityWatch/activitywatch"
             url: "https://github.com/ActivityWatch/activitywatch/releases/download/v{VERSION}/activitywatch-v{VERSION}-windows-x86_64-setup.exe"   
 
