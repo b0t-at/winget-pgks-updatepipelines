@@ -166,6 +166,11 @@ jobs:
           - id: "ActivityWatch.ActivityWatch"
             repo: "ActivityWatch/activitywatch"
             url: "https://github.com/ActivityWatch/activitywatch/releases/download/v{VERSION}/activitywatch-v{VERSION}-windows-x86_64-setup.exe"   
+          - id: "Typst.Typst"
+            repo: "typst/typst"
+            url: "https://github.com/typst/typst/releases/download/v{VERSION}/typst-x86_64-pc-windows-msvc.zip"   
+
+
 
     steps:
     - name: Update Packages
