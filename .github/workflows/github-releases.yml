@@ -4,6 +4,11 @@ on:
   workflow_dispatch:
   schedule:
     - cron:  '3 0/4 * * *' # every 4 hours
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/github-releases.yml
 
 jobs:
   update-releasebased:

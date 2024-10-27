@@ -4,10 +4,12 @@ on:
   workflow_dispatch:
   schedule:
     - cron: 7 0/4 * * *
-
-permissions: 
-  contents: write
-  pull-requests: write
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/update-via-script.yml
+      - Scripts/Packages/*
 
 jobs:
   update-scriptbased:
