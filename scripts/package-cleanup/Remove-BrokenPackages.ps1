@@ -2,6 +2,7 @@ Import-Module Microsoft.WinGet.Client
 $ErrorActionPreference = "Stop"
 
 $DRY_RUN = $false
+$USE_WHITELIST = $true
 $REMOVE_HIGHEST_VERSIONS = $false
 #$timeoutSeconds = 60  # Set your desired timeout in seconds
 
@@ -35,6 +36,17 @@ $brokenPackageFileAbsolutePath = $brokenPackagesFiles[0].FullName
 
 $packages = Import-Csv -Path $brokenPackageFileAbsolutePath
 $ignored_packages = Import-Csv -Path $scriptDirectory\ignored_packages.csv
+$whitelist_packages = Import-Csv -Path $scriptDirectory\whitelist_packages.csv
+
+$whitelistDict = @{}
+foreach ($whitelist in $whitelist_packages) {
+    $whitelistDict[$whitelist.package_identifier] = $whitelist.package_identifier
+}
+
+# filter out packages that are not in whitelist
+if($USE_WHITELIST -eq $true) {
+    $packages = $packages | Where-Object { $whitelistDict.ContainsKey($_.package_identifier) }
+}
 
 $successfullPackages = @()
 #$timeoutPackages = @()
