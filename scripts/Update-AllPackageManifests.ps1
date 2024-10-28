@@ -82,7 +82,7 @@ function Update-WingetPackage {
         $manifest = $manifestDict[$version]
         # Extract the installer links from the manifest
         $installerLinks = Export-InstallerLinks -Manifest $manifest
-        $prExists = Test-ExistingPRs -PackageIdentifier $PackageIdentifier -Version $version
+        $prExists = Test-ExistingPRs -PackageIdentifier $PackageIdentifier -Version $version -OnlyOpen
         if(!$prExists || $Submit -eq $false) {
         .\komac.exe update $PackageIdentifier --version $version --urls $installerLinks -o $OutputDir -t $Token ($Submit -eq $true ? '-s' : '--dry-run') ($resolves -match '^\d+$' ? "--resolves $resolves" : $null )
         }
