@@ -1,11 +1,40 @@
+<#
+.SYNOPSIS
+    Checks for existing pull requests (PRs) for a specified package identifier and version in the 'microsoft/winget-pkgs' repository.
+
+.DESCRIPTION
+    The `Test-ExistingPRs` function searches for existing open and merged pull requests in the 'microsoft/winget-pkgs' repository that match the specified package identifier and version. 
+    It uses the GitHub CLI (`gh`) to perform the search and returns `true` if any matching PRs are found, otherwise returns `false`.
+
+.PARAMETER Version
+    The version of the package to check for existing PRs. This parameter is mandatory.
+
+.PARAMETER PackageIdentifier
+    The identifier of the package to check for existing PRs. This parameter is optional and defaults to the value of the `PackageName` environment variable if not specified.
+
+.EXAMPLE
+    Test-ExistingPRs -Version "1.0.0" -PackageIdentifier "example.package"
+    Checks for existing PRs for the package 'example.package' with version '1.0.0'.
+
+.EXAMPLE
+    Test-ExistingPRs -Version "1.0.0"
+    Checks for existing PRs for the package specified in the `PackageName` environment variable with version '1.0.0'.
+
+.OUTPUTS
+    System.Boolean
+    Returns `true` if any matching PRs are found, otherwise returns `false`.
+
+.NOTES
+    This function requires the GitHub CLI (`gh`) to be installed and authenticated.
+#>
 function Test-ExistingPRs {
     param(
-        [Parameter(Mandatory = $true)] [string] $latestVersion,
-        [Parameter(Mandatory = $false)] [string] $wingetPackage = ${Env:PackageName}
+        [Parameter(Mandatory = $true)] [string] $Version,
+        [Parameter(Mandatory = $false)] [string] $PackageIdentifier = ${Env:PackageName}
     )
-    Write-Host "Checking for exisitng PRs for $wingetPackage $($Latest.Version)"
-    $ExistingOpenPRs = gh pr list --search "$($wingetPackage) $($latestVersion) in:title draft:false" --state 'open' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
-    $ExistingMergedPRs = gh pr list --search "$($wingetPackage) $($latestVersion) in:title draft:false" --state 'merged' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
+    Write-Host "Checking for existing PRs for $PackageIdentifier $Version"
+    $ExistingOpenPRs = gh pr list --search "$($PackageIdentifier) $($Version) in:title draft:false" --state 'open' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
+    $ExistingMergedPRs = gh pr list --search "$($PackageIdentifier) $($Version) in:title draft:false" --state 'merged' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
     $ExistingPRs = @($ExistingOpenPRs) + @($ExistingMergedPRs)    
 
     if ($ExistingPRs.Count -gt 0) {
@@ -13,11 +42,11 @@ function Test-ExistingPRs {
             Write-Host "Found existing PR: $($_.title)"
             Write-Host "-> $($_.url)"
         }
-        exit 0
+        return $true
     }
     else {
 
-        return $true
+        return $false
     }
 }
 

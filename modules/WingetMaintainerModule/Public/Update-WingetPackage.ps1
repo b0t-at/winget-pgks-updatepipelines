@@ -49,9 +49,9 @@ function Update-WingetPackage {
 
     if ($PackageAndVersionInWinget) {
 
-        $ExistingPRs = Test-ExistingPRs -wingetPackage $wingetPackage -latestVersion $($Latest.Version)
+        $PRExists = Test-ExistingPRs -PackageIdentifier $wingetPackage -Version $($Latest.Version)
         
-        if ($ExistingPRs) {
+        if (!$PRExists) {
             Write-Host "Downloading $With and open PR for $wingetPackage Version $($Latest.Version)"
             Switch ($With) {
                 "Komac" {

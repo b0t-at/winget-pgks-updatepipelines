@@ -5,10 +5,15 @@ on:
       PackageIdentifier:
         description: "Package Identifier"
         required: true
-      Message: 
-        description: "Message"
+      submit:
+        description: 'True to auto-submit'
+        required: true
+        type: boolean
+        default: false
+      resolves: 
+        description: 'resolves this issues'
         required: false
-
+        default: ''
 jobs:
   update:
     name: Rebuild manifests
@@ -21,13 +26,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Trigger Mass Package Update
         run: |
-          Write-Host "Currently in: $(Get-Location)"
           $fullPathFork = "$(Get-Location)"
-          if($message -eq $null) {
-            scripts/Update-PackageManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPathFork -Token ${{env.WINGET_PAT}}
-          } else {
-            scripts/Update-PackageManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPathFork -Token ${{env.WINGET_PAT}} -Message ${{ github.event.inputs.Message }}
-          }
+          $resolves = ${{ github.event.inputs.resolves }}
+          scripts/Update-AllPackageManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPathFork -Token ${{env.WINGET_PAT}} -Submit ${{ github.event.inputs.submit }} ( ![string]::IsNullOrWhitespace($resolves) ? "-Resolves  $resolves" : $null ) 
       - uses: actions/upload-artifact@v4
         with:
           name: manifests

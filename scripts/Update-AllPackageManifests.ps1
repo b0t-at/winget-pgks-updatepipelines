@@ -2,9 +2,12 @@ param(
     [Parameter(Mandatory = $true)] [string] $PackageIdentifier,
     [Parameter(Mandatory = $true)] [string] $OutputDir,
     [Parameter(Mandatory = $true)] [string] $Token,
-    [Parameter(Mandatory = $false)] [string] $Message
+    [Parameter(Mandatory = $false)] [string] $Submit,
+    [Parameter(Mandatory = $false)] [string] $Resolves
 )
-
+$scriptPath = $MyInvocation.MyCommand.Path
+$scriptDirectory = Split-Path -Parent $scriptPath
+Import-Module "$scriptDirectory\..\modules\WingetMaintainerModule"
 # Check if powershell-yaml module is installed
 if (-not (Get-Module -Name powershell-yaml -ListAvailable)) {
     # Install powershell-yaml module
@@ -74,15 +77,16 @@ function Update-WingetPackage {
         $manifestDict = @{}
         $manifestDict[$Version] = Get-InstallerManifestContentGH -PackageIdentifier $PackageIdentifier -Version $Version
     }
-
+    Install-Komac
     foreach ($version in $manifestDict.Keys) {
         $manifest = $manifestDict[$version]
         # Extract the installer links from the manifest
         $installerLinks = Export-InstallerLinks -Manifest $manifest
-
-        Install-Komac
-        .\komac.exe update $PackageIdentifier --version $version --urls $installerLinks -o $OutputDir -t $Token --dry-run
+        $prExists = Test-ExistingPRs -PackageIdentifier $PackageIdentifier -Version $version
+        if(!$prExists || $Submit -eq $false) {
+        .\komac.exe update $PackageIdentifier --version $version --urls $installerLinks -o $OutputDir -t $Token ($Submit -eq $true ? '-s' : '--dry-run') ($resolves -match '^\d+$' ? "--resolves $resolves" : $null )
         }
+    }
 }
 
 Update-WingetPackage -PackageIdentifier $PackageIdentifier -OutputDir $OutputDir -All
