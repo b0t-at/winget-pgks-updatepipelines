@@ -20,7 +20,7 @@ jobs:
     runs-on: windows-latest
     env:
       WINGET_PKGS_FORK_REPO: ${{vars.WINGET_PKGS_FORK_REPO}}
-      WINGET_PAT: ${{secrets.WINGET_PAT}}
+      GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,7 +28,7 @@ jobs:
         run: |
           $fullPathFork = "$(Get-Location)"
           $resolves = ${{ github.event.inputs.resolves }}
-          scripts/Update-AllPackageManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPathFork -Token ${{env.WINGET_PAT}} -Submit ${{ github.event.inputs.submit }} ( ![string]::IsNullOrWhitespace($resolves) ? "-Resolves  $resolves" : $null ) 
+          scripts/Update-AllPackageManifests.ps1 -PackageIdentifier ${{ github.event.inputs.PackageIdentifier }} -OutputDir $fullPathFork -Token ${{env.GITHUB_TOKEN}} -Submit ${{ github.event.inputs.submit }} ( ![string]::IsNullOrWhitespace($resolves) ? "-Resolves  $resolves" : $null ) 
       - uses: actions/upload-artifact@v4
         with:
           name: manifests
