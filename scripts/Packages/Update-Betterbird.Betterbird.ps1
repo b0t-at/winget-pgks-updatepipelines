@@ -20,6 +20,9 @@ $latestVersion = $versions | Sort-Object -Descending -Unique | Select-Object -Fi
 
 $latestVersionUrl = $FilteredLinks | ForEach-Object { ($_.href -replace '\?.*', '') } | Where-Object { $_ -ne '' -and $_ -match $latestVersion -and $_ -notmatch "latest-build|Previous" } | ForEach-Object { $WebsiteURL + $_ }
 
+# filter zips
+$latestVersionUrl = $latestVersionUrl | Where-Object { $_ -match ".exe" }
+
 $returnObject = [PSCustomObject]@{
     Version = $latestVersion
     URLs = $latestVersionUrl
