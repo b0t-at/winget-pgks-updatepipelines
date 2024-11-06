@@ -99,6 +99,7 @@ jobs:
           - PackageName: "Bandisoft.Bandizip"
 #          - PackageName: "Betterbird.Betterbird"
 #            WebsiteURL: "https://www.betterbird.eu/downloads/"
+          - PackageName: "wire.wire"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
