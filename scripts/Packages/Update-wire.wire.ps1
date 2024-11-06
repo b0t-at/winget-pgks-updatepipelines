@@ -13,7 +13,7 @@ foreach($release in $releases) {
 }
 
 $latestVersion = $latestWindowsTag.Split("/")[1]
-$latestVersionUrl = "https://github.com/wireapp/wire-desktop/releases/download/windows%2F$version/Wire-Setup.exe"
+$latestVersionUrl = "https://github.com/wireapp/wire-desktop/releases/download/windows%2F$latestVersion/Wire-Setup.exe"
 
 $returnObject = [PSCustomObject]@{
     Version = $latestVersion
