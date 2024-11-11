@@ -177,6 +177,9 @@ jobs:
           - id: "Jellyfin.Server"
             repo: "jellyfin/jellyfin-server-windows"
             url: "https://github.com/jellyfin/jellyfin-server-windows/releases/download/{VERSION}/jellyfin_{VERSION}_windows-x64.exe"  
+          - id: "ZugferdCommunity.QubaViewer"
+            repo: "ZUGFeRD/quba-viewer"
+            url: "https://github.com/ZUGFeRD/quba-viewer/releases/download/v{VERSION}/Quba.{VERSION}.msi"  
 
 
     steps:
