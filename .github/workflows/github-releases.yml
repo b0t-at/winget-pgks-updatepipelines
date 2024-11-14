@@ -119,7 +119,7 @@ jobs:
           - id: "orhun.git-cliff"
             repo: "orhun/git-cliff"
             url: "https://github.com/orhun/git-cliff/releases/download/v{VERSION}/git-cliff-{VERSION}-i686-pc-windows-msvc.zip https://github.com/orhun/git-cliff/releases/download/v{VERSION}/git-cliff-{VERSION}-x86_64-pc-windows-gnu.zip https://github.com/orhun/git-cliff/releases/download/v{VERSION}/git-cliff-{VERSION}-aarch64-pc-windows-msvc.zip"       
-          - id: "Governikus.AusweisApp2"
+          - id: "Governikus.AusweisApp"
             repo: "Governikus/AusweisApp"
             url: "https://github.com/Governikus/AusweisApp/releases/download/{VERSION}/AusweisApp-{VERSION}.msi"
           - id: "KeeperSecurity.Commander"
