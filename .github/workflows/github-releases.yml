@@ -180,7 +180,9 @@ jobs:
           - id: "ZugferdCommunity.QubaViewer"
             repo: "ZUGFeRD/quba-viewer"
             url: "https://github.com/ZUGFeRD/quba-viewer/releases/download/v{VERSION}/Quba.{VERSION}.msi"  
-
+          - id: "ossia.score"
+            repo: "ossia/score"
+            url: "https://github.com/ossia/score/releases/download/v{VERSION}/ossia.score-{VERSION}-win64.exe"  
 
     steps:
     - name: Update Packages
