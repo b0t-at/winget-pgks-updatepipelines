@@ -34,6 +34,8 @@ if($Env:IsTemplateUpdate -eq $true) {
 else {
     $params.Add("IsTemplateUpdate", $false)
 }
-
+if($Env:releaseNotes) {
+    $params.Add("releaseNotes", $Env:releaseNotes)
+}
 
 Update-WingetPackage @params
