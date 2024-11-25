@@ -1,12 +1,11 @@
-
+$WebsiteUrl = "https://docs.konnekt.io/changelog"
 
 $versionParts = $wingetPackage.Split('.')
 $PackageName = $versionParts[1]
 
-$ProductName = ($PackageName -replace '4K', '').Trim().ToLower()
+$ProductName = ($PackageName).Trim().ToLower()
 
-$versionPattern = "$($ProductName)_(\d+\.\d+\.\d+\.\d+)_windows_(x86|x64)"
-$URLFilter = "$($ProductName)_windows_(x32|x64)_installer"
+$URLFilter = "$($ProductName)-(X86|X64|Arm64)-(\d+\.\d+\.\d+\.\d+).Msi"
 
 # Download the webpage
 $website = Invoke-WebRequest -Uri $WebsiteURL
@@ -15,14 +14,10 @@ $website = Invoke-WebRequest -Uri $WebsiteURL
 $WebsiteLinks = $website.Links
 $WebsiteContent = $website.Content
 
-$FilteredLinks = $WebsiteLinks | Where-Object { $_.Id -match $URLFilter }
+$FilteredLinks = $WebsiteLinks | Where-Object { $_.href -match $URLFilter }
 
-$BigVersion = $FilteredLinks | ForEach-Object { $_.href -replace '.*_(\d+\.\d+\.\d+).*', '$1' } | Sort-Object -Descending -Unique | Select-Object -First 1
-$versionPattern = "($($BigVersion)\.\d+)"
-$versions = $WebsiteContent | Select-String -Pattern $versionPattern -AllMatches | ForEach-Object { $_.Matches } | ForEach-Object { $_.Groups[1].Value }
+$latestVersion = $FilteredLinks | ForEach-Object { $_.href -replace '.*-(\d+\.\d+\.\d+\.\d+).*', '$1' } | Sort-STNumerical -Descending | Select-Object -First 1
 
-$latestVersion = $versions | Sort-Object -Descending -Unique | Select-Object -First 1
-
-$latestVersionUrl = $FilteredLinks | ForEach-Object { ($_.href -replace '\?.*', '') } | Where-Object { $_ -ne '' }
+$latestVersionUrl = $FilteredLinks.href | Where-Object { ($_ -match $latestVersion) } | Where-Object { $_ -ne '' }
 
 return $latestVersion, $latestVersionUrl
