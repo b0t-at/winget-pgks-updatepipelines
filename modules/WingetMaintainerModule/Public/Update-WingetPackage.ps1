@@ -7,7 +7,8 @@ function Update-WingetPackage {
         [Parameter(Mandatory = $false)] [bool] $Submit = $false,
         [Parameter(Mandatory = $false)] [string] $latestVersion,
         [Parameter(Mandatory = $false)] [string] $latestVersionURL,
-        [Parameter(Mandatory = $false)] [bool] $IsTemplateUpdate = $false
+        [Parameter(Mandatory = $false)] [bool] $IsTemplateUpdate = $false,
+        [Parameter(Mandatory = $false)] [string] $releaseNotes
     )
 
     # Custom validation
@@ -71,6 +72,13 @@ function Update-WingetPackage {
                 }
                 default { 
                     Write-Error "Invalid value \"$With\" for -With parameter. Valid values are 'Komac' and 'WinGetCreate'"
+                }
+            }
+
+            if ($releaseNotes) {
+                $localFiles = Get-ChildItem -Path $ManifestOutPath -Filter "*.local.yml"
+                foreach ($file in $localFiles) {
+                    Add-Content -Path $file.FullName -Value "`n`n$releaseNotes"
                 }
             }
         }
