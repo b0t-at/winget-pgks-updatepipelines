@@ -77,6 +77,8 @@ else {
     Write-Host "Version not found in the content."
 }
 
+$releaseNotes = $releaseNotes.trim(), "ReleaseNotesURL: $WebsiteUrl"
+
 return $latestVersion, $latestVersionUrl, $releaseNotes
 
 
