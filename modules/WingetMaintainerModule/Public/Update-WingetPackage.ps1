@@ -85,7 +85,7 @@ function Update-WingetPackage {
 
             if ($releaseNotes) {
                 write-Host "Try adding release notes to the manifest in $ManifestOutPath"
-                $localFiles = Get-ChildItem -Path $ManifestOutPath -Filter "*.local.*.yaml"
+                $localFiles = Get-ChildItem -Recurse -Path $ManifestOutPath -Filter "*.locale.*.yaml"
                 foreach ($file in $localFiles) {
                     Add-Content -Path $file.FullName -Value "`n`n$releaseNotes"
                     $newFile = get-content -path $file.FullName
