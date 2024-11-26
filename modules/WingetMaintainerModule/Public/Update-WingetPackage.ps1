@@ -32,6 +32,9 @@ function Update-WingetPackage {
     else {
         Write-Host "Getting latest version and URL for $wingetPackage from $WebsiteURL"
         $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $WebsiteURL
+        if ($Latest.releaseNotes) {
+            $releaseNotes = $Latest.releaseNotes
+        }
     }
 
     if ($null -eq $Latest) {
@@ -41,6 +44,7 @@ function Update-WingetPackage {
     Write-Host $Latest
     Write-Host $($Latest.Version)
     Write-Host $($Latest.URLs)
+    Write-Host $($Latest.releaseNotes)
 
     $prMessage = "Update version: $wingetPackage version $($Latest.Version)"
 

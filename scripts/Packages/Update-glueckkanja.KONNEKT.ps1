@@ -20,4 +20,15 @@ $latestVersion = $FilteredLinks | ForEach-Object { $_.href -replace '.*-(\d+\.\d
 
 $latestVersionUrl = $FilteredLinks.href | Where-Object { ($_ -match $latestVersion) } | Where-Object { $_ -ne '' }
 
+
+# Use regex to extract the content between "2.20.1.0" and "Downloads"
+$Pattern = '\.?2\.10\.1\.0(.*?)Downloads'
+if ($WebsiteContent -match $Pattern) {
+    $ExtractedContent = $matches[1]
+    Write-Output "Extracted Content:"
+    Write-Output $ExtractedContent
+} else {
+    Write-Output "Pattern not found in the content."
+}
+
 return $latestVersion, $latestVersionUrl
