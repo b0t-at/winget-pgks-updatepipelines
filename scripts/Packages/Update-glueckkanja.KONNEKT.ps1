@@ -67,8 +67,8 @@ if ($null -ne $targetElement) {
         $currentElement = $currentElement.NextSibling
     }
 
-    Write-Host "Extracted Content:"
-    Write-Host $content
+    #Write-Host "Extracted Content:"
+    #Write-Host $content
 
     # Convert the extracted content to YAML format
     $yamlContent = "ReleaseNotes: |-`n"
@@ -77,8 +77,8 @@ if ($null -ne $targetElement) {
         $yamlContent += "  $line`n"
     }
 
-    Write-Host "YAML Content:"
-    Write-Host $yamlContent
+    #Write-Host "YAML Content:"
+    #Write-Host $yamlContent
 
     $releaseNotes = $yamlContent
 
