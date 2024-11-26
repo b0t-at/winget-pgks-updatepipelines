@@ -92,8 +92,16 @@ function Update-WingetPackage {
                     $newFile
                 }
                 if ($Submit -eq $true) {
+                    Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
+                    if (Test-Path ".\wingetcreate.exe") {
+                        Write-Host "wingetcreate successfully downloaded"
+                    }
+                    else {
+                        Write-Error "wingetcreate not downloaded"
+                        exit 1
+                    }
                     Write-Host "Submitting PR for $wingetPackage Version $($Latest.Version)"
-                    wingetcreate.exe submit --prtitle $prMessage -t $gitToken "$($ManifestOutPath)manifests/$($wingetPackage.Substring(0, 1).ToLower())/$($wingetPackage.replace(".","/"))/$($Latest.Version)"
+                    .\wingetcreate.exe submit --prtitle $prMessage -t $gitToken "$($ManifestOutPath)manifests/$($wingetPackage.Substring(0, 1).ToLower())/$($wingetPackage.replace(".","/"))/$($Latest.Version)"
                 }
             }            
         }
