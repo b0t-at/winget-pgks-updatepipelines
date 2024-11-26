@@ -33,9 +33,6 @@ function Update-WingetPackage {
     else {
         Write-Host "Getting latest version and URL for $wingetPackage from $WebsiteURL"
         $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $WebsiteURL
-        if ($Latest.ReleaseNotes) {
-            $releaseNotes = $Latest.ReleaseNotes
-        }
     }
 
     if ($null -eq $Latest) {
@@ -63,43 +60,31 @@ function Update-WingetPackage {
                 "Komac" {
                     Install-Komac
                     #.\komac.exe update $wingetPackage --version $Latest.Version --urls ($Latest.URLs).split(" ") --dry-run ($resolves -match '^\d+$' ? "--resolves" : $null ) ($resolves -match '^\d+$' ? $resolves : $null ) -t $gitToken --output "$ManifestOutPath"
-                    .\komac.exe update $wingetPackage --version $Latest.Version --urls ($Latest.URLs).split(" ") ($Submit -eq $true -and !$releaseNotes ? '-s' : '--dry-run') ($resolves -match '^\d+$' ? "--resolves" : $null ) ($resolves -match '^\d+$' ? $resolves : $null ) -t $gitToken --output "$ManifestOutPath"
+                    .\komac.exe update $wingetPackage --version $Latest.Version --urls ($Latest.URLs).split(" ") ($Submit -eq $true -and !$Latest.ReleaseNotes ? '-s' : '--dry-run') ($resolves -match '^\d+$' ? "--resolves" : $null ) ($resolves -match '^\d+$' ? $resolves : $null ) -t $gitToken --output "$ManifestOutPath"
                 }
                 "WinGetCreate" {
-                    Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
-                    if (Test-Path ".\wingetcreate.exe") {
-                        Write-Host "wingetcreate successfully downloaded"
-                    }
-                    else {
-                        Write-Error "wingetcreate not downloaded"
-                        exit 1
-                    }
+                    Install-WingetCreate
                     #.\wingetcreate.exe update $wingetPackage -v $Latest.Version -u ($Latest.URLs).split(" ") --prtitle $prMessage -t $gitToken -o $ManifestOutPath
-
-                    .\wingetcreate.exe update $wingetPackage ($Submit -eq $true -and !$releaseNotes ? "-s" : $null ) -v $Latest.Version -u ($Latest.URLs).split(" ") --prtitle $prMessage -t $gitToken -o $ManifestOutPath
+                    .\wingetcreate.exe update $wingetPackage ($Submit -eq $true -and !$Latest.ReleaseNotes ? "-s" : $null ) -v $Latest.Version -u ($Latest.URLs).split(" ") --prtitle $prMessage -t $gitToken -o $ManifestOutPath
                 }
                 default { 
                     Write-Error "Invalid value \"$With\" for -With parameter. Valid values are 'Komac' and 'WinGetCreate'"
                 }
             }
 
+            # If release notes are provided, add them to the manifest and submit via wingetcreate if -Submit is set to true
             if ($releaseNotes) {
                 write-Host "Try adding release notes to the manifest in $ManifestOutPath"
                 $localFiles = Get-ChildItem -Recurse -Path $ManifestOutPath -Filter "*.locale.*.yaml"
                 foreach ($file in $localFiles) {
-                    Add-Content -Path $file.FullName -Value "$releaseNotes"
+                    Add-Content -Path $file.FullName -Value "$($Latest.ReleaseNotes)"
                     $newFile = get-content -path $file.FullName
+                    # Output new File to see if release notes are added
                     $newFile
                 }
+                # Submit PR with wingetcreate if -Submit is set to true
                 if ($Submit -eq $true) {
-                    Invoke-WebRequest https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
-                    if (Test-Path ".\wingetcreate.exe") {
-                        Write-Host "wingetcreate successfully downloaded"
-                    }
-                    else {
-                        Write-Error "wingetcreate not downloaded"
-                        exit 1
-                    }
+                    Install-WingetCreate
                     Write-Host "Submitting PR for $wingetPackage Version $($Latest.Version)"
                     .\wingetcreate.exe submit --prtitle $prMessage -t $gitToken "$($ManifestOutPath)manifests/$($wingetPackage.Substring(0, 1).ToLower())/$($wingetPackage.replace(".","/"))/$($Latest.Version)"
                 }

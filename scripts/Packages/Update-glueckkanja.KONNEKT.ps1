@@ -2,9 +2,7 @@ $WebsiteUrl = "https://docs.konnekt.io/changelog"
 
 $versionParts = $wingetPackage.Split('.')
 $PackageName = $versionParts[1]
-
 $ProductName = ($PackageName).Trim().ToLower()
-
 $URLFilter = "$($ProductName)-(X86|X64|Arm64)-(\d+\.\d+\.\d+\.\d+).Msi"
 
 # Download the webpage
@@ -15,22 +13,17 @@ $WebsiteLinks = $website.Links
 $WebsiteContent = $website.Content
 
 $FilteredLinks = $WebsiteLinks | Where-Object { $_.href -match $URLFilter }
-
 $latestVersion = $FilteredLinks | ForEach-Object { $_.href -replace '.*-(\d+\.\d+\.\d+).*', '$1' } | Sort-STNumerical -Descending | Select-Object -First 1
-
 $latestVersionUrl = $FilteredLinks.href | Where-Object { ($_ -match $latestVersion) } | Where-Object { $_ -ne '' }
 
 
 ################ HTML/ReleaseNote Parsing ###################
 $xmlContent = $null
-# Parse the HTML content
-#$xmlContent = [xml]$website.Content
 
 $ContentNoScripts = [regex]::Replace($WebsiteContent, "<script .*?>.*?</script>", "", [System.Text.RegularExpressions.RegexOptions]::Singleline)
 $ContentNoScriptsNoComments = [regex]::Replace($ContentNoScripts, "<!--.*?-->", "", [System.Text.RegularExpressions.RegexOptions]::Singleline)
 $ContentNoScriptsNoCommentsNoIds = [regex]::Replace($ContentNoScriptsNoComments, 'id=".*?"', "", [System.Text.RegularExpressions.RegexOptions]::Singleline)
 $ContentNoScriptsNoCommentsNoIdsNoHidden = [regex]::Replace($ContentNoScriptsNoCommentsNoIds, 'hidden', "", [System.Text.RegularExpressions.RegexOptions]::Singleline)
-
 
 # Parse the HTML content
 $xmlContent = [xml]$ContentNoScriptsNoCommentsNoIdsNoHidden
@@ -67,9 +60,6 @@ if ($null -ne $targetElement) {
         $currentElement = $currentElement.NextSibling
     }
 
-    #Write-Host "Extracted Content:"
-    #Write-Host $content
-
     # Convert the extracted content to YAML format
     $yamlContent = "ReleaseNotes: |-`n"
     $lines = $content -split "`n"
@@ -82,7 +72,8 @@ if ($null -ne $targetElement) {
 
     $releaseNotes = $yamlContent
 
-} else {
+}
+else {
     Write-Host "Version not found in the content."
 }
 
