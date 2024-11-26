@@ -27,13 +27,14 @@ function Update-WingetPackage {
         $Latest = @{
             Version = $latestVersion
             URLs    = $latestVersionURL.split(",").trim().split(" ")
+            ReleaseNotes = $releaseNotes
         }
     }
     else {
         Write-Host "Getting latest version and URL for $wingetPackage from $WebsiteURL"
         $Latest = Get-VersionAndUrl -wingetPackage $wingetPackage -WebsiteURL $WebsiteURL
-        if ($Latest.releaseNotes) {
-            $releaseNotes = $Latest.releaseNotes
+        if ($Latest.ReleaseNotes) {
+            $releaseNotes = $Latest.ReleaseNotes
         }
     }
 

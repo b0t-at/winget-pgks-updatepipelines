@@ -49,10 +49,11 @@ foreach ($element in $h3Elements) {
 if ($null -ne $targetElement) {
     # Extract content until the next h3 element
     $content = ""
+    $releaseNotes = ""
     $currentElement = $targetElement.NextSibling
 
     while ($null -ne $currentElement -and $currentElement.Name -ne "h3") {
-        $currentElement.InnerText
+        #$currentElement.InnerText
         if ($currentElement.InnerText -match "Downloads") {
             break
         }
@@ -66,8 +67,8 @@ if ($null -ne $targetElement) {
         $currentElement = $currentElement.NextSibling
     }
 
-    Write-Output "Extracted Content:"
-    Write-Output $content
+    Write-Host "Extracted Content:"
+    Write-Host $content
 
     # Convert the extracted content to YAML format
     $yamlContent = "ReleaseNotes: |-`n"
@@ -76,13 +77,15 @@ if ($null -ne $targetElement) {
         $yamlContent += "  $line`n"
     }
 
-    Write-Output "YAML Content:"
-    Write-Output $yamlContent
+    Write-Host "YAML Content:"
+    Write-Host $yamlContent
 
     $releaseNotes = $yamlContent
 
 } else {
-    Write-Output "Version not found in the content."
+    Write-Host "Version not found in the content."
 }
 
 return $latestVersion, $latestVersionUrl, $releaseNotes
+
+

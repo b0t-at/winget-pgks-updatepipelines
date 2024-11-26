@@ -13,6 +13,9 @@ Function Get-VersionAndUrl {
     Write-Host "Running $scriptPath"
     $Latest = & $scriptPath -WebsiteURL $WebsiteURL -wingetPackage $wingetPackage
 
+    ## Check for Release Notes
+    $releaseNotesPattern = 'ReleaseNotes:'
+    $releaseNotes = $Latest | Where-Object { $_ -match $releaseNotesPattern }
 
     if (!($Latest | Get-Member -Name "Version") -or !($Latest | Get-Member -Name "URLs")) {
 
@@ -36,6 +39,18 @@ Function Get-VersionAndUrl {
         }
     }
 
-    Write-Host "Found latest version: $version with URLs: $($Latest.URLs -join ',')"
-    return $Latest
+    if (!($Latest | Get-Member -Name "ReleaseNotes")) {
+
+        if ($releaseNotes) {
+            $Latest.Add("ReleaseNotes", $releaseNotes)
+            Write-Host "Found Release Notes:"
+            Write-Host $releaseNotes
+        }
+        else {
+            Write-Host "ReleaseNotes not found in the content but releaseNotes are not required."
+        }
+    }
+
+Write-Host "Found latest version: $version with URLs: $($Latest.URLs -join ',')"
+return $Latest
 }
