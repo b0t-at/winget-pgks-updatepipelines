@@ -8,7 +8,7 @@ $ProductName = ($PackageName).Trim().ToLower()
 $URLFilter = "$($ProductName)-(X86|X64|Arm64)-(\d+\.\d+\.\d+\.\d+).Msi"
 
 # Download the webpage
-$website = Invoke-WebRequest -Uri $WebsiteURL
+$website = Invoke-WebRequest -Uri $WebsiteURL -UseBasicParsing
 
 # Extract the content of the webpage
 $WebsiteLinks = $website.Links
@@ -16,19 +16,73 @@ $WebsiteContent = $website.Content
 
 $FilteredLinks = $WebsiteLinks | Where-Object { $_.href -match $URLFilter }
 
-$latestVersion = $FilteredLinks | ForEach-Object { $_.href -replace '.*-(\d+\.\d+\.\d+\.\d+).*', '$1' } | Sort-STNumerical -Descending | Select-Object -First 1
+$latestVersion = $FilteredLinks | ForEach-Object { $_.href -replace '.*-(\d+\.\d+\.\d+).*', '$1' } | Sort-STNumerical -Descending | Select-Object -First 1
 
 $latestVersionUrl = $FilteredLinks.href | Where-Object { ($_ -match $latestVersion) } | Where-Object { $_ -ne '' }
 
 
-# Use regex to extract the content between "2.20.1.0" and "Downloads"
-$Pattern = '\.?2\.10\.1\.0(.*?)Downloads'
-if ($WebsiteContent -match $Pattern) {
-    $ExtractedContent = $matches[1]
-    Write-Output "Extracted Content:"
-    Write-Output $ExtractedContent
-} else {
-    Write-Output "Pattern not found in the content."
+################ HTML/ReleaseNote Parsing ###################
+$xmlContent = $null
+# Parse the HTML content
+#$xmlContent = [xml]$website.Content
+
+$ContentNoScripts = [regex]::Replace($WebsiteContent, "<script .*?>.*?</script>", "", [System.Text.RegularExpressions.RegexOptions]::Singleline)
+$ContentNoScriptsNoComments = [regex]::Replace($ContentNoScripts, "<!--.*?-->", "", [System.Text.RegularExpressions.RegexOptions]::Singleline)
+$ContentNoScriptsNoCommentsNoIds = [regex]::Replace($ContentNoScriptsNoComments, 'id=".*?"', "", [System.Text.RegularExpressions.RegexOptions]::Singleline)
+$ContentNoScriptsNoCommentsNoIdsNoHidden = [regex]::Replace($ContentNoScriptsNoCommentsNoIds, 'hidden', "", [System.Text.RegularExpressions.RegexOptions]::Singleline)
+
+
+# Parse the HTML content
+$xmlContent = [xml]$ContentNoScriptsNoCommentsNoIdsNoHidden
+
+# Find the h3 element with the latest version in its text
+$h3Elements = $xmlContent.SelectNodes("//h3")
+$targetElement = $null
+
+foreach ($element in $h3Elements) {
+    if ($element.InnerText -match $latestVersion) {
+        $targetElement = $element
+        break
+    }
 }
 
-return $latestVersion, $latestVersionUrl
+if ($null -ne $targetElement) {
+    # Extract content until the next h3 element
+    $content = ""
+    $currentElement = $targetElement.NextSibling
+
+    while ($null -ne $currentElement -and $currentElement.Name -ne "h3") {
+        $currentElement.InnerText
+        if ($currentElement.InnerText -match "Downloads") {
+            break
+        }
+        if ($currentElement.InnerText -match "Add" -or $currentElement.InnerText -match "Fix") {
+            $content += "* " + $currentElement.InnerText + "`n"
+            foreach ($listItem in $currentElement.NextSibling.ChildNodes) {
+                $content += "  - " + $listItem.InnerText + "`n"
+            }
+        }
+        #$content += $currentElement.InnerText + "`n"
+        $currentElement = $currentElement.NextSibling
+    }
+
+    Write-Output "Extracted Content:"
+    Write-Output $content
+
+    # Convert the extracted content to YAML format
+    $yamlContent = "ReleaseNotes: |-`n"
+    $lines = $content -split "`n"
+    foreach ($line in $lines) {
+        $yamlContent += "  $line`n"
+    }
+
+    Write-Output "YAML Content:"
+    Write-Output $yamlContent
+
+    $releaseNotes = $yamlContent
+
+} else {
+    Write-Output "Version not found in the content."
+}
+
+return $latestVersion, $latestVersionUrl, $releaseNotes
