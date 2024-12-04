@@ -13,7 +13,7 @@ $WebsiteLinks = $website.Links
 $WebsiteContent = $website.Content
 
 $FilteredLinks = $WebsiteLinks | Where-Object { $_.href -match $URLFilter }
-$latestVersion = $FilteredLinks | ForEach-Object { $_.href -replace '.*-(\d+\.\d+\.\d+).*', '$1' } | Sort-STNumerical -Descending | Select-Object -First 1
+$latestVersion = $FilteredLinks | ForEach-Object { $_.href -replace '.*-(\d+\.\d+\.\d+).*', '$1' } | Get-STNumericalSorted -Descending | Select-Object -First 1
 $latestVersionUrl = $FilteredLinks.href | Where-Object { ($_ -match $latestVersion) } | Where-Object { $_ -ne '' }
 
 

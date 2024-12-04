@@ -1,4 +1,4 @@
-function Sort-STNumerical {
+function Get-STNumericalSorted {
     <#
         .SYNOPSIS
             Sort a collection of strings containing numbers, or a mix of this and 
@@ -25,12 +25,12 @@ function Sort-STNumerical {
             eat some more resources, which can matter on really huge files/data sets.
 
         .EXAMPLE
-            $Strings | Sort-STNumerical
+            $Strings | Get-STNumericalSorted
 
             Sort strings containing numbers in a way that magically makes them sorted human-friendly
             
         .EXAMPLE
-            $Result = Sort-STNumerical -InputObject $Numbers
+            $Result = Get-STNumericalSorted -InputObject $Numbers
             $Result
 
             Sort numbers in a human-friendly way.
