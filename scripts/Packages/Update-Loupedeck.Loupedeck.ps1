@@ -5,7 +5,7 @@ $websiteData = Invoke-WebRequest -Method Get -Uri $WebsiteURL
 
 $installerLink = ($websiteData.Links | Where-Object { $_.href -like "*.exe" } | Select-Object -ExpandProperty href).ToString()
 
-if($installerLinks.Count -eq 0 -or $installerLinks.Count -gt 1) {
+if($installerLink.Count -eq 0 -or $installerLink.Count -gt 1) {
     Write-Host "No installer links or too much installer links found"
     exit 1
 }
