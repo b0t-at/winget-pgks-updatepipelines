@@ -58,7 +58,6 @@ jobs:
             WebsiteURL: "https://update.flipperzero.one/qFlipper/directory.json"
             With: WinGetCreate
           - PackageName: "Loupedeck.Loupedeck"
-            WebsiteURL: "https://download.loupedeck.com/software/latest-win"
           - PackageName: "StrawberryPerl.StrawberryPerl"
             WebsiteURL: "https://github.com/StrawberryPerl/Perl-Dist-Strawberry"
           #- PackageName: "Crucial.StorageExecutive"
