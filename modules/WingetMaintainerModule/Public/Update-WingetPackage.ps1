@@ -73,7 +73,7 @@ function Update-WingetPackage {
             }
 
             # If release notes are provided, add them to the manifest and submit via wingetcreate if -Submit is set to true
-            if ($releaseNotes) {
+            if ($Latest.releaseNotes) {
                 write-Host "Try adding release notes to the manifest in $ManifestOutPath"
                 $localFiles = Get-ChildItem -Recurse -Path $ManifestOutPath -Filter "*.locale.*.yaml"
                 foreach ($file in $localFiles) {
