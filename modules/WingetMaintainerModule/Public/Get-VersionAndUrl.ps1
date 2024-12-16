@@ -22,7 +22,7 @@ Function Get-VersionAndUrl {
         $lines = $Latest -split "`n" -split " "
 
         $versionPattern = '^\d+(?:\.\d+)*(-(?:alpha|beta)\.?\d+)?$'
-        $urlPattern = '^http[s]?:\/\/[^\s]+(\.msi|\.exe|\.appx|\.zip)$'
+        $urlPattern = '^http[s]?:\/\/[^\s]+(\.msi|\.exe|\.appx|\.zip)(\|(x64|x86|x32))?$'
 
         $version = $lines | Where-Object { $_ -match $versionPattern }
         $URLs = $lines | Where-Object { $_ -match $urlPattern }
