@@ -183,6 +183,9 @@ jobs:
           - id: "ossia.score"
             repo: "ossia/score"
             url: "https://github.com/ossia/score/releases/download/v{VERSION}/ossia.score-{VERSION}-win64.exe"  
+          - id: "AlbrechtL.WelloIO"
+            repo: "AlbrechtL/welle.io"
+            url: "https://github.com/AlbrechtL/welle.io/releases/download/v{VERSION}/welle.io-{VERSION}-Windows-setup_x86_64.exe"  
 
     steps:
     - name: Update Packages
