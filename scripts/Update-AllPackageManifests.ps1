@@ -80,6 +80,7 @@ function Update-WingetPackage {
     Install-Komac
     foreach ($version in $manifestDict.Keys) {
         $manifest = $manifestDict[$version]
+        Write-Host "Processing $PackageIdentifier version $version"
         # Extract the installer links from the manifest
         $installerLinks = Export-InstallerLinks -Manifest $manifest
         # only perform rebuild if it will not be submitted or if no PR exists
