@@ -53,7 +53,7 @@ jobs:
             With: WinGetCreate
           - PackageName: "GitButler.GitButler"
             WebsiteURL: "https://app.gitbutler.com/downloads/release/windows/x86_64/msi"   
-            With: WinGetCreate       
+#            With: WinGetCreate       
           - PackageName: "FlipperDevicesInc.qFlipper"
             WebsiteURL: "https://update.flipperzero.one/qFlipper/directory.json"
             With: WinGetCreate
