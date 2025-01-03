@@ -186,7 +186,9 @@ jobs:
           - id: "AlbrechtL.WelloIO"
             repo: "AlbrechtL/welle.io"
             url: "https://github.com/AlbrechtL/welle.io/releases/download/v{VERSION}/welle.io-{VERSION}-Windows-setup_x86_64.exe"  
-
+          - id: "WidelandsDevelopmentTeam.Widelands"
+            repo: "widelands/widelands"
+            url: "https://github.com/widelands/widelands/releases/download/v{VERSION}/Widelands-{VERSION}-x64.exe https://github.com/widelands/widelands/releases/download/v{VERSION}/Widelands-{VERSION}-x86.exe"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
