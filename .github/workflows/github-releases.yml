@@ -195,6 +195,10 @@ jobs:
           - id: "schollz.croc"
             repo: "schollz/croc"
             url: "https://github.com/schollz/croc/releases/download/v{VERSION}/croc_v{VERSION}_Windows-32bit.zip https://github.com/schollz/croc/releases/download/v{VERSION}/croc_v{VERSION}_Windows-64bit.zip https://github.com/schollz/croc/releases/download/v{VERSION}/croc_v{VERSION}_Windows-ARM.zip https://github.com/schollz/croc/releases/download/v{VERSION}/croc_v{VERSION}_Windows-ARM64.zip"  
+          - id: "Gleam.Gleam"
+            repo: "gleam-lang/gleam"
+            url: "https://github.com/gleam-lang/gleam/releases/download/v{VERSION}/gleam-v{VERSION}-x86_64-pc-windows-msvc.zip"  
+            
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
