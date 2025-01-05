@@ -189,6 +189,12 @@ jobs:
           - id: "WidelandsDevelopmentTeam.Widelands"
             repo: "widelands/widelands"
             url: "https://github.com/widelands/widelands/releases/download/v{VERSION}/Widelands-{VERSION}-x64.exe https://github.com/widelands/widelands/releases/download/v{VERSION}/Widelands-{VERSION}-x86.exe"  
+          - id: "jdx.mise"
+            repo: "jdx/mise"
+            url: "https://github.com/jdx/mise/releases/download/v{VERSION}/mise-v{VERSION}-windows-x64.zip https://github.com/jdx/mise/releases/download/v{VERSION}/mise-v{VERSION}-windows-arm64.zip"  
+          - id: "schollz.croc"
+            repo: "schollz/croc"
+            url: "https://github.com/schollz/croc/releases/download/v{VERSION}/croc_v{VERSION}_Windows-32bit.zip https://github.com/schollz/croc/releases/download/v{VERSION}/croc_v{VERSION}_Windows-64bit.zip https://github.com/schollz/croc/releases/download/v{VERSION}/croc_v{VERSION}_Windows-ARM.zip https://github.com/schollz/croc/releases/download/v{VERSION}/croc_v{VERSION}_Windows-ARM64.zip"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
