@@ -16,20 +16,11 @@ $FilteredLinks = $WebsiteLinks | Where-Object { $_.href -match $URLFilter }
 $latestVersion = $FilteredLinks | ForEach-Object { $_.href -replace '.*-(\d+\.\d+\.\d+).*', '$1' } | Get-STNumericalSorted -Descending | Select-Object -First 1
 $latestVersionUrl = $FilteredLinks.href | Where-Object { ($_ -match $latestVersion) } | Where-Object { $_ -ne '' }
 
+$htmlDocument = New-Object HtmlAgilityPack.HtmlDocument
+$htmlDocument.LoadHtml($Website)
 
-################ HTML/ReleaseNote Parsing ###################
-$xmlContent = $null
-
-$ContentNoScripts = [regex]::Replace($WebsiteContent, "<script .*?>.*?</script>", "", [System.Text.RegularExpressions.RegexOptions]::Singleline)
-$ContentNoScriptsNoComments = [regex]::Replace($ContentNoScripts, "<!--.*?-->", "", [System.Text.RegularExpressions.RegexOptions]::Singleline)
-$ContentNoScriptsNoCommentsNoIds = [regex]::Replace($ContentNoScriptsNoComments, 'id=".*?"', "", [System.Text.RegularExpressions.RegexOptions]::Singleline)
-$ContentNoScriptsNoCommentsNoIdsNoHidden = [regex]::Replace($ContentNoScriptsNoCommentsNoIds, 'hidden', "", [System.Text.RegularExpressions.RegexOptions]::Singleline)
-
-# Parse the HTML content
-$xmlContent = [xml]$ContentNoScriptsNoCommentsNoIdsNoHidden
-
-# Find the h3 element with the latest version in its text
-$h3Elements = $xmlContent.SelectNodes("//h3")
+# Select all h3 elements
+$h3Elements = $htmlDocument.DocumentNode.SelectNodes('//h3')
 $targetElement = $null
 
 foreach ($element in $h3Elements) {

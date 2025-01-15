@@ -2,6 +2,11 @@ $scriptPath = $MyInvocation.MyCommand.Path
 $scriptDirectory = Split-Path -Parent $scriptPath
 Import-Module "$scriptDirectory\..\modules\WingetMaintainerModule"
 
+# Pfad zur HtmlAgilityPack DLL
+$HtmlAgilityPackPath = "$scriptDirectory\..\libraries\HtmlAgilityPack\HtmlAgilityPack.dll"
+# Laden der HtmlAgilityPack DLL
+Add-Type -Path $HtmlAgilityPackPath
+
 #### Main
 $params = @{
     wingetPackage = ${Env:PackageName}
