@@ -1,0 +1,32 @@
+name: PowerShell Formatter
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '**/*.ps1'
+      - '**/*.psm1'
+
+# based on https://github.com/scottmckendry/ps-prettifier
+
+jobs:
+  format:
+    name: Format PowerShell code
+    runs-on: windows-latest
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+        - name: Import and Install
+          run: |
+            Install-Module -Name PowerShell-Beautifier
+            Import-Module .\PowerShell-Beautifier.psd1
+        - name: Format
+          run: |
+            Get-ChildItem -Path .\-Include *.ps1,*.psm1 -Recurse | Invoke-PrettifyScript
+        - name: Commit
+          run: |
+                git config --global user.email "github-actions[bot]@users.noreply.github.com"
+                git config --global user.name "GitHub Actions"
+                git add **/*.ps1 **/*.psm1
+                git commit -m "Format PowerShell code"
+                git push
