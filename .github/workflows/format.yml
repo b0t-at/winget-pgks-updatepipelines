@@ -20,6 +20,7 @@ jobs:
           run: |
             Install-Module -Name PowerShell-Beautifier -Force -Scope CurrentUser -AllowClobber -AcceptLicense
             Import-Module PowerShell-Beautifier
+            Get-Help Invoke-PrettifyScript
         - name: Format
           run: |
             Get-ChildItem -Path .\-Include *.ps1,*.psm1 -Recurse | Invoke-PrettifyScript
