@@ -18,7 +18,7 @@ jobs:
           uses: actions/checkout@v4
         - name: Import and Install
           run: |
-            Install-Module -Name PowerShell-Beautifier
+            Install-Module -Name PowerShell-Beautifier -Force -Scope CurrentUser -AllowClobber -AcceptLicense
             Import-Module PowerShell-Beautifier
         - name: Format
           run: |
