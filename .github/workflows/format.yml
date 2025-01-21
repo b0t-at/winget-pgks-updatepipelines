@@ -19,7 +19,7 @@ jobs:
         - name: Import and Install
           run: |
             Install-Module -Name PowerShell-Beautifier
-            Import-Module .\PowerShell-Beautifier.psd1
+            Import-Module PowerShell-Beautifier
         - name: Format
           run: |
             Get-ChildItem -Path .\-Include *.ps1,*.psm1 -Recurse | Invoke-PrettifyScript
