@@ -19,7 +19,7 @@ Function Get-VersionAndUrl {
 
     if (!($Latest | Get-Member -Name "Version") -or !($Latest | Get-Member -Name "URLs")) {
 
-        $lines = $Latest -split "`n" -split " "
+        $lines = ($Latest | Where-Object { $_ -notmatch $releaseNotesPattern }) -split "`n" -split " "
 
         $versionPattern = '^\d+(?:\.\d+)*(-(?:alpha|beta)\.?\d+)?$'
         $urlPattern = '^http[s]?:\/\/[^\s]+(\.msi|\.exe|\.appx|\.zip)(\|(x64|x86|x32))?$'
