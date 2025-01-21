@@ -1,5 +1,3 @@
-
-
 $WebsiteURL = "https://www.sublimemerge.com/download"
 $website = Invoke-WebRequest -Uri $WebsiteURL
 
@@ -17,4 +15,8 @@ $latestVersion = $buildNumbers | Sort-Object -Descending | Select-Object -First 
 $downLoadLinkExe = "https://download.sublimetext.com/sublime_merge_build_${latestVersion}_x64_setup.exe"
 $downloadLinkZip = "https://download.sublimetext.com/sublime_merge_build_${latestVersion}_x64.zip"
 
-return $latestVersion, @($downLoadLinkExe,$downloadLinkZip)
+$latestVersionUrl = @($downLoadLinkExe,$downloadLinkZip)
+return [PSCustomObject]@{
+    Version = $latestVersion
+    URLs = $latestVersionUrl
+  }

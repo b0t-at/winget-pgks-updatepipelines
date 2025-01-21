@@ -1,4 +1,3 @@
-#$WebsiteURL = "https://download.loupedeck.com/software/latest-win"
 $WebsiteURL = "https://support.loupedeck.com/loupedeck-software-download"
 
 $websiteData = Invoke-WebRequest -Method Get -Uri $WebsiteURL
@@ -30,4 +29,7 @@ if ($fullDownloadURLResponse.StatusCode -ne 200) {
     exit 1
 }
 
-return $latestVersion, $fullDownloadURL
+return [PSCustomObject]@{
+    Version = $latestVersion
+    URLs = $fullDownloadURL
+  }

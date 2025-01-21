@@ -1,5 +1,3 @@
-
-
 $versionParts = $wingetPackage.Split('.')
 $PackageName = $versionParts[1]
 
@@ -25,4 +23,7 @@ $latestVersion = $versions | Sort-Object -Descending -Unique | Select-Object -Fi
 
 $latestVersionUrl = $FilteredLinks | ForEach-Object { ($_.href -replace '\?.*', '') } | Where-Object { $_ -ne '' }
 
-return $latestVersion, $latestVersionUrl
+return [PSCustomObject]@{
+    Version = $latestVersion
+    URLs = $latestVersionUrl
+  }

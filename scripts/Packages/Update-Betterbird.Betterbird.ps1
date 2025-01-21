@@ -1,5 +1,3 @@
-
-
 $versionPattern = "<h3>Betterbird (\d+\.\d+\.\d+-bb\d+)"
 
 $URLFilter = "(.exe|.zip)"
@@ -23,9 +21,7 @@ $latestVersionUrl = $FilteredLinks | ForEach-Object { ($_.href -replace '\?.*', 
 # filter zips
 $latestVersionUrl = $latestVersionUrl | Where-Object { $_ -match ".exe" }
 
-$returnObject = [PSCustomObject]@{
+return [PSCustomObject]@{
     Version = $latestVersion
     URLs = $latestVersionUrl
 }
-
-return $returnObject

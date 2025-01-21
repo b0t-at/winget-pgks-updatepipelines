@@ -1,7 +1,3 @@
-
-
-
-
 # Download the webpage
 $website = Invoke-WebRequest -Uri $WebsiteURL
 

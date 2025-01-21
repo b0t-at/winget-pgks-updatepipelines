@@ -21,5 +21,7 @@ $latestVersion = $versions | Sort-Object -Descending -Unique | Select-Object -Fi
 
 $latestVersionUrl = $FilteredLinks | Where-Object { $_.href -match $latestVersion } | ForEach-Object { ($WebsiteURL+$_.href ) } | Select-Object -unique
 
-
-return $latestVersion, $latestVersionUrl
+return [PSCustomObject]@{
+    Version = $latestVersion
+    URLs = $latestVersionUrl
+  }

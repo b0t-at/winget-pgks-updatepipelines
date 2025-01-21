@@ -1,5 +1,3 @@
-
-
 try {
   Invoke-WebRequest -Method Get -Uri $WebsiteURL -MaximumRedirection 0  -ErrorAction Stop 
 } catch {
@@ -11,4 +9,7 @@ try {
 $latestVersionUrl = $RedirectUrl.AbsoluteUri
 $latestVersion = [regex]::Match($RedirectUrl.AbsolutePath, '.*releases/(\d+.\d+.\d+-\w+)-\w+/.*').Groups[1].Value
 
-return $latestVersion, "$latestVersionUrl"
+return [PSCustomObject]@{
+  Version = $latestVersion
+  URLs = $latestVersionUrl
+}

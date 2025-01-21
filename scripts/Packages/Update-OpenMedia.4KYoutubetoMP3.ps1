@@ -1,5 +1,3 @@
-
-
 $versionParts = $wingetPackage.Split('.')
 $PackageName = $versionParts[1]
 
@@ -33,7 +31,7 @@ $latestVersion = Get-ProductVersionFromFile -VersionInfoProperty "ProductVersion
 
 $latestVersionUrl = ($latestVersionUrl+$64bitCheckURL) | Select-Object -unique
 
-#$latestVersion = $versions | Sort-Object -Descending -Unique | Select-Object -First 1
-
-
-return $latestVersion, $latestVersionUrl
+return [PSCustomObject]@{
+    Version = $latestVersion
+    URLs = $latestVersionUrl
+  }

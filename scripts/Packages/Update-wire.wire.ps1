@@ -1,4 +1,3 @@
-
 $repo = "wireapp/wire-desktop"
 # get releases from github with github cli
 $releases = gh release list -R $repo --json name,isLatest,tagName --order desc | ConvertFrom-Json
@@ -15,9 +14,7 @@ foreach($release in $releases) {
 $latestVersion = $latestWindowsTag.Split("/")[1]
 $latestVersionUrl = "https://github.com/wireapp/wire-desktop/releases/download/windows%2F$latestVersion/Wire-Setup.exe"
 
-$returnObject = [PSCustomObject]@{
+return [PSCustomObject]@{
     Version = $latestVersion
     URLs = $latestVersionUrl
 }
-
-return $returnObject

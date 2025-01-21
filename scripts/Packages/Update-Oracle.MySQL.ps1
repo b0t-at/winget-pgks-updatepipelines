@@ -1,13 +1,9 @@
-
-
-
 $DownloadBaseDomain = "https://dev.mysql.com/get/Downloads/MySQLInstaller/"
 
 # Download the webpage
 $website = Invoke-WebRequest -Uri $WebsiteURL
 
 # Extract the content of the webpage
-$WebsiteContent = $website.Content
 $WebsiteLinks = $website.Links
 
 $WebsiteversionPattern = "mysql-installer-community-(\d+\.\d+(\.\d+)?).0.msi"
@@ -25,5 +21,7 @@ if ($FileTest.FileName -ne $FileName) {
     exit 1
 }
 
-
-return $latestVersion, $latestVersionUrl
+return [PSCustomObject]@{
+    Version = $latestVersion
+    URLs = $latestVersionUrl
+  }

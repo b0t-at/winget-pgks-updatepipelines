@@ -1,5 +1,3 @@
-
-
 $PackageFilter = "mongodb-compass"
 
 $Latest = Get-LatestMongoDBVersions -PackageFilter $PackageFilter -WebsiteURL $WebsiteURL
@@ -14,4 +12,7 @@ if ($latestVersion -match '^\d+\.\d+\.\d+$') {
     $latestVersion = "$latestVersion.0"
 }
 
-return $latestVersion, $latestVersionUrl
+return [PSCustomObject]@{
+    Version = $latestVersion
+    URLs = $latestVersionUrl
+  }

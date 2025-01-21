@@ -1,5 +1,3 @@
-
-
 $versionParts = $wingetPackage.Split('.')
 $PackageName = $versionParts[1]
 
@@ -29,4 +27,7 @@ $64bitCheckURL = $($latestVersionUrl| Where-Object { $_ -match "_online.exe" }).
 
 $latestVersionUrl = ($latestVersionUrl+$64bitCheckURL) | Select-Object -unique | Where-Object { $_ -ne '' }
 
-return $latestVersion, $latestVersionUrl
+return [PSCustomObject]@{
+    Version = $latestVersion
+    URLs = $latestVersionUrl
+  }

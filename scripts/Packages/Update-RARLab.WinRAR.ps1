@@ -1,7 +1,3 @@
-
-
-
-
 # Download the webpage
 $website = Invoke-WebRequest -Uri $WebsiteURL
 
@@ -25,4 +21,7 @@ $URLFilter = "winrar-(x64|x32)-$UrlVersion"
 $FilteredLinks = $WebsiteLinks | Where-Object { $_ -match $URLFilter }
 $latestVersionUrl = $FilteredLinks | ForEach-Object { (($WebsiteURL -replace '/$', '') + $_.href) }
 
-return $latestVersion, $latestVersionUrl
+return [PSCustomObject]@{
+    Version = $latestVersion
+    URLs = $latestVersionUrl
+  }

@@ -1,5 +1,3 @@
-
-
 $versionParts = $wingetPackage.Split('.')
 $PackageName = $versionParts[1]
 

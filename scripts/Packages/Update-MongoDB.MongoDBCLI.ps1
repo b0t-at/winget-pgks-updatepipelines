@@ -1,5 +1,3 @@
-
-
 $PackageFilter = "mongocli"
 
 $Latest = Get-LatestMongoDBVersions -PackageFilter $PackageFilter -WebsiteURL $WebsiteURL
@@ -7,4 +5,7 @@ $Latest = Get-LatestMongoDBVersions -PackageFilter $PackageFilter -WebsiteURL $W
 $latestVersion = $Latest.Version
 $latestVersionUrl = $Latest.Url
 
-return $latestVersion, "$latestVersionUrl|x64"
+return [PSCustomObject]@{
+    Version = $latestVersion
+    URLs = "$latestVersionUrl|x64"
+  }

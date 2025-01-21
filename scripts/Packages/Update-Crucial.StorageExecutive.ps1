@@ -1,7 +1,8 @@
-
-
 $latestVersionUrl = $WebsiteURL
 
 $versionInfo = Get-ProductVersionFromFile -WebsiteURL $WebsiteURL -VersionInfoProperty "ProductVersion"
 
-return "$latestVersionUrl|x64", $versionInfo
+return [PSCustomObject]@{
+    Version = $versionInfo
+    URLs = "$latestVersionUrl|x64"
+}

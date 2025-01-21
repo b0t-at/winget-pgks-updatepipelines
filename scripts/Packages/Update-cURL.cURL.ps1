@@ -1,5 +1,3 @@
-
-
 $versionParts = $wingetPackage.Split('.')
 $PackageName = $versionParts[1]
 
@@ -31,4 +29,7 @@ $validUrls = $latestVersionUrls | Where-Object {
     [System.Uri]::TryCreate($_, [System.UriKind]::Absolute, [ref]$result)
 }
 
-return $FullVersion, $validUrls
+return [PSCustomObject]@{
+    Version = $FullVersion
+    URLs = $validUrls
+}

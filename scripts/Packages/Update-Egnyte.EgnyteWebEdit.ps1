@@ -1,5 +1,3 @@
-
-
 $latestVersionUrlTemplate = "https://egnyte-cdn.egnyte.com/webedit/win/en-us/{0}/EgnyteWebEdit_{0}_{1}.msi"
 
 # download latest version from loupedeck.com and get version by filename
@@ -18,4 +16,7 @@ $MinorVersion = $versionParts[3]
 
 $latestVersionUrl = $latestVersionUrlTemplate -f $MajorVersion, $MinorVersion
 
-return $FullVersion, $latestVersionUrl
+return [PSCustomObject]@{
+    Version = $FullVersion
+    URLs = $latestVersionUrl
+}

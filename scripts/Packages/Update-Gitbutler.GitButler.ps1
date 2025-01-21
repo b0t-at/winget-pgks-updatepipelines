@@ -1,7 +1,5 @@
-
 $websiteURL = "https://app.gitbutler.com/releases/release"
 $releaseNotesURL = "https://github.com/gitbutlerapp/gitbutler/releases"
-
 
 $website = Invoke-WebRequest -Uri $websiteURL -UseBasicParsing
 $WebsiteContent = $website.Content
@@ -10,9 +8,7 @@ $LatestJSON = $WebsiteContent | ConvertFrom-Json
 $latestVersionUrl = ($LatestJSON.platforms.'windows-x86_64'.url).Replace(".zip", "")
 $releaseNotesJSON = $LatestJSON.notes
 
-
 $latestVersion = $LatestJSON[0].Version
-
 
 # Convert the extracted content to YAML format
 $yamlContent = "ReleaseNotes: |-`n"
@@ -22,7 +18,6 @@ foreach ($line in $lines) {
 }
 
 $releaseNotes = $yamlContent.trim() + "`nReleaseNotesUrl: $releaseNotesURL"
-
 
 return $latestVersion, $latestVersionUrl, $releaseNotes
 
