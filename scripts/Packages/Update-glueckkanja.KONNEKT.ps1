@@ -70,4 +70,8 @@ else {
 
 $releaseNotes = $releaseNotes.trim() + "`nReleaseNotesUrl: $WebsiteUrl"
 
-return $latestVersion, $latestVersionUrl, $releaseNotes
+return [PSCustomObject]@{
+    Version = $latestVersion
+    URLs = $latestVersionUrl
+    ReleaseNotes = $releaseNotes
+  }

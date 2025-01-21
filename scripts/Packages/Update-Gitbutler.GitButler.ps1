@@ -19,8 +19,11 @@ foreach ($line in $lines) {
 
 $releaseNotes = $yamlContent.trim() + "`nReleaseNotesUrl: $releaseNotesURL"
 
-return $latestVersion, $latestVersionUrl, $releaseNotes
-
+return [PSCustomObject]@{
+    Version = $latestVersion
+    URLs = $latestVersionUrl
+    ReleaseNotes = $releaseNotes
+  }
 
 ### Old Version with HTML Parsing of Website for future reference
 

@@ -15,8 +15,6 @@ Function Get-VersionAndUrl {
 
     ## Check for Release Notes
     $releaseNotesPattern = 'ReleaseNotes:'
-    $releaseNotes = $Latest | Where-Object { $_ -match $releaseNotesPattern }
-
     if (!($Latest | Get-Member -Name "Version") -or !($Latest | Get-Member -Name "URLs")) {
 
         $lines = ($Latest | Where-Object { $_ -notmatch $releaseNotesPattern }) -split "`n" -split " "
@@ -40,7 +38,7 @@ Function Get-VersionAndUrl {
     }
 
     if (!($Latest | Get-Member -Name "ReleaseNotes")) {
-
+        $releaseNotes = $Latest | Where-Object { $_ -match $releaseNotesPattern }
         if ($releaseNotes) {
             $Latest.Add("ReleaseNotes", $releaseNotes)
             Write-Host "Found Release Notes:"
