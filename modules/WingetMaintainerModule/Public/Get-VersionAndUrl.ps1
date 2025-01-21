@@ -24,7 +24,7 @@ Function Get-VersionAndUrl {
         $versionPattern = '^\d+(?:\.\d+)*(-(?:alpha|beta)\.?\d+)?$'
         $urlPattern = '^http[s]?:\/\/[^\s]+(\.msi|\.exe|\.appx|\.zip)(\|(x64|x86|x32))?$'
 
-        $version = $lines | Where-Object { $_ -match $versionPattern }
+        $version = $lines | Where-Object { $_ -match $versionPattern } | Get-STNumericalSorted -Descending | Select-Object -First 1
         $URLs = $lines | Where-Object { $_ -match $urlPattern }
 
         if ($version -and $URLs) {
