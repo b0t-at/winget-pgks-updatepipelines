@@ -13,42 +13,8 @@ Function Get-VersionAndUrl {
     Write-Host "Running $scriptPath"
     $Latest = & $scriptPath -WebsiteURL $WebsiteURL -wingetPackage $wingetPackage
 
-    ## Check for Release Notes
-    $releaseNotesPattern = 'ReleaseNotes:'
-    if (!($Latest | Get-Member -Name "Version") -or !($Latest | Get-Member -Name "URLs")) {
+    $Latest = Test-LatestMembers -latestObject $Latest
 
-        $lines = ($Latest | Where-Object { $_ -notmatch $releaseNotesPattern }) -split "`n" -split " "
-
-        $versionPattern = '^\d+(?:\.\d+)*(-(?:alpha|beta)\.?\d+)?$'
-        $urlPattern = '^http[s]?:\/\/[^\s]+(\.msi|\.exe|\.appx|\.zip)(\|(x64|x86|x32))?$'
-
-        $version = $lines | Where-Object { $_ -match $versionPattern } | Get-STNumericalSorted -Descending | Select-Object -First 1
-        $URLs = $lines | Where-Object { $_ -match $urlPattern }
-
-        if ($version -and $URLs) {
-            $Latest = @{
-                Version = $version
-                URLs    = $URLs.split(",").trim().split(" ")
-            }
-        }
-        else {
-            Write-Host "No Version ($version) or URL ($($URLs -join ',')) found."
-            exit 1
-        }
-    }
-
-    if (!($Latest | Get-Member -Name "ReleaseNotes")) {
-        $releaseNotes = $Latest | Where-Object { $_ -match $releaseNotesPattern }
-        if ($releaseNotes) {
-            $Latest.Add("ReleaseNotes", $releaseNotes)
-            Write-Host "Found Release Notes:"
-            Write-Host $releaseNotes
-        }
-        else {
-            Write-Host "ReleaseNotes not found in the content but releaseNotes are not required."
-        }
-    }
-
-Write-Host "Found latest version: $version with URLs: $($Latest.URLs -join ',')"
-return $Latest
+    Write-Host "Found latest version: $($Latest.Version) with URLs: $($Latest.URLs -join ',')"
+    return $Latest
 }
