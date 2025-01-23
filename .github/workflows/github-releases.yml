@@ -198,7 +198,9 @@ jobs:
           - id: "Gleam.Gleam"
             repo: "gleam-lang/gleam"
             url: "https://github.com/gleam-lang/gleam/releases/download/v{VERSION}/gleam-v{VERSION}-x86_64-pc-windows-msvc.zip"  
-            
+          - id: "Hashicorp.Vault"
+            repo: "hashicorp/vault"
+            url: "https://releases.hashicorp.com/vault/{VERSION}/vault_{VERSION}_windows_amd64.zip https://releases.hashicorp.com/vault/{VERSION}/vault_{VERSION}_windows_386.zip"            
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
