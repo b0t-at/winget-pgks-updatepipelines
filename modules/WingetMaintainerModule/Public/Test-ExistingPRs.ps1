@@ -35,12 +35,12 @@ function Test-ExistingPRs {
     )
     Write-Host "Checking for existing PRs for $PackageIdentifier $Version"
     $ExistingOpenPRs = gh pr list --search "$($PackageIdentifier) $($Version) in:title draft:false" --state 'open' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
-    if(!$OnlyOpen) {
-    $ExistingMergedPRs = gh pr list --search "$($PackageIdentifier) $($Version) in:title draft:false" --state 'merged' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
-    $ExistingPRs = @($ExistingOpenPRs) + @($ExistingMergedPRs)  
-    }
-    else {
-        $ExistingPRs = @($ExistingOpenPRs)
+    
+    $ExistingPRs = if ($OnlyOpen) {
+        @($ExistingOpenPRs)
+    } else {
+        $ExistingMergedPRs = gh pr list --search "$($PackageIdentifier) $($Version) in:title draft:false" --state 'merged' --json 'title,url' --repo 'microsoft/winget-pkgs' | ConvertFrom-Json
+        @($ExistingOpenPRs) + @($ExistingMergedPRs)
     }
 
     if ($ExistingPRs.Count -gt 0) {
@@ -49,10 +49,7 @@ function Test-ExistingPRs {
             Write-Host "-> $($_.url)"
         }
         return $true
-    }
-    else {
-
+    } else {
         return $false
     }
 }
-

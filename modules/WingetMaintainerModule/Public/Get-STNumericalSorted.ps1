@@ -4,16 +4,11 @@ function Get-STNumericalSorted {
             Sort a collection of strings containing numbers, or a mix of this and 
             numerical data types - in a human-friendly way.
 
-
             This will sort "anything" you throw at it correctly.
-
-
 
             Author: Joakim Borger Svendsen, Copyright 2019-present, Svendsen Tech.
 
-
             MIT License
-
 
         .PARAMETER InputObject
             Collection to sort.
