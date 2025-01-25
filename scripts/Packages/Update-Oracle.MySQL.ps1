@@ -1,4 +1,4 @@
-$DownloadBaseDomain = "https://dev.mysql.com/get/Downloads/MySQLInstaller/"
+$DownloadBaseDomain = "https://cdn.mysql.com//Downloads/MySQLInstaller/"
 $websiteURL = "https://dev.mysql.com/downloads/windows/installer/"
 
 # Download the webpage

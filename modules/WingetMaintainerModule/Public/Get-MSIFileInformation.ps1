@@ -7,7 +7,19 @@ function Get-MSIFileInformation {
 
     $latestVersionUrl = $WebsiteURL
     $DownloadFileName = [System.IO.Path]::GetFileName($latestVersionUrl)
-    Invoke-WebRequest -Uri $latestVersionUrl -OutFile $DownloadFileName
+
+    $session = New-Object Microsoft.PowerShell.Commands.WebRequestSession
+    $session.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0"
+    Invoke-WebRequest -UseBasicParsing -Uri $latestVersionUrl `
+        -WebSession $session `
+        -Headers @{
+        "Accept"                    = "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7"
+        "Accept-Encoding"           = "gzip, deflate, br, zstd"
+        "Accept-Language"           = "de,de-DE;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6"
+        "Upgrade-Insecure-Requests" = "1"
+    } -OutFile $DownloadFileName
+
+
 
     # If the file is a ZIP file, unzip it and search for .exe or .msi files
     if ($DownloadFileName -like "*.zip") {
