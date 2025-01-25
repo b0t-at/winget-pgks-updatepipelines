@@ -201,6 +201,9 @@ jobs:
           - id: "Hashicorp.Vault"
             repo: "hashicorp/vault"
             url: "https://releases.hashicorp.com/vault/{VERSION}/vault_{VERSION}_windows_amd64.zip https://releases.hashicorp.com/vault/{VERSION}/vault_{VERSION}_windows_386.zip"            
+          - id: "Romanitho.Winget-AutoUpdate"
+            repo: "Romanitho/Winget-AutoUpdate"
+            url: "https://github.com/Romanitho/Winget-AutoUpdate/releases/download/v{VERSION}/WAU.msi"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
