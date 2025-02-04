@@ -2,3 +2,9 @@ manifests/
 Tests
 scripts/package-cleanup/broken_packages.csv
 scripts/package-cleanup/cleaned_packages.csv
+*.msi
+*.exe
+*.zip
+*.appx
+*.msix
+*.msixbundle
