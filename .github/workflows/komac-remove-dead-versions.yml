@@ -12,7 +12,7 @@ jobs:
   komac-remove-dead-matrix:
     name: remove dead versions (matrix)
     runs-on: ubuntu-latest
-    if: !github.event.inputs.PackageIdentifier
+    if: ${{ !github.event.inputs.PackageIdentifier }}
     strategy:
       fail-fast: false
       matrix:
