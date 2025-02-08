@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       websiteURL:
-        description: 'Website URL'
+        description: 'MSI Installer URL'
         required: true
 
 jobs:
@@ -15,18 +15,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-    #   - name: Set up PowerShell
-    #     uses: actions/setup-powershell@v2
-
       - name: Run Get-MSIFileInformation
         run: |
           $WebsiteURL = '${{ github.event.inputs.websiteURL }}'
           Import-Module .\modules\WingetMaintainerModule\Public\Get-MSIFileInformation.ps1
           Get-MSIFileInformation -WebsiteURL $WebsiteURL
         shell: pwsh
-
-    #   - name: Output result
-    #     run: |
-    #       Write-Output "MSI File Information:"
-    #       Get-Content -Path .\output.txt
-    #     shell: pwsh

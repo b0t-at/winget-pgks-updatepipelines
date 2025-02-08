@@ -21,4 +21,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Run Test Script
         run: .\scripts\Test-Manifest.ps1 -ManifestURL ${{inputs.ManifestURL}}
-        #run: .\scripts\Test-Manifest.ps1-Script {winget install Git.Git --accept-source-agreements}
