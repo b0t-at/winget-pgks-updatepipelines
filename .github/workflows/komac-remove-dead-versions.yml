@@ -4,15 +4,35 @@ on:
     inputs:
       PackageIdentifier:
         description: "Package Identifier"
-        required: true
+        required: false
+  schedule:
+    - cron:  '0 17 * * *'
 
 jobs:
-  komac-remove-dead:
-       name: remove dead versions
-       runs-on: ubuntu-latest
-       steps:
-       - name: Run Komac
-         uses: michidk/run-komac@v2
-         with:
-            args: 'remove-dead-versions --auto --token=${{ secrets.WINGET_PAT }} ${{ github.event.inputs.PackageIdentifier }}'
-            custom-fork-owner: damn-good-b0t
+  komac-remove-dead-matrix:
+    name: remove dead versions (matrix)
+    runs-on: ubuntu-latest
+    if: !github.event.inputs.PackageIdentifier
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - id: "Google.Chrome.Canary"
+
+    steps:
+      - name: Run Komac
+        uses: michidk/run-komac@v2
+        with:
+          args: 'remove-dead-versions --auto --token=${{ secrets.WINGET_PAT }} ${{ matrix.id }}'
+          custom-fork-owner: damn-good-b0t
+
+  komac-remove-dead-manual:
+    name: remove dead versions (manual)
+    runs-on: ubuntu-latest
+    if: github.event.inputs.PackageIdentifier
+    steps:
+      - name: Run Komac
+        uses: michidk/run-komac@v2
+        with:
+          args: 'remove-dead-versions --auto --token=${{ secrets.WINGET_PAT }} ${{ github.event.inputs.PackageIdentifier }}'
+          custom-fork-owner: damn-good-b0t
