@@ -207,6 +207,9 @@ jobs:
           - id: "SUSE.RancherDesktop"
             repo: "rancher-sandbox/rancher-desktop"
             url: "https://github.com/rancher-sandbox/rancher-desktop/releases/download/v{VERSION}/Rancher.Desktop.Setup.{VERSION}.msi"  
+          - id: "FilenCloud.Filen-cli"
+            repo: "FilenCloudDienste/filen-cli"
+            url: "https://github.com/FilenCloudDienste/filen-cli/releases/download/v{VERSION}/filen-cli-v{VERSION}-win-x64.exe"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
