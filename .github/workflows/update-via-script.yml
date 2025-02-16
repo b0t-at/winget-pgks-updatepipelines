@@ -101,6 +101,7 @@ jobs:
           - PackageName: "wire.wire"
           - PackageName: "glueckkanja.KONNEKT"
           - PackageName: "Ghisler.TotalCommander"
+          - PackageName: "Jellyfin.Server"
 
     steps:
       - name: Checkout
