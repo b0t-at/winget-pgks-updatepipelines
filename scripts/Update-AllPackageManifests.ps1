@@ -60,7 +60,7 @@ function Export-InstallerLinks {
 }
 
 
-function Update-WingetPackage {
+function Update-AllWingetPackages {
     param(
         [Parameter(Mandatory = $true)] [string] $PackageIdentifier,
         [Parameter(Mandatory = $true)] [string] $OutputDir,
@@ -90,7 +90,7 @@ function Update-WingetPackage {
     }
 }
 
-Update-WingetPackage -PackageIdentifier $PackageIdentifier -OutputDir $OutputDir -All
+Update-AllWingetPackages -PackageIdentifier $PackageIdentifier -OutputDir $OutputDir -All
 
 
 

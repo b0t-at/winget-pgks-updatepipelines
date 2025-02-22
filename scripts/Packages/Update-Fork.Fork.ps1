@@ -31,7 +31,10 @@ foreach ($release in $releaseValues) {
 }
 
 if (-not $releaseFound) {
-    throw "No release found"
+    Write-Warning "No release found - Doing silent fail"
+    return [PSCustomObject]@{
+        SilentFail = $true
+    }
 }
 
 return [PSCustomObject]@{
