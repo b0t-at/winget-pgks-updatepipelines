@@ -22,29 +22,21 @@ jobs:
       matrix:
         include:
           - PackageName: "MongoDB.Server"
-            WebsiteURL: "https://www.mongodb.com/try/download/community"
-            With: WinGetCreate          
+            WebsiteURL: "https://www.mongodb.com/try/download/community"      
           - PackageName: "MongoDB.MongoDBCLI"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
-            With: WinGetCreate
           - PackageName: "MongoDB.Shell"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"     
-            With: WinGetCreate     
           - PackageName: "MongoDB.MongoDBAtlasCLI"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
-            With: WinGetCreate
           - PackageName: "MongoDB.DatabaseTools"
             WebsiteURL: "https://www.mongodb.com/try/download/tools" 
-            With: WinGetCreate
           - PackageName: "MongoDB.Compass.Full"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
-            With: WinGetCreate
           - PackageName: "MongoDB.Compass.Isolated"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
-            With: WinGetCreate
           - PackageName: "MongoDB.Compass.Readonly"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
-            With: WinGetCreate
           - PackageName: "Logitech.OptionsPlus"
             WebsiteURL: "https://download01.logi.com/web/ftp/pub/techsupport/optionsplus/logioptionsplus_installer.exe"     
             With: WinGetCreate     
