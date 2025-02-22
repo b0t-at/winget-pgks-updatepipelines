@@ -5,6 +5,10 @@ JetBrains.*,*
 Verizon.OneTalk,*
 BranchBlocks.Branch,*
 Cube.CubePlatform,*
+Microsoft.VisualStudioCode.Insiders,*
+PDQ.PDQDeploy,*
+PDQ.PDQInventory,*
+Prog.ProgDVB.*,
 NORMAL-IGNORES-DUE-TO-POTENtIAL-DATACENTER-BLOCK,*
 Adobe.CreativeCloud,*
 Baidu.BaiduSIAssistant,*
@@ -22,4 +26,8 @@ Codemao.kitten.4,*
 Ocenaudio.Ocenaudio,*
 wiznote.*,*
 OutsourcedGuru.octopi-init,*
-
+Icarus.Verilog,*
+Krisp.Krisp,*
+TimeClockWizard.TimeClockWizard,*
+LAIPIC.LaiHuaVideo,*
+TopalaSoftwareSolutions.*,*
