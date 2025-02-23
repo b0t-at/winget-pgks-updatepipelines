@@ -210,6 +210,9 @@ jobs:
           - id: "FilenCloud.Filen-cli"
             repo: "FilenCloudDienste/filen-cli"
             url: "https://github.com/FilenCloudDienste/filen-cli/releases/download/v{VERSION}/filen-cli-v{VERSION}-win-x64.exe"  
+          - id: "Jellyfin.FFmpeg"
+            repo: "jellyfin/jellyfin-ffmpeg"
+            url: "https://github.com/jellyfin/jellyfin-ffmpeg/releases/download/v{VERSION}/jellyfin-ffmpeg_{VERSION}-portable_win64.zip"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
