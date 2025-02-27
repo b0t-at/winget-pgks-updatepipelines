@@ -213,6 +213,10 @@ jobs:
           - id: "Jellyfin.FFmpeg"
             repo: "jellyfin/jellyfin-ffmpeg"
             url: "https://github.com/jellyfin/jellyfin-ffmpeg/releases/download/v{VERSION}/jellyfin-ffmpeg_{VERSION}-portable_win64.zip"  
+          - id: "VictorIX.BlenderLauncher"
+            repo: "Victor-IX/Blender-Launcher-V2"
+            url: "https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v{VERSION}/Blender_Launcher_v{VERSION}_Windows_x64.zip"  
+
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
