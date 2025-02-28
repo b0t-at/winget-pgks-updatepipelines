@@ -216,7 +216,9 @@ jobs:
           - id: "VictorIX.BlenderLauncher"
             repo: "Victor-IX/Blender-Launcher-V2"
             url: "https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v{VERSION}/Blender_Launcher_v{VERSION}_Windows_x64.zip"  
-
+          - id: "activescott.lessmsi"
+            repo: "activescott/lessmsi"
+            url: "https://github.com/activescott/lessmsi/releases/download/v{VERSION}/lessmsi-v{VERSION}.zip"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
