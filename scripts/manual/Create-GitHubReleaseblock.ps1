@@ -1,10 +1,9 @@
 # take version and releaseurl as parameters
-# param(
-#     [string]$PackageId,
-#     [string]$Releaseurl
-# )
+param(
+    [string]$PackageId,
+    [string]$Releaseurl
+)
 
-$PackageId = "AdGuard.AdGuardHome"
 
 Import-Module Microsoft.WinGet.Client
 $versionTemplate = "{VERSION}"
@@ -13,10 +12,13 @@ $versionTemplate = "{VERSION}"
 $wingetShow = winget show --id $PackageId --exact
 # get the version from the output
 $version = ($wingetShow | Where-Object { $_ -like "Version:*" }).Split(":")[1].Trim()
+$packagePath = $PackageId -replace '\.', '/'
+$firstChar = $PackageId[0].ToString().ToLower()
+$fullInstallerDetails = (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/microsoft/winget-pkgs/refs/heads/master/manifests/$firstChar/$packagePath/$version/$PackageId.installer.yaml" -UseBasicParsing).Content
 # filter for lines containing "Installer-URL"
 $urls = @()
 $githubRepository = $null
-$wingetShow | Where-Object { $_ -like "*Installer-URL:*" } | ForEach-Object {
+$fullInstallerDetails -split "`n" | Where-Object { $_ -like "*InstallerURL:*" } | ForEach-Object {
     # split the line by the first ":"
     $split = $_.Split(":", 2)
     # get the second part of the split
@@ -36,10 +38,11 @@ $finalTemplateUrlString = $urls -join " "
 $newestGitHubRelease = gh release list --repo $githubRepository --json name,tagName,publishedAt,isLatest,isPrerelease | ConvertFrom-Json | Where-Object { $_.isPrerelease -eq $false } | Sort-Object -Property publishedAt -Descending | Select-Object -First 1
 $newestGitHubVersion = $newestGitHubRelease.tagName.TrimStart("v")
 if($newestGitHubVersion -ne $version){
-    $urlsWithVersion = $urls | ForEach-Object { $_.Replace($versionTemplate, $newestGitHubVersion) }
-    komac update  --version "$version" --urls "$urlsWithVersion" --dry-run "$PackageId"
+    $urlsWithVersion = ($urls | ForEach-Object { $_.Replace($versionTemplate, $newestGitHubVersion) })
+    komac.exe update --version "$newestGitHubVersion" --urls $urlsWithVersion --dry-run "$PackageId"
 } else {
     Write-Host "No new version available"
+    exit 0
 }
 
 
@@ -49,5 +52,6 @@ $releaseBlock = @"
             repo: "$githubRepository"
             url: "$finalTemplateUrlString"  
 "@
+$releaseBlock | Set-Clipboard
 Write-Host "----------------------"
 Write-Host $releaseBlock

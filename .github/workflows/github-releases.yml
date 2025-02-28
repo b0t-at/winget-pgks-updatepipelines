@@ -219,6 +219,21 @@ jobs:
           - id: "activescott.lessmsi"
             repo: "activescott/lessmsi"
             url: "https://github.com/activescott/lessmsi/releases/download/v{VERSION}/lessmsi-v{VERSION}.zip"  
+          - id: "AdGuard.AdGuardHome"
+            repo: "AdguardTeam/AdGuardHome"
+            url: "https://github.com/AdguardTeam/AdGuardHome/releases/download/v{VERSION}/AdGuardHome_windows_386.zip https://github.com/AdguardTeam/AdGuardHome/releases/download/v{VERSION}/AdGuardHome_windows_amd64.zip https://github.com/AdguardTeam/AdGuardHome/releases/download/v{VERSION}/AdGuardHome_windows_arm64.zip"  
+          - id: "git-cola.git-cola"
+            repo: "git-cola/git-cola"
+            url: "https://github.com/git-cola/git-cola/releases/download/v{VERSION}/git-cola-{VERSION}.windows.zip"  
+          - id: "LibreCAD.LibreCAD"
+            repo: "LibreCAD/LibreCAD"
+            url: "https://github.com/LibreCAD/LibreCAD/releases/download/{VERSION}/LibreCAD-Installer-v{VERSION}.exe"
+          - id: "Min.Min"
+            repo: "minbrowser/min"
+            url: "https://github.com/minbrowser/min/releases/download/v{VERSION}/min-{VERSION}-ia32-setup.exe"
+          - id: "ThaUnknown.Miru"
+            repo: "ThaUnknown/miru"
+            url: "https://github.com/ThaUnknown/miru/releases/download/v{VERSION}/win-Miru-{VERSION}-installer.exe"
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
