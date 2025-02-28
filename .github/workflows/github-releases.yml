@@ -227,7 +227,7 @@ jobs:
             url: "https://github.com/git-cola/git-cola/releases/download/v{VERSION}/git-cola-{VERSION}.windows.zip"  
           - id: "LibreCAD.LibreCAD"
             repo: "LibreCAD/LibreCAD"
-            url: "https://github.com/LibreCAD/LibreCAD/releases/download/{VERSION}/LibreCAD-Installer-v{VERSION}.exe"
+            url: "https://github.com/LibreCAD/LibreCAD/releases/download/v{VERSION}/LibreCAD-Installer-v{VERSION}.exe"
           - id: "Min.Min"
             repo: "minbrowser/min"
             url: "https://github.com/minbrowser/min/releases/download/v{VERSION}/min-{VERSION}-ia32-setup.exe"
