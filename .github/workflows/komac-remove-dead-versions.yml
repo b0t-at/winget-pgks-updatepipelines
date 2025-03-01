@@ -18,6 +18,7 @@ jobs:
       matrix:
         include:
           - id: "Google.Chrome.Canary"
+          - id: "Deezer.Deezer"
 
     steps:
       - name: Run Komac
