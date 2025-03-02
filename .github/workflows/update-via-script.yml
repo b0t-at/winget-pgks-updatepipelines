@@ -29,6 +29,7 @@ jobs:
             WebsiteURL: "https://www.mongodb.com/try/download/tools"     
           - PackageName: "MongoDB.MongoDBAtlasCLI"
             WebsiteURL: "https://www.mongodb.com/try/download/tools"
+            With: wingetcreate
           - PackageName: "MongoDB.DatabaseTools"
             WebsiteURL: "https://www.mongodb.com/try/download/tools" 
           - PackageName: "MongoDB.Compass.Full"
