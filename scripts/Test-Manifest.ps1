@@ -75,7 +75,7 @@ if (-Not $SkipManifestValidation -And -Not [String]::IsNullOrWhiteSpace($Manifes
   
     winget.exe validate $Manifest
     switch ($LASTEXITCODE) {
-        '-1978335191' { throw [System.Activities.ValidationException]::new('Manifest validation failed.') }
+        '-1978335191' { throw [System.Exception]::new('Manifest validation failed.') }
         '-1978335192' { Start-Sleep -Seconds 5 }
         Default { continue }
     }
