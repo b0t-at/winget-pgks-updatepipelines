@@ -43,6 +43,10 @@ if($newestGitHubVersion -ne $version){
     exit 0
 }
 
+if([string]::IsNullOrWhiteSpace($PackageId) -or [string]::IsNullOrWhiteSpace($githubRepository) -or [string]::IsNullOrWhiteSpace($finalTemplateUrlString)) {
+    Write-Host "PackageId, GitHubRepository or TemplateUrl is empty"
+    exit 1
+}
 
 
 $releaseBlock = @"
@@ -54,9 +58,9 @@ $releaseBlock = @"
 # get the script location
 $scriptPath = $MyInvocation.MyCommand.Path
 # append the releaseblock to the github-releases.yml file before the steps block
-$githubReleasesYml = Get-Content -Path "$scriptPath/../../../.github/workflows/github-releases.yml"
+$githubReleasesYml = Get-Content -Path "$scriptPath/../../.github/workflows/github-releases.yml"
 $githubReleasesYml = $githubReleasesYml -replace "steps:", "$releaseBlock`n    steps:"
-$githubReleasesYml | Set-Content -Path "$scriptPath/../../../.github/workflows/github-releases.yml"
+$githubReleasesYml | Set-Content -Path "$scriptPath/../../.github/workflows/github-releases.yml"
 
 Write-Host "----------------------"
 Write-Host $releaseBlock

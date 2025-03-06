@@ -1,0 +1,26 @@
+name: Add GitHub Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      packageId:
+        description: 'winget PackageId'
+        required: true
+
+permissions: 
+  contents: write
+
+jobs:
+  scipt:
+    name: ${{ inputs.packageId }}
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Update package
+        run: .\scripts\Add-GitHubPackage.ps1 -PackageId ${{ inputs.packageId }}
+      - name: Commit and push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Add GitHub Package: ${{ inputs.packageId }}"
+          file_pattern: add-github-package.yml
