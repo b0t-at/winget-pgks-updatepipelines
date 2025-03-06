@@ -1,7 +1,5 @@
-# take version and releaseurl as parameters
 param(
-    [string]$PackageId,
-    [string]$Releaseurl
+    [Parameter(Mandatory=$true)][string]$PackageId
 )
 
 
@@ -48,10 +46,17 @@ if($newestGitHubVersion -ne $version){
 
 
 $releaseBlock = @"
-          - id: "$PackageId"
+      - id: "$PackageId"
             repo: "$githubRepository"
             url: "$finalTemplateUrlString"  
 "@
-$releaseBlock | Set-Clipboard
+
+# get the script location
+$scriptPath = $MyInvocation.MyCommand.Path
+# append the releaseblock to the github-releases.yml file before the steps block
+$githubReleasesYml = Get-Content -Path "$scriptPath/../../../.github/workflows/github-releases.yml"
+$githubReleasesYml = $githubReleasesYml -replace "steps:", "$releaseBlock`n    steps:"
+$githubReleasesYml | Set-Content -Path "$scriptPath/../../../.github/workflows/github-releases.yml"
+
 Write-Host "----------------------"
 Write-Host $releaseBlock

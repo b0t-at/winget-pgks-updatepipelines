@@ -234,6 +234,12 @@ jobs:
           - id: "ThaUnknown.Miru"
             repo: "ThaUnknown/miru"
             url: "https://github.com/ThaUnknown/miru/releases/download/v{VERSION}/win-Miru-{VERSION}-installer.exe"
+          - id: "marha.VcXsrv"
+            repo: "marchaesen/vcxsrv"
+            url: "https://github.com/marchaesen/vcxsrv/releases/download/21.1.16/vcxsrv-64.{VERSION}.0.installer.exe"
+          - id: "JustArchiNET.ArchiSteamFarm"
+            repo: "JustArchiNET/ArchiSteamFarm"
+            url: "https://github.com/JustArchiNET/ArchiSteamFarm/releases/download/{VERSION}/ASF-win-x64.zip"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
