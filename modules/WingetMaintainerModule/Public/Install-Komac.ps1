@@ -16,7 +16,7 @@ function Install-Komac {
 
     if (Test-Path ".\komac.exe") {
         Write-Host "Komac successfully downloaded"
-        New-Alias komac "$(get-location)\komac.exe"
+        New-Alias komac "$(get-location)\komac.exe" -scope Global
     }
     else {
         Write-Error "Komac not downloaded"
