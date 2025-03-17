@@ -2,8 +2,6 @@ param(
     [Parameter(Mandatory=$true)][string]$PackageId
 )
 
-
-Import-Module Microsoft.WinGet.Client
 $versionTemplate = "{VERSION}"
 
 # get the version from the output
