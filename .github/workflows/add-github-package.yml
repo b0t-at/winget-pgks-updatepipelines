@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Update package
         run: |
-          Import-Module modules\WingetMaintainerModule
+          Import-Module .\modules\WingetMaintainerModule
           Install-Winget
           .\scripts\Add-GitHubPackage.ps1 -PackageId ${{ inputs.packageId }}
       - name: Commit and push
