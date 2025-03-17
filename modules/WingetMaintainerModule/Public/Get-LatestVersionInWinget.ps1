@@ -6,7 +6,7 @@ function Get-LatestVersionInWinget {
     $packagePath = $PackageId -replace '\.', '/'
     $firstChar = $PackageId[0].ToString().ToLower()
 
-    Write-Host "Checking if $wingetPackage is already in winget (via GH) and find latest Version"
+    Write-Host "Checking if $PackageId is already in winget (via GH) and find latest Version"
     
     $ghVersionSearchString = "manifests/$($firstChar)/$($packagePath)/"
     $ghResponse = gh search code $ghVersionSearchString $PackageId".yaml" --match path --repo microsoft/winget-pkgs -L 1000 --json path | ConvertFrom-Json
@@ -19,7 +19,7 @@ function Get-LatestVersionInWinget {
         return $latestVersion
     } 
     else {
-        Write-Host "No Version found for Package $wingetPackage"
+        Write-Host "No Version found for Package $PackageId"
         exit 1
     }
 }
