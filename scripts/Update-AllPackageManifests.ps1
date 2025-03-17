@@ -33,7 +33,7 @@ function Get-AllInstallerManifestsGH {
         [Parameter(Mandatory = $true)] [string] $PackageIdentifier
     )
     Install-Komac
-    $versions = (.\komac.exe  list-versions $PackageIdentifier --json -t $Token) | ConvertFrom-Json
+    $versions = (komac  list-versions $PackageIdentifier --json -t $Token) | ConvertFrom-Json
 
     $manifestDict = @{}
     foreach ($version in $versions) {
@@ -85,7 +85,7 @@ function Update-AllWingetPackages {
         $installerLinks = Export-InstallerLinks -Manifest $manifest
         # only perform rebuild if it will not be submitted or if no PR exists
         if($Submit -eq $false ? $true : !(Test-ExistingPRs -PackageIdentifier $PackageIdentifier -Version $version -OnlyOpen)) {
-        .\komac.exe update $PackageIdentifier --version $version --urls $installerLinks -o $OutputDir -t $Token ($Submit -eq $true ? '-s' : '--dry-run') ($resolves -match '^\d+$' ? "--resolves $resolves" : $null )
+        komac update $PackageIdentifier --version $version --urls $installerLinks -o $OutputDir -t $Token ($Submit -eq $true ? '-s' : '--dry-run') ($resolves -match '^\d+$' ? "--resolves $resolves" : $null )
         }
     }
 }

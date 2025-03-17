@@ -1,5 +1,5 @@
 function Install-Komac {
-    $executable = Get-Command "komac.exe" -ErrorAction SilentlyContinue
+    $executable = Get-Command "komac" -ErrorAction SilentlyContinue
     if ($null -ne $executable) {
         Write-Host "Komac is already installed"
         return
@@ -16,6 +16,7 @@ function Install-Komac {
 
     if (Test-Path ".\komac.exe") {
         Write-Host "Komac successfully downloaded"
+        New-Alias komac .\komac.exe
     }
     else {
         Write-Error "Komac not downloaded"
