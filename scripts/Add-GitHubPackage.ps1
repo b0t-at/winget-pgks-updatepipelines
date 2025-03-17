@@ -6,10 +6,8 @@ param(
 Import-Module Microsoft.WinGet.Client
 $versionTemplate = "{VERSION}"
 
-# get latest winget version for the package
-$wingetShow = winget show --id $PackageId --exact
 # get the version from the output
-$version = ($wingetShow | Where-Object { $_ -like "Version:*" }).Split(":")[1].Trim()
+$version = Get-LatestVersionInWinget -PackageId $PackageId
 $packagePath = $PackageId -replace '\.', '/'
 $firstChar = $PackageId[0].ToString().ToLower()
 $fullInstallerDetails = (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/microsoft/winget-pkgs/refs/heads/master/manifests/$firstChar/$packagePath/$version/$PackageId.installer.yaml" -UseBasicParsing).Content
