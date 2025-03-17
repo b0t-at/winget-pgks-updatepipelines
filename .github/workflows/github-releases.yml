@@ -243,6 +243,9 @@ jobs:
           - id: "hoppscotch.agent"
             repo: "hoppscotch/agent-releases"
             url: "https://github.com/hoppscotch/agent-releases/releases/download/v{VERSION}/Hoppscotch_Agent_win_x64.msi"  
+          - id: "JGraph.Draw"
+            repo: "jgraph/drawio-desktop"
+            url: "https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-ia32-{VERSION}-windows-32bit-installer.exe https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-{VERSION}-windows-installer.exe https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-arm64-{VERSION}-windows-arm64-installer.exe https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-ia32-{VERSION}-windows-32bit-no-installer.exe https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-{VERSION}-windows-no-installer.exe https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-arm64-{VERSION}-windows-arm64-no-installer.exe"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
