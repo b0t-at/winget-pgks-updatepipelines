@@ -22,5 +22,5 @@ function Install-Winget {
     #Install-PackageProvider -Name NuGet -Force | Out-Null
     Install-Module -Name Microsoft.WinGet.Client -Force -Repository PSGallery -AllowClobber
     Write-Host "Using Repair-WinGetPackageManager cmdlet to bootstrap WinGet..."
-    Repair-WinGetPackageManager
+    Repair-WinGetPackageManager -AllUsers
 }
