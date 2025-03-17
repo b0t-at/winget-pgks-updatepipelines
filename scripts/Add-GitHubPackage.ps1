@@ -2,6 +2,8 @@ param(
     [Parameter(Mandatory=$true)][string]$PackageId
 )
 
+Install-Komac
+
 $versionTemplate = "{VERSION}"
 
 # get the version from the output
