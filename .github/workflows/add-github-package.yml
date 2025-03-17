@@ -14,10 +14,12 @@ jobs:
   scipt:
     name: ${{ inputs.packageId }}
     runs-on: windows-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Update package
+        shell: pwsh
         run: |
           Import-Module .\modules\WingetMaintainerModule
           Install-Winget
