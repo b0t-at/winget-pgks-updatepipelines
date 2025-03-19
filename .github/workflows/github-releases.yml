@@ -252,6 +252,9 @@ jobs:
           - id: "divVerent.AAAAXY"
             repo: "divVerent/aaaaxy"
             url: "https://github.com/divVerent/aaaaxy/releases/download/v{VERSION}/aaaaxy-windows-amd64-v{VERSION}.zip https://github.com/divVerent/aaaaxy/releases/download/v{VERSION}/aaaaxy-windows-amd64-v{VERSION}.zip"  
+          - id: "AppFlowy.AppFlowy"
+            repo: "AppFlowy-IO/AppFlowy"
+            url: "https://github.com/AppFlowy-IO/AppFlowy/releases/download/{VERSION}/AppFlowy-{VERSION}-windows-x86_64.exe"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
