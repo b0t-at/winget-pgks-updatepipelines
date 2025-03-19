@@ -249,6 +249,9 @@ jobs:
           - id: "Starpine.Screenbox"
             repo: "huynhsontung/Screenbox"
             url: "https://github.com/huynhsontung/Screenbox/releases/download/v{VERSION}/Screenbox_{VERSION}.0_neutral.msixbundle https://github.com/huynhsontung/Screenbox/releases/download/v{VERSION}/Screenbox_{VERSION}.0_neutral.msixbundle https://github.com/huynhsontung/Screenbox/releases/download/v{VERSION}/Screenbox_{VERSION}.0_neutral.msixbundle"  
+          - id: "divVerent.AAAAXY"
+            repo: "divVerent/aaaaxy"
+            url: "https://github.com/divVerent/aaaaxy/releases/download/v{VERSION}/aaaaxy-windows-amd64-v{VERSION}.zip https://github.com/divVerent/aaaaxy/releases/download/v{VERSION}/aaaaxy-windows-amd64-v{VERSION}.zip"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
