@@ -7,9 +7,6 @@ on:
         description: 'winget PackageId'
         required: true
 
-permissions: 
-  contents: write
-
 jobs:
   script:
     name: ${{ inputs.packageId }}
@@ -18,8 +15,16 @@ jobs:
       GH_TOKEN: ${{ github.token }}
       GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
     steps:
+      - name: create App token
+        uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.PRIVATE_KEY }}
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
       - name: Update package
         shell: pwsh
         run: |
