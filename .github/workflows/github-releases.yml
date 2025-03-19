@@ -255,6 +255,9 @@ jobs:
           - id: "AppFlowy.AppFlowy"
             repo: "AppFlowy-IO/AppFlowy"
             url: "https://github.com/AppFlowy-IO/AppFlowy/releases/download/{VERSION}/AppFlowy-{VERSION}-windows-x86_64.exe"  
+          - id: "argoproj.argocd"
+            repo: "argoproj/argo-cd"
+            url: "https://github.com/argoproj/argo-cd/releases/download/v{VERSION}/argocd-windows-amd64.exe"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
