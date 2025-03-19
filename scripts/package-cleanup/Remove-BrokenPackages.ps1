@@ -1,8 +1,8 @@
 Import-Module Microsoft.WinGet.Client
 $ErrorActionPreference = "Stop"
 
-$DRY_RUN = $false
-$USE_WHITELIST = $true
+$DRY_RUN = $true
+$USE_WHITELIST = $false
 $REMOVE_HIGHEST_VERSIONS = $false
 #$timeoutSeconds = 60  # Set your desired timeout in seconds
 
@@ -56,6 +56,13 @@ foreach ($package in $packages) {
         continue
     }
     # check if it is already in cleaned_packages.csv
+    # test if cleaned_packages.csv exists. create otherwise
+    if (-not (Test-Path -Path $scriptDirectory\cleaned_packages.csv)) {
+        New-Item -Path $scriptDirectory\cleaned_packages.csv -ItemType File | Out-Null
+    }
+    if (-not (Test-Path -Path $scriptDirectory\packages_to_remove.csv)) {
+        New-Item -Path $scriptDirectory\packages_to_remove.csv -ItemType File | Out-Null
+    }
     $cleanedPackages = Import-Csv -Path $scriptDirectory\cleaned_packages.csv
     if ($cleanedPackages | Where-Object { $_.package_identifier -eq $package.package_identifier -and $_.package_version -eq $package.package_version }) {
         Write-Host "Ignoring package $($package.package_identifier) | $($package.package_version) as it is already cleaned"
@@ -114,6 +121,9 @@ foreach ($package in $packages) {
                     . komac.exe remove --reason $prBody --submit -v $package.package_version  $package.package_identifier 
                     # add it to cleaned_packages.csv
                     $package | Export-Csv -Path $scriptDirectory\cleaned_packages.csv -Append -NoTypeInformation
+                } else {
+                    # add to packages_to_remove.csv
+                    $package | Export-Csv -Path $scriptDirectory\packages_to_remove.csv -Append -NoTypeInformation
                 }
             }
         }
