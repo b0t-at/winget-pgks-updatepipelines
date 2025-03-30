@@ -4,7 +4,7 @@ param(
 
 # get the script location
 $scriptPath = $MyInvocation.MyCommand.Path
-#check if PackageID is already in workflow
+#check if PackageID is already in workflow file
 $githubReleasesYml = Get-Content -Path "$scriptPath/../../.github/workflows/github-releases.yml"
 if ($githubReleasesYml -match $PackageId) {
     Write-Host "PackageId already in workflow"
