@@ -2,6 +2,15 @@ param(
     [Parameter(Mandatory=$true)][string]$PackageId
 )
 
+# get the script location
+$scriptPath = $MyInvocation.MyCommand.Path
+#check if PackageID is already in workflow
+$githubReleasesYml = Get-Content -Path "$scriptPath/../../.github/workflows/github-releases.yml"
+if ($githubReleasesYml -match $PackageId) {
+    Write-Host "PackageId already in workflow"
+    exit 0
+}
+
 Install-Komac
 
 $versionTemplate = "{VERSION}"
@@ -53,10 +62,8 @@ $releaseBlock = @"
             url: "$finalTemplateUrlString"  
 "@
 
-# get the script location
-$scriptPath = $MyInvocation.MyCommand.Path
+
 # append the releaseblock to the github-releases.yml file before the steps block
-$githubReleasesYml = Get-Content -Path "$scriptPath/../../.github/workflows/github-releases.yml"
 $githubReleasesYml = $githubReleasesYml -replace "steps:", "$releaseBlock`n    steps:"
 $githubReleasesYml | Set-Content -Path "$scriptPath/../../.github/workflows/github-releases.yml"
 
