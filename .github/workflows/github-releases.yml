@@ -264,6 +264,9 @@ jobs:
           - id: "simulot.immich-go"
             repo: "simulot/immich-go"
             url: "https://github.com/simulot/immich-go/releases/download/v{VERSION}/immich-go_Windows_arm64.zip https://github.com/simulot/immich-go/releases/download/v{VERSION}/immich-go_Windows_x86_64.zip" 
+          - id: "henrygd.beszel-agent"
+            repo: "henrygd/beszel"
+            url: "https://github.com/henrygd/beszel/releases/download/v{VERSION}/beszel-agent_windows_amd64.zip https://github.com/henrygd/beszel/releases/download/v{VERSION}/beszel-agent_windows_arm64.zip"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
