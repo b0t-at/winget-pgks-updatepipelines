@@ -38,7 +38,7 @@ if($newestGitHubVersion -ne $version){
     komac update "$PackageId" --version "$newestGitHubVersion" --urls $urlsWithVersion --dry-run --skip-pr-chech
 } else {
     Write-Host "No new version available"
-    exit 0
+    #exit 0
 }
 
 if([string]::IsNullOrWhiteSpace($PackageId) -or [string]::IsNullOrWhiteSpace($githubRepository) -or [string]::IsNullOrWhiteSpace($finalTemplateUrlString)) {
