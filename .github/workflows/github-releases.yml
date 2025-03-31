@@ -267,6 +267,9 @@ jobs:
           - id: "henrygd.beszel-agent"
             repo: "henrygd/beszel"
             url: "https://github.com/henrygd/beszel/releases/download/v{VERSION}/beszel-agent_windows_amd64.zip https://github.com/henrygd/beszel/releases/download/v{VERSION}/beszel-agent_windows_arm64.zip"  
+          - id: "ente-io.photos-desktop"
+            repo: "ente-io/photos-desktop"
+            url: "https://github.com/ente-io/photos-desktop/releases/download/v{VERSION}/ente-{VERSION}.exe"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
