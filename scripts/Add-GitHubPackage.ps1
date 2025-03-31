@@ -44,7 +44,7 @@ $newestGitHubRelease = gh release list --repo $githubRepository --json name,tagN
 $newestGitHubVersion = $newestGitHubRelease.tagName.TrimStart("v")
 if($newestGitHubVersion -ne $version){
     $urlsWithVersion = ($urls | ForEach-Object { $_.Replace($versionTemplate, $newestGitHubVersion) })
-    komac update "$PackageId" --version "$newestGitHubVersion" --urls $urlsWithVersion --dry-run --skip-pr-chech
+    komac update "$PackageId" --version "$newestGitHubVersion" --urls $urlsWithVersion --dry-run --skip-pr-check
 } else {
     Write-Host "No new version available"
     #exit 0
