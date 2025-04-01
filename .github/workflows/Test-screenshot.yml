@@ -10,6 +10,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Get current date
+        id: date
+        run: |
+          echo "{date}={$(date +'%Y-%m-%dT%H_%M_%S')}" >> $GITHUB_STATE
       - name: Take screenshot using FFmpeg
         shell: powershell
         run: |
@@ -32,10 +36,10 @@ jobs:
           
           # Use FFmpeg to capture screen
           Write-Host "Capturing screenshot with FFmpeg..."
-          & $ffmpegExe -f gdigrab -framerate 1 -i desktop -frames:v 1 ./screenshots/screenshot-${{ github.event.repository.updated_at}}.png
+          & $ffmpegExe -f gdigrab -framerate 1 -i desktop -frames:v 1 ./screenshots/screenshot-${{ env.date }}.png
           
           # Verify screenshot was created
-          if (Test-Path "./screenshots/screenshot-${{ github.event.repository.updated_at}}.png") {
+          if (Test-Path "./screenshots/screenshot-${{ env.date }}.png") {
             Write-Host "Screenshot captured successfully"
           } else {
             Write-Error "Screenshot capture failed"
@@ -46,7 +50,7 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
             commit_message: "${{ github.action }} - new screenhsot"
-            file_pattern: ./screenshots/screenshot-${{ github.event.repository.updated_at}}.png
+            file_pattern: ./screenshots/screenshot-${{ env.date }}.png
 
     #   - name: Upload Screenshot Artifact
     #     uses: actions/upload-artifact@v4
