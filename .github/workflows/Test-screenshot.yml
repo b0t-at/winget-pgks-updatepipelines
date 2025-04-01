@@ -1,4 +1,4 @@
-name: Screenshot with Virtual Display
+name: Test-Screenshot
 
 on:
   workflow_dispatch:  # Allow manual triggering
