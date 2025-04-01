@@ -7,6 +7,9 @@ jobs:
   screenshot:
     runs-on: windows-latest
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Install Screen Capture Recorder
         shell: powershell
         run: |
