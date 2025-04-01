@@ -17,7 +17,7 @@ jobs:
           New-Item -ItemType Directory -Path ".\downloads" -Force
           
           # Download the Screen Capture Recorder installer
-          $installerUrl = "https://github.com/rdp/screen-capture-recorder-to-video-windows-free/releases/download/0.12.11/Setup.Screen.Capture.Recorder.v0.12.11.exe"
+          $installerUrl = "https://github.com/rdp/screen-capture-recorder-to-video-windows-free/releases/download/v0.13.3/Setup.Screen.Capturer.Recorder.v0.13.3.exe"
           $installerPath = ".\downloads\scr_installer.exe"
           Write-Host "Downloading Screen Capture Recorder..."
           Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath -UseBasicParsing
