@@ -13,7 +13,7 @@ jobs:
       - name: Get current date
         id: date
         run: |
-          echo "{date}={$(date +'%Y-%m-%dT%H_%M_%S')}" >> $GITHUB_STATE
+          echo "{date}={$(date +'%Y-%m-%dT%H_%M_%S')}" >> $GITHUB_ENV
       - name: Take screenshot using FFmpeg
         shell: powershell
         run: |
@@ -36,7 +36,8 @@ jobs:
           
           # Use FFmpeg to capture screen
           Write-Host "Capturing screenshot with FFmpeg..."
-          & $ffmpegExe -f gdigrab -framerate 1 -i desktop -frames:v 1 ./screenshots/screenshot-${{ env.date }}.png
+          & $ffmpegExe -f gdigrab -framerate 1 -i desktop -frames:v 1 screenshot-${{ env.date }}.png
+          mv .\screenshot-${{ env.date }}.png .\screenshots\screenshot-${{ env.date }}.png
           
           # Verify screenshot was created
           if (Test-Path "./screenshots/screenshot-${{ env.date }}.png") {
