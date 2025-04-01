@@ -20,8 +20,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Install FFmpeg
-        run: |
-          winget install BtbN.FFmpeg.GPL --accept-source-agreements --accept-package-agreements --verbose-logs 
+        uses: AnimMouse/setup-ffmpeg@v1
       - name: Take screenshot using FFmpeg
         shell: powershell
         run: |
