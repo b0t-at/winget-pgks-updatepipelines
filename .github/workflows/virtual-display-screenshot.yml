@@ -1,0 +1,44 @@
+name: Screenshot with Virtual Display
+
+on:
+  workflow_dispatch:
+
+jobs:
+  screenshot:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup virtual display
+        shell: powershell
+        run: |
+          # Download and extract virtual display driver
+          Invoke-WebRequest -Uri "https://github.com/dblock/virtualdesktop/releases/download/v1.0/virtualdesktop.zip" -OutFile "virtualdesktop.zip"
+          Expand-Archive -Path "virtualdesktop.zip" -DestinationPath "./virtualdesktop"
+          
+          # Install and start the virtual display
+          cd ./virtualdesktop
+          ./VirtualDesktop.exe /install
+          ./VirtualDesktop.exe /start
+      
+      - name: Take screenshot
+        shell: powershell
+        run: |
+          Add-Type -AssemblyName System.Windows.Forms
+          Add-Type -AssemblyName System.Drawing
+          
+          # Wait for display to initialize
+          Start-Sleep -s 5
+          
+          $Screen = [System.Windows.Forms.SystemInformation]::VirtualScreen
+          $bitmap = New-Object System.Drawing.Bitmap $Screen.Width, $Screen.Height
+          $graphic = [System.Drawing.Graphics]::FromImage($bitmap)
+          $graphic.CopyFromScreen(0, 0, 0, 0, $bitmap.Size)
+          
+          $bitmap.Save("screenshot.png")
+      
+      - name: Upload screenshot
+        uses: actions/upload-artifact@v3
+        with:
+          name: virtual-display-screenshots
+          path: screenshot.png
