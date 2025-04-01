@@ -27,11 +27,10 @@ jobs:
         run: |
           # Create directory for downloads
           New-Item -ItemType Directory -Path ".\downloads" -Force
-
-                    
+ 
           # Use FFmpeg to capture screen
           Write-Host "Capturing screenshot with FFmpeg..."
-          & ffmpeg -f gdigrab -framerate 1 -i desktop -frames:v 1 screenshot.png
+          ffmpeg -f gdigrab -framerate 1 -i desktop -frames:v 1 screenshot.png
           
           # Verify screenshot was created
           if (Test-Path "./screenshots/screenshot.png") {
