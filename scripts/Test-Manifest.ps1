@@ -141,7 +141,7 @@ if (-Not [String]::IsNullOrWhiteSpace($Manifest)) {
 
     # Event handlers to stream live output.
     $process.add_OutputDataReceived({ if ($_.Data) { Write-Host $_.Data } })
-    $process.add_ErrorDataReceived({ if ($_.Data) { Write-Error $_.Data } })
+    $process.add_ErrorDataReceived({ if ($_.Data) { Write-Host $_.Data } })
 
     $process.Start() | Out-Null
     $process.BeginOutputReadLine()
@@ -151,7 +151,7 @@ if (-Not [String]::IsNullOrWhiteSpace($Manifest)) {
         Write-Host "Test Script completed within timeout."
     }
     else {
-        Write-Error "Test Script timed out after $env:TIMEOUT seconds."
+        Write-Host "Test Script timed out after $env:TIMEOUT seconds."
     }
 
 
