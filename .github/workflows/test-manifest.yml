@@ -6,6 +6,11 @@ on:
       ManifestURL:
         description: "Manifest URL"
         required: true
+      Timeout:
+        description: "Timeout in seconds (default: 300)"
+        required: false
+        type: number
+        default: 300
 
 jobs:
   test:
@@ -27,8 +32,27 @@ jobs:
       - name: Setup FFmpeg
         uses: AnimMouse/setup-ffmpeg@v1
           
-      - name: Run Test Script
-        run: .\scripts\Test-Manifest.ps1 -ManifestURL ${{inputs.ManifestURL}}
+      - name: Run Test Script with Timeout
+        shell: powershell
+        env:
+          MANIFESTURL: ${{ inputs.ManifestURL }}
+          TIMEOUT: ${{ inputs.Timeout }}
+        run: |
+          Write-Host "Starting Test Script with a timeout of $env:TIMEOUT seconds."
+          
+          # Start the Test Script as a background job.
+          $job = Start-Job -ScriptBlock { & .\scripts\Test-Manifest.ps1 -ManifestURL $env:MANIFESTURL }
+          
+          # Wait for the job to complete or timeout.
+          if (Wait-Job -Job $job -Timeout ([int]$env:TIMEOUT)) {
+              Write-Host "Test Script completed within timeout."
+              Receive-Job $job
+              Remove-Job $job
+          } else {
+              Write-Error "Test Script timed out after $env:TIMEOUT seconds."
+              Stop-Job $job
+              exit 1
+          }
 
       - name: Take screenshot using FFmpeg
         shell: powershell
