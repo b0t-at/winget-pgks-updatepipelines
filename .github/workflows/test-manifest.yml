@@ -24,6 +24,11 @@ jobs:
         id: date
         run: |
           echo "date=$(date +'%Y-%m-%dT%H_%M_%S')" >> $env:GITHUB_ENV
+      - name: Get Manifest Package Name
+        id: manifest
+        shell: powershell
+        run: |
+          echo "manifestname=" >> $env:GITHUB_ENV
 
       - name: Install winget
         uses: Cyberboss/install-winget@v1
