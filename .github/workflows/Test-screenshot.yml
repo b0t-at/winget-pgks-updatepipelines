@@ -25,7 +25,7 @@ jobs:
           # Create directory for downloads
           New-Item -ItemType Directory -Path ".\downloads" -Force
 
-          winget install BtbN.FFmpeg.GPL --accept-package-agreements --verbose-logs
+          winget install BtbN.FFmpeg.GPL --accept-source-agreements --accept-package-agreements --verbose-logs 
                     
           # Use FFmpeg to capture screen
           Write-Host "Capturing screenshot with FFmpeg..."
