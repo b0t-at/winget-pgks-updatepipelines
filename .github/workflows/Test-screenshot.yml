@@ -27,22 +27,22 @@ jobs:
           # Create directory for downloads
           New-Item -ItemType Directory -Path ".\downloads" -Force
           
-          # Download Screen Capture Recorder installer
-          $installerUrl = "https://github.com/rdp/screen-capture-recorder-to-video-windows-free/releases/download/v0.13.3/Setup.Screen.Capturer.Recorder.v0.13.3.exe"
-          $installerPath = ".\downloads\scr_installer.exe"
+          # # Download Screen Capture Recorder installer
+          # $installerUrl = "https://github.com/rdp/screen-capture-recorder-to-video-windows-free/releases/download/v0.13.3/Setup.Screen.Capturer.Recorder.v0.13.3.exe"
+          # $installerPath = ".\downloads\scr_installer.exe"
           
-          Write-Host "Downloading Screen Capture Recorder..."
-          Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath -UseBasicParsing
+          # Write-Host "Downloading Screen Capture Recorder..."
+          # Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath -UseBasicParsing
           
-          # Install silently
-          Write-Host "Installing Screen Capture Recorder..."
-          Start-Process -FilePath $installerPath -ArgumentList "/VERYSILENT" -Wait
+          # # Install silently
+          # Write-Host "Installing Screen Capture Recorder..."
+          # Start-Process -FilePath $installerPath -ArgumentList "/VERYSILENT" -Wait
           
-          # Allow time for drivers to register
-          Write-Host "Waiting for installation to complete..."
-          Start-Sleep -Seconds 10
+          # # Allow time for drivers to register
+          # Write-Host "Waiting for installation to complete..."
+          # Start-Sleep -Seconds 10
           
-          Write-Host "Screen Capture Recorder installed successfully"
+          # Write-Host "Screen Capture Recorder installed successfully"
 
       - name: Take screenshot using FFmpeg
         shell: powershell
