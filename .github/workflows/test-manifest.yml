@@ -26,7 +26,6 @@ jobs:
           echo "date=$(date +'%Y-%m-%dT%H_%M_%S')" >> $env:GITHUB_ENV
       - name: Get Manifest Package Name
         id: manifest
-        shell: powershell
         run: |
 
           # The regex explanation:
@@ -36,7 +35,7 @@ jobs:
           # ([^/]+)\/              captures the package name into group 2
           # ([^/]+)\/?             captures the version into group 3 (with an optional trailing slash)
           $pattern = ".*/manifests/[^/]+/([^/]+)/([^/]+)/([^/]+)/?$"
-          $result = [regex]::Replace(${{inputs.ManifestURL}}, $pattern, '$1.$2_$3')
+          $result = [regex]::Replace("${{inputs.ManifestURL}}", $pattern, '$1.$2_$3')
 
           echo "manifestname=$result" >> $env:GITHUB_ENV
 
