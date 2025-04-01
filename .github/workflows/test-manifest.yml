@@ -56,6 +56,11 @@ jobs:
       - name: Take screenshot using FFmpeg
         shell: powershell
         run: |
+          start ms-settings:appsfeatures
+
+          # Wait for the settings app to open
+          Start-Sleep -Seconds 5
+
           $ffmpegExe = where.exe ffmpeg
           if (-not $ffmpegExe) {
             $ffmpegExe = where.exe ffmpeg.exe
