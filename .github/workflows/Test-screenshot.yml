@@ -47,13 +47,6 @@ jobs:
       - name: Take screenshot using FFmpeg
         shell: powershell
         run: |
-          # Create directory for downloads
-          # New-Item -ItemType Directory -Path ".\downloads" -Force
- 
-          # # Use FFmpeg to capture screen
-          # Write-Host "Capturing screenshot with FFmpeg..."
-          # & ffmpeg -f gdigrab -framerate 1 -i desktop -frames:v 1 screenshot.png
-
           # Download portable FFmpeg
           $ffmpegUrl = "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip"
           $ffmpegZip = ".\downloads\ffmpeg.zip"
@@ -71,16 +64,50 @@ jobs:
           # Use FFmpeg to capture screen
           Write-Host "Capturing screenshot with FFmpeg..."
           & $ffmpegExe -f gdigrab -framerate 1 -i desktop -frames:v 1 screenshot.png
+
           
           # Verify screenshot was created
-          if (Test-Path "./screenshots/screenshot.png") {
+          if (Test-Path "screenshot.png") {
             Write-Host "Screenshot captured successfully"
           } else {
             Write-Error "Screenshot capture failed"
             exit 1
           }
+        # run: |
+        #   # Create directory for downloads
+        #   # New-Item -ItemType Directory -Path ".\downloads" -Force
+ 
+        #   # # Use FFmpeg to capture screen
+        #   # Write-Host "Capturing screenshot with FFmpeg..."
+        #   # & ffmpeg -f gdigrab -framerate 1 -i desktop -frames:v 1 screenshot.png
 
-          mv .\screenshot.png .\screenshots\screenshot-${{ env.date }}.png
+        #   # Download portable FFmpeg
+        #   $ffmpegUrl = "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip"
+        #   $ffmpegZip = ".\downloads\ffmpeg.zip"
+          
+        #   Write-Host "Downloading FFmpeg..."
+        #   Invoke-WebRequest -Uri $ffmpegUrl -OutFile $ffmpegZip -UseBasicParsing
+          
+        #   # Extract FFmpeg
+        #   Write-Host "Extracting FFmpeg..."
+        #   Expand-Archive -Path $ffmpegZip -DestinationPath ".\ffmpeg" -Force
+          
+        #   # Find the ffmpeg.exe path
+        #   $ffmpegExe = Get-ChildItem -Path ".\ffmpeg" -Recurse -Filter "ffmpeg.exe" | Select-Object -First 1 -ExpandProperty FullName
+          
+        #   # Use FFmpeg to capture screen
+        #   Write-Host "Capturing screenshot with FFmpeg..."
+        #   & $ffmpegExe -f gdigrab -framerate 1 -i desktop -frames:v 1 screenshot.png
+          
+        #   # Verify screenshot was created
+        #   if (Test-Path "./screenshots/screenshot.png") {
+        #     Write-Host "Screenshot captured successfully"
+        #   } else {
+        #     Write-Error "Screenshot capture failed"
+        #     exit 1
+        #   }
+
+        #   mv .\screenshot.png .\screenshots\screenshot-${{ env.date }}.png
 
       - name: Commit and push
         uses: stefanzweifel/git-auto-commit-action@v5
