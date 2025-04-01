@@ -114,45 +114,45 @@ if (-Not [String]::IsNullOrWhiteSpace($Manifest)) {
     #Write-Host "winget command: winget install -m $Manifest --verbose-logs --ignore-local-archive-malware-scan $WinGetOptions"
     Write-Host "Manifest: $Manifest"
 
-    # # Start the Test Script as a background job.
-    # $job = Start-Job -ScriptBlock { & winget install -m "C:\Users\runneradmin\AppData\Local\Temp\SandboxTest\ManifestDownload" --accept-package-agreements --verbose-logs --ignore-local-archive-malware-scan --dependency-source winget }
+    # Start the Test Script as a background job.
+    $job = Start-Job -ScriptBlock { & winget install -m "C:\Users\runneradmin\AppData\Local\Temp\SandboxTest\ManifestDownload" --accept-package-agreements --verbose-logs --ignore-local-archive-malware-scan --dependency-source winget }
           
-    # # Wait for the job to complete or timeout.
-    # if (Wait-Job -Job $job -Timeout ([int]$env:TIMEOUT)) {
-    #     Write-Host "Test Script completed within timeout."
-    #     Receive-Job $job
-    #     Remove-Job $job
-    # } else {
-    #     Write-Host "Test Script timed out after $env:TIMEOUT seconds."
-    #     #Stop-Job $job
-    #     #exit 1
-    # }
-
-    $timeoutSecs = [int]$env:TIMEOUT
-    Write-Host "Starting winget install with a timeout of $timeoutSecs seconds."
-
-    $process = New-Object System.Diagnostics.Process
-    $process.StartInfo.FileName = "winget"
-    $process.StartInfo.Arguments = 'install -m "C:\Users\runneradmin\AppData\Local\Temp\SandboxTest\ManifestDownload" --accept-package-agreements --verbose-logs --ignore-local-archive-malware-scan --dependency-source winget'
-    $process.StartInfo.UseShellExecute = $false
-    $process.StartInfo.RedirectStandardOutput = $true
-    $process.StartInfo.RedirectStandardError = $true
-    $process.StartInfo.CreateNoWindow = $true
-
-    # Event handlers to stream live output.
-    $process.add_OutputDataReceived({ if ($_.Data) { Write-Host $_.Data } })
-    $process.add_ErrorDataReceived({ if ($_.Data) { Write-Host $_.Data } })
-
-    $process.Start() | Out-Null
-    $process.BeginOutputReadLine()
-    $process.BeginErrorReadLine()
-
-    if ($process.WaitForExit($timeoutSecs * 1000)) {
+    # Wait for the job to complete or timeout.
+    if (Wait-Job -Job $job -Timeout ([int]$env:TIMEOUT)) {
         Write-Host "Test Script completed within timeout."
-    }
-    else {
+        Receive-Job $job
+        Remove-Job $job
+    } else {
         Write-Host "Test Script timed out after $env:TIMEOUT seconds."
+        #Stop-Job $job
+        #exit 1
     }
+
+    # $timeoutSecs = [int]$env:TIMEOUT
+    # Write-Host "Starting winget install with a timeout of $timeoutSecs seconds."
+
+    # $process = New-Object System.Diagnostics.Process
+    # $process.StartInfo.FileName = "winget"
+    # $process.StartInfo.Arguments = 'install -m "C:\Users\runneradmin\AppData\Local\Temp\SandboxTest\ManifestDownload" --accept-package-agreements --verbose-logs --ignore-local-archive-malware-scan --dependency-source winget'
+    # $process.StartInfo.UseShellExecute = $false
+    # $process.StartInfo.RedirectStandardOutput = $true
+    # $process.StartInfo.RedirectStandardError = $true
+    # $process.StartInfo.CreateNoWindow = $true
+
+    # # Event handlers to stream live output.
+    # $process.add_OutputDataReceived({ if ($_.Data) { Write-Host $_.Data } })
+    # $process.add_ErrorDataReceived({ if ($_.Data) { Write-Host $_.Data } })
+
+    # $process.Start() | Out-Null
+    # $process.BeginOutputReadLine()
+    # $process.BeginErrorReadLine()
+
+    # if ($process.WaitForExit($timeoutSecs * 1000)) {
+    #     Write-Host "Test Script completed within timeout."
+    # }
+    # else {
+    #     Write-Host "Test Script timed out after $env:TIMEOUT seconds."
+    # }
 
 
     #&{
