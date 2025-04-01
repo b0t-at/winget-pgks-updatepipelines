@@ -19,51 +19,23 @@ jobs:
       #   uses: Cyberboss/install-winget@v1
       #   with:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Install FFmpeg
-      #   uses: AnimMouse/setup-ffmpeg@v1
-      - name: Install Screen Capture Recorder
-        shell: powershell
-        run: |
-          # Create directory for downloads
-          #New-Item -ItemType Directory -Path ".\downloads" -Force
-          
-          # # Download Screen Capture Recorder installer
-          # $installerUrl = "https://github.com/rdp/screen-capture-recorder-to-video-windows-free/releases/download/v0.13.3/Setup.Screen.Capturer.Recorder.v0.13.3.exe"
-          # $installerPath = ".\downloads\scr_installer.exe"
-          
-          # Write-Host "Downloading Screen Capture Recorder..."
-          # Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath -UseBasicParsing
-          
-          # # Install silently
-          # Write-Host "Installing Screen Capture Recorder..."
-          # Start-Process -FilePath $installerPath -ArgumentList "/VERYSILENT" -Wait
-          
-          # # Allow time for drivers to register
-          # Write-Host "Waiting for installation to complete..."
-          # Start-Sleep -Seconds 10
-          
-          # Write-Host "Screen Capture Recorder installed successfully"
+
       - name: Setup FFmpeg
         uses: AnimMouse/setup-ffmpeg@v1
+
       - name: Take screenshot using FFmpeg
         shell: powershell
         run: |
-          New-Item -ItemType Directory -Path ".\downloads" -Force
-          # # Download portable FFmpeg
-          # $ffmpegUrl = "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip"
-          # $ffmpegZip = ".\downloads\ffmpeg.zip"
-          
-          # Write-Host "Downloading FFmpeg..."
-          # Invoke-WebRequest -Uri $ffmpegUrl -OutFile $ffmpegZip -UseBasicParsing
-          
-          # # Extract FFmpeg
-          # Write-Host "Extracting FFmpeg..."
-          # Expand-Archive -Path $ffmpegZip -DestinationPath ".\ffmpeg" -Force
+          if (!Test-Path "screenshot") {
+            New-Item -ItemType Directory -Path ".\screenshots" -Force
+          }
+          #New-Item -ItemType Directory -Path ".\downloads" -Force
 
           #winget install BtbN.FFmpeg.GPL --accept-source-agreements --accept-package-agreements --verbose-logs 
           
           # Find the ffmpeg.exe path
           #$ffmpegExe = Get-ChildItem -Path ".\ffmpeg" -Recurse -Filter "ffmpeg.exe" | Select-Object -First 1 -ExpandProperty FullName
+
           $ffmpegExe = where.exe ffmpeg
           if (-not $ffmpegExe) {
             $ffmpegExe = where.exe ffmpeg.exe
@@ -82,6 +54,8 @@ jobs:
             Write-Error "Screenshot capture failed"
             exit 1
           }
+
+          mv .\screenshot.png .\screenshots\screenshot-${{ env.date }}.png
         # run: |
         #   # Create directory for downloads
         #   # New-Item -ItemType Directory -Path ".\downloads" -Force
@@ -116,7 +90,7 @@ jobs:
         #     exit 1
         #   }
 
-        #   mv .\screenshot.png .\screenshots\screenshot-${{ env.date }}.png
+            
 
       - name: Commit and push
         uses: stefanzweifel/git-auto-commit-action@v5
