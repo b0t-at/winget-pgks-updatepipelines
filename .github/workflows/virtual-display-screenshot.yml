@@ -38,7 +38,7 @@ jobs:
           $bitmap.Save("screenshot.png")
       
       - name: Upload screenshot
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: virtual-display-screenshots
           path: screenshot.png
