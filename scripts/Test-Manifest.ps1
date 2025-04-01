@@ -114,8 +114,19 @@ if (-Not [String]::IsNullOrWhiteSpace($Manifest)) {
     #Write-Host "winget command: winget install -m $Manifest --verbose-logs --ignore-local-archive-malware-scan $WinGetOptions"
     Write-Host "Manifest: $Manifest"
    #&{
-        winget install -m $Manifest --accept-package-agreements --verbose-logs --ignore-local-archive-malware-scan --dependency-source winget
-   #}
+        $startTime = Get-Date
+        $timeout = [TimeSpan]::FromMinutes(5)
+        try {
+            winget install -m $Manifest --accept-package-agreements --verbose-logs --ignore-local-archive-malware-scan --dependency-source winget
+        } catch {
+            Write-Error "Installation failed: $_"
+        } finally {
+            $elapsedTime = (Get-Date) - $startTime
+            if ($elapsedTime -gt $timeout) {
+                Write-Error "Installation exceeded the 5-minute timeout."
+                exit 1
+            }
+        }
     Write-Host "--> Refreshing environment variables"
     Update-EnvironmentVariables
     Write-Host "--> Comparing ARP Entries"

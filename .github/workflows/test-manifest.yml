@@ -41,7 +41,20 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Run Test Script
-        run: .\scripts\Test-Manifest.ps1 -ManifestURL ${{inputs.ManifestURL}}
+        run: |
+          $startTime = Get-Date
+          $timeout = [TimeSpan]::FromMinutes(5)
+          try {
+            .\scripts\Test-Manifest.ps1 -ManifestURL ${{inputs.ManifestURL}}
+          } catch {
+            Write-Error "Test script failed: $_"
+          } finally {
+            $elapsedTime = (Get-Date) - $startTime
+            if ($elapsedTime -gt $timeout) {
+              Write-Error "Test script exceeded the 5-minute timeout."
+              exit 1
+            }
+          }
 
       - name: Take screenshot using FFmpeg
         shell: powershell
