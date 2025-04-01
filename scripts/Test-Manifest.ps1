@@ -113,8 +113,24 @@ if (-Not [String]::IsNullOrWhiteSpace($Manifest)) {
     Write-Host "--> Installing the Manifest $manifestFileName"
     #Write-Host "winget command: winget install -m $Manifest --verbose-logs --ignore-local-archive-malware-scan $WinGetOptions"
     Write-Host "Manifest: $Manifest"
+
+    # Start the Test Script as a background job.
+    $job = Start-Job -ScriptBlock { & winget install -m $Manifest --accept-package-agreements --verbose-logs --ignore-local-archive-malware-scan --dependency-source winget }
+          
+    # Wait for the job to complete or timeout.
+    if (Wait-Job -Job $job -Timeout ([int]$env:TIMEOUT)) {
+        Write-Host "Test Script completed within timeout."
+        Receive-Job $job
+        Remove-Job $job
+    } else {
+        Write-Error "Test Script timed out after $env:TIMEOUT seconds."
+        Stop-Job $job
+        exit 1
+    }
+
+
    #&{
-        winget install -m $Manifest --accept-package-agreements --verbose-logs --ignore-local-archive-malware-scan --dependency-source winget
+        #winget install -m $Manifest --accept-package-agreements --verbose-logs --ignore-local-archive-malware-scan --dependency-source winget
    #}
     Write-Host "--> Refreshing environment variables"
     Update-EnvironmentVariables
