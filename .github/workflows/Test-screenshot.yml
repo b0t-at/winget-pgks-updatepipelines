@@ -19,13 +19,15 @@ jobs:
         uses: Cyberboss/install-winget@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install FFmpeg
+        run: |
+          winget install BtbN.FFmpeg.GPL --accept-source-agreements --accept-package-agreements --verbose-logs 
       - name: Take screenshot using FFmpeg
         shell: powershell
         run: |
           # Create directory for downloads
           New-Item -ItemType Directory -Path ".\downloads" -Force
 
-          winget install BtbN.FFmpeg.GPL --accept-source-agreements --accept-package-agreements --verbose-logs 
                     
           # Use FFmpeg to capture screen
           Write-Host "Capturing screenshot with FFmpeg..."
