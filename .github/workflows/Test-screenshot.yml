@@ -26,7 +26,7 @@ jobs:
       - name: Take screenshot using FFmpeg
         shell: powershell
         run: |
-          if (!Test-Path "screenshot") {
+          if (!(Test-Path "screenshot")) {
             New-Item -ItemType Directory -Path ".\screenshots" -Force
           }
           #New-Item -ItemType Directory -Path ".\downloads" -Force
