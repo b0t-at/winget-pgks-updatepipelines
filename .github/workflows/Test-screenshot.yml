@@ -1,0 +1,41 @@
+name: Take Screenshots
+
+on:
+  workflow_dispatch:
+  # Add other triggers as needed
+
+jobs:
+  screenshot:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          
+      - name: Install dependencies
+        run: |
+          npm install puppeteer
+          
+      - name: Take screenshot
+        run: |
+          node -e "
+            const puppeteer = require('puppeteer');
+            
+            (async () => {
+              const browser = await puppeteer.launch();
+              const page = await browser.newPage();
+              await page.setViewport({width: 1920, height: 1080});
+              await page.goto('https://github.com');
+              await page.screenshot({path: 'screenshot.png'});
+              await browser.close();
+            })();
+          "
+          
+      - name: Upload screenshot
+        uses: actions/upload-artifact@v3
+        with:
+          name: screenshots
+          path: screenshot.png
