@@ -14,6 +14,11 @@ jobs:
         id: date
         run: |
           echo "date=$(date +'%Y-%m-%dT%H_%M_%S')" >> $env:GITHUB_ENV
+
+      - name: Install winget
+        uses: Cyberboss/install-winget@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Take screenshot using FFmpeg
         shell: powershell
         run: |
