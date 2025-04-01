@@ -114,7 +114,7 @@ if (-Not [String]::IsNullOrWhiteSpace($Manifest)) {
     #Write-Host "winget command: winget install -m $Manifest --verbose-logs --ignore-local-archive-malware-scan $WinGetOptions"
     Write-Host "Manifest: $Manifest"
    &{
-        winget install -m $Manifest --verbose-logs --ignore-local-archive-malware-scan
+        winget install -m $Manifest --accept-package-agreements --verbose-logs --ignore-local-archive-malware-scan --dependency-source winget $WinGetOptions
    }
     Write-Host "--> Refreshing environment variables"
     Update-EnvironmentVariables
