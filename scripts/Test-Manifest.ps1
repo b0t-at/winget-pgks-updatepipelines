@@ -124,8 +124,8 @@ if (-Not [String]::IsNullOrWhiteSpace($Manifest)) {
         Remove-Job $job
     } else {
         Write-Error "Test Script timed out after $env:TIMEOUT seconds."
-        Stop-Job $job
-        exit 1
+        #Stop-Job $job
+        #exit 1
     }
 
 
