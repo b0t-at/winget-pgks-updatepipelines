@@ -29,7 +29,7 @@ jobs:
  
           # Use FFmpeg to capture screen
           Write-Host "Capturing screenshot with FFmpeg..."
-          ffmpeg -f gdigrab -framerate 1 -i desktop -frames:v 1 screenshot.png
+          & ffmpeg -f gdigrab -framerate 1 -i desktop -frames:v 1 screenshot.png
           
           # Verify screenshot was created
           if (Test-Path "./screenshots/screenshot.png") {
