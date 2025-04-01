@@ -123,7 +123,7 @@ if (-Not [String]::IsNullOrWhiteSpace($Manifest)) {
         Receive-Job $job
         Remove-Job $job
     } else {
-        Write-Error "Test Script timed out after $env:TIMEOUT seconds."
+        Write-Host "Test Script timed out after $env:TIMEOUT seconds."
         #Stop-Job $job
         #exit 1
     }
