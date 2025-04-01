@@ -32,7 +32,7 @@ jobs:
           & ffmpeg -f gdigrab -framerate 1 -i desktop -frames:v 1 screenshot.png
           
           # Verify screenshot was created
-          if (Test-Path "./screenshots/screenshot-${{ env.date }}.png") {
+          if (Test-Path "./screenshots/screenshot.png") {
             Write-Host "Screenshot captured successfully"
           } else {
             Write-Error "Screenshot capture failed"
