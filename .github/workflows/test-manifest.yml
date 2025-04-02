@@ -37,7 +37,7 @@ jobs:
           }
           if( $manifestUrl -eq "" ) {
             Import-Module .\modules\WingetMaintainerModule
-            $manifestUrl = Get-ManifestUrlByWingetPkgsPrNumber
+            $manifestUrl = Get-ManifestUrlByWingetPkgsPrNumber -PrNumber "${{ inputs.PRNumber }}"
           }
 
           # The regex explanation:
