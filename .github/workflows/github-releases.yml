@@ -273,6 +273,9 @@ jobs:
           - id: "shawnbanasick.kade"
             repo: "shawnbanasick/kade"
             url: "https://github.com/shawnbanasick/kade/releases/download/v{VERSION}/KADE.Setup.{VERSION}.exe"  
+          - id: "CargoLambda.CargoLambda"
+            repo: "cargo-lambda/cargo-lambda"
+            url: "https://github.com/cargo-lambda/cargo-lambda/releases/download/v{VERSION}/cargo-lambda-v{VERSION}.windows-x64.zip"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
