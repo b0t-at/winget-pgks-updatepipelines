@@ -1,0 +1,45 @@
+name: Test-Screenshot
+
+on:
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  screenshot:
+    runs-on: windows-latest  # Using a GitHub-hosted Windows runner
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Get current date
+        id: date
+        run: |
+          echo "date=$(date +'%Y-%m-%dT%H_%M_%S')" >> $env:GITHUB_ENV
+      - name: Setup FFmpeg
+        uses: AnimMouse/setup-ffmpeg@v1
+
+      - name: Take screenshot using FFmpeg
+        shell: powershell
+        run: |
+
+          $ffmpegExe = where.exe ffmpeg
+          if (-not $ffmpegExe) {
+            $ffmpegExe = where.exe ffmpeg.exe
+          }
+          
+          # Use FFmpeg to capture screen
+          Write-Host "Capturing screenshot with FFmpeg..."
+          & $ffmpegExe -f gdigrab -framerate 1 -i desktop -frames:v 1 screenshot.png
+
+          # Verify screenshot was created
+          if (Test-Path "screenshot.png") {
+            Write-Host "Screenshot captured successfully"
+          } else {
+            Write-Error "Screenshot capture failed"
+            exit 1
+          }        
+
+      - name: Upload Screenshot Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshot-${{ env.date }}
+          path: screenshot.png
+          retention-days: 5  # Artifacts will be kept for 5 days

@@ -1,0 +1,86 @@
+name: Test Manifest
+
+on:
+  workflow_dispatch:
+    inputs:
+      ManifestURL:
+        description: "Manifest URL"
+        required: true
+      Timeout:
+        description: "Timeout in seconds (default: 300)"
+        required: false
+        type: number
+        default: 300
+
+jobs:
+  test:
+    name: Test manifest
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Get current date
+        id: date
+        run: |
+          echo "date=$(date +'%Y-%m-%dT%H_%M_%S')" >> $env:GITHUB_ENV
+      - name: Get Manifest Package Name
+        id: manifest
+        run: |
+
+          # The regex explanation:
+          # .*\/manifests\/        matches everything up to '/manifests/'
+          # [^/]+\/                matches the dynamic folder immediately after manifests
+          # ([^/]+)\/              captures the username into group 1
+          # ([^/]+)\/              captures the package name into group 2
+          # ([^/]+)\/?             captures the version into group 3 (with an optional trailing slash)
+          $pattern = ".*/manifests/[^/]+/([^/]+)/([^/]+)/([^/]+)/?$"
+          $result = [regex]::Replace("${{inputs.ManifestURL}}", $pattern, '$1.$2_$3')
+
+          echo "manifestname=$result" >> $env:GITHUB_ENV
+
+      - name: Install winget
+        uses: Cyberboss/install-winget@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup FFmpeg
+        uses: AnimMouse/setup-ffmpeg@v1
+          
+      - name: Run Test Script with Timeout
+        shell: powershell
+        env:
+          MANIFESTURL: ${{ inputs.ManifestURL }}
+          TIMEOUT: ${{ inputs.Timeout }}
+        run: .\scripts\Test-Manifest.ps1 -ManifestURL ${{inputs.ManifestURL}}
+
+      - name: Take screenshot using FFmpeg
+        shell: powershell
+        run: |
+          start ms-settings:appsfeatures
+
+          # Wait for the settings app to open
+          Start-Sleep -Seconds 5
+
+          $ffmpegExe = where.exe ffmpeg
+          if (-not $ffmpegExe) {
+            $ffmpegExe = where.exe ffmpeg.exe
+          }
+          
+          # Use FFmpeg to capture screen
+          Write-Host "Capturing screenshot with FFmpeg..."
+          & $ffmpegExe -f gdigrab -framerate 1 -i desktop -frames:v 1 screenshot.png
+
+          # Verify screenshot was created
+          if (Test-Path "screenshot.png") {
+            Write-Host "Screenshot captured successfully"
+          } else {
+            Write-Error "Screenshot capture failed"
+            exit 1
+          }
+
+      - name: Upload Screenshot Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshot-${{ env.date }}-${{ env.manifestname }}
+          path: screenshot.png 
+          retention-days: 30  # Artifacts will be kept for 30 days

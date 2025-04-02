@@ -17,7 +17,7 @@ $regex = '/([a-z])/(.*?)/([0-9.]*$)'
 # Find all values between a single letter and the version number
 if ($ManifestURL -match $regex) {
     # Split the matched string by '/'
-    $package = ($Matches[2]).replace("/",".")
+    $package = ($Matches[2]).replace("/", ".")
 }
 else {
     $package = "$($SplittedURL[-2]).$($SplittedURL[-3])"
@@ -59,12 +59,12 @@ New-Item $tempFolder -ItemType Directory -ErrorAction SilentlyContinue | Out-Nul
 
 if (-Not [String]::IsNullOrWhiteSpace($Manifest)) {
     $folderName = (Get-Item $Manifest).Name
-    if(Test-Path -Path "$tempFolder\$folderName") {
+    if (Test-Path -Path "$tempFolder\$folderName") {
         Get-Item -Path "$tempFolder\$folderName" | Remove-Item -Force -Recurse    
     }
     Copy-Item -Path $Manifest -Recurse -Destination $tempFolder
     $Manifest = "$tempFolder\$folderName"
-  }
+}
 
 if (-Not $SkipManifestValidation -And -Not [String]::IsNullOrWhiteSpace($Manifest)) {
     Write-Host '--> Validating Manifest'
@@ -113,9 +113,51 @@ if (-Not [String]::IsNullOrWhiteSpace($Manifest)) {
     Write-Host "--> Installing the Manifest $manifestFileName"
     #Write-Host "winget command: winget install -m $Manifest --verbose-logs --ignore-local-archive-malware-scan $WinGetOptions"
     Write-Host "Manifest: $Manifest"
-   &{
-        winget install -m $Manifest --verbose-logs --ignore-local-archive-malware-scan
-   }
+
+    # Start the Test Script as a background job.
+    $job = Start-Job -ScriptBlock { & winget install -m "C:\Users\runneradmin\AppData\Local\Temp\SandboxTest\ManifestDownload" --accept-package-agreements --verbose-logs --ignore-local-archive-malware-scan --dependency-source winget }
+          
+    # Wait for the job to complete or timeout.
+    if (Wait-Job -Job $job -Timeout ([int]$env:TIMEOUT)) {
+        Write-Host "Test Script completed within timeout."
+        Receive-Job $job
+        Remove-Job $job
+    } else {
+        Write-Host "Test Script timed out after $env:TIMEOUT seconds."
+        #Stop-Job $job
+        #exit 1
+    }
+
+    # $timeoutSecs = [int]$env:TIMEOUT
+    # Write-Host "Starting winget install with a timeout of $timeoutSecs seconds."
+
+    # $process = New-Object System.Diagnostics.Process
+    # $process.StartInfo.FileName = "winget"
+    # $process.StartInfo.Arguments = 'install -m "C:\Users\runneradmin\AppData\Local\Temp\SandboxTest\ManifestDownload" --accept-package-agreements --verbose-logs --ignore-local-archive-malware-scan --dependency-source winget'
+    # $process.StartInfo.UseShellExecute = $false
+    # $process.StartInfo.RedirectStandardOutput = $true
+    # $process.StartInfo.RedirectStandardError = $true
+    # $process.StartInfo.CreateNoWindow = $true
+
+    # # Event handlers to stream live output.
+    # $process.add_OutputDataReceived({ if ($_.Data) { Write-Host $_.Data } })
+    # $process.add_ErrorDataReceived({ if ($_.Data) { Write-Host $_.Data } })
+
+    # $process.Start() | Out-Null
+    # $process.BeginOutputReadLine()
+    # $process.BeginErrorReadLine()
+
+    # if ($process.WaitForExit($timeoutSecs * 1000)) {
+    #     Write-Host "Test Script completed within timeout."
+    # }
+    # else {
+    #     Write-Host "Test Script timed out after $env:TIMEOUT seconds."
+    # }
+
+
+    #&{
+    #winget install -m $Manifest --accept-package-agreements --verbose-logs --ignore-local-archive-malware-scan --dependency-source winget
+    #}
     Write-Host "--> Refreshing environment variables"
     Update-EnvironmentVariables
     Write-Host "--> Comparing ARP Entries"
