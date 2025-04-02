@@ -276,6 +276,9 @@ jobs:
           - id: "CargoLambda.CargoLambda"
             repo: "cargo-lambda/cargo-lambda"
             url: "https://github.com/cargo-lambda/cargo-lambda/releases/download/v{VERSION}/cargo-lambda-v{VERSION}.windows-x64.zip"  
+          - id: "openpubkey.opkssh"
+            repo: "openpubkey/opkssh"
+            url: "https://github.com/openpubkey/opkssh/releases/download/v{VERSION}/opkssh-windows-amd64.exe"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
