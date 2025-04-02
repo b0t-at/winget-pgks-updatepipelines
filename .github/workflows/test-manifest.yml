@@ -5,7 +5,10 @@ on:
     inputs:
       ManifestURL:
         description: "Manifest URL"
-        required: true
+        required: false
+      PRNumber:
+        description: "PR Number"
+        required: false
       Timeout:
         description: "Timeout in seconds (default: 300)"
         required: false
@@ -27,6 +30,15 @@ jobs:
       - name: Get Manifest Package Name
         id: manifest
         run: |
+          $manifestUrl = "${{ inputs.ManifestURL }}"
+          if( $manifestUrl -eq "" -and "${{ inputs.PRNumber }}" -eq "" ) {
+            echo "ManifestURL and PR-Number is empty. Exiting."
+            exit 1
+          }
+          if( $manifestUrl -eq "" ) {
+            Import-Module .\modules\WingetMaintainerModule
+            $manifestUrl = Get-ManifestUrlByWingetPkgsPrNumber
+          }
 
           # The regex explanation:
           # .*\/manifests\/        matches everything up to '/manifests/'
@@ -35,9 +47,10 @@ jobs:
           # ([^/]+)\/              captures the package name into group 2
           # ([^/]+)\/?             captures the version into group 3 (with an optional trailing slash)
           $pattern = ".*/manifests/[^/]+/([^/]+)/([^/]+)/([^/]+)/?$"
-          $result = [regex]::Replace("${{inputs.ManifestURL}}", $pattern, '$1.$2_$3')
+          $result = [regex]::Replace($manifestUrl, $pattern, '$1.$2_$3')
 
           echo "manifestname=$result" >> $env:GITHUB_ENV
+          echo "manifesturl=$manifestUrl" >> $env:GITHUB_ENV
 
       - name: Install winget
         uses: Cyberboss/install-winget@v1
@@ -49,14 +62,13 @@ jobs:
       - name: Run Test Script with Timeout
         shell: powershell
         env:
-          MANIFESTURL: ${{ inputs.ManifestURL }}
           TIMEOUT: ${{ inputs.Timeout }}
-        run: .\scripts\Test-Manifest.ps1 -ManifestURL ${{inputs.ManifestURL}}
+        run: .\scripts\Test-Manifest.ps1 -ManifestURL ${{ env.manifesturl }}
 
       - name: Take screenshot using FFmpeg
         shell: powershell
         run: |
-          start ms-settings:appsfeatures
+          #start ms-settings:appsfeatures
 
           # Wait for the settings app to open
           Start-Sleep -Seconds 5
