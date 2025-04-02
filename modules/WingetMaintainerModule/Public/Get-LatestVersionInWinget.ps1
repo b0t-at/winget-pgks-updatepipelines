@@ -11,7 +11,7 @@ function Get-LatestVersionInWinget {
     $ghVersionSearchString = "manifests/$($firstChar)/$($packagePath)/"
     $ghResponse = gh search code $ghVersionSearchString $PackageId".yaml" --match path --repo microsoft/winget-pkgs -L 1000 --json path | ConvertFrom-Json
     $versions = $ghResponse.path | ForEach-Object { $_ -replace ".*$ghVersionSearchString", "" -replace "/.*", "" } | Sort-Object -Descending -Unique
-    $sortedVersions = ($versions).TrimStart("v") | Get-STNumericalSorted -Descending
+    $sortedVersions = $versions| Get-STNumericalSorted -Descending
     $latestVersion = $sortedVersions | Select-Object -First 1
 
     if ($latestVersion) {
