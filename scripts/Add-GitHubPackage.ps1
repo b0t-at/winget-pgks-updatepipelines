@@ -29,7 +29,7 @@ $fullInstallerDetails -split "`n" | Where-Object { $_ -like "*InstallerURL:*" } 
     # get the second part of the split
     $url = $split[1].Trim()
     # replace version with template
-    $url = $url.Replace($version, $versionTemplate)
+    $url = $url.Replace($version.TrimStart("v"), $versionTemplate)
     # add the url to the list
     $urls += $url
     if($githubRepository -eq $null -and $url -like "https://github.com/*"){
