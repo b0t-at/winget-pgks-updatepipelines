@@ -270,6 +270,9 @@ jobs:
           - id: "ente-io.photos-desktop"
             repo: "ente-io/photos-desktop"
             url: "https://github.com/ente-io/photos-desktop/releases/download/v{VERSION}/ente-{VERSION}.exe https://github.com/ente-io/photos-desktop/releases/download/v{VERSION}/ente-{VERSION}-x64.exe https://github.com/ente-io/photos-desktop/releases/download/v{VERSION}/ente-{VERSION}-arm64.exe"  
+          - id: "shawnbanasick.kade"
+            repo: "shawnbanasick/kade"
+            url: "https://github.com/shawnbanasick/kade/releases/download/v{VERSION}/KADE.Setup.{VERSION}.exe"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
