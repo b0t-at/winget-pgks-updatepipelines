@@ -29,6 +29,8 @@ jobs:
           echo "date=$(date +'%Y-%m-%dT%H_%M_%S')" >> $env:GITHUB_ENV
       - name: Get Manifest Package Name
         id: manifest
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           $manifestUrl = "${{ inputs.ManifestURL }}"
           if( $manifestUrl -eq "" -and "${{ inputs.PRNumber }}" -eq "" ) {
