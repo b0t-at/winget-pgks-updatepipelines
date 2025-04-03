@@ -282,6 +282,9 @@ jobs:
           - id: "Snyk.Snyk"
             repo: "snyk/cli"
             url: "https://github.com/snyk/cli/releases/download/v{VERSION}/snyk-win.exe"  
+          - id: "Docker.DockerCompose"
+            repo: "docker/compose"
+            url: "https://github.com/docker/compose/releases/download/v{VERSION}/docker-compose-windows-x86_64.exe https://github.com/docker/compose/releases/download/v{VERSION}/docker-compose-windows-aarch64.exe"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
