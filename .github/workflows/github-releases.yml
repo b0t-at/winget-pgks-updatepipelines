@@ -279,6 +279,9 @@ jobs:
           - id: "openpubkey.opkssh"
             repo: "openpubkey/opkssh"
             url: "https://github.com/openpubkey/opkssh/releases/download/v{VERSION}/opkssh-windows-amd64.exe"  
+          - id: "Snyk.Snyk"
+            repo: "snyk/cli"
+            url: "https://github.com/snyk/cli/releases/download/v{VERSION}/snyk-win.exe"  
     steps:
     - name: Update Packages
       uses: b0t-at/winget-updater@b0t-main
