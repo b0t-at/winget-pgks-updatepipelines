@@ -1,0 +1,92 @@
+name: GH Package Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '3 0/4 * * *' # every 4 hours
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/github-releases.yml
+
+jobs:
+  update-releasebased:
+    name: ${{ matrix.id }}
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Test' }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - id: w4po.ExplorerTabUtility
+            repo: w4po/ExplorerTabUtility
+            url: https://github.com/w4po/ExplorerTabUtility/releases/download/v{VERSION}/ExplorerTabUtility_v{VERSION}_arm64_Net9.0_FrameworkDependent.zip https://github.com/w4po/ExplorerTabUtility/releases/download/v{VERSION}/ExplorerTabUtility_v{VERSION}_x86_Net9.0_FrameworkDependent.zip https://github.com/w4po/ExplorerTabUtility/releases/download/v{VERSION}/ExplorerTabUtility_v{VERSION}_x64_Net9.0_FrameworkDependent.zip
+          - id: wagoodman.dive
+            repo: wagoodman/dive
+            url: https://github.com/wagoodman/dive/releases/download/v{VERSION}/dive_{VERSION}_windows_amd64.zip https://github.com/wagoodman/dive/releases/download/v{VERSION}/dive_{VERSION}_windows_arm64.zip
+          - id: Waytech.CloudDrive2
+            repo: cloud-fs/cloud-fs.github.io
+            url: https://github.com/cloud-fs/cloud-fs.github.io/releases/download/v{VERSION}/CloudDrive2Setup-X64-{VERSION}.exe https://github.com/cloud-fs/cloud-fs.github.io/releases/download/v{VERSION}/CloudDrive2Setup-Arm64-{VERSION}.exe
+          - id: WerWolv.ImHex
+            repo: WerWolv/ImHex
+            url: https://github.com/WerWolv/ImHex/releases/download/v{VERSION}/imhex-{VERSION}-Windows-x86_64.msi
+          - id: WFCD.WFInfo
+            repo: WFCD/WFinfo
+            url: https://github.com/WFCD/WFinfo/releases/download/v{VERSION}/WFInfo.zip
+          - id: WidelandsDevelopmentTeam.Widelands
+            repo: widelands/widelands
+            url: https://github.com/widelands/widelands/releases/download/v{VERSION}/Widelands-{VERSION}-x64.exe https://github.com/widelands/widelands/releases/download/v{VERSION}/Widelands-{VERSION}-x86.exe
+          - id: Wilfred.difftastic
+            repo: Wilfred/difftastic
+            url: https://github.com/Wilfred/difftastic/releases/download/{VERSION}/difft-x86_64-pc-windows-msvc.zip
+          - id: WinMerge.WinMerge.Beta
+            repo: WinMerge/winmerge
+            url: https://github.com/WinMerge/winmerge/releases/download/v{VERSION}/WinMerge-{VERSION}-Setup.exe https://github.com/WinMerge/winmerge/releases/download/v{VERSION}/WinMerge-{VERSION}-x64-PerUser-Setup.exe https://github.com/WinMerge/winmerge/releases/download/v{VERSION}/WinMerge-{VERSION}-x64-Setup.exe https://github.com/WinMerge/winmerge/releases/download/v{VERSION}/WinMerge-{VERSION}-ARM64-Setup.exe
+          - id: wkjarosz.hdrview
+            repo: wkjarosz/hdrview
+            url: https://github.com/wkjarosz/hdrview/releases/download/v{VERSION}/HDRView-windows.zip
+          - id: woaitsAryan.regit
+            repo: woaitsAryan/regit
+            url: https://github.com/woaitsAryan/regit/releases/download/v{VERSION}/regit_Windows_arm64.zip https://github.com/woaitsAryan/regit/releases/download/v{VERSION}/regit_Windows_x86_64.zip
+          - id: xiSage.ncmdump-net
+            repo: xiSage/ncmdump-net
+            url: https://github.com/xiSage/ncmdump-net/releases/download/v{VERSION}/ncmdump-net-win-x64.zip https://github.com/xiSage/ncmdump-net/releases/download/v{VERSION}/ncmdump-net-win-arm64.zip
+          - id: xoofx.kalk
+            repo: xoofx/kalk
+            url: https://github.com/xoofx/kalk/releases/download/{VERSION}/kalk.{VERSION}.win-x64.zip
+          - id: xpipe-io.xpipe.portable
+            repo: xpipe-io/xpipe
+            url: https://github.com/xpipe-io/xpipe/releases/download/{VERSION}/xpipe-portable-windows-x86_64.zip
+          - id: Yaak.app
+            repo: mountain-loop/yaak
+            url: https://github.com/mountain-loop/yaak/releases/download/v{VERSION}/Yaak_{VERSION}_x64-setup.exe
+          - id: yitsushi.totp-cli
+            repo: yitsushi/totp-cli
+            url: https://github.com/yitsushi/totp-cli/releases/download/v{VERSION}/totp-cli_Windows_x86_64.zip
+          - id: Yubico.Authenticator
+            repo: Yubico/yubioath-flutter
+            url: https://github.com/Yubico/yubioath-flutter/releases/download/{VERSION}/yubico-authenticator-{VERSION}-win64.msi
+          - id: Yubico.YubiKeyManagerCLI
+            repo: Yubico/yubikey-manager
+            url: https://developers.yubico.com/yubikey-manager/Releases/yubikey-manager-{VERSION}-win64.msi
+          - id: Zagrios.BSManager
+            repo: Zagrios/bs-manager
+            url: https://github.com/Zagrios/bs-manager/releases/download/v{VERSION}/BSManager-Setup-{VERSION}.exe
+          - id: ZugferdCommunity.QubaViewer
+            repo: ZUGFeRD/quba-viewer
+            url: https://github.com/ZUGFeRD/quba-viewer/releases/download/v{VERSION}/Quba.{VERSION}.msi
+
+    steps:
+    - name: Update Packages
+      uses: b0t-at/winget-updater@b0t-main
+      with:
+        identifier: ${{ matrix.id }}
+        repo: ${{ matrix.repo }}
+        url: ${{ matrix.url }}
+        komac-token: ${{ secrets.WINGET_PAT }}
+        komac-version: 2.10.1
+        custom-fork-owner: damn-good-b0t
+        submit: ${{ vars.SUBMIT_PR }}
+        pre-release: ${{ matrix.pre-release }}
