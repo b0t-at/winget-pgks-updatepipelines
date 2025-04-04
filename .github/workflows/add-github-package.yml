@@ -16,7 +16,7 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
     steps:
       - name: create App token
-        uses: actions/create-github-app-token@v1
+        uses: actions/create-github-app-token@v2
         id: app-token
         with:
           app-id: ${{ secrets.APP_ID }}
