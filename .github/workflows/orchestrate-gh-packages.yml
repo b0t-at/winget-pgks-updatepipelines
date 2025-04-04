@@ -1,0 +1,41 @@
+name: Orchestrate GH Packages
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - main
+        paths:
+            - github-releases-monitored.yml
+jobs:
+    update-package-count:
+        runs-on: ubuntu-latest
+
+        permissions:
+            contents: write
+        steps:
+            - name: create App token
+              uses: actions/create-github-app-token@v2
+              id: app-token
+              with:
+                app-id: ${{ secrets.APP_ID }}
+                private-key: ${{ secrets.PRIVATE_KEY }}
+            - name: Check out code
+              uses: actions/checkout@v4
+              with:
+                token: ${{ steps.app-token.outputs.token }}
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                python-version: '3.x'
+            - name: Install dependencies
+              run: pip install pyyaml ruamel.yaml
+            - name: Count packages
+              id: count
+              run: |
+                python3 scripts/orchestrate_gh-packages.py
+            - name: Commit and push
+              uses: stefanzweifel/git-auto-commit-action@v5
+              with:
+                commit_message: Update package count badge
+                file_pattern: |
+                  update-github-packages-*.yml
