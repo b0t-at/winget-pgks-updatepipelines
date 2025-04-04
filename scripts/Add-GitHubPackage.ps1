@@ -7,24 +7,36 @@ function get-yamlSorted {
         [Parameter(Mandatory = $true)]$content
     )
 
-    import-module powershell-yaml
+    #import-module powershell-yaml
     # Extract all comment lines (lines starting with '#') in the original order.
     $commentLines = $content.Split("`n") | where-object { $_.TrimStart().StartsWith("#") }
 
     # Remove all comment lines from the main content.
     $contentWithoutComments = $content.Split("`n")  | where-object { -not $_.TrimStart().StartsWith("#") }
 
-    $ymlData = Get-Content -Path "$ymlPath" -raw
-    $data = ConvertFrom-Yaml -Yaml $ymlData
+    # Regex pattern to capture each YAML item block.
+    # It uses multiline mode so that it captures from a line starting with "- id:" up until the next occurrence or end of file.
+    $pattern = '(?s)(^\s*- id:.*?)(?=^\s*- id:|\z)'
+    $matches = [regex]::Matches($content, $pattern, [System.Text.RegularExpressions.RegexOptions]::Multiline)
 
-    # Sort the list of objects by 'id'
-    $sortedData = $data | Sort-Object -Property id
+    # Extract each block and trim it.
+    $blocks = foreach ($match in $matches) {
+        $match.Groups[1].Value.TrimEnd()
+    }
 
-    # Convert back to YAML
-    $sortedYamlContent = ConvertTo-Yaml -Data $sortedData
+    # Sort the blocks by extracting the ID from the first line.
+    # Assumes the id line is in the format: - id: "SomeID"
+    $sortedBlocks = $blocks | Sort-Object -Property {
+        $m = [regex]::Match($_, '^          - id:\s*"(.*?)"', [System.Text.RegularExpressions.RegexOptions]::Multiline)
+        if ($m.Success) { $m.Groups[1].Value } else { $_ }
+    }
+    $contentWithoutComments = ($sortedBlocks.Split("`n")  | where-object { -not $_.TrimStart().StartsWith("#") }) -join "`n"
 
-    # Reassemble the file: sorted entries, then a blank line, then the comment lines (in original order).
-    $output = $sortedYamlContent + "" + ($commentLines -join "`n")
+    # Reassemble the sorted blocks into a complete string.
+    #$output = $sortedBlocks -join "`n"
+
+    $output = $contentWithoutComments + "`n" + ($commentLines -join "`n")
+
     return $output
 }
 
@@ -65,12 +77,20 @@ $fullInstallerDetails -split "`n" | Where-Object { $_ -like "*InstallerURL:*" } 
 $finalTemplateUrlString = $urls -join " "
 
 #check if a newer version is available in the github repository
-$newestGitHubRelease = gh release list --repo $githubRepository --json name, tagName, publishedAt, isLatest, isPrerelease | ConvertFrom-Json | Where-Object { $_.isPrerelease -eq $false } | Sort-Object -Property publishedAt -Descending | Select-Object -First 1
+$newestGitHubRelease = gh release list --repo $githubRepository --json "name,tagName,publishedAt,isLatest,isPrerelease" | ConvertFrom-Json | Where-Object { $_.isPrerelease -eq $false } | Sort-Object -Property publishedAt -Descending | Select-Object -First 1
 $newestGitHubVersion = $newestGitHubRelease.tagName.TrimStart("v")
 if ($newestGitHubVersion -ne $version) {
     Install-Komac
     $urlsWithVersion = ($urls | ForEach-Object { $_.Replace($versionTemplate, $newestGitHubVersion) })
+
     komac update "$PackageId" --version "$newestGitHubVersion" --urls $urlsWithVersion --dry-run --skip-pr-check
+    # break if komac update fails
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "komac update failed"
+        write-host "Error: $($_.Exception.Message)"
+        exit 1
+    }
+    
 }
 else {
     Write-Host "No new version available"
@@ -83,17 +103,22 @@ if ([string]::IsNullOrWhiteSpace($PackageId) -or [string]::IsNullOrWhiteSpace($g
 }
 
 $releaseBlock = @"
-- id: "$PackageId"
-  repo: "$githubRepository"
-  url: "$finalTemplateUrlString"  
+          - id: "$PackageId"
+            repo: "$githubRepository"
+            url: "$finalTemplateUrlString"  
 "@
 
 
 # append the releaseblock to the github-releases.yml file before the steps block
-$githubReleasesYml = $githubReleasesYml + "$releaseBlock`n"
+$content = $githubReleasesYml + $releaseBlock
 
-$output = get-yamlSorted -content $githubReleasesYml
+$output = get-yamlSorted -content $content
+#$output = get-yamlSorted -content $output
 $output | Set-Content -Path "$ymlPath"
+(Get-Content -Path "$ymlPath") | Where-Object {$_.trim() -ne "" } | Set-Content -Path "$ymlPath"
+
+
+
 
 Write-Host "----------------------"
 Write-Host $releaseBlock
