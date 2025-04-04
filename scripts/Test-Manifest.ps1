@@ -122,7 +122,8 @@ if (-Not [String]::IsNullOrWhiteSpace($Manifest)) {
         Write-Host "Test Script completed within timeout."
         Receive-Job $job
         Remove-Job $job
-    } else {
+    }
+    else {
         Write-Host "Test Script timed out after $env:TIMEOUT seconds."
         #Stop-Job $job
         #exit 1
@@ -161,7 +162,8 @@ if (-Not [String]::IsNullOrWhiteSpace($Manifest)) {
     Write-Host "--> Refreshing environment variables"
     Update-EnvironmentVariables
     Write-Host "--> Comparing ARP Entries"
-    (Compare-Object (Get-ARPTable) $originalARP -Property DisplayName, DisplayVersion, Publisher, ProductCode, Scope) | Select-Object -Property * -ExcludeProperty SideIndicator | Format-Table
+    $arpDiff = (Compare-Object (Get-ARPTable) $originalARP -Property DisplayName, DisplayVersion, Publisher, ProductCode, Scope) | Select-Object -Property * -ExcludeProperty SideIndicator
+    $arpDiff | Format-Table
 }
 
 if (-Not [String]::IsNullOrWhiteSpace($Script)) {
@@ -170,3 +172,13 @@ if (-Not [String]::IsNullOrWhiteSpace($Script)) {
         $Script
     }
 } 
+
+if (-Not [String]::IsNullOrWhiteSpace($Manifest)) {
+    if ($arpDiff.Count -eq 0) {
+        Write-Host "No differences found in ARP entries. - FAILURE"
+        exit 1
+    }
+    else {
+        Write-Host "Differences found in ARP entries. - SUCCESS"
+    }
+}
