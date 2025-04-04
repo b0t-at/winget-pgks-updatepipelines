@@ -1,4 +1,4 @@
-name: Test Manifest
+name: Test Manifest - PR #${{ inputs.PRNumber }}"
 
 on:
   workflow_dispatch:
