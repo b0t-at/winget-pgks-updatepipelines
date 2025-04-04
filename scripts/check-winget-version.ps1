@@ -504,15 +504,39 @@ try {
     #$ymlPath = "$scriptDirectory/../../github-releases-monitored.yml"
     #$githubReleasesYml = Get-Content -Path "$ymlPath" -raw
     #$filteredresultsNumbersOnly = $filteredresultsNumbersOnly | Where-Object { $githubReleasesYml -notmatch $_.PackageId }
-    #$withoutNotFound = @{}
+    $NotFound = @()
+    $alreadyDonePackageIds = @()
+    $filteredresultsNumbersOnly = $filteredresultsNumbersOnly | where-object { $_.PackageId -notin $alreadyDonePackageIds }
+
     $totalcount = $filteredresultsNumbersOnly.Count
     $counter = 0
     foreach ($result in $filteredresultsNumbersOnly) {
         $counter++
+        if ($result.PackageId -in $NotFound.PackageId) {
+            Write-Host "skipping PackageId $($result.PackageId)"
+            continue
+        }
+        # check if already in github-releases-monitored.yml
+        if ($githubReleasesYml -match $result.PackageId) {        
+            Write-Host "PackageId $($result.PackageId) already in workflow"
+            $filteredresultsNumbersOnly = $filteredresultsNumbersOnly | Where-Object { $_.PackageId -ne $result.PackageId }
+            continue
+        }
         Write-Progress -Activity "Processing results" -Status ("$counter" + "/" + "$totalcount Complete.") -PercentComplete ([math]::Min(100, [math]::Round(($counter / $totalcount) * 100)))
         Write-Host "PackageId: $($result.PackageId), CurrentVersion: $($result.CurrentVersion), LatestVersion: $($result.LatestVersion), GitHubUrl: $($result.GitHubUrl), InstallerUrl: $($result.InstallerUrl), ManifestPath: $($result.ManifestPath)"
-        .\scripts\Add-GitHubPackage.ps1 -PackageId $result.PackageId
-        sleep 1
+        # if .\scripts\Add-GitHubPackage.ps1 has exit code 404 then add it to $NotFound
+        $scriptresult = .\scripts\Add-GitHubPackage.ps1 -PackageId $result.PackageId
+        if ($LASTEXITCODE -eq 404) {
+            $NotFound += $result
+            #exit 0
+        }
+        elseif ($LASTEXITCODE -eq 69) {
+            $alreadyDonePackageIds += $result.PackageId
+        }
+        else {
+            sleep 2
+        }
+        #sleep 1
         #$withoutNotFound[$result.PackageId] = $result
     }
 

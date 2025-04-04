@@ -56,11 +56,17 @@ $versionTemplate = "{VERSION}"
 $version = Get-LatestVersionInWinget -PackageId $PackageId
 $packagePath = $PackageId -replace '\.', '/'
 $firstChar = $PackageId[0].ToString().ToLower()
-$fullInstallerDetails = (Invoke-WebRequest -Uri "https://raw.githubusercontent.com/microsoft/winget-pkgs/refs/heads/master/manifests/$firstChar/$packagePath/$version/$PackageId.installer.yaml" -UseBasicParsing).Content
+$fullInstallerDetails = Invoke-WebRequest -Uri "https://raw.githubusercontent.com/microsoft/winget-pkgs/refs/heads/master/manifests/$firstChar/$packagePath/$version/$PackageId.installer.yaml" -UseBasicParsing
+if ($fullInstallerDetails.StatusCode -ne 200) {
+    Write-Host "Error $LASTEXITCODE"
+    exit $fullInstallerDetails.StatusCode
+}
+$fullInstallerDetailsContent = ($fullInstallerDetails).Content
+
 # filter for lines containing "Installer-URL"
 $urls = @()
 $githubRepository = $null
-$fullInstallerDetails -split "`n" | Where-Object { $_ -like "*InstallerURL:*" } | ForEach-Object {
+$fullInstallerDetailsContent -split "`n" | Where-Object { $_ -like "*InstallerURL:*" } | ForEach-Object {
     # split the line by the first ":"
     $split = $_.Split(":", 2)
     # get the second part of the split
@@ -80,9 +86,33 @@ $finalTemplateUrlString = $urls -join " "
 $newestGitHubRelease = gh release list --repo $githubRepository --json "name,tagName,publishedAt,isLatest,isPrerelease" | ConvertFrom-Json | Where-Object { $_.isPrerelease -eq $false } | Sort-Object -Property publishedAt -Descending | Select-Object -First 1
 $newestGitHubVersion = $newestGitHubRelease.tagName.TrimStart("v","V")
 if ($newestGitHubVersion -ne $version) {
-    Install-Komac
+    
     $urlsWithVersion = ($urls | ForEach-Object { $_.Replace($versionTemplate, $newestGitHubVersion) })
-
+    # check if the urls are valid
+    $urlsWithVersion | ForEach-Object {
+        $url = $_
+        try {
+            $response = Invoke-WebRequest -Uri $url -UseBasicParsing -Method Head -ErrorAction Stop
+            if ($response.StatusCode -ne 200) {
+                Write-Host "URL is not valid: $url"
+                # trying to find URL in the latest release via API
+                #$latestRelease = gh release view $newestGitHubVersion --repo $githubRepository --json "assets" | ConvertFrom-Json
+                #$asset = $latestRelease.assets | Where-Object { ($_.name -like "*$PackageId*" -or $_.name -like "*$newestGitHubVersion*" -or $_.url -like "*$newestGitHubVersion*") -and ($_.name -like "*.msi" -or $_.name -like "*.exe") }
+                #$_ = $asset.url
+                # try {
+                #     $response = Invoke-WebRequest -Uri $_ -UseBasicParsing -Method Head -ErrorAction Stop
+                # } catch {
+                #     Write-Host "URL is not valid: $url"
+                #     exit 1
+                #}
+                exit 404
+            }
+        } catch {
+            Write-Host "URL is not valid: $url"
+            exit 404
+        }
+    }
+    Install-Komac
     komac update "$PackageId" --version "$newestGitHubVersion" --urls $urlsWithVersion --dry-run --skip-pr-check
     # break if komac update fails
     if ($LASTEXITCODE -ne 0) {
@@ -95,7 +125,7 @@ if ($newestGitHubVersion -ne $version) {
 }
 else {
     Write-Host "No new version available"
-    exit 0
+    exit 69
 }
 
 if ([string]::IsNullOrWhiteSpace($PackageId) -or [string]::IsNullOrWhiteSpace($githubRepository) -or [string]::IsNullOrWhiteSpace($finalTemplateUrlString)) {
@@ -111,6 +141,7 @@ $releaseBlock = @"
 
 
 # append the releaseblock to the github-releases.yml file before the steps block
+$githubReleasesYml = Get-Content -Path "$ymlPath" -raw
 $content = $githubReleasesYml + $releaseBlock
 
 $output = get-yamlSorted -content $content
