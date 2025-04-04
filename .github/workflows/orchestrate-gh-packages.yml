@@ -38,4 +38,4 @@ jobs:
               with:
                 commit_message: Update package count badge
                 file_pattern: |
-                  update-github-packages-*.yml
+                  .github/workflows/update-github-packages-*.yml
