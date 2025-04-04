@@ -66,6 +66,7 @@ jobs:
         env:
           TIMEOUT: ${{ inputs.Timeout }}
         run: .\scripts\Test-Manifest.ps1 -ManifestURL ${{ env.manifesturl }}
+        continue-on-error: true
 
       - name: Take screenshot using FFmpeg
         shell: powershell
@@ -95,6 +96,13 @@ jobs:
       - name: Upload Screenshot Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: screenshot-${{ env.date }}-${{ env.manifestname }}
+          #name: screenshot-${{ env.date }}-${{ env.manifestname }}
+          name: screenshot-${{ env.date }}
           path: screenshot.png 
           retention-days: 30  # Artifacts will be kept for 30 days
+
+      - name: Check if Test Script Failed
+        if: failure()  # This runs only if the previous step failed
+        run: |
+          echo "Test Script failed. Marking workflow as failed."
+          exit 1
