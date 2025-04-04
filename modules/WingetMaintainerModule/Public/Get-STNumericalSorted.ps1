@@ -66,7 +66,7 @@ function Get-STNumericalSorted {
                 # Remove the 'v' character for sorting purposes
                 $processedValue = $_ -replace '^v', ''
                 [Regex]::Replace($processedValue, '(\d+)', {
-                    "{0:D$MaximumDigitCount}" -f [Int] $Args[0].Value })
+                    "{0:D$MaximumDigitCount}" -f [int64] $Args[0].Value })
                 }
             },
             @{ Expression = { $_ } } -Descending:$SortDescending

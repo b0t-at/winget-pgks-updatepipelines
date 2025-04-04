@@ -1,17 +1,42 @@
 param(
-    [Parameter(Mandatory=$true)][string]$PackageId
+    [Parameter(Mandatory = $true)][string]$PackageId
 )
+
+function get-yamlSorted {
+    param(
+        [Parameter(Mandatory = $true)]$content
+    )
+
+    import-module powershell-yaml
+    # Extract all comment lines (lines starting with '#') in the original order.
+    $commentLines = $content.Split("`n") | where-object { $_.TrimStart().StartsWith("#") }
+
+    # Remove all comment lines from the main content.
+    $contentWithoutComments = $content.Split("`n")  | where-object { -not $_.TrimStart().StartsWith("#") }
+
+    $ymlData = Get-Content -Path "$ymlPath" -raw
+    $data = ConvertFrom-Yaml -Yaml $ymlData
+
+    # Sort the list of objects by 'id'
+    $sortedData = $data | Sort-Object -Property id
+
+    # Convert back to YAML
+    $sortedYamlContent = ConvertTo-Yaml -Data $sortedData
+
+    # Reassemble the file: sorted entries, then a blank line, then the comment lines (in original order).
+    $output = $sortedYamlContent + "" + ($commentLines -join "`n")
+    return $output
+}
 
 # get the script location
 $scriptPath = $MyInvocation.MyCommand.Path
+$ymlPath = "$scriptPath/../../github-releases-monitored.yml"
 #check if PackageID is already in workflow file
-$githubReleasesYml = Get-Content -Path "$scriptPath/../../.github/workflows/github-releases.yml"
+$githubReleasesYml = Get-Content -Path "$ymlPath" -raw
 if ($githubReleasesYml -match $PackageId) {
     Write-Host "PackageId already in workflow"
     exit 0
 }
-
-Install-Komac
 
 $versionTemplate = "{VERSION}"
 
@@ -32,7 +57,7 @@ $fullInstallerDetails -split "`n" | Where-Object { $_ -like "*InstallerURL:*" } 
     $url = $url.Replace($version.TrimStart("v"), $versionTemplate)
     # add the url to the list
     $urls += $url
-    if($githubRepository -eq $null -and $url -like "https://github.com/*"){
+    if ($githubRepository -eq $null -and $url -like "https://github.com/*") {
         $githubRepository = $url.Split("/")[3..4] -join "/"
     }
 }
@@ -40,32 +65,35 @@ $fullInstallerDetails -split "`n" | Where-Object { $_ -like "*InstallerURL:*" } 
 $finalTemplateUrlString = $urls -join " "
 
 #check if a newer version is available in the github repository
-$newestGitHubRelease = gh release list --repo $githubRepository --json name,tagName,publishedAt,isLatest,isPrerelease | ConvertFrom-Json | Where-Object { $_.isPrerelease -eq $false } | Sort-Object -Property publishedAt -Descending | Select-Object -First 1
+$newestGitHubRelease = gh release list --repo $githubRepository --json name, tagName, publishedAt, isLatest, isPrerelease | ConvertFrom-Json | Where-Object { $_.isPrerelease -eq $false } | Sort-Object -Property publishedAt -Descending | Select-Object -First 1
 $newestGitHubVersion = $newestGitHubRelease.tagName.TrimStart("v")
-if($newestGitHubVersion -ne $version){
+if ($newestGitHubVersion -ne $version) {
+    Install-Komac
     $urlsWithVersion = ($urls | ForEach-Object { $_.Replace($versionTemplate, $newestGitHubVersion) })
     komac update "$PackageId" --version "$newestGitHubVersion" --urls $urlsWithVersion --dry-run --skip-pr-check
-} else {
+}
+else {
     Write-Host "No new version available"
     #exit 0
 }
 
-if([string]::IsNullOrWhiteSpace($PackageId) -or [string]::IsNullOrWhiteSpace($githubRepository) -or [string]::IsNullOrWhiteSpace($finalTemplateUrlString)) {
+if ([string]::IsNullOrWhiteSpace($PackageId) -or [string]::IsNullOrWhiteSpace($githubRepository) -or [string]::IsNullOrWhiteSpace($finalTemplateUrlString)) {
     Write-Host "PackageId, GitHubRepository or TemplateUrl is empty"
     exit 1
 }
 
-
 $releaseBlock = @"
-      - id: "$PackageId"
-            repo: "$githubRepository"
-            url: "$finalTemplateUrlString"  
+- id: "$PackageId"
+  repo: "$githubRepository"
+  url: "$finalTemplateUrlString"  
 "@
 
 
 # append the releaseblock to the github-releases.yml file before the steps block
-$githubReleasesYml = $githubReleasesYml -replace "steps:", "$releaseBlock`n    steps:"
-$githubReleasesYml | Set-Content -Path "$scriptPath/../../.github/workflows/github-releases.yml"
+$githubReleasesYml = $githubReleasesYml + "$releaseBlock`n"
+
+$output = get-yamlSorted -content $githubReleasesYml
+$output | Set-Content -Path "$ymlPath"
 
 Write-Host "----------------------"
 Write-Host $releaseBlock

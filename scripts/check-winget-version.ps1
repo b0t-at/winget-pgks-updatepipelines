@@ -19,6 +19,9 @@ param (
     [string]$TempDir = "$env:TEMP\winget-analysis-$(Get-Date -Format 'yyyyMMdd-HHmmss')",
     [string]$GitHubToken = ""
 )
+$scriptPath = $MyInvocation.MyCommand.Path
+$scriptDirectory = Split-Path -Parent $scriptPath
+Import-Module "$scriptDirectory\..\modules\WingetMaintainerModule"
 
 # Function to clone the winget-pkgs repository
 function Clone-WingetRepo {
@@ -89,62 +92,62 @@ function Get-PackageInfoFromInstallerFile {
 }
 
 # Function to compare version strings correctly
-function Compare-Versions {
-    param (
-        [string]$VersionA,
-        [string]$VersionB
-    )
+# function Compare-Versions {
+#     param (
+#         [string]$VersionA,
+#         [string]$VersionB
+#     )
     
-    # Handle special cases
-    if ($VersionA -eq $VersionB) { return 0 }
-    if ([string]::IsNullOrEmpty($VersionA)) { return -1 }
-    if ([string]::IsNullOrEmpty($VersionB)) { return 1 }
+#     # Handle special cases
+#     if ($VersionA -eq $VersionB) { return 0 }
+#     if ([string]::IsNullOrEmpty($VersionA)) { return -1 }
+#     if ([string]::IsNullOrEmpty($VersionB)) { return 1 }
     
-    # Parse versions into components
-    $componentsA = $VersionA -split '[\.\-\+]'
-    $componentsB = $VersionB -split '[\.\-\+]'
+#     # Parse versions into components
+#     $componentsA = $VersionA -split '[\.\-\+]'
+#     $componentsB = $VersionB -split '[\.\-\+]'
     
-    # Compare components one by one
-    for ($i = 0; $i -lt [Math]::Max($componentsA.Count, $componentsB.Count); $i++) {
-        # If we've reached the end of version A, B is greater
-        if ($i -ge $componentsA.Count) { return -1 }
-        # If we've reached the end of version B, A is greater
-        if ($i -ge $componentsB.Count) { return 1 }
+#     # Compare components one by one
+#     for ($i = 0; $i -lt [Math]::Max($componentsA.Count, $componentsB.Count); $i++) {
+#         # If we've reached the end of version A, B is greater
+#         if ($i -ge $componentsA.Count) { return -1 }
+#         # If we've reached the end of version B, A is greater
+#         if ($i -ge $componentsB.Count) { return 1 }
         
-        $compA = $componentsA[$i]
-        $compB = $componentsB[$i]
+#         $compA = $componentsA[$i]
+#         $compB = $componentsB[$i]
         
-        # Try to parse as integers for numerical comparison
-        $isIntA = [int]::TryParse($compA, [ref]$null)
-        $isIntB = [int]::TryParse($compB, [ref]$null)
+#         # Try to parse as integers for numerical comparison
+#         $isIntA = [int]::TryParse($compA, [ref]$null)
+#         $isIntB = [int]::TryParse($compB, [ref]$null)
         
-        # If both components are numeric, compare as numbers
-        if ($isIntA -and $isIntB) {
-            $numA = [int]$compA
-            $numB = [int]$compB
-            if ($numA -ne $numB) {
-                return $numA.CompareTo($numB)
-            }
-        }
-        # If only one is numeric, numeric is greater
-        elseif ($isIntA) {
-            return 1
-        }
-        elseif ($isIntB) {
-            return -1
-        }
-        # Otherwise compare as strings
-        else {
-            $stringCompare = [string]::Compare($compA, $compB, $true)
-            if ($stringCompare -ne 0) {
-                return $stringCompare
-            }
-        }
-    }
+#         # If both components are numeric, compare as numbers
+#         if ($isIntA -and $isIntB) {
+#             $numA = [int]$compA
+#             $numB = [int]$compB
+#             if ($numA -ne $numB) {
+#                 return $numA.CompareTo($numB)
+#             }
+#         }
+#         # If only one is numeric, numeric is greater
+#         elseif ($isIntA) {
+#             return 1
+#         }
+#         elseif ($isIntB) {
+#             return -1
+#         }
+#         # Otherwise compare as strings
+#         else {
+#             $stringCompare = [string]::Compare($compA, $compB, $true)
+#             if ($stringCompare -ne 0) {
+#                 return $stringCompare
+#             }
+#         }
+#     }
     
-    # If we get here, the versions are equal in all compared components
-    return 0
-}
+#     # If we get here, the versions are equal in all compared components
+#     return 0
+# }
 
 # Function to extract GitHub owner and repo from URL
 function Get-GitHubInfo {
@@ -307,7 +310,7 @@ try {
     Write-Host "Searching for installer files in $manifestsDir..."
     
     $installerFiles = Get-ChildItem -Path $manifestsDir -Recurse -File | 
-        Where-Object { $_.Name -match '\.installer\.(yaml|yml)$' }
+    Where-Object { $_.Name -match '\.installer\.(yaml|yml)$' }
     
     Write-Host "Found $($installerFiles.Count) installer files. Processing..."
     
@@ -327,6 +330,8 @@ try {
 
     # Get the function's definition *as a string*
     $funcDef = ${function:Get-PackageInfoFromInstallerFile}.ToString()
+    $funcDefSort = ${function:Get-STNumericalSorted}.ToString()
+   
 
     $installerFiles | ForEach-Object -ThrottleLimit 5 -Parallel {
         $syncCopy = $using:syncHash
@@ -335,10 +340,7 @@ try {
         ${function:Get-PackageInfoFromInstallerFile} = $using:funcDef
         # Update progress every 100 files for performance
         $percent = [math]::Min(100, [math]::Round(($($syncCopy.Count) / $using:totalFiles) * 100))
-        #$progressParams.Status = "$($syncCopy.Count)" + "/" + "$totalFiles Complete"
-        #$progressParams.PercentComplete = $percent
-        #$progressParams.Activity = "Processing installer files"
-        #Write-Progress @progressParams
+
         Write-Progress -Activity "Processing files" -Status ("$($syncCopy.Count)" + "/" + "$using:totalFiles Complete") -PercentComplete $percent
 
         $packageInfo = Get-PackageInfoFromInstallerFile -InstallerFile $file
@@ -360,31 +362,67 @@ try {
         $syncCopy.Count++
     }
 
+    Write-Progress -Activity "Processing installer files" -Completed
+
+    # Remove duplicates based on PackageId and keep the latest version
+    $uniquePackageIds = $packageData.Values | Select-Object -Unique -Property PackageID
+
+
+    # Process installer files
+    $uniqueData = @{}
+    $uniqueDataCount = 0
+    $totaluniqueIds = $uniquePackageIds.Count
     
-    # Otherwise, compare versions and keep the highest one
-    else {
-        $highest = (get-stnumericalSorted $packageInfo.Version, $packageData[$packageId].CurrentVersion -Descending) | Select-Object -first 1
-                
-        if ($packageData[$packageId].CurrentVersion -ne $highest) {
-            $packageData[$packageId] = @{
-                CurrentVersion = $packageInfo.Version
-                InstallerUrl   = $packageInfo.InstallerUrl
-                FilePath       = $packageInfo.FilePath
-            }
+    # Set up progress bar parameters
+    $progressParams = @{
+        Activity        = "Processing Package IDs"
+        Status          = "0" + "/" + "$totaluniqueIds Complete"
+        PercentComplete = 0
+    }
+
+    $syncHash2 = [hashtable]::Synchronized(@{ Count = 0 })
+
+    # find highest version for each packageId from $packageData - use "Get-StNumericalSort" to sort the version numbers. Use parallel processing to speed up the process.
+    $uniquePackageIds | ForEach-Object -ThrottleLimit 15 -Parallel {
+        ${function:Get-STNumericalSorted} = $using:funcDefSort
+        $syncCopy = $using:syncHash2
+        $packageData = $using:packageData
+        $packageId = $_.PackageID
+        #$latestVersion = $_.CurrentVersion
+
+        $percent = [math]::Min(100, [math]::Round(($($syncCopy.Count) / $using:totaluniqueIds) * 100))
+
+        Write-Progress -Activity "Processing Data" -Status ("$($syncCopy.Count)" + "/" + "$using:totaluniqueIds Complete") -PercentComplete $percent
+
+        # Get the latest version for this packageId
+        $allVersions = $packageData.Values | Where-Object { $_.PackageID -eq $packageId }
+        $highestVersion = ($allVersions).CurrentVersion | Get-STNumericalSorted -Descending | Select-Object -First 1
+        $Latest = $allVersions | Where-Object { $_.CurrentVersion -eq $highestVersion } | Select-Object -First 1
+
+        Write-Output "Processing $($Latest.PackageID) with latest version $($Latest.CurrentVersion) of $(($allVersions.CurrentVersion | Sort-Object -Descending)  -join ', ')"
+        Write-Output ""
+
+        $syncCopy.Count++ 
+        $uniqueData = $using:uniqueData
+        $uniqueData[$packageId] = @{
+            PackageID      = $Latest.PackageID
+            CurrentVersion = $Latest.CurrentVersion -replace '"', '' -replace "'", ''
+            InstallerUrl   = $Latest.InstallerUrl
+            FilePath       = $Latest.FilePath
         }
     }
 
 
 
-    Write-Progress -Activity "Processing installer files" -Completed
+
     
-    Write-Host "Processed $totalFiles installer files. Found $($packageData.Count) unique packages."
+    Write-Host "Processed $totalFiles installer files. Found $($uniqueData.Count) unique packages."
     Write-Host "Filtering for GitHub installer URLs..."
     
     # Filter for GitHub URLs and get latest releases
     $results = @()
     $processedCount = 0
-    $totalPackages = $packageData.Count
+    $totalPackages = $uniqueData.Count
     
     $progressParams = @{
         Activity        = "Checking GitHub releases"
@@ -392,31 +430,30 @@ try {
         PercentComplete = 0
     }
     
-    foreach ($packageId in $packageData.Keys) {
+    foreach ($package in $uniqueData.Values) {
         $processedCount++
         
-
         $percent = [math]::Min(100, [math]::Round(($processedCount / $totalPackages) * 100))
         $progressParams.Status = "$processedCount" + "/" + "$totalPackages Complete"
         $progressParams.PercentComplete = $percent
         Write-Progress @progressParams
 
-        
-        $package = $packageData[$packageId]
         $githubInfo = Get-GitHubInfo -Url $package.InstallerUrl
         
         if ($githubInfo) {
+            write-Output "Processing $($package.PackageID) with URL $($package.InstallerUrl)"
             # Get latest GitHub release
             $latestRelease = Get-LatestGitHubRelease -Owner $githubInfo.Owner -Repo $githubInfo.Repo -Token $GitHubToken
             
             $currentVersion = Get-CleanVersion -Version $package.CurrentVersion
             $latestVersion = Get-CleanVersion -Version $latestRelease
+            write-Output "Current winget version: $currentVersion, Latest version: $latestVersion"
             
             # Calculate relative file path for better readability
             $relativePath = $package.FilePath.Substring($TempDir.Length)
             
             $results += [PSCustomObject]@{
-                PackageId      = $packageId
+                PackageId      = $package.PackageID
                 CurrentVersion = $currentVersion
                 LatestVersion  = $latestVersion
                 GitHubOwner    = $githubInfo.Owner
@@ -428,29 +465,6 @@ try {
         }
     }
 
-    # retry if "LatestVersion" is "ratelimit" and update $results
-    $retryprocessCount = 0
-    $totalPackages = $results.Count
-    foreach ($result in $results) {
-        $retryprocessCount++
-        $percent = [math]::Min(100, [math]::Round(($retryprocessCount / $totalPackages) * 100))
-        $progressParams.Status = "$retryprocessCount" + "/" + "$totalPackages Complete"
-        $progressParams.PercentComplete = $percent
-        Write-Progress @progressParams
-
-        if ($result.LatestVersion -eq "ratelimit") {
-            
-            $githubInfo = Get-GitHubInfo -Url $result.InstallerUrl
-            if ($githubInfo) {
-                "checking $($result.PackageId) for latest version..."
-                $latestRelease = Get-LatestGitHubRelease -Owner $githubInfo.Owner -Repo $githubInfo.Repo -Token $GitHubToken
-                $cleanVersion = Get-CleanVersion -Version $latestRelease
-
-                # Update the LatestVersion property in the $result object
-                $result.LatestVersion = $cleanVersion
-            }
-        }
-    }
     Write-Progress -Activity "Checking GitHub releases" -Completed
 
     # clean Versions and PackageId from " and '
@@ -459,12 +473,21 @@ try {
         $_.LatestVersion = $_.LatestVersion -replace '"', '' -replace "'", ''
         $_.PackageId = $_.PackageId -replace '"', '' -replace "'", ''
     }
+
+
     # Find packages with different versions
-    $filteredresults = $results | Where-Object { $_.CurrentVersion -ne $_.LatestVersion -and $_.LatestVersion -ne "Unknown" -and $_.LatestVersion -ne "ratelimit" }    
+    $filteredresults = $results | Where-Object { $_.CurrentVersion -ne $_.LatestVersion -and `
+        $_.LatestVersion -ne "Unknown" -and $_.LatestVersion -ne "ratelimit" -and `
+        $_.LatestVersion -ne ($_.CurrentVersion -replace '\.0$', '') -and `
+        $_.CurrentVersion -ne ($_.LatestVersion -replace '\.0$', '') -and `
+        $_.CurrentVersion -ne (($latestVersion -split '\.')[0..(($latestVersion -split '\.').Count - 2)] -join '.') -and `
+        $_.LatestVersion -ne (($currentVersion -split '\.')[0..(($currentVersion -split '\.').Count - 2)] -join '.')
+    }    
+
     
     # Export to CSV
-    Write-Host "Exporting $($results.Count) packages to CSV: $OutputPath"
-    $results | Export-Csv -Path $OutputPath -NoTypeInformation -Encoding UTF8
+    Write-Host "Exporting $($filteredresults.Count) packages to CSV: $OutputPath"
+    #$results | Export-Csv -Path $OutputPath -NoTypeInformation -Encoding UTF8
     $filteredresults | Export-Csv -Path $OutputPath -NoTypeInformation -Encoding UTF8
     
     $endTime = Get-Date
