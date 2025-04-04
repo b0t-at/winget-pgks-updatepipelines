@@ -30,7 +30,7 @@ jobs:
         repo: ${{ matrix.repo }}
         url: ${{ matrix.url }}
         komac-token: ${{ secrets.WINGET_PAT }}
-        komac-version: 2.10.1
+        komac-version: 2.11.2
         custom-fork-owner: damn-good-b0t
         submit: ${{ vars.SUBMIT_PR }}
         pre-release: ${{ matrix.pre-release }}
