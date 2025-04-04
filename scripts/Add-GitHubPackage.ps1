@@ -66,7 +66,7 @@ $fullInstallerDetails -split "`n" | Where-Object { $_ -like "*InstallerURL:*" } 
     # get the second part of the split
     $url = $split[1].Trim()
     # replace version with template
-    $url = $url.Replace($version.TrimStart("v"), $versionTemplate)
+    $url = $url.Replace($version.TrimStart("v","V"), $versionTemplate)
     # add the url to the list
     $urls += $url
     if ($githubRepository -eq $null -and $url -like "https://github.com/*") {
@@ -78,7 +78,7 @@ $finalTemplateUrlString = $urls -join " "
 
 #check if a newer version is available in the github repository
 $newestGitHubRelease = gh release list --repo $githubRepository --json "name,tagName,publishedAt,isLatest,isPrerelease" | ConvertFrom-Json | Where-Object { $_.isPrerelease -eq $false } | Sort-Object -Property publishedAt -Descending | Select-Object -First 1
-$newestGitHubVersion = $newestGitHubRelease.tagName.TrimStart("v")
+$newestGitHubVersion = $newestGitHubRelease.tagName.TrimStart("v","V")
 if ($newestGitHubVersion -ne $version) {
     Install-Komac
     $urlsWithVersion = ($urls | ForEach-Object { $_.Replace($versionTemplate, $newestGitHubVersion) })
@@ -94,7 +94,7 @@ if ($newestGitHubVersion -ne $version) {
 }
 else {
     Write-Host "No new version available"
-    #exit 0
+    exit 0
 }
 
 if ([string]::IsNullOrWhiteSpace($PackageId) -or [string]::IsNullOrWhiteSpace($githubRepository) -or [string]::IsNullOrWhiteSpace($finalTemplateUrlString)) {
