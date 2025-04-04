@@ -1,0 +1,36 @@
+name: GH Package Update
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '3 0/4 * * *' # every 4 hours
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/github-releases.yml
+
+jobs:
+  update-releasebased:
+    name: ${{ matrix.id }}
+    runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Test' }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+# Orchestrator will insert Packages here
+
+    steps:
+    - name: Update Packages
+      uses: b0t-at/winget-updater@b0t-main
+      with:
+        identifier: ${{ matrix.id }}
+        repo: ${{ matrix.repo }}
+        url: ${{ matrix.url }}
+        komac-token: ${{ secrets.WINGET_PAT }}
+        komac-version: 2.10.1
+        custom-fork-owner: damn-good-b0t
+        submit: ${{ vars.SUBMIT_PR }}
+        pre-release: ${{ matrix.pre-release }}

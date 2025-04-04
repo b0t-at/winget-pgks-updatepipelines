@@ -1,0 +1,114 @@
+name: Update via scripts
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 7 0/4 * * *
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/update-via-script.yml
+      - Scripts/Packages/*
+
+jobs:
+  update-scriptbased:
+    name: ${{ matrix.PackageName }}
+    runs-on: windows-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Test' }}
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - PackageName: "MongoDB.Server"
+            WebsiteURL: "https://www.mongodb.com/try/download/community"      
+          - PackageName: "MongoDB.MongoDBCLI"
+            WebsiteURL: "https://www.mongodb.com/try/download/tools"
+          - PackageName: "MongoDB.Shell"
+            WebsiteURL: "https://www.mongodb.com/try/download/tools"     
+          - PackageName: "MongoDB.MongoDBAtlasCLI"
+            WebsiteURL: "https://www.mongodb.com/try/download/tools"
+            With: wingetcreate
+          - PackageName: "MongoDB.DatabaseTools"
+            WebsiteURL: "https://www.mongodb.com/try/download/tools" 
+          - PackageName: "MongoDB.Compass.Full"
+            WebsiteURL: "https://www.mongodb.com/try/download/tools"
+          - PackageName: "MongoDB.Compass.Isolated"
+            WebsiteURL: "https://www.mongodb.com/try/download/tools"
+          - PackageName: "MongoDB.Compass.Readonly"
+            WebsiteURL: "https://www.mongodb.com/try/download/tools"
+          - PackageName: "Logitech.OptionsPlus"
+            WebsiteURL: "https://download01.logi.com/web/ftp/pub/techsupport/optionsplus/logioptionsplus_installer.exe"     
+            With: WinGetCreate     
+          - PackageName: "Glarysoft.GlaryUtilities"
+            WebsiteURL: "https://download.glarysoft.com/gusetup.exe"
+            With: WinGetCreate
+          - PackageName: "GitButler.GitButler"
+            WebsiteURL: "https://app.gitbutler.com/downloads/release/windows/x86_64/msi"   
+#            With: WinGetCreate       
+          - PackageName: "FlipperDevicesInc.qFlipper"
+            WebsiteURL: "https://update.flipperzero.one/qFlipper/directory.json"
+            With: WinGetCreate
+          - PackageName: "Loupedeck.Loupedeck"
+          - PackageName: "StrawberryPerl.StrawberryPerl"
+            WebsiteURL: "https://github.com/StrawberryPerl/Perl-Dist-Strawberry"
+          #- PackageName: "Crucial.StorageExecutive"
+          #  WebsiteURL: "https://www.crucial.com/content/dam/crucial/support/storage-executive-win-64.zip"
+          #  With: WinGetCreate
+          # - PackageName: "SmartProjects.IsoBuster"
+          #   WebsiteURL: "https://www.isobuster.com/downloads/isobuster/isobuster_install_64bit.exe https://www.isobuster.com/downloads/isobuster/isobuster_install.exe"
+          - PackageName: "Fork.Fork"
+            WebsiteURL: "https://fork.dev"
+          # - PackageName: "OpenMedia.4KYoutubetoMP3"
+          #   WebsiteURL: "https://www.4kdownload.com/downloads/34"
+          # - PackageName: "OpenMedia.4KVideoDownloader"
+          #   WebsiteURL: "https://www.4kdownload.com/downloads/34"
+          # - PackageName: "OpenMedia.4KVideoDownloaderPlus"
+          #   WebsiteURL: "https://www.4kdownload.com/downloads/34"
+          - PackageName: "OpenMedia.4KTokkit"
+            WebsiteURL: "https://www.4kdownload.com/downloads/34"
+          - PackageName: "OpenMedia.4KStogram"
+            WebsiteURL: "https://www.4kdownload.com/downloads/34"
+          - PackageName: "Egnyte.EgnyteWebEdit"
+            WebsiteURL: "https://egnyte-cdn.egnyte.com/webedit/win/en-us/latest/EgnyteWebEdit.msi"
+          - PackageName: "cURL.cURL"
+            WebsiteURL: "https://curl.se/windows/"
+          - PackageName: "Oracle.MySQL"
+            WebsiteURL: "https://dev.mysql.com/downloads/windows/installer/"
+          # - PackageName: "Insecure.Npcap"
+          #   WebsiteURL: "https://npcap.com/dist/"
+#          - PackageName: "OliverBetz.ExifTool"
+#            WebsiteURL: "https://oliverbetz.de/cms/files/Artikel/ExifTool-for-Windows"
+          - PackageName: "Bitwarden.CLI"
+            WebsiteURL: "https://github.com/bitwarden/clients"
+#          - PackageName: "GitHub.GitHubDesktop.Beta"
+#            WebsiteURL: "https://central.github.com/deployments/desktop/desktop/latest/win32?format=msi&env=beta"
+#          - PackageName: "Microsoft.AzureMonitorAgent"
+#            WebsiteURL: "https://go.microsoft.com/fwlink/?linkid=2192409"
+          - PackageName: "SublimeHQ.SublimeMerge"
+            WebsiteURL: "https://www.sublimemerge.com/download"
+          - PackageName: "Bandisoft.Bandizip"
+#          - PackageName: "Betterbird.Betterbird"
+#            WebsiteURL: "https://www.betterbird.eu/downloads/"
+          - PackageName: "wire.wire"
+          - PackageName: "glueckkanja.KONNEKT"
+          - PackageName: "Ghisler.TotalCommander"
+          - PackageName: "Jellyfin.Server"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Update package
+        id: update_version
+        env:
+          GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
+          WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
+          WebsiteURL: ${{ matrix.WebsiteURL }}
+          PackageName: ${{ matrix.PackageName }}
+          With: ${{ matrix.With }}
+          Submit: ${{ vars.SUBMIT_PR }}
+          IsTemplateUpdate: "true"
+        run: .\scripts\Update-ScriptPackage.ps1
+
+
