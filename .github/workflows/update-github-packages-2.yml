@@ -20,6 +20,51 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - id: rejetto.hfs
+            repo: rejetto/hfs
+            url: https://github.com/rejetto/hfs/releases/download/v{VERSION}/hfs-windows-x64-{VERSION}.zip
+          - id: restic.restic
+            repo: restic/restic
+            url: https://github.com/restic/restic/releases/download/v{VERSION}/restic_{VERSION}_windows_386.zip https://github.com/restic/restic/releases/download/v{VERSION}/restic_{VERSION}_windows_amd64.zip
+          - id: RivaFarabi.Deckboard
+            repo: rivafarabi/deckboard
+            url: https://github.com/rivafarabi/deckboard/releases/download/v{VERSION}/Deckboard-Setup-{VERSION}.exe https://github.com/rivafarabi/deckboard/releases/download/v{VERSION}/Deckboard-Setup-{VERSION}.exe
+          - id: Romanitho.Winget-AutoUpdate
+            repo: Romanitho/Winget-AutoUpdate
+            url: https://github.com/Romanitho/Winget-AutoUpdate/releases/download/v{VERSION}/WAU.msi
+          - id: RoslynPad.RoslynPad
+            repo: roslynpad/roslynpad
+            url: https://github.com/roslynpad/roslynpad/releases/download/{VERSION}/RoslynPad-windows-x64.zip https://github.com/roslynpad/roslynpad/releases/download/{VERSION}/RoslynPad-windows-arm64.zip
+          - id: Rye.Rye
+            repo: astral-sh/rye
+            url: https://github.com/astral-sh/rye/releases/download/{VERSION}/rye-x86-windows.exe https://github.com/astral-sh/rye/releases/download/{VERSION}/rye-x86_64-windows.exe
+          - id: SaeraSoft.CaesiumImageCompressor
+            repo: Lymphatus/caesium-image-compressor
+            url: https://github.com/Lymphatus/caesium-image-compressor/releases/download/v{VERSION}/caesium-image-compressor-{VERSION}-win-setup.exe
+          - id: SagMeinenNamen.OpenStoreInstaller
+            repo: SagMeinenNamen/OpenStore
+            url: https://github.com/SagMeinenNamen/OpenStore/raw/main/OpenStoreInstaller.exe
+          - id: SagMeinenNamen.TypingTest
+            repo: SagMeinenNamen/TypingTest
+            url: https://github.com/SagMeinenNamen/TypingTest/raw/main/TypingTest.exe
+          - id: Sayuri.FFFTP
+            repo: ffftp/ffftp
+            url: https://github.com/ffftp/ffftp/releases/download/v{VERSION}/ffftp-v{VERSION}-x64.msi https://github.com/ffftp/ffftp/releases/download/v{VERSION}/ffftp-v{VERSION}-x86.msi
+          - id: schollz.croc
+            repo: schollz/croc
+            url: https://github.com/schollz/croc/releases/download/v{VERSION}/croc_v{VERSION}_Windows-32bit.zip https://github.com/schollz/croc/releases/download/v{VERSION}/croc_v{VERSION}_Windows-64bit.zip https://github.com/schollz/croc/releases/download/v{VERSION}/croc_v{VERSION}_Windows-ARM.zip https://github.com/schollz/croc/releases/download/v{VERSION}/croc_v{VERSION}_Windows-ARM64.zip
+          - id: sebescudie.GammaLauncher
+            repo: sebescudie/GammaLauncher
+            url: https://github.com/sebescudie/GammaLauncher/releases/download/{VERSION}/gammalauncher_{VERSION}_installer.exe
+          - id: seerge.g-helper
+            repo: seerge/g-helper
+            url: https://github.com/seerge/g-helper/releases/download/v{VERSION}/GHelper.exe
+          - id: seerge.g-helper.PreRelease
+            repo: seerge/g-helper
+            url: https://github.com/seerge/g-helper/releases/download/v{VERSION}/GHelper.zip
+          - id: shawnbanasick.kade
+            repo: shawnbanasick/kade
+            url: https://github.com/shawnbanasick/kade/releases/download/v{VERSION}/KADE.Setup.{VERSION}.exe
           - id: Shemnei.punktf
             repo: Shemnei/punktf
             url: https://github.com/Shemnei/punktf/releases/download/v{VERSION}/punktf-x86_64-pc-windows-msvc-static.zip
@@ -71,6 +116,9 @@ jobs:
           - id: stacklok.minder
             repo: mindersec/minder
             url: https://github.com/mindersec/minder/releases/download/v{VERSION}/minder_{VERSION}_windows_amd64.zip https://github.com/mindersec/minder/releases/download/v{VERSION}/minder_{VERSION}_windows_arm64.zip
+          - id: stackrox.kube-linter
+            repo: stackrox/kube-linter
+            url: https://github.com/stackrox/kube-linter/releases/download/v{VERSION}/kube-linter.exe
           - id: stacks.stacks
             repo: stacks-task-manager/stacks
             url: https://github.com/stacks-task-manager/stacks/releases/download/v{VERSION}/Stacks-Setup-{VERSION}.exe
@@ -95,6 +143,9 @@ jobs:
           - id: Storj.Uplink
             repo: storj/storj
             url: https://github.com/storj/storj/releases/download/v{VERSION}/storagenode_windows_amd64.zip
+          - id: Streetwriters.Notesnook
+            repo: streetwriters/notesnook
+            url: https://github.com/streetwriters/notesnook/releases/download/v{VERSION}/notesnook_win_x64.exe https://github.com/streetwriters/notesnook/releases/download/v{VERSION}/notesnook_win_x64_portable.exe https://github.com/streetwriters/notesnook/releases/download/v{VERSION}/notesnook_win_arm64.exe https://github.com/streetwriters/notesnook/releases/download/v{VERSION}/notesnook_win_arm64_portable.exe
           - id: Stripe.StripeCli
             repo: stripe/stripe-cli
             url: https://github.com/stripe/stripe-cli/releases/download/v{VERSION}/stripe_{VERSION}_windows_x86_64.zip
@@ -215,6 +266,9 @@ jobs:
           - id: unlimited-clipboard.unlimited-clipboard
             repo: unlimited-clipboard/unlimited-clipboard
             url: https://github.com/unlimited-clipboard/unlimited-clipboard/releases/download/v{VERSION}/unlimited-clipboard.exe
+          - id: vcmi.vcmi
+            repo: vcmi/vcmi
+            url: https://github.com/vcmi/vcmi/releases/download/{VERSION}/VCMI-Windows.exe
           - id: Vendicated.Vencord.Canary
             repo: Vencord/Installer
             url: https://github.com/Vencord/Installer/releases/download/v{VERSION}/VencordInstallerCli.exe
@@ -227,6 +281,12 @@ jobs:
           - id: Vipre.IPVTest
             repo: vimalraj-adikesavan/IPV-PUBLIC
             url: https://github.com/vimalraj-adikesavan/IPV-PUBLIC/releases/download/Public-Release/GitHubTest.exe
+          - id: VirusTotal.vt-cli
+            repo: VirusTotal/vt-cli
+            url: https://github.com/VirusTotal/vt-cli/releases/download/{VERSION}/Windows64.zip
+          - id: VirusTotal.YARA-X
+            repo: VirusTotal/yara-x
+            url: https://github.com/VirusTotal/yara-x/releases/download/v{VERSION}/yara-x-v{VERSION}-x86_64-pc-windows-msvc.zip
           - id: VisualBoyAdvance-M.VisualBoyAdvance-M
             repo: visualboyadvance-m/visualboyadvance-m
             url: https://github.com/visualboyadvance-m/visualboyadvance-m/releases/download/v{VERSION}/visualboyadvance-m-Win-x86_64.zip
@@ -305,6 +365,9 @@ jobs:
           - id: Zagrios.BSManager
             repo: Zagrios/bs-manager
             url: https://github.com/Zagrios/bs-manager/releases/download/v{VERSION}/BSManager-Setup-{VERSION}.exe
+          - id: ZeroInstall.ZeroInstall
+            repo: 0install/0install-win
+            url: https://github.com/0install/0install-win/releases/download/{VERSION}/zero-install.exe https://github.com/0install/0install-win/releases/download/{VERSION}/zero-install.exe
           - id: zkSNACKs.WasabiWallet
             repo: WalletWasabi/WalletWasabi
             url: https://github.com/WalletWasabi/WalletWasabi/releases/download/v{VERSION}/Wasabi-{VERSION}.msi

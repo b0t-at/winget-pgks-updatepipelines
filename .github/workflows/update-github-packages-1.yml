@@ -113,6 +113,12 @@ jobs:
           - id: benaclejames.VRCFaceTracking
             repo: benaclejames/VRCFaceTracking
             url: https://github.com/benaclejames/VRCFaceTracking/releases/download/{VERSION}/VRCFaceTracking_{VERSION}_x64.msix
+          - id: Benbuck.Finestray
+            repo: benbuck/finestray
+            url: https://github.com/benbuck/finestray/releases/download/v{VERSION}/Finestray-{VERSION}-win64.exe
+          - id: BenjaminLSR.HandheldCompanion
+            repo: Valkirie/HandheldCompanion
+            url: https://github.com/Valkirie/HandheldCompanion/releases/download/{VERSION}/HandheldCompanion-{VERSION}.exe
           - id: Betaflight.Betaflight-Configurator
             repo: betaflight/betaflight-configurator
             url: https://github.com/betaflight/betaflight-configurator/releases/download/{VERSION}/betaflight-configurator_{VERSION}_win64-installer.exe
@@ -122,6 +128,9 @@ jobs:
           - id: bootandy.dust
             repo: bootandy/dust
             url: https://github.com/bootandy/dust/releases/download/v{VERSION}/dust-v{VERSION}-i686-pc-windows-gnu.zip https://github.com/bootandy/dust/releases/download/v{VERSION}/dust-v{VERSION}-x86_64-pc-windows-gnu.zip
+          - id: bornova.numara
+            repo: bornova/numara-calculator
+            url: https://github.com/bornova/numara-calculator/releases/download/v{VERSION}/Numara-{VERSION}.exe https://github.com/bornova/numara-calculator/releases/download/v{VERSION}/Numara-{VERSION}.exe
           - id: CameronSutter.Plottr
             repo: cameronsutter/plottr_electron
             url: https://github.com/cameronsutter/plottr_electron/releases/download/v{VERSION}/Plottr-win-installer-latest.exe
@@ -164,9 +173,15 @@ jobs:
           - id: commercialhaskell.stack
             repo: commercialhaskell/stack
             url: https://github.com/commercialhaskell/stack/releases/download/v{VERSION}/stack-{VERSION}-windows-x86_64-installer.exe
+          - id: Commitly.Commitly
+            repo: glconti/commitly-hub
+            url: https://github.com/glconti/commitly-hub/releases/download/v{VERSION}/Commitly-win-Setup.exe
           - id: Concourse.Fly
             repo: concourse/concourse
             url: https://github.com/concourse/concourse/releases/download/v{VERSION}/fly-{VERSION}-windows-amd64.zip
+          - id: ConfluentInc.Confluent-CLI
+            repo: confluentinc/cli
+            url: https://github.com/confluentinc/cli/releases/download/v{VERSION}/confluent_{VERSION}_windows_amd64.zip
           - id: CoolPlayLin.Installer.LANDrop
             repo: CoolPlayLin/Windows-Setups
             url: https://github.com/CoolPlayLin/Windows-Setups/releases/download/v{VERSION}/LANDrop.Setup.ia32.exe https://github.com/CoolPlayLin/Windows-Setups/releases/download/v{VERSION}/LANDrop.Setup.ia32.exe
@@ -284,6 +299,9 @@ jobs:
           - id: FilenCloud.Filen-cli
             repo: FilenCloudDienste/filen-cli
             url: https://github.com/FilenCloudDienste/filen-cli/releases/download/v{VERSION}/filen-cli-v{VERSION}-win-x64.exe
+          - id: flawiddsouza.Restfox
+            repo: flawiddsouza/Restfox
+            url: https://github.com/flawiddsouza/Restfox/releases/download/v{VERSION}/Restfox-{VERSION}.Setup.exe
           - id: Flowscripter.example-cli
             repo: flowscripter/example-cli
             url: https://github.com/flowscripter/example-cli/releases/download/v{VERSION}/example-cli_Windows_x86_64.zip
@@ -377,6 +395,9 @@ jobs:
           - id: hickford.git-credential-oauth
             repo: hickford/git-credential-oauth
             url: https://github.com/hickford/git-credential-oauth/releases/download/v{VERSION}/git-credential-oauth_{VERSION}_windows_386.zip https://github.com/hickford/git-credential-oauth/releases/download/v{VERSION}/git-credential-oauth_{VERSION}_windows_amd64.zip https://github.com/hickford/git-credential-oauth/releases/download/v{VERSION}/git-credential-oauth_{VERSION}_windows_arm64.zip
+          - id: Hiddify.Next.Beta
+            repo: hiddify/hiddify-next
+            url: https://github.com/hiddify/hiddify-next/releases/download/v{VERSION}/Hiddify-Windows-Setup-x64.exe
           - id: HiroshibaKazuyuki.VOICEVOX.CPU
             repo: VOICEVOX/voicevox
             url: https://github.com/VOICEVOX/voicevox/releases/download/{VERSION}/voicevox-windows-cpu-{VERSION}.zip
@@ -392,6 +413,9 @@ jobs:
           - id: IanWalton.JellyfinMPVShim
             repo: jellyfin/jellyfin-mpv-shim
             url: https://github.com/jellyfin/jellyfin-mpv-shim/releases/download/v{VERSION}/jellyfin-mpv-shim_{VERSION}_installer.exe https://github.com/jellyfin/jellyfin-mpv-shim/releases/download/v{VERSION}/jellyfin-mpv-shim_{VERSION}_installer.exe https://github.com/jellyfin/jellyfin-mpv-shim/releases/download/v{VERSION}/jellyfin-mpv-shim_{VERSION}_installer.exe https://github.com/jellyfin/jellyfin-mpv-shim/releases/download/v{VERSION}/jellyfin-mpv-shim_{VERSION}_installer.exe
+          - id: igoogolx.itun2socks
+            repo: igoogolx/itun2socks
+            url: https://github.com/igoogolx/itun2socks/releases/download/v{VERSION}/itun2socks_{VERSION}_windows_amd64.zip
           - id: igoogolx.lux
             repo: igoogolx/lux
             url: https://github.com/igoogolx/lux/releases/download/v{VERSION}/lux-{VERSION}-windows-setup.exe
@@ -404,9 +428,15 @@ jobs:
           - id: IPEP.Scantailor-Experimental
             repo: ImageProcessing-ElectronicPublications/scantailor-experimental
             url: https://github.com/ImageProcessing-ElectronicPublications/scantailor-experimental/releases/download/{VERSION}/scantailor-experimental-{VERSION}-X86-32-install.exe https://github.com/ImageProcessing-ElectronicPublications/scantailor-experimental/releases/download/{VERSION}/scantailor-experimental-{VERSION}-X86-64-install.exe https://github.com/ImageProcessing-ElectronicPublications/scantailor-experimental/releases/download/{VERSION}/scantailor-experimental-{VERSION}-ARM64-Qt6-install.exe
+          - id: irzyxa.Volume2Portable
+            repo: irzyxa/Volume2
+            url: https://github.com/irzyxa/Volume2/releases/download/v{VERSION}/Setup_Volume2_1_1_9.zip
           - id: Istio.Istio
             repo: istio/istio
             url: https://github.com/istio/istio/releases/download/{VERSION}/istio-{VERSION}-win.zip
+          - id: Jacalz.Rymdport
+            repo: Jacalz/rymdport
+            url: https://github.com/Jacalz/rymdport/releases/download/v{VERSION}/rymdport-v{VERSION}-windows-amd64.zip
           - id: JackenWu.MSearcher
             repo: Jacken-Wu/MSearcher
             url: https://github.com/Jacken-Wu/MSearcher/releases/download/v{VERSION}/MSearcher_setup_{VERSION}_x64.exe
@@ -461,6 +491,9 @@ jobs:
           - id: KeeperSecurity.Commander
             repo: Keeper-Security/Commander
             url: https://github.com/Keeper-Security/Commander/releases/download/v{VERSION}/keeper-commander-windows-v{VERSION}.exe
+          - id: Kitware.CMake
+            repo: Kitware/CMake
+            url: https://github.com/Kitware/CMake/releases/download/v{VERSION}/cmake-{VERSION}-windows-i386.msi https://github.com/Kitware/CMake/releases/download/v{VERSION}/cmake-{VERSION}-windows-x86_64.msi https://github.com/Kitware/CMake/releases/download/v{VERSION}/cmake-{VERSION}-windows-arm64.msi
           - id: Kiwix.Wikivoyage
             repo: kiwix/kiwix-js-pwa
             url: https://github.com/kiwix/kiwix-js-pwa/releases/download/v{VERSION}-Wikivoyage/Wikivoyage-by-Kiwix-{VERSION}-E.appx
@@ -488,6 +521,9 @@ jobs:
           - id: Levminer.Authme
             repo: Levminer/authme
             url: https://github.com/Levminer/authme/releases/download/{VERSION}/authme-{VERSION}-windows-x64.msi
+          - id: LGUG2Z.komorebi.Nightly
+            repo: LGUG2Z/komorebi
+            url: https://github.com/LGUG2Z/komorebi/releases/download/nightly/komorebi-nightly-x86_64.msi
           - id: liberodark.ODrive
             repo: liberodark/ODrive
             url: https://github.com/liberodark/ODrive/releases/download/{VERSION}/OpenDrive.Setup.{VERSION}.exe
@@ -506,6 +542,9 @@ jobs:
           - id: LocalStack.localstack-cli
             repo: localstack/localstack-cli
             url: https://github.com/localstack/localstack-cli/releases/download/v{VERSION}/localstack-cli-{VERSION}-windows-amd64-onefile.zip
+          - id: loft-sh.vcluster
+            repo: loft-sh/vcluster
+            url: https://github.com/loft-sh/vcluster/releases/download/v{VERSION}/vcluster-windows-amd64.exe
           - id: lostindark.DriverStoreExplorer
             repo: lostindark/DriverStoreExplorer
             url: https://github.com/lostindark/DriverStoreExplorer/releases/download/v{VERSION}/DriverStoreExplorer.v{VERSION}.zip
@@ -530,6 +569,9 @@ jobs:
           - id: MichaelDiCarlo.PostyBirb
             repo: mvdicarlo/postybirb-plus
             url: https://github.com/mvdicarlo/postybirb-plus/releases/download/v{VERSION}/postybirb-plus-setup-{VERSION}.exe
+          - id: Micronaut.Launch
+            repo: micronaut-projects/micronaut-starter
+            url: https://github.com/micronaut-projects/micronaut-starter/releases/download/v{VERSION}/mn-win-amd64-v{VERSION}.zip
           - id: Microsoft.Azure.IoTExplorer
             repo: Azure/azure-iot-explorer
             url: https://github.com/Azure/azure-iot-explorer/releases/download/v{VERSION}/Azure.IoT.Explorer.Preview.{VERSION}.msi
@@ -611,6 +653,9 @@ jobs:
           - id: Odamex.Odamex
             repo: odamex/odamex
             url: https://github.com/odamex/odamex/releases/download/{VERSION}/odamex-win-{VERSION}.exe
+          - id: oleg-shilo.cs-script
+            repo: oleg-shilo/cs-script
+            url: https://github.com/oleg-shilo/cs-script/releases/download/v{VERSION}/cs-script.win.v{VERSION}.zip
           - id: oleg-shilo.mkshim
             repo: oleg-shilo/mkshim
             url: https://github.com/oleg-shilo/mkshim/releases/download/v{VERSION}/mkshim.zip
@@ -710,6 +755,9 @@ jobs:
           - id: QGIS.QField
             repo: opengisch/QField
             url: https://github.com/opengisch/QField/releases/download/v{VERSION}/qfield-v{VERSION}-windows-x64.exe
+          - id: quotient-im.Quaternion
+            repo: quotient-im/Quaternion
+            url: https://github.com/quotient-im/Quaternion/releases/download/{VERSION}/quaternion-{VERSION}.zip
           - id: Radius.Radius
             repo: radius-project/radius
             url: https://github.com/radius-project/radius/releases/download/v{VERSION}/rad_windows_amd64.exe
@@ -722,54 +770,6 @@ jobs:
           - id: raphamorim.rio
             repo: raphamorim/rio
             url: https://github.com/raphamorim/rio/releases/download/v{VERSION}/Rio-installer-x86_64.msi https://github.com/raphamorim/rio/releases/download/v{VERSION}/Rio-installer-aarch64.msi
-          - id: rejetto.hfs
-            repo: rejetto/hfs
-            url: https://github.com/rejetto/hfs/releases/download/v{VERSION}/hfs-windows-x64-{VERSION}.zip
-          - id: restic.restic
-            repo: restic/restic
-            url: https://github.com/restic/restic/releases/download/v{VERSION}/restic_{VERSION}_windows_386.zip https://github.com/restic/restic/releases/download/v{VERSION}/restic_{VERSION}_windows_amd64.zip
-          - id: rickbutton.workspacer.beta
-            repo: workspacer/workspacer
-            url: https://github.com/workspacer/workspacer/releases/download/unstable/workspacer-latest-unstable.msi
-          - id: RivaFarabi.Deckboard
-            repo: rivafarabi/deckboard
-            url: https://github.com/rivafarabi/deckboard/releases/download/v{VERSION}/Deckboard-Setup-{VERSION}.exe https://github.com/rivafarabi/deckboard/releases/download/v{VERSION}/Deckboard-Setup-{VERSION}.exe
-          - id: Romanitho.Winget-AutoUpdate
-            repo: Romanitho/Winget-AutoUpdate
-            url: https://github.com/Romanitho/Winget-AutoUpdate/releases/download/v{VERSION}/WAU.msi
-          - id: RoslynPad.RoslynPad
-            repo: roslynpad/roslynpad
-            url: https://github.com/roslynpad/roslynpad/releases/download/{VERSION}/RoslynPad-windows-x64.zip https://github.com/roslynpad/roslynpad/releases/download/{VERSION}/RoslynPad-windows-arm64.zip
-          - id: Rye.Rye
-            repo: astral-sh/rye
-            url: https://github.com/astral-sh/rye/releases/download/{VERSION}/rye-x86-windows.exe https://github.com/astral-sh/rye/releases/download/{VERSION}/rye-x86_64-windows.exe
-          - id: SaeraSoft.CaesiumImageCompressor
-            repo: Lymphatus/caesium-image-compressor
-            url: https://github.com/Lymphatus/caesium-image-compressor/releases/download/v{VERSION}/caesium-image-compressor-{VERSION}-win-setup.exe
-          - id: SagMeinenNamen.OpenStoreInstaller
-            repo: SagMeinenNamen/OpenStore
-            url: https://github.com/SagMeinenNamen/OpenStore/raw/main/OpenStoreInstaller.exe
-          - id: SagMeinenNamen.TypingTest
-            repo: SagMeinenNamen/TypingTest
-            url: https://github.com/SagMeinenNamen/TypingTest/raw/main/TypingTest.exe
-          - id: Sayuri.FFFTP
-            repo: ffftp/ffftp
-            url: https://github.com/ffftp/ffftp/releases/download/v{VERSION}/ffftp-v{VERSION}-x64.msi https://github.com/ffftp/ffftp/releases/download/v{VERSION}/ffftp-v{VERSION}-x86.msi
-          - id: schollz.croc
-            repo: schollz/croc
-            url: https://github.com/schollz/croc/releases/download/v{VERSION}/croc_v{VERSION}_Windows-32bit.zip https://github.com/schollz/croc/releases/download/v{VERSION}/croc_v{VERSION}_Windows-64bit.zip https://github.com/schollz/croc/releases/download/v{VERSION}/croc_v{VERSION}_Windows-ARM.zip https://github.com/schollz/croc/releases/download/v{VERSION}/croc_v{VERSION}_Windows-ARM64.zip
-          - id: sebescudie.GammaLauncher
-            repo: sebescudie/GammaLauncher
-            url: https://github.com/sebescudie/GammaLauncher/releases/download/{VERSION}/gammalauncher_{VERSION}_installer.exe
-          - id: seerge.g-helper
-            repo: seerge/g-helper
-            url: https://github.com/seerge/g-helper/releases/download/v{VERSION}/GHelper.exe
-          - id: seerge.g-helper.PreRelease
-            repo: seerge/g-helper
-            url: https://github.com/seerge/g-helper/releases/download/v{VERSION}/GHelper.zip
-          - id: shawnbanasick.kade
-            repo: shawnbanasick/kade
-            url: https://github.com/shawnbanasick/kade/releases/download/v{VERSION}/KADE.Setup.{VERSION}.exe
 
     steps:
     - name: Update Packages
