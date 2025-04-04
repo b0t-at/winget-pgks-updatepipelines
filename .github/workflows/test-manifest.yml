@@ -17,7 +17,7 @@ on:
 
 jobs:
   test:
-    name: Test manifest
+    name: "Test manifest - PR #${{ inputs.PRNumber }}"
     runs-on: windows-latest
     timeout-minutes: 10
     steps:
