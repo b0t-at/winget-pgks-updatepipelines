@@ -38,6 +38,9 @@ jobs:
           - id: AdGuard.dnsproxy
             repo: AdguardTeam/dnsproxy
             url: https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-386-v{VERSION}.zip https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-amd64-v{VERSION}.zip https://github.com/AdguardTeam/dnsproxy/releases/download/v{VERSION}/dnsproxy-windows-arm64-v{VERSION}.zip
+          - id: aimotrens.impulsar
+            repo: aimotrens/impulsar
+            url: https://github.com/aimotrens/impulsar/releases/download/v{VERSION}/impulsar_windows_amd64.zip https://github.com/aimotrens/impulsar/releases/download/v{VERSION}/impulsar_windows_arm64.zip
           - id: aislx.FlameLauncher
             repo: theflames-presence/flame-launcher
             url: https://github.com/theflames-presence/flame-launcher/releases/download/v{VERSION}/Flame-Launcher.-v{VERSION}.-setup-x64.exe
@@ -77,6 +80,9 @@ jobs:
           - id: argoproj.argocd
             repo: argoproj/argo-cd
             url: https://github.com/argoproj/argo-cd/releases/download/v{VERSION}/argocd-windows-amd64.exe
+          - id: Aries-Sciences-LLC.AI-Chess
+            repo: Aries-Sciences-LLC/AI-Chess
+            url: https://github.com/Aries-Sciences-LLC/AI-Chess/releases/download/{VERSION}/AI.Chess.Game.Installer.exe
           - id: Aserto.DSLoad
             repo: aserto-dev/ds-load
             url: https://github.com/aserto-dev/ds-load/releases/download/v{VERSION}/ds-load_{VERSION}_windows_x86_64.zip
@@ -101,33 +107,57 @@ jobs:
           - id: Baulk.Baulk
             repo: baulk/baulk
             url: https://github.com/baulk/baulk/releases/download/v{VERSION}/BaulkSetup-arm64.exe https://github.com/baulk/baulk/releases/download/v{VERSION}/BaulkSetup-x64.exe https://github.com/baulk/baulk/releases/download/v{VERSION}/BaulkUserSetup-arm64.exe https://github.com/baulk/baulk/releases/download/v{VERSION}/BaulkUserSetup-x64.exe
+          - id: bcssov.IronyModManager
+            repo: bcssov/IronyModManager
+            url: https://github.com/bcssov/IronyModManager/releases/download/v{VERSION}/win-x64-setup.zip https://github.com/bcssov/IronyModManager/releases/download/v{VERSION}/win-x64-setup.zip
           - id: benaclejames.VRCFaceTracking
             repo: benaclejames/VRCFaceTracking
             url: https://github.com/benaclejames/VRCFaceTracking/releases/download/{VERSION}/VRCFaceTracking_{VERSION}_x64.msix
           - id: Betaflight.Betaflight-Configurator
             repo: betaflight/betaflight-configurator
             url: https://github.com/betaflight/betaflight-configurator/releases/download/{VERSION}/betaflight-configurator_{VERSION}_win64-installer.exe
+          - id: BlueMystical.EDHM
+            repo: BlueMystical/EDHM_UI
+            url: https://github.com/BlueMystical/EDHM_UI/releases/download/v{VERSION}/EDHM_UI_Setup.msi
           - id: bootandy.dust
             repo: bootandy/dust
             url: https://github.com/bootandy/dust/releases/download/v{VERSION}/dust-v{VERSION}-i686-pc-windows-gnu.zip https://github.com/bootandy/dust/releases/download/v{VERSION}/dust-v{VERSION}-x86_64-pc-windows-gnu.zip
+          - id: CameronSutter.Plottr
+            repo: cameronsutter/plottr_electron
+            url: https://github.com/cameronsutter/plottr_electron/releases/download/v{VERSION}/Plottr-win-installer-latest.exe
           - id: CargoLambda.CargoLambda
             repo: cargo-lambda/cargo-lambda
             url: https://github.com/cargo-lambda/cargo-lambda/releases/download/v{VERSION}/cargo-lambda-v{VERSION}.windows-x64.zip
+          - id: Carvel.ytt
+            repo: carvel-dev/ytt
+            url: https://github.com/carvel-dev/ytt/releases/download/v{VERSION}/ytt-windows-amd64.exe https://github.com/carvel-dev/ytt/releases/download/v{VERSION}/ytt-windows-arm64.exe
+          - id: CharlesMilette.TranslucentTB
+            repo: TranslucentTB/TranslucentTB
+            url: https://github.com/TranslucentTB/TranslucentTB/releases/download/{VERSION}/bundle.msixbundle https://github.com/TranslucentTB/TranslucentTB/releases/download/{VERSION}/bundle.msixbundle
           - id: ChiaNetwork.GUIforChiaBlockchain
             repo: Chia-Network/chia-blockchain
             url: https://github.com/Chia-Network/chia-blockchain/releases/download/{VERSION}/ChiaSetup-{VERSION}.exe
           - id: chylex.DiscordHistoryTracker
             repo: chylex/Discord-History-Tracker
             url: https://github.com/chylex/Discord-History-Tracker/releases/download/v{VERSION}/win-x64.zip
+          - id: Cilium.CiliumCLI
+            repo: cilium/cilium-cli
+            url: https://github.com/cilium/cilium-cli/releases/download/v{VERSION}/cilium-windows-amd64.zip https://github.com/cilium/cilium-cli/releases/download/v{VERSION}/cilium-windows-arm64.zip
           - id: cinnyapp.cinny-desktop
             repo: cinnyapp/cinny-desktop
             url: https://github.com/cinnyapp/cinny-desktop/releases/download/v{VERSION}/Cinny_desktop-x86_64.msi
           - id: CircleCI.CLI
             repo: CircleCI-Public/circleci-cli
             url: https://github.com/CircleCI-Public/circleci-cli/releases/download/v{VERSION}/circleci-cli_{VERSION}_windows_amd64.zip
+          - id: ciromattia.KCC
+            repo: ciromattia/kcc
+            url: https://github.com/ciromattia/kcc/releases/download/v{VERSION}/KCC_{VERSION}.exe
           - id: ClockworkMod.UniversalADBDriver
             repo: koush/adb.clockworkmod.com
             url: https://github.com/koush/adb.clockworkmod.com/releases/download/v{VERSION}/UniversalAdbDriverSetup.msi
+          - id: cobalt-org.cobalt
+            repo: cobalt-org/cobalt.rs
+            url: https://github.com/cobalt-org/cobalt.rs/releases/download/v{VERSION}/cobalt-v{VERSION}-x86_64-pc-windows-msvc.zip
           - id: Codectory.AutoActions
             repo: Codectory/AutoActions
             url: https://github.com/Codectory/AutoActions/releases/download/{VERSION}/Release_AutoActions_{VERSION}_x86.zip https://github.com/Codectory/AutoActions/releases/download/{VERSION}/Release_AutoActions_{VERSION}_x64.zip
@@ -137,6 +167,12 @@ jobs:
           - id: Concourse.Fly
             repo: concourse/concourse
             url: https://github.com/concourse/concourse/releases/download/v{VERSION}/fly-{VERSION}-windows-amd64.zip
+          - id: CoolPlayLin.Installer.LANDrop
+            repo: CoolPlayLin/Windows-Setups
+            url: https://github.com/CoolPlayLin/Windows-Setups/releases/download/v{VERSION}/LANDrop.Setup.ia32.exe https://github.com/CoolPlayLin/Windows-Setups/releases/download/v{VERSION}/LANDrop.Setup.ia32.exe
+          - id: CorporateClashCrew.ToontownCorporateClash
+            repo: CorporateClash/pyside2-releases
+            url: https://github.com/CorporateClash/pyside2-releases/releases/download/v{VERSION}/installer.exe
           - id: craftablescience.VPKEdit
             repo: craftablescience/VPKEdit
             url: https://github.com/craftablescience/VPKEdit/releases/download/v{VERSION}/VPKEdit-Windows-Installer-msvc-Release.zip
@@ -145,13 +181,31 @@ jobs:
             url: https://github.com/creativeprojects/resticprofile/releases/download/v{VERSION}/resticprofile_{VERSION}_windows_386.zip https://github.com/creativeprojects/resticprofile/releases/download/v{VERSION}/resticprofile_{VERSION}_windows_amd64.zip https://github.com/creativeprojects/resticprofile/releases/download/v{VERSION}/resticprofile_{VERSION}_windows_arm64.zip
           - id: cristiano100.roforge
             repo: cristiano100/roforge
-            url: https://github.com/cristiano100/roforge/releases/latest/download/Roforge.exe
+            url: https://github.com/Cristiano100/roforge/releases/download/v{VERSION}/Roforge.exe
+          - id: CryptoPro.Chromium-Gost
+            repo: deemru/Chromium-Gost
+            url: https://github.com/deemru/Chromium-Gost/releases/download/{VERSION}/chromium-gost-{VERSION}-windows-386-installer.exe https://github.com/deemru/Chromium-Gost/releases/download/{VERSION}/chromium-gost-{VERSION}-windows-386-installer.exe https://github.com/deemru/Chromium-Gost/releases/download/{VERSION}/chromium-gost-{VERSION}-windows-amd64-installer.exe https://github.com/deemru/Chromium-Gost/releases/download/{VERSION}/chromium-gost-{VERSION}-windows-amd64-installer.exe
           - id: CueLang.Cue
             repo: cue-lang/cue
             url: https://github.com/cue-lang/cue/releases/download/v{VERSION}/cue_v{VERSION}_windows_amd64.zip https://github.com/cue-lang/cue/releases/download/v{VERSION}/cue_v{VERSION}_windows_arm64.zip
+          - id: Curiosity.Curiosity
+            repo: curiosity-ai/curiosity-app-win
+            url: https://github.com/curiosity-ai/curiosity-app-win/releases/download/v{VERSION}/Curiosity-Setup-{VERSION}.exe
+          - id: DataPLANT.ArcCommander
+            repo: nfdi4plants/arcCommander
+            url: https://github.com/nfdi4plants/arcCommander/releases/download/Installer_v{VERSION}/ArcCommanderInstaller.msi
+          - id: dbrgn.tealdeer
+            repo: dbrgn/tealdeer
+            url: https://github.com/dbrgn/tealdeer/releases/download/v{VERSION}/tealdeer-windows-x86_64-msvc.exe
           - id: DDEVFoundation.DDEV
             repo: ddev/ddev
             url: https://github.com/ddev/ddev/releases/download/v{VERSION}/ddev_windows_amd64_installer.v{VERSION}.exe https://github.com/ddev/ddev/releases/download/v{VERSION}/ddev_windows_arm64_installer.v{VERSION}.exe
+          - id: Decred.Decrediton
+            repo: decred/decred-binaries
+            url: https://github.com/decred/decred-binaries/releases/download/v{VERSION}/decrediton-windows-amd64-v{VERSION}.exe
+          - id: deep5050.qikQR
+            repo: deep5050/qikQR
+            url: https://github.com/deep5050/qikQR/releases/download/v{VERSION}/qikqr-{VERSION}.exe
           - id: defi.defi
             repo: BirthdayResearch/defichain-app
             url: https://github.com/BirthdayResearch/defichain-app/releases/download/v{VERSION}/DeFi-Wallet-Setup-{VERSION}.exe https://github.com/BirthdayResearch/defichain-app/releases/download/v{VERSION}/DeFi-Wallet-Setup-{VERSION}.exe
@@ -173,12 +227,24 @@ jobs:
           - id: dsymbol.yt-dlp-gui
             repo: dsymbol/yt-dlp-gui
             url: https://github.com/dsymbol/yt-dlp-gui/releases/download/{VERSION}/yt-dlp-gui-win64.zip
+          - id: DuckStudio.Sundry
+            repo: DuckDuckStudio/Sundry
+            url: https://github.com/DuckDuckStudio/Sundry/releases/download/{VERSION}/Sundry_Setup.exe https://github.com/DuckDuckStudio/Sundry/releases/download/{VERSION}/Sundry_Setup.exe https://github.com/DuckDuckStudio/Sundry/releases/download/{VERSION}/Sundry_Setup.exe https://github.com/DuckDuckStudio/Sundry/releases/download/{VERSION}/Sundry_Setup.exe https://github.com/DuckDuckStudio/Sundry/releases/download/{VERSION}/Sundry_Setup.exe
           - id: Dystroy.broot
             repo: Canop/broot
             url: https://github.com/Canop/broot/releases/download/v{VERSION}/broot_{VERSION}.zip
+          - id: eask.cli
+            repo: emacs-eask/cli
+            url: https://github.com/emacs-eask/cli/releases/download/{VERSION}/eask_{VERSION}_win-x64.zip https://github.com/emacs-eask/cli/releases/download/{VERSION}/eask_{VERSION}_win-arm64.zip
           - id: EdgeTX.Companion
             repo: EdgeTX/edgetx
             url: https://github.com/EdgeTX/edgetx/releases/download/v{VERSION}/edgetx-cpn-win64-v{VERSION}.zip
+          - id: eksctl.eksctl
+            repo: eksctl-io/eksctl
+            url: https://github.com/eksctl-io/eksctl/releases/download/v{VERSION}/eksctl_Windows_amd64.zip https://github.com/eksctl-io/eksctl/releases/download/v{VERSION}/eksctl_Windows_arm64.zip
+          - id: electerm.electerm
+            repo: electerm/electerm
+            url: https://github.com/electerm/electerm/releases/download/v{VERSION}/electerm-{VERSION}-win-x64-installer.exe https://github.com/electerm/electerm/releases/download/v{VERSION}/electerm-{VERSION}-win-x64-installer.exe
           - id: ElectronCommunity.ElectronFiddle
             repo: electron/fiddle
             url: https://github.com/electron/fiddle/releases/download/v{VERSION}/electron-fiddle-{VERSION}-win32-ia32-setup.exe https://github.com/electron/fiddle/releases/download/v{VERSION}/electron-fiddle-{VERSION}-win32-x64-setup.exe
@@ -197,6 +263,9 @@ jobs:
           - id: errata-ai.Vale
             repo: errata-ai/vale
             url: https://github.com/errata-ai/vale/releases/download/v{VERSION}/vale_{VERSION}_Windows_64-bit.zip
+          - id: EtternaProject.EtternaGame
+            repo: etternagame/etterna
+            url: https://github.com/etternagame/etterna/releases/download/v{VERSION}/Etterna-{VERSION}-win32.exe https://github.com/etternagame/etterna/releases/download/v{VERSION}/Etterna-{VERSION}-win64.exe
           - id: f4exb.sdrangel
             repo: f4exb/sdrangel
             url: https://github.com/f4exb/sdrangel/releases/download/v{VERSION}/sdrangel-{VERSION}-win64.exe
@@ -206,15 +275,27 @@ jobs:
           - id: facebook.watchman
             repo: facebook/watchman
             url: https://github.com/facebook/watchman/releases/download/v{VERSION}/watchman-v{VERSION}-windows.zip
+          - id: fairdataihub.SODA-for-SPARC
+            repo: fairdataihub/SODA-for-SPARC
+            url: https://github.com/fairdataihub/SODA-for-SPARC/releases/download/v{VERSION}/soda-for-sparc-{VERSION}-setup.exe
           - id: Falcosoft.VSTMidiDriver
             repo: Falcosoft/vstdriver
             url: https://github.com/Falcosoft/vstdriver/releases/download/v{VERSION}/vstmididrv.exe
           - id: FilenCloud.Filen-cli
             repo: FilenCloudDienste/filen-cli
             url: https://github.com/FilenCloudDienste/filen-cli/releases/download/v{VERSION}/filen-cli-v{VERSION}-win-x64.exe
+          - id: Flowscripter.example-cli
+            repo: flowscripter/example-cli
+            url: https://github.com/flowscripter/example-cli/releases/download/v{VERSION}/example-cli_Windows_x86_64.zip
           - id: Fly-io.flyctl
             repo: superfly/flyctl
             url: https://github.com/superfly/flyctl/releases/download/v{VERSION}/flyctl_{VERSION}_Windows_x86_64.zip https://github.com/superfly/flyctl/releases/download/v{VERSION}/flyctl_{VERSION}_Windows_arm64.zip
+          - id: flyingpie.windows-terminal-quake.prerelease
+            repo: flyingpie/windows-terminal-quake
+            url: https://github.com/flyingpie/windows-terminal-quake/releases/download/v{VERSION}/win-x64_self-contained.zip
+          - id: Forkgram.Forkgram
+            repo: forkgram/tdesktop
+            url: https://github.com/forkgram/tdesktop/releases/download/v{VERSION}/Telegram.zip
           - id: FOSSA.FOSSA-cli
             repo: fossas/fossa-cli
             url: https://github.com/fossas/fossa-cli/releases/download/v{VERSION}/fossa_{VERSION}_windows_amd64.zip
@@ -224,6 +305,9 @@ jobs:
           - id: FrankBijnen.ExifToolGUI
             repo: FrankBijnen/ExifToolGui
             url: https://github.com/FrankBijnen/ExifToolGui/releases/download/V{VERSION}/ExifToolGUI.exe https://github.com/FrankBijnen/ExifToolGui/releases/download/V{VERSION}/ExifToolGUI_X64.exe
+          - id: fselect.fselect
+            repo: jhspetersson/fselect
+            url: https://github.com/jhspetersson/fselect/releases/download/{VERSION}/fselect-x86_64-win.zip
           - id: GaetanSencie.Retro-asteroid-war
             repo: STENS66/Retro-asteroid-war
             url: https://github.com/STENS66/Retro-asteroid-war/releases/download/V{VERSION}/Retro-asteroid-war.exe
@@ -242,6 +326,9 @@ jobs:
           - id: GitKraken.cli
             repo: gitkraken/gk-cli
             url: https://github.com/gitkraken/gk-cli/releases/download/v{VERSION}/gk_{VERSION}_windows_arm64.zip https://github.com/gitkraken/gk-cli/releases/download/v{VERSION}/gk_{VERSION}_windows_amd64.zip https://github.com/gitkraken/gk-cli/releases/download/v{VERSION}/gk_{VERSION}_windows_386.zip
+          - id: GiulioSorrentino.wheelofnumfortune.avalonia
+            repo: GiulianoSpaghetti/WheelOfNumFortune.Material
+            url: https://github.com/GiulianoSpaghetti/WheelOfNumFortune.Material/releases/download/0.4/wheelofnumfortune.avalonia-{VERSION}-material-amd64.msi https://github.com/GiulianoSpaghetti/WheelOfNumFortune.Material/releases/download/0.4/wheelofnumfortune.avalonia-{VERSION}-material-arm64.msi
           - id: Gleam.Gleam
             repo: gleam-lang/gleam
             url: https://github.com/gleam-lang/gleam/releases/download/v{VERSION}/gleam-v{VERSION}-x86_64-pc-windows-msvc.zip
@@ -275,6 +362,9 @@ jobs:
           - id: h3poteto.fedistar
             repo: h3poteto/fedistar
             url: https://github.com/h3poteto/fedistar/releases/download/v{VERSION}/fedistar_{VERSION}_x64_en-US.msi
+          - id: h3poteto.whalebird-desktop
+            repo: h3poteto/whalebird-desktop
+            url: https://github.com/h3poteto/whalebird-desktop/releases/download/v{VERSION}/Whalebird-{VERSION}-win-x64.exe https://github.com/h3poteto/whalebird-desktop/releases/download/v{VERSION}/Whalebird-{VERSION}-win-x64.exe
           - id: Hashicorp.Vault
             repo: hashicorp/vault
             url: https://releases.hashicorp.com/vault/{VERSION}/vault_{VERSION}_windows_amd64.zip https://releases.hashicorp.com/vault/{VERSION}/vault_{VERSION}_windows_386.zip
@@ -299,6 +389,9 @@ jobs:
           - id: houmain.keymapper
             repo: houmain/keymapper
             url: https://github.com/houmain/keymapper/releases/download/{VERSION}/keymapper-{VERSION}-Windows-x86_64.msi
+          - id: IanWalton.JellyfinMPVShim
+            repo: jellyfin/jellyfin-mpv-shim
+            url: https://github.com/jellyfin/jellyfin-mpv-shim/releases/download/v{VERSION}/jellyfin-mpv-shim_{VERSION}_installer.exe https://github.com/jellyfin/jellyfin-mpv-shim/releases/download/v{VERSION}/jellyfin-mpv-shim_{VERSION}_installer.exe https://github.com/jellyfin/jellyfin-mpv-shim/releases/download/v{VERSION}/jellyfin-mpv-shim_{VERSION}_installer.exe https://github.com/jellyfin/jellyfin-mpv-shim/releases/download/v{VERSION}/jellyfin-mpv-shim_{VERSION}_installer.exe
           - id: igoogolx.lux
             repo: igoogolx/lux
             url: https://github.com/igoogolx/lux/releases/download/v{VERSION}/lux-{VERSION}-windows-setup.exe
@@ -311,6 +404,12 @@ jobs:
           - id: IPEP.Scantailor-Experimental
             repo: ImageProcessing-ElectronicPublications/scantailor-experimental
             url: https://github.com/ImageProcessing-ElectronicPublications/scantailor-experimental/releases/download/{VERSION}/scantailor-experimental-{VERSION}-X86-32-install.exe https://github.com/ImageProcessing-ElectronicPublications/scantailor-experimental/releases/download/{VERSION}/scantailor-experimental-{VERSION}-X86-64-install.exe https://github.com/ImageProcessing-ElectronicPublications/scantailor-experimental/releases/download/{VERSION}/scantailor-experimental-{VERSION}-ARM64-Qt6-install.exe
+          - id: Istio.Istio
+            repo: istio/istio
+            url: https://github.com/istio/istio/releases/download/{VERSION}/istio-{VERSION}-win.zip
+          - id: JackenWu.MSearcher
+            repo: Jacken-Wu/MSearcher
+            url: https://github.com/Jacken-Wu/MSearcher/releases/download/v{VERSION}/MSearcher_setup_{VERSION}_x64.exe
           - id: JackieLiu.NotepadsApp
             repo: 0x7c13/Notepads
             url: https://github.com/0x7c13/Notepads/releases/download/v{VERSION}/Notepads_{VERSION}_x86_x64_arm64.msixbundle https://github.com/0x7c13/Notepads/releases/download/v{VERSION}/Notepads_{VERSION}_x86_x64_arm64.msixbundle https://github.com/0x7c13/Notepads/releases/download/v{VERSION}/Notepads_{VERSION}_x86_x64_arm64.msixbundle
@@ -344,9 +443,15 @@ jobs:
           - id: JGraph.Draw
             repo: jgraph/drawio-desktop
             url: https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-ia32-{VERSION}-windows-32bit-installer.exe https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-{VERSION}-windows-installer.exe https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-arm64-{VERSION}-windows-arm64-installer.exe https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-ia32-{VERSION}-windows-32bit-no-installer.exe https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-{VERSION}-windows-no-installer.exe https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-arm64-{VERSION}-windows-arm64-no-installer.exe
+          - id: JohannesMillan.superProductivity
+            repo: johannesjo/super-productivity
+            url: https://github.com/johannesjo/super-productivity/releases/download/v{VERSION}/Super-Productivity-Setup.exe https://github.com/johannesjo/super-productivity/releases/download/v{VERSION}/Super-Productivity-Setup-x64.exe https://github.com/johannesjo/super-productivity/releases/download/v{VERSION}/Super-Productivity-Setup-arm64.exe
           - id: Joplin.Joplin.Pre-release
             repo: laurent22/joplin
             url: https://github.com/laurent22/joplin/releases/download/v{VERSION}/Joplin-Setup-{VERSION}.exe https://github.com/laurent22/joplin/releases/download/v{VERSION}/Joplin-Setup-{VERSION}.exe https://github.com/laurent22/joplin/releases/download/v{VERSION}/Joplin-Setup-{VERSION}.exe https://github.com/laurent22/joplin/releases/download/v{VERSION}/Joplin-Setup-{VERSION}.exe
+          - id: JosephFinney.Text-Grab
+            repo: TheJoeFin/Text-Grab
+            url: https://github.com/TheJoeFin/Text-Grab/releases/download/v{VERSION}/Text-Grab.exe
           - id: JReleaser.jreleaser
             repo: jreleaser/jreleaser
             url: https://github.com/jreleaser/jreleaser/releases/download/v{VERSION}/jreleaser-installer-{VERSION}-windows-x86_64.msi
@@ -377,6 +482,9 @@ jobs:
           - id: Lauriethefish.QuestPatcher
             repo: Lauriethefish/QuestPatcher
             url: https://github.com/Lauriethefish/QuestPatcher/releases/download/{VERSION}/QuestPatcher-windows.exe https://github.com/Lauriethefish/QuestPatcher/releases/download/{VERSION}/QuestPatcher-windows.exe
+          - id: LeNgocKhoa.Laragon
+            repo: leokhoa/laragon
+            url: https://github.com/leokhoa/laragon/releases/download/{VERSION}/laragon-wamp.exe
           - id: Levminer.Authme
             repo: Levminer/authme
             url: https://github.com/Levminer/authme/releases/download/{VERSION}/authme-{VERSION}-windows-x64.msi
@@ -389,6 +497,9 @@ jobs:
           - id: LibreHardwareMonitor.LibreHardwareMonitor
             repo: LibreHardwareMonitor/LibreHardwareMonitor
             url: https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/releases/download/v{VERSION}/LibreHardwareMonitor-net472.zip
+          - id: LittleTijn.SpookyView
+            repo: littletijn/spooky-view
+            url: https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_{VERSION}_x64_Signed_Installer.msi https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_{VERSION}_x86_Signed_Installer.msi https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_{VERSION}_ARM64_Signed_Installer.msi https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_{VERSION}_x64_Signed_Portable.exe https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_{VERSION}_x86_Signed_Portable.exe https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_{VERSION}_ARM64_Signed_Portable.exe
           - id: LiveKit.LiveKitCLI
             repo: livekit/livekit-cli
             url: https://github.com/livekit/livekit-cli/releases/download/v{VERSION}/lk_{VERSION}_windows_arm64.zip https://github.com/livekit/livekit-cli/releases/download/v{VERSION}/lk_{VERSION}_windows_amd64.zip https://github.com/livekit/livekit-cli/releases/download/v{VERSION}/lk_{VERSION}_windows_arm.zip
@@ -401,21 +512,33 @@ jobs:
           - id: LowLevelDesign.ProcessGovernor
             repo: lowleveldesign/process-governor
             url: https://github.com/lowleveldesign/process-governor/releases/download/{VERSION}/procgov.zip
+          - id: MarceloLvCabral.BrightScriptEmulator
+            repo: lvcabral/brs-emu
+            url: https://github.com/lvcabral/brs-emu/releases/download/v{VERSION}-emu/brsEmuApp-{VERSION}-windows.exe
           - id: marha.VcXsrv
             repo: marchaesen/vcxsrv
             url: https://github.com/marchaesen/vcxsrv/releases/download/{VERSION}/vcxsrv-64.{VERSION}.0.installer.exe
+          - id: Martchus.syncthingctl
+            repo: Martchus/syncthingtray
+            url: https://github.com/Martchus/syncthingtray/releases/download/v{VERSION}/syncthingctl-qt5-{VERSION}-i686-w64-mingw32.exe.zip https://github.com/Martchus/syncthingtray/releases/download/v{VERSION}/syncthingctl-{VERSION}-x86_64-w64-mingw32.exe.zip
           - id: martinvonz.jj
             repo: martinvonz/jj
             url: https://github.com/martinvonz/jj/releases/download/v{VERSION}/jj-v{VERSION}-x86_64-pc-windows-msvc.zip
           - id: mentebinaria.retoolkit
             repo: mentebinaria/retoolkit
             url: https://github.com/mentebinaria/retoolkit/releases/download/{VERSION}/retoolkit_{VERSION}_setup.exe
+          - id: MichaelDiCarlo.PostyBirb
+            repo: mvdicarlo/postybirb-plus
+            url: https://github.com/mvdicarlo/postybirb-plus/releases/download/v{VERSION}/postybirb-plus-setup-{VERSION}.exe
           - id: Microsoft.Azure.IoTExplorer
             repo: Azure/azure-iot-explorer
             url: https://github.com/Azure/azure-iot-explorer/releases/download/v{VERSION}/Azure.IoT.Explorer.Preview.{VERSION}.msi
           - id: Microsoft.Azure.Kubelogin
             repo: Azure/kubelogin
             url: https://github.com/Azure/kubelogin/releases/download/v{VERSION}/kubelogin-win-amd64.zip
+          - id: Microsoft.bitsmanager
+            repo: microsoft/BITS-Manager
+            url: https://github.com/microsoft/BITS-Manager/releases/download/v{VERSION}/BITSManager.msi
           - id: Microsoft.DotNet.UninstallTool
             repo: dotnet/cli-lab
             url: https://github.com/dotnet/cli-lab/releases/download/{VERSION}/dotnet-core-uninstall-{VERSION}.msi
@@ -434,30 +557,69 @@ jobs:
           - id: MilkShift.GoofCord
             repo: Milkshiift/GoofCord
             url: https://github.com/Milkshiift/GoofCord/releases/download/v{VERSION}/GoofCord-Setup-ia32.exe https://github.com/Milkshiift/GoofCord/releases/download/v{VERSION}/GoofCord-Setup-x64.exe https://github.com/Milkshiift/GoofCord/releases/download/v{VERSION}/GoofCord-Setup-arm64.exe
+          - id: MilkyTracker.MilkyTracker
+            repo: milkytracker/MilkyTracker
+            url: https://github.com/milkytracker/MilkyTracker/releases/download/v{VERSION}/milkytracker-{VERSION}-win32.zip https://github.com/milkytracker/MilkyTracker/releases/download/v{VERSION}/milkytracker-{VERSION}-win64.zip
           - id: Min.Min
             repo: minbrowser/min
             url: https://github.com/minbrowser/min/releases/download/v{VERSION}/min-{VERSION}-ia32-setup.exe
           - id: mitmproxy.mitmproxy
             repo: mitmproxy/mitmproxy
             url: https://downloads.mitmproxy.org/{VERSION}/mitmproxy-{VERSION}-windows-x86_64-installer.exe
+          - id: mmanela.markdownoutlook
+            repo: mmanela/MarkdownOutlook
+            url: https://github.com/mmanela/MarkdownOutlook/releases/download/v{VERSION}/MarkdownOutlookSetup.msi
           - id: MongoDB.Compass.Community
             repo: mongodb-js/compass
             url: https://github.com/mongodb-js/compass/releases/download/v{VERSION}/mongodb-compass-{VERSION}-win32-x64.msi
+          - id: MonoGame.MonoGame
+            repo: MonoGame/MonoGame
+            url: https://github.com/MonoGame/MonoGame/releases/download/v{VERSION}/MonoGameSetup.exe
+          - id: Morpheus.Bazarr
+            repo: bazarr/bazarr.github.io
+            url: https://github.com/bazarr/bazarr.github.io/releases/download/v{VERSION}/bazarr.zip
           - id: muffinista.before-dawn
             repo: muffinista/before-dawn
             url: https://github.com/muffinista/before-dawn/releases/download/v{VERSION}/Before-Dawn-Setup-{VERSION}.exe
           - id: MullvadVPN.MullvadVPN
             repo: mullvad/mullvadvpn-app
             url: https://github.com/mullvad/mullvadvpn-app/releases/download/{VERSION}/MullvadVPN-{VERSION}_x64.exe https://github.com/mullvad/mullvadvpn-app/releases/download/{VERSION}/MullvadVPN-{VERSION}_arm64.exe
+          - id: namazso.OpenHashTab
+            repo: namazso/OpenHashTab
+            url: https://github.com/namazso/OpenHashTab/releases/download/v{VERSION}/OpenHashTab_setup.exe https://github.com/namazso/OpenHashTab/releases/download/v{VERSION}/OpenHashTab_setup.exe https://github.com/namazso/OpenHashTab/releases/download/v{VERSION}/OpenHashTab_setup.exe https://github.com/namazso/OpenHashTab/releases/download/v{VERSION}/OpenHashTab_setup.exe
+          - id: nao1215.gup
+            repo: nao1215/gup
+            url: https://github.com/nao1215/gup/releases/download/v{VERSION}/gup_{VERSION}_windows_386.zip https://github.com/nao1215/gup/releases/download/v{VERSION}/gup_{VERSION}_windows_amd64.zip https://github.com/nao1215/gup/releases/download/v{VERSION}/gup_{VERSION}_windows_arm64.zip
           - id: NATSAuthors.CLI
             repo: nats-io/natscli
             url: https://github.com/nats-io/natscli/releases/download/v{VERSION}/nats-{VERSION}-windows-386.zip https://github.com/nats-io/natscli/releases/download/v{VERSION}/nats-{VERSION}-windows-amd64.zip https://github.com/nats-io/natscli/releases/download/v{VERSION}/nats-{VERSION}-windows-arm64.zip
           - id: Neovim.Neovim
             repo: neovim/neovim
             url: https://github.com/neovim/neovim/releases/download/v{VERSION}/nvim-win64.msi
+          - id: NitrokeyGmbH.Nitropy
+            repo: Nitrokey/pynitrokey
+            url: https://github.com/Nitrokey/pynitrokey/releases/download/v{VERSION}/nitropy-v{VERSION}-x64-windows-installer.msi
           - id: nomacs.nomacs
             repo: nomacs/nomacs
             url: https://github.com/nomacs/nomacs/releases/download/{VERSION}/nomacs-setup-x64.msi https://github.com/nomacs/nomacs/releases/download/{VERSION}/nomacs-setup-x64.exe https://github.com/nomacs/nomacs/releases/download/{VERSION}/nomacs-setup-x64.exe
+          - id: nomic.gpt4all
+            repo: nomic-ai/gpt4all
+            url: https://github.com/nomic-ai/gpt4all/releases/download/v{VERSION}/gpt4all-installer-win64-v{VERSION}.exe
+          - id: obsidianforensics.HindsightGUI
+            repo: obsidianforensics/hindsight
+            url: https://github.com/obsidianforensics/hindsight/releases/download/v{VERSION}/hindsight_gui.exe
+          - id: Odamex.Odamex
+            repo: odamex/odamex
+            url: https://github.com/odamex/odamex/releases/download/{VERSION}/odamex-win-{VERSION}.exe
+          - id: oleg-shilo.mkshim
+            repo: oleg-shilo/mkshim
+            url: https://github.com/oleg-shilo/mkshim/releases/download/v{VERSION}/mkshim.zip
+          - id: OliverSchwendener.ueli
+            repo: oliverschwendener/ueli
+            url: https://github.com/oliverschwendener/ueli/releases/download/v{VERSION}/Ueli-Setup-{VERSION}.exe
+          - id: Ollama.Ollama
+            repo: ollama/ollama
+            url: https://github.com/ollama/ollama/releases/download/v{VERSION}/OllamaSetup.exe
           - id: Olympus.Olympus
             repo: EverestAPI/Olympus
             url: https://github.com/EverestAPI/Olympus/releases/download/v{VERSION}/Olympus.exe
@@ -467,12 +629,18 @@ jobs:
           - id: OneKey.OneKey
             repo: OneKeyHQ/app-monorepo
             url: https://github.com/OneKeyHQ/app-monorepo/releases/download/v{VERSION}/OneKey-Wallet-{VERSION}-win-x64.exe
+          - id: Open-Component-Model.ocm-cli
+            repo: open-component-model/ocm
+            url: https://github.com/open-component-model/ocm/releases/download/v{VERSION}/ocm-{VERSION}-windows-amd64.zip https://github.com/open-component-model/ocm/releases/download/v{VERSION}/ocm-{VERSION}-windows-arm64.zip
           - id: openpubkey.opkssh
             repo: openpubkey/opkssh
             url: https://github.com/openpubkey/opkssh/releases/download/v{VERSION}/opkssh-windows-amd64.exe
           - id: OpenTofu.Tofu
             repo: opentofu/opentofu
             url: https://github.com/opentofu/opentofu/releases/download/v{VERSION}/tofu_{VERSION}_windows_386.zip https://github.com/opentofu/opentofu/releases/download/v{VERSION}/tofu_{VERSION}_windows_amd64.zip
+          - id: OramaInteractive.Pixelorama
+            repo: Orama-Interactive/Pixelorama
+            url: https://github.com/Orama-Interactive/Pixelorama/releases/download/v{VERSION}/Pixelorama-Windows-32bit.zip https://github.com/Orama-Interactive/Pixelorama/releases/download/v{VERSION}/Pixelorama-Windows-64bit.zip
           - id: orhun.git-cliff
             repo: orhun/git-cliff
             url: https://github.com/orhun/git-cliff/releases/download/v{VERSION}/git-cliff-{VERSION}-i686-pc-windows-msvc.zip https://github.com/orhun/git-cliff/releases/download/v{VERSION}/git-cliff-{VERSION}-x86_64-pc-windows-gnu.zip https://github.com/orhun/git-cliff/releases/download/v{VERSION}/git-cliff-{VERSION}-aarch64-pc-windows-msvc.zip
@@ -485,18 +653,27 @@ jobs:
           - id: oxygendioxide.utaformatix
             repo: oxygen-dioxide/utaformatix-electron
             url: https://github.com/oxygen-dioxide/utaformatix-electron/releases/download/{VERSION}/UtaFormatix-{VERSION}-win32-x64.exe
+          - id: P-StSoftware.WinSSHTerm
+            repo: WinSSHTerm/WinSSHTerm
+            url: https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-x64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-x64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-arm64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-arm64.msi
           - id: PasteIntoFile.PasteIntoFile
             repo: eltos/PasteIntoFile
             url: https://github.com/eltos/PasteIntoFile/releases/download/v{VERSION}/PasteIntoFile_v{VERSION}_installer.msi
           - id: PBH-BTN.PeerBanHelper
             repo: PBH-BTN/PeerBanHelper
             url: https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-x64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-x64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-arm64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-arm64_{VERSION}.exe
+          - id: PersepolisDownloadManager.Persepolis
+            repo: persepolisdm/persepolis
+            url: https://github.com/persepolisdm/persepolis/releases/download/{VERSION}/persepolis_{VERSION}.0_windows_64bit.exe
           - id: pinokiocomputer.pinokio
             repo: pinokiocomputer/pinokio
             url: https://github.com/pinokiocomputer/pinokio/releases/download/{VERSION}/Pinokio-{VERSION}-win32.zip
           - id: pluveto.Upgit
             repo: pluveto/upgit
             url: https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_386.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_amd64.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm64.exe
+          - id: pnpm.pnpm
+            repo: pnpm/pnpm
+            url: https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-x64.exe https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-arm64.exe
           - id: PocketSync.PocketSync
             repo: neil-morrison44/pocket-sync
             url: https://github.com/neil-morrison44/pocket-sync/releases/download/v{VERSION}/Pocket.Sync_{VERSION}_x64-setup.exe
@@ -560,6 +737,9 @@ jobs:
           - id: Romanitho.Winget-AutoUpdate
             repo: Romanitho/Winget-AutoUpdate
             url: https://github.com/Romanitho/Winget-AutoUpdate/releases/download/v{VERSION}/WAU.msi
+          - id: RoslynPad.RoslynPad
+            repo: roslynpad/roslynpad
+            url: https://github.com/roslynpad/roslynpad/releases/download/{VERSION}/RoslynPad-windows-x64.zip https://github.com/roslynpad/roslynpad/releases/download/{VERSION}/RoslynPad-windows-arm64.zip
           - id: Rye.Rye
             repo: astral-sh/rye
             url: https://github.com/astral-sh/rye/releases/download/{VERSION}/rye-x86-windows.exe https://github.com/astral-sh/rye/releases/download/{VERSION}/rye-x86_64-windows.exe
@@ -590,186 +770,6 @@ jobs:
           - id: shawnbanasick.kade
             repo: shawnbanasick/kade
             url: https://github.com/shawnbanasick/kade/releases/download/v{VERSION}/KADE.Setup.{VERSION}.exe
-          - id: Shemnei.punktf
-            repo: Shemnei/punktf
-            url: https://github.com/Shemnei/punktf/releases/download/v{VERSION}/punktf-x86_64-pc-windows-msvc-static.zip
-          - id: ShiftCryptoAG.BitBoxApp
-            repo: BitBoxSwiss/bitbox-wallet-app
-            url: https://github.com/BitBoxSwiss/bitbox-wallet-app/releases/download/v{VERSION}/BitBox-{VERSION}-win64-installer.exe
-          - id: Sigstore.Cosign
-            repo: sigstore/cosign
-            url: https://github.com/sigstore/cosign/releases/download/v{VERSION}/cosign-windows-amd64.exe
-          - id: simulot.immich-go
-            repo: simulot/immich-go
-            url: https://github.com/simulot/immich-go/releases/download/v{VERSION}/immich-go_Windows_arm64.zip https://github.com/simulot/immich-go/releases/download/v{VERSION}/immich-go_Windows_x86_64.zip
-          - id: Skiff.Skiff
-            repo: skiff-org/skiff-windows-app
-            url: https://github.com/skiff-org/skiff-windows-app/releases/download/{VERSION}/Skiff.Installer.msi
-          - id: SnailDOS.SnailKM
-            repo: SnailKM/SnailKM-Software
-            url: https://github.com/SnailKM/SnailKM-Software/releases/download/v{VERSION}/SnailKM-Setup-{VERSION}.exe
-          - id: SnapNet.SnapNet
-            repo: stijnvdb88/Snap.Net
-            url: https://github.com/stijnvdb88/Snap.Net/releases/download/v{VERSION}/Snap.Net-{VERSION}-Setup.exe
-          - id: snowfoxsh.aplang
-            repo: snowfoxsh/aplang
-            url: https://github.com/snowfoxsh/aplang/releases/download/v{VERSION}/aplang.exe
-          - id: Snyk.Snyk
-            repo: snyk/cli
-            url: https://github.com/snyk/cli/releases/download/v{VERSION}/snyk-win.exe
-          - id: sonnylab.chatgpt
-            repo: sonnylazuardi/chatgpt-desktop
-            url: https://github.com/sonnylazuardi/chatgpt-desktop/raw/master/releases/chatgpt.msi
-          - id: SparkLabs.openvpn-configuration-generator
-            repo: thesparklabs/openvpn-configuration-generator
-            url: https://github.com/thesparklabs/openvpn-configuration-generator/releases/download/{VERSION}/OpenVPNConfigurationGeneratorx64_Win10_{VERSION}.msi
-          - id: sparrowwallet.sparrow
-            repo: sparrowwallet/sparrow
-            url: https://github.com/sparrowwallet/sparrow/releases/download/{VERSION}/Sparrow-{VERSION}.msi
-          - id: SpikeHD.swerve
-            repo: SpikeHD/swerve
-            url: https://github.com/SpikeHD/swerve/releases/download/v{VERSION}/swerve-x86_64-pc-windows-msvc.exe https://github.com/SpikeHD/swerve/releases/download/v{VERSION}/swerve-aarch64-pc-windows-msvc.exe
-          - id: srevinsaju.guiscrcpy.PySide2
-            repo: srevinsaju/guiscrcpy
-            url: https://github.com/srevinsaju/guiscrcpy/releases/download/v{VERSION}/guiscrcpy-PySide2-x64.exe https://github.com/srevinsaju/guiscrcpy/releases/download/v{VERSION}/guiscrcpy-PySide2-x86.exe
-          - id: stacklok.frizbee
-            repo: stacklok/frizbee
-            url: https://github.com/stacklok/frizbee/releases/download/v{VERSION}/frizbee_{VERSION}_windows_arm64.zip https://github.com/stacklok/frizbee/releases/download/v{VERSION}/frizbee_{VERSION}_windows_amd64.zip
-          - id: stacklok.minder
-            repo: mindersec/minder
-            url: https://github.com/mindersec/minder/releases/download/v{VERSION}/minder_{VERSION}_windows_amd64.zip https://github.com/mindersec/minder/releases/download/v{VERSION}/minder_{VERSION}_windows_arm64.zip
-          - id: stacks.stacks
-            repo: stacks-task-manager/stacks
-            url: https://github.com/stacks-task-manager/stacks/releases/download/v{VERSION}/Stacks-Setup-{VERSION}.exe
-          - id: Starpine.Screenbox
-            repo: huynhsontung/Screenbox
-            url: https://github.com/huynhsontung/Screenbox/releases/download/v{VERSION}/Screenbox_{VERSION}.0_neutral.msixbundle https://github.com/huynhsontung/Screenbox/releases/download/v{VERSION}/Screenbox_{VERSION}.0_neutral.msixbundle https://github.com/huynhsontung/Screenbox/releases/download/v{VERSION}/Screenbox_{VERSION}.0_neutral.msixbundle
-          - id: StefanLobbenmeier.youtube-dl-gui
-            repo: StefanLobbenmeier/youtube-dl-gui
-            url: https://github.com/StefanLobbenmeier/youtube-dl-gui/releases/download/v{VERSION}/Open-Video-Downloader-Setup-{VERSION}.exe
-          - id: StefansTools.BowPad
-            repo: stefankueng/BowPad
-            url: https://github.com/stefankueng/BowPad/releases/download/{VERSION}/BowPad-{VERSION}.msi https://github.com/stefankueng/BowPad/releases/download/{VERSION}/BowPad64-{VERSION}.msi
-          - id: StefansTools.grepWin
-            repo: stefankueng/grepWin
-            url: https://github.com/stefankueng/grepWin/releases/download/{VERSION}/grepWin-{VERSION}.msi https://github.com/stefankueng/grepWin/releases/download/{VERSION}/grepWin-{VERSION}-x64.msi
-          - id: StephanDilly.gitui
-            repo: extrawurst/gitui
-            url: https://github.com/extrawurst/gitui/releases/download/v{VERSION}/gitui-win.msi
-          - id: Storj.Uplink
-            repo: storj/storj
-            url: https://github.com/storj/storj/releases/download/v{VERSION}/storagenode_windows_amd64.zip
-          - id: Stripe.StripeCli
-            repo: stripe/stripe-cli
-            url: https://github.com/stripe/stripe-cli/releases/download/v{VERSION}/stripe_{VERSION}_windows_x86_64.zip
-          - id: StudioRack.StudioRack
-            repo: studiorack/studiorack-app
-            url: https://github.com/studiorack/studiorack-app/releases/download/v{VERSION}/studiorack-win.exe
-          - id: STYInc.STY1001.UnowhyTools
-            repo: STY1001/Unowhy-Tools
-            url: https://github.com/STY1001/Unowhy-Tools/releases/download/v{VERSION}/Unowhy.Tools.{VERSION}.Installer.exe
-          - id: sunfish-shogi.shogihome
-            repo: sunfish-shogi/shogihome
-            url: https://github.com/sunfish-shogi/shogihome/releases/download/v{VERSION}/release-v{VERSION}-win.zip
-          - id: SurrealDB.SurrealDB
-            repo: surrealdb/surrealdb
-            url: https://github.com/surrealdb/surrealdb/releases/download/v{VERSION}/surreal-v{VERSION}.windows-amd64.exe https://github.com/surrealdb/surrealdb/releases/download/v{VERSION}/surreal-v{VERSION}.windows-amd64.exe
-          - id: SUSE.RancherDesktop
-            repo: rancher-sandbox/rancher-desktop
-            url: https://github.com/rancher-sandbox/rancher-desktop/releases/download/v{VERSION}/Rancher.Desktop.Setup.{VERSION}.msi
-          - id: SVGExplorerExtension.SVGExplorerExtension
-            repo: tibold/svg-explorer-extension
-            url: https://github.com/tibold/svg-explorer-extension/releases/download/v{VERSION}/svg_see_x64.exe https://github.com/tibold/svg-explorer-extension/releases/download/v{VERSION}/svg_see_x86.exe
-          - id: Syncplay.Syncplay
-            repo: Syncplay/syncplay
-            url: https://github.com/Syncplay/syncplay/releases/download/v{VERSION}/Syncplay-{VERSION}-Setup.exe
-          - id: tagspaces.tagspaces
-            repo: tagspaces/tagspaces
-            url: https://github.com/tagspaces/tagspaces/releases/download/v{VERSION}/tagspaces-win-x64-{VERSION}.exe https://github.com/tagspaces/tagspaces/releases/download/v{VERSION}/tagspaces-win-x64-{VERSION}.exe
-          - id: Taisei.Taisei
-            repo: taisei-project/taisei
-            url: https://github.com/taisei-project/taisei/releases/download/v{VERSION}/Taisei-{VERSION}-setup-x86.exe https://github.com/taisei-project/taisei/releases/download/v{VERSION}/Taisei-{VERSION}-setup-x86.exe https://github.com/taisei-project/taisei/releases/download/v{VERSION}/Taisei-{VERSION}-setup-x86_64.exe https://github.com/taisei-project/taisei/releases/download/v{VERSION}/Taisei-{VERSION}-setup-x86_64.exe
-          - id: Taozuhong.KangarooMultipleAI
-            repo: dbkangaroo/kangaroo
-            url: https://github.com/dbkangaroo/kangaroo/releases/download/v{VERSION}/Kangaroo-Multiple-AI-{VERSION}-x86_64.exe
-          - id: Task.Task
-            repo: go-task/task
-            url: https://github.com/go-task/task/releases/download/v{VERSION}/task_windows_386.zip https://github.com/go-task/task/releases/download/v{VERSION}/task_windows_arm64.zip https://github.com/go-task/task/releases/download/v{VERSION}/task_windows_amd64.zip
-          - id: TeamLidarr.Lidarr
-            repo: Lidarr/Lidarr
-            url: https://github.com/Lidarr/Lidarr/releases/download/v{VERSION}/Lidarr.master.{VERSION}.windows-core-x86-installer.exe https://github.com/Lidarr/Lidarr/releases/download/v{VERSION}/Lidarr.master.{VERSION}.windows-core-x64-installer.exe
-          - id: TEdit.TEdit
-            repo: TEdit/Terraria-Map-Editor
-            url: https://github.com/TEdit/Terraria-Map-Editor/releases/download/{VERSION}/TEdit_main.zip
-          - id: TermoraDev.Termora
-            repo: TermoraDev/termora
-            url: https://github.com/TermoraDev/termora/releases/download/{VERSION}/termora-{VERSION}-windows-x86-64.exe
-          - id: TerraformLinters.tflint
-            repo: terraform-linters/tflint
-            url: https://github.com/terraform-linters/tflint/releases/download/v{VERSION}/tflint_windows_386.zip https://github.com/terraform-linters/tflint/releases/download/v{VERSION}/tflint_windows_amd64.zip
-          - id: terreng.SimpleWebServer
-            repo: terreng/simple-web-server
-            url: https://github.com/terreng/simple-web-server/releases/download/v{VERSION}/Simple-Web-Server-Installer-{VERSION}-x64.exe https://github.com/terreng/simple-web-server/releases/download/v{VERSION}/Simple-Web-Server-Installer-{VERSION}-ia32.exe https://github.com/terreng/simple-web-server/releases/download/v{VERSION}/Simple-Web-Server-Installer-{VERSION}-arm64.exe
-          - id: Tetrate.wazero
-            repo: tetratelabs/wazero
-            url: https://github.com/tetratelabs/wazero/releases/download/v{VERSION}/wazero_{VERSION}_windows_amd64.msi
-          - id: TeXstudio.TeXstudio
-            repo: texstudio-org/texstudio
-            url:  https://github.com/texstudio-org/texstudio/releases/download/{VERSION}/texstudio-{VERSION}-win-qt6-signed.exe
-          - id: ThaddeusMcCleary.Seatsmart
-            repo: thaddeusm/seatsmart-FHSU
-            url: https://github.com/thaddeusm/seatsmart-FHSU/releases/download/v{VERSION}/Seatsmart-Setup-{VERSION}.exe
-          - id: ThaUnknown.Miru
-            repo: ThaUnknown/miru
-            url: https://github.com/ThaUnknown/miru/releases/download/v{VERSION}/win-Miru-{VERSION}-installer.exe
-          - id: Thoughtworks.Talisman
-            repo: thoughtworks/talisman
-            url: https://github.com/thoughtworks/talisman/releases/download/v{VERSION}/talisman_windows_386.exe https://github.com/thoughtworks/talisman/releases/download/v{VERSION}/talisman_windows_amd64.exe https://github.com/thoughtworks/talisman/releases/download/v{VERSION}/talisman_windows_arm64.exe
-          - id: tinygo-org.tinygo
-            repo: tinygo-org/tinygo
-            url: https://github.com/tinygo-org/tinygo/releases/download/v{VERSION}/tinygo{VERSION}.windows-amd64.zip
-          - id: TobyAllen.DocTo
-            repo: tobya/DocTo
-            url: https://github.com/tobya/DocTo/releases/download/v{VERSION}/docto.exe
-          - id: TravisLane.SteamArtManager
-            repo: Tormak9970/Steam-Art-Manager
-            url: https://github.com/Tormak9970/Steam-Art-Manager/releases/download/v{VERSION}/steam-art-manager.msi
-          - id: tuna-f1sh.cyme
-            repo: tuna-f1sh/cyme
-            url: https://github.com/tuna-f1sh/cyme/releases/download/v{VERSION}/cyme-v{VERSION}-x86_64-pc-windows-gnu.zip
-          - id: Typst.Typst
-            repo: typst/typst
-            url: https://github.com/typst/typst/releases/download/v{VERSION}/typst-x86_64-pc-windows-msvc.zip
-          - id: Tyrrrz.DiscordChatExporter.GUI
-            repo: Tyrrrz/DiscordChatExporter
-            url: https://github.com/Tyrrrz/DiscordChatExporter/releases/download/{VERSION}/DiscordChatExporter.win-x86.zip https://github.com/Tyrrrz/DiscordChatExporter/releases/download/{VERSION}/DiscordChatExporter.win-x64.zip https://github.com/Tyrrrz/DiscordChatExporter/releases/download/{VERSION}/DiscordChatExporter.win-arm64.zip
-          - id: UltimateGadgetLaboratories.UHKAgent
-            repo: UltimateHackingKeyboard/agent
-            url: https://github.com/UltimateHackingKeyboard/agent/releases/download/v{VERSION}/UHK.Agent-{VERSION}-win-ia32.exe https://github.com/UltimateHackingKeyboard/agent/releases/download/v{VERSION}/UHK.Agent-{VERSION}-win-x64.exe https://github.com/UltimateHackingKeyboard/agent/releases/download/v{VERSION}/UHK.Agent-{VERSION}-win.exe
-          - id: Universal-Debloater-Alliance.uad-ng
-            repo: Universal-Debloater-Alliance/universal-android-debloater-next-generation
-            url: https://github.com/Universal-Debloater-Alliance/universal-android-debloater-next-generation/releases/download/v{VERSION}/uad-ng-windows.exe
-          - id: univrsal.tuna
-            repo: univrsal/tuna
-            url: https://github.com/univrsal/tuna/releases/download/v{VERSION}/tuna-{VERSION}-windows-x64-Installer.exe https://github.com/univrsal/tuna/releases/download/v{VERSION}/tuna-{VERSION}-windows-x64-Installer.exe
-          - id: unlimited-clipboard.unlimited-clipboard
-            repo: unlimited-clipboard/unlimited-clipboard
-            url: https://github.com/unlimited-clipboard/unlimited-clipboard/releases/download/v{VERSION}/unlimited-clipboard.exe
-          - id: Vendicated.Vencord.Canary
-            repo: Vencord/Installer
-            url: https://github.com/Vencord/Installer/releases/download/v{VERSION}/VencordInstallerCli.exe
-          - id: VictorIX.BlenderLauncher
-            repo: Victor-IX/Blender-Launcher-V2
-            url: https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v{VERSION}/Blender_Launcher_v{VERSION}_Windows_x64.zip
-          - id: vim.vim
-            repo: vim/vim-win32-installer
-            url: https://github.com/vim/vim-win32-installer/releases/download/v{VERSION}/gvim_{VERSION}_x86.exe https://github.com/vim/vim-win32-installer/releases/download/v{VERSION}/gvim_{VERSION}_x64.exe
-          - id: Vipre.IPVTest
-            repo: vimalraj-adikesavan/IPV-PUBLIC
-            url: https://github.com/vimalraj-adikesavan/IPV-PUBLIC/releases/download/Public-Release/GitHubTest.exe
-          - id: vivainio.RoughGrep
-            repo: vivainio/RoughGrep
-            url: https://github.com/vivainio/RoughGrep/releases/download/v{VERSION}/RoughGrep-{VERSION}.zip
 
     steps:
     - name: Update Packages
