@@ -20,6 +20,57 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - id: PocketSync.PocketSync
+            repo: neil-morrison44/pocket-sync
+            url: https://github.com/neil-morrison44/pocket-sync/releases/download/v{VERSION}/Pocket.Sync_{VERSION}_x64-setup.exe
+          - id: PolarGoose.CoffeeBean
+            repo: PolarGoose/CoffeeBean
+            url: https://github.com/PolarGoose/CoffeeBean/releases/download/v{VERSION}/CoffeeBean.msi
+          - id: PolarGoose.ShowWhatProcessLocksFile
+            repo: PolarGoose/ShowWhatProcessLocksFile
+            url: https://github.com/PolarGoose/ShowWhatProcessLocksFile/releases/download/v{VERSION}/ShowWhatProcessLocksFile.msi.zip
+          - id: PolyMC.PolyMC
+            repo: PolyMC/PolyMC
+            url: https://github.com/PolyMC/PolyMC/releases/download/{VERSION}/PolyMC-Windows-Setup-{VERSION}.exe
+          - id: Primecount.Primecount
+            repo: kimwalisch/primecount-winget
+            url: https://github.com/kimwalisch/primecount-winget/releases/download/v{VERSION}/Primecount-{VERSION}-win-x64.exe https://github.com/kimwalisch/primecount-winget/releases/download/v{VERSION}/Primecount-{VERSION}-win-arm64.exe
+          - id: printfn.fend
+            repo: printfn/fend
+            url: https://github.com/printfn/fend/releases/download/v{VERSION}/fend-{VERSION}-windows-x64-exe.zip https://github.com/printfn/fend/releases/download/v{VERSION}/fend-{VERSION}-windows-x64.msi
+          - id: Prometheus.WindowsExporter
+            repo: prometheus-community/windows_exporter
+            url: https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-amd64.exe https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-arm64.exe https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-amd64.msi https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-arm64.msi
+          - id: Psenix.OverlayTimer
+            repo: Psenix/OverlayTimer
+            url: https://github.com/Psenix/OverlayTimer/releases/download/v{VERSION}/OverlayTimer-Installer.exe
+          - id: Pulsar-Edit.Pulsar
+            repo: pulsar-edit/pulsar
+            url: https://github.com/pulsar-edit/pulsar/releases/download/v{VERSION}/Windows.Pulsar.Setup.{VERSION}.exe
+          - id: PYPrime.PYPrime
+            repo: monabuntur/PYPrime-2.x
+            url: https://github.com/monabuntur/PYPrime-2.x/releases/download/{VERSION}/PYPrime.{VERSION}.Installer.exe
+          - id: qarmin.czkawka.cli
+            repo: qarmin/czkawka
+            url: https://github.com/qarmin/czkawka/releases/download/{VERSION}/windows_czkawka_cli.exe
+          - id: QGIS.QField
+            repo: opengisch/QField
+            url: https://github.com/opengisch/QField/releases/download/v{VERSION}/qfield-v{VERSION}-windows-x64.exe
+          - id: quotient-im.Quaternion
+            repo: quotient-im/Quaternion
+            url: https://github.com/quotient-im/Quaternion/releases/download/{VERSION}/quaternion-{VERSION}.zip
+          - id: Radius.Radius
+            repo: radius-project/radius
+            url: https://github.com/radius-project/radius/releases/download/v{VERSION}/rad_windows_amd64.exe
+          - id: RadolynLabs.AyuGramDesktop
+            repo: AyuGram/AyuGramDesktop
+            url: https://github.com/AyuGram/AyuGramDesktop/releases/download/v{VERSION}/AyuGram.exe
+          - id: ransome1.sleek
+            repo: ransome1/sleek
+            url: https://github.com/ransome1/sleek/releases/download/v{VERSION}/sleek-{VERSION}-win-Setup.exe https://github.com/ransome1/sleek/releases/download/v{VERSION}/sleek-{VERSION}-win.exe
+          - id: raphamorim.rio
+            repo: raphamorim/rio
+            url: https://github.com/raphamorim/rio/releases/download/v{VERSION}/Rio-installer-x86_64.msi https://github.com/raphamorim/rio/releases/download/v{VERSION}/Rio-installer-aarch64.msi
           - id: rejetto.hfs
             repo: rejetto/hfs
             url: https://github.com/rejetto/hfs/releases/download/v{VERSION}/hfs-windows-x64-{VERSION}.zip
@@ -35,12 +86,21 @@ jobs:
           - id: RoslynPad.RoslynPad
             repo: roslynpad/roslynpad
             url: https://github.com/roslynpad/roslynpad/releases/download/{VERSION}/RoslynPad-windows-x64.zip https://github.com/roslynpad/roslynpad/releases/download/{VERSION}/RoslynPad-windows-arm64.zip
+          - id: ryanvolz.radioconda
+            repo: ryanvolz/radioconda
+            url: https://github.com/ryanvolz/radioconda/releases/download/{VERSION}/radioconda-{VERSION}-Windows-x86_64.exe
           - id: Rye.Rye
             repo: astral-sh/rye
             url: https://github.com/astral-sh/rye/releases/download/{VERSION}/rye-x86-windows.exe https://github.com/astral-sh/rye/releases/download/{VERSION}/rye-x86_64-windows.exe
+          - id: S3Drive.S3Drive
+            repo: s3drive/windows-app
+            url: https://github.com/s3drive/windows-app/releases/download/{VERSION}/s3drive-win-x64.exe
           - id: SaeraSoft.CaesiumImageCompressor
             repo: Lymphatus/caesium-image-compressor
             url: https://github.com/Lymphatus/caesium-image-compressor/releases/download/v{VERSION}/caesium-image-compressor-{VERSION}-win-setup.exe
+          - id: SagMeinenNamen.eChess
+            repo: SagMeinenNamen/eChess
+            url: https://github.com/SagMeinenNamen/eChess/raw/main/eChess-Installer.exe
           - id: SagMeinenNamen.OpenStoreInstaller
             repo: SagMeinenNamen/OpenStore
             url: https://github.com/SagMeinenNamen/OpenStore/raw/main/OpenStoreInstaller.exe
@@ -71,9 +131,15 @@ jobs:
           - id: ShiftCryptoAG.BitBoxApp
             repo: BitBoxSwiss/bitbox-wallet-app
             url: https://github.com/BitBoxSwiss/bitbox-wallet-app/releases/download/v{VERSION}/BitBox-{VERSION}-win64-installer.exe
+          - id: sidneys.pb-for-desktop
+            repo: sidneys/pb-for-desktop
+            url: https://github.com/sidneys/pb-for-desktop/releases/download/v{VERSION}/pb-for-desktop-{VERSION}-setup.msi
           - id: Sigstore.Cosign
             repo: sigstore/cosign
             url: https://github.com/sigstore/cosign/releases/download/v{VERSION}/cosign-windows-amd64.exe
+          - id: SimpleX.SimpleX-Chat
+            repo: simplex-chat/simplex-chat
+            url: https://github.com/simplex-chat/simplex-chat/releases/download/v{VERSION}/simplex-desktop-windows-x86_64.msi
           - id: simulot.immich-go
             repo: simulot/immich-go
             url: https://github.com/simulot/immich-go/releases/download/v{VERSION}/immich-go_Windows_arm64.zip https://github.com/simulot/immich-go/releases/download/v{VERSION}/immich-go_Windows_x86_64.zip
@@ -242,6 +308,9 @@ jobs:
           - id: TobyAllen.DocTo
             repo: tobya/DocTo
             url: https://github.com/tobya/DocTo/releases/download/v{VERSION}/docto.exe
+          - id: TomEnglert.RegionToShare
+            repo: tom-englert/RegionToShare
+            url: https://github.com/tom-englert/RegionToShare/releases/download/{VERSION}/RegionToShare.zip
           - id: TravisLane.SteamArtManager
             repo: Tormak9970/Steam-Art-Manager
             url: https://github.com/Tormak9970/Steam-Art-Manager/releases/download/v{VERSION}/steam-art-manager.msi
@@ -254,6 +323,9 @@ jobs:
           - id: Tyrrrz.DiscordChatExporter.GUI
             repo: Tyrrrz/DiscordChatExporter
             url: https://github.com/Tyrrrz/DiscordChatExporter/releases/download/{VERSION}/DiscordChatExporter.win-x86.zip https://github.com/Tyrrrz/DiscordChatExporter/releases/download/{VERSION}/DiscordChatExporter.win-x64.zip https://github.com/Tyrrrz/DiscordChatExporter/releases/download/{VERSION}/DiscordChatExporter.win-arm64.zip
+          - id: Uahh.ToastFish
+            repo: Uahh/ToastFish
+            url: https://github.com/Uahh/ToastFish/releases/download/{VERSION}/ToastFish.v{VERSION}.msi
           - id: UltimateGadgetLaboratories.UHKAgent
             repo: UltimateHackingKeyboard/agent
             url: https://github.com/UltimateHackingKeyboard/agent/releases/download/v{VERSION}/UHK.Agent-{VERSION}-win-ia32.exe https://github.com/UltimateHackingKeyboard/agent/releases/download/v{VERSION}/UHK.Agent-{VERSION}-win-x64.exe https://github.com/UltimateHackingKeyboard/agent/releases/download/v{VERSION}/UHK.Agent-{VERSION}-win.exe
@@ -296,6 +368,9 @@ jobs:
           - id: VividDesigns.WifiMouseServer
             repo: michaelnpsp/WifiMouseServer
             url: https://github.com/michaelnpsp/WifiMouseServer/releases/download/{VERSION}/WifiMouseServerInstall.exe
+          - id: Vup.Vup
+            repo: vup-app/vup
+            url: https://github.com/vup-app/vup/releases/download/v{VERSION}/Vup-{VERSION}-BETA-Windows-Installer.exe
           - id: w4po.ExplorerTabUtility
             repo: w4po/ExplorerTabUtility
             url: https://github.com/w4po/ExplorerTabUtility/releases/download/v{VERSION}/ExplorerTabUtility_v{VERSION}_arm64_Net9.0_FrameworkDependent.zip https://github.com/w4po/ExplorerTabUtility/releases/download/v{VERSION}/ExplorerTabUtility_v{VERSION}_x86_Net9.0_FrameworkDependent.zip https://github.com/w4po/ExplorerTabUtility/releases/download/v{VERSION}/ExplorerTabUtility_v{VERSION}_x64_Net9.0_FrameworkDependent.zip

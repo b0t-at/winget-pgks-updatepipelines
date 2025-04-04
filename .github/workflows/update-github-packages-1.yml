@@ -20,6 +20,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - id: achannarasappa.ticker
+            repo: achannarasappa/ticker
+            url: https://github.com/achannarasappa/ticker/releases/download/v{VERSION}/ticker-{VERSION}-windows-amd64.zip
           - id: activescott.lessmsi
             repo: activescott/lessmsi
             url: https://github.com/activescott/lessmsi/releases/download/v{VERSION}/lessmsi-v{VERSION}.zip
@@ -29,6 +32,9 @@ jobs:
           - id: AdaLang.Alire
             repo: alire-project/alire
             url: https://github.com/alire-project/alire/releases/download/v{VERSION}/alr-{VERSION}-installer-x86_64-windows.exe
+          - id: AdaLang.Alire.Portable
+            repo: alire-project/alire
+            url: https://github.com/alire-project/alire/releases/download/v{VERSION}/alr-{VERSION}-bin-x86_64-windows.zip
           - id: Adamant.Messenger
             repo: Adamant-im/adamant-im
             url: https://github.com/Adamant-im/adamant-im/releases/download/v{VERSION}/ADAMANT-Messenger-Setup-{VERSION}.exe
@@ -74,6 +80,9 @@ jobs:
           - id: AppFlowy.AppFlowy
             repo: AppFlowy-IO/AppFlowy
             url: https://github.com/AppFlowy-IO/AppFlowy/releases/download/{VERSION}/AppFlowy-{VERSION}-windows-x86_64.exe
+          - id: AppiumDevelopers.AppiumInspector
+            repo: appium/appium-inspector
+            url: https://github.com/appium/appium-inspector/releases/download/v{VERSION}/Appium-Inspector-windows-{VERSION}-x64.exe
           - id: AquaSecurity.Trivy
             repo: aquasecurity/trivy
             url: https://github.com/aquasecurity/trivy/releases/download/v{VERSION}/trivy_{VERSION}_windows-64bit.zip
@@ -131,6 +140,9 @@ jobs:
           - id: bornova.numara
             repo: bornova/numara-calculator
             url: https://github.com/bornova/numara-calculator/releases/download/v{VERSION}/Numara-{VERSION}.exe https://github.com/bornova/numara-calculator/releases/download/v{VERSION}/Numara-{VERSION}.exe
+          - id: BytecodeAlliance.Wasmtime.Portable
+            repo: bytecodealliance/wasmtime
+            url: https://github.com/bytecodealliance/wasmtime/releases/download/v{VERSION}/wasmtime-v{VERSION}-x86_64-windows.zip
           - id: CameronSutter.Plottr
             repo: cameronsutter/plottr_electron
             url: https://github.com/cameronsutter/plottr_electron/releases/download/v{VERSION}/Plottr-win-installer-latest.exe
@@ -140,6 +152,9 @@ jobs:
           - id: Carvel.ytt
             repo: carvel-dev/ytt
             url: https://github.com/carvel-dev/ytt/releases/download/v{VERSION}/ytt-windows-amd64.exe https://github.com/carvel-dev/ytt/releases/download/v{VERSION}/ytt-windows-arm64.exe
+          - id: CESNET.UltraGrid
+            repo: CESNET/UltraGrid
+            url: https://github.com/CESNET/UltraGrid/releases/download/v{VERSION}/UltraGrid-{VERSION}-win64.zip
           - id: CharlesMilette.TranslucentTB
             repo: TranslucentTB/TranslucentTB
             url: https://github.com/TranslucentTB/TranslucentTB/releases/download/{VERSION}/bundle.msixbundle https://github.com/TranslucentTB/TranslucentTB/releases/download/{VERSION}/bundle.msixbundle
@@ -242,9 +257,6 @@ jobs:
           - id: dsymbol.yt-dlp-gui
             repo: dsymbol/yt-dlp-gui
             url: https://github.com/dsymbol/yt-dlp-gui/releases/download/{VERSION}/yt-dlp-gui-win64.zip
-          - id: DuckStudio.Sundry
-            repo: DuckDuckStudio/Sundry
-            url: https://github.com/DuckDuckStudio/Sundry/releases/download/{VERSION}/Sundry_Setup.exe https://github.com/DuckDuckStudio/Sundry/releases/download/{VERSION}/Sundry_Setup.exe https://github.com/DuckDuckStudio/Sundry/releases/download/{VERSION}/Sundry_Setup.exe https://github.com/DuckDuckStudio/Sundry/releases/download/{VERSION}/Sundry_Setup.exe https://github.com/DuckDuckStudio/Sundry/releases/download/{VERSION}/Sundry_Setup.exe
           - id: Dystroy.broot
             repo: Canop/broot
             url: https://github.com/Canop/broot/releases/download/v{VERSION}/broot_{VERSION}.zip
@@ -281,6 +293,9 @@ jobs:
           - id: EtternaProject.EtternaGame
             repo: etternagame/etterna
             url: https://github.com/etternagame/etterna/releases/download/v{VERSION}/Etterna-{VERSION}-win32.exe https://github.com/etternagame/etterna/releases/download/v{VERSION}/Etterna-{VERSION}-win64.exe
+          - id: Exploitox.GoAwayEdge
+            repo: valnoxy/GoAwayEdge
+            url: https://github.com/valnoxy/GoAwayEdge/releases/download/v{VERSION}/GoAwayEdge.exe
           - id: f4exb.sdrangel
             repo: f4exb/sdrangel
             url: https://github.com/f4exb/sdrangel/releases/download/v{VERSION}/sdrangel-{VERSION}-win64.exe
@@ -299,6 +314,9 @@ jobs:
           - id: FilenCloud.Filen-cli
             repo: FilenCloudDienste/filen-cli
             url: https://github.com/FilenCloudDienste/filen-cli/releases/download/v{VERSION}/filen-cli-v{VERSION}-win-x64.exe
+          - id: Firstversionist.Polypane
+            repo: firstversionist/polypane
+            url: https://github.com/firstversionist/polypane/releases/download/v{VERSION}/Polypane-Setup-{VERSION}.exe
           - id: flawiddsouza.Restfox
             repo: flawiddsouza/Restfox
             url: https://github.com/flawiddsouza/Restfox/releases/download/v{VERSION}/Restfox-{VERSION}.Setup.exe
@@ -308,6 +326,9 @@ jobs:
           - id: Fly-io.flyctl
             repo: superfly/flyctl
             url: https://github.com/superfly/flyctl/releases/download/v{VERSION}/flyctl_{VERSION}_Windows_x86_64.zip https://github.com/superfly/flyctl/releases/download/v{VERSION}/flyctl_{VERSION}_Windows_arm64.zip
+          - id: FlyByWireSimulations.FlyByWireSimulationsInstaller
+            repo: flybywiresim/installer
+            url: https://github.com/flybywiresim/installer/releases/download/v{VERSION}/FlyByWire_Installer_Setup.exe
           - id: flyingpie.windows-terminal-quake.prerelease
             repo: flyingpie/windows-terminal-quake
             url: https://github.com/flyingpie/windows-terminal-quake/releases/download/v{VERSION}/win-x64_self-contained.zip
@@ -350,12 +371,18 @@ jobs:
           - id: Gleam.Gleam
             repo: gleam-lang/gleam
             url: https://github.com/gleam-lang/gleam/releases/download/v{VERSION}/gleam-v{VERSION}-x86_64-pc-windows-msvc.zip
+          - id: GolangCI.golangci-lint
+            repo: golangci/golangci-lint
+            url: https://github.com/golangci/golangci-lint/releases/download/v{VERSION}/golangci-lint-{VERSION}-windows-386.zip https://github.com/golangci/golangci-lint/releases/download/v{VERSION}/golangci-lint-{VERSION}-windows-amd64.zip https://github.com/golangci/golangci-lint/releases/download/v{VERSION}/golangci-lint-{VERSION}-windows-arm64.zip
           - id: Google.FirebaseCLI
             repo: firebase/firebase-tools
             url: https://github.com/firebase/firebase-tools/releases/download/v{VERSION}/firebase-tools-win.exe
           - id: Google.IAPDesktop
             repo: GoogleCloudPlatform/iap-desktop
             url: https://github.com/GoogleCloudPlatform/iap-desktop/releases/download/{VERSION}/IapDesktop.msi
+          - id: Google.OSVScanner
+            repo: google/osv-scanner
+            url: https://github.com/google/osv-scanner/releases/download/v{VERSION}/osv-scanner_windows_amd64.exe https://github.com/google/osv-scanner/releases/download/v{VERSION}/osv-scanner_windows_arm64.exe
           - id: Google.Protobuf
             repo: protocolbuffers/protobuf
             url: https://github.com/protocolbuffers/protobuf/releases/download/v{VERSION}/protoc-{VERSION}-win32.zip https://github.com/protocolbuffers/protobuf/releases/download/v{VERSION}/protoc-{VERSION}-win64.zip
@@ -401,6 +428,9 @@ jobs:
           - id: HiroshibaKazuyuki.VOICEVOX.CPU
             repo: VOICEVOX/voicevox
             url: https://github.com/VOICEVOX/voicevox/releases/download/{VERSION}/voicevox-windows-cpu-{VERSION}.zip
+          - id: hluk.CopyQ
+            repo: hluk/CopyQ
+            url: https://github.com/hluk/CopyQ/releases/download/v{VERSION}/copyq-{VERSION}-setup.exe https://github.com/hluk/CopyQ/releases/download/v{VERSION}/copyq-{VERSION}-setup.exe
           - id: hoppscotch.agent
             repo: hoppscotch/agent-releases
             url: https://github.com/hoppscotch/agent-releases/releases/download/v{VERSION}/Hoppscotch_Agent_win_x64.msi
@@ -443,6 +473,9 @@ jobs:
           - id: JackieLiu.NotepadsApp
             repo: 0x7c13/Notepads
             url: https://github.com/0x7c13/Notepads/releases/download/v{VERSION}/Notepads_{VERSION}_x86_x64_arm64.msixbundle https://github.com/0x7c13/Notepads/releases/download/v{VERSION}/Notepads_{VERSION}_x86_x64_arm64.msixbundle https://github.com/0x7c13/Notepads/releases/download/v{VERSION}/Notepads_{VERSION}_x86_x64_arm64.msixbundle
+          - id: jadquir.MRA
+            repo: Jadquir/mra-files
+            url: https://github.com/Jadquir/mra-files/releases/download/0.111/MRA_Setup_x64.msi
           - id: jaegertracing.jaeger
             repo: jaegertracing/jaeger
             url: https://github.com/jaegertracing/jaeger/releases/download/v{VERSION}/jaeger-{VERSION}-windows-amd64.zip
@@ -494,6 +527,9 @@ jobs:
           - id: Kitware.CMake
             repo: Kitware/CMake
             url: https://github.com/Kitware/CMake/releases/download/v{VERSION}/cmake-{VERSION}-windows-i386.msi https://github.com/Kitware/CMake/releases/download/v{VERSION}/cmake-{VERSION}-windows-x86_64.msi https://github.com/Kitware/CMake/releases/download/v{VERSION}/cmake-{VERSION}-windows-arm64.msi
+          - id: Kiwix.WikiMed
+            repo: kiwix/kiwix-js-pwa
+            url: https://github.com/kiwix/kiwix-js-pwa/releases/download/v{VERSION}-WikiMed/WikiMed-by-Kiwix-{VERSION}-E.appx
           - id: Kiwix.Wikivoyage
             repo: kiwix/kiwix-js-pwa
             url: https://github.com/kiwix/kiwix-js-pwa/releases/download/v{VERSION}-Wikivoyage/Wikivoyage-by-Kiwix-{VERSION}-E.appx
@@ -566,6 +602,9 @@ jobs:
           - id: mentebinaria.retoolkit
             repo: mentebinaria/retoolkit
             url: https://github.com/mentebinaria/retoolkit/releases/download/{VERSION}/retoolkit_{VERSION}_setup.exe
+          - id: Metanorma.Metanorma
+            repo: metanorma/packed-mn
+            url: https://github.com/metanorma/packed-mn/releases/download/v{VERSION}/metanorma-windows-x86_64.zip
           - id: MichaelDiCarlo.PostyBirb
             repo: mvdicarlo/postybirb-plus
             url: https://github.com/mvdicarlo/postybirb-plus/releases/download/v{VERSION}/postybirb-plus-setup-{VERSION}.exe
@@ -638,9 +677,15 @@ jobs:
           - id: Neovim.Neovim
             repo: neovim/neovim
             url: https://github.com/neovim/neovim/releases/download/v{VERSION}/nvim-win64.msi
+          - id: Netmaker.Netmaker
+            repo: gravitl/netmaker
+            url: https://github.com/gravitl/netmaker/releases/download/v{VERSION}/nmctl-windows-amd64.exe
           - id: NitrokeyGmbH.Nitropy
             repo: Nitrokey/pynitrokey
             url: https://github.com/Nitrokey/pynitrokey/releases/download/v{VERSION}/nitropy-v{VERSION}-x64-windows-installer.msi
+          - id: nolanderc.glsl_analyzer
+            repo: nolanderc/glsl_analyzer
+            url: https://github.com/nolanderc/glsl_analyzer/releases/download/v{VERSION}/x86_64-windows.zip
           - id: nomacs.nomacs
             repo: nomacs/nomacs
             url: https://github.com/nomacs/nomacs/releases/download/{VERSION}/nomacs-setup-x64.msi https://github.com/nomacs/nomacs/releases/download/{VERSION}/nomacs-setup-x64.exe https://github.com/nomacs/nomacs/releases/download/{VERSION}/nomacs-setup-x64.exe
@@ -677,6 +722,9 @@ jobs:
           - id: Open-Component-Model.ocm-cli
             repo: open-component-model/ocm
             url: https://github.com/open-component-model/ocm/releases/download/v{VERSION}/ocm-{VERSION}-windows-amd64.zip https://github.com/open-component-model/ocm/releases/download/v{VERSION}/ocm-{VERSION}-windows-arm64.zip
+          - id: OpenJS.Electron
+            repo: electron/electron
+            url: https://github.com/electron/electron/releases/download/v{VERSION}/electron-v{VERSION}-win32-ia32.zip https://github.com/electron/electron/releases/download/v{VERSION}/electron-v{VERSION}-win32-x64.zip https://github.com/electron/electron/releases/download/v{VERSION}/electron-v{VERSION}-win32-arm64.zip
           - id: openpubkey.opkssh
             repo: openpubkey/opkssh
             url: https://github.com/openpubkey/opkssh/releases/download/v{VERSION}/opkssh-windows-amd64.exe
@@ -707,6 +755,9 @@ jobs:
           - id: PBH-BTN.PeerBanHelper
             repo: PBH-BTN/PeerBanHelper
             url: https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-x64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-x64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-arm64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-arm64_{VERSION}.exe
+          - id: peanut996.CloudflareWarpSpeedTest
+            repo: peanut996/CloudflareWarpSpeedTest
+            url: https://github.com/peanut996/CloudflareWarpSpeedTest/releases/download/v{VERSION}/CloudflareWarpSpeedTest-v{VERSION}-windows-amd64.zip
           - id: PersepolisDownloadManager.Persepolis
             repo: persepolisdm/persepolis
             url: https://github.com/persepolisdm/persepolis/releases/download/{VERSION}/persepolis_{VERSION}.0_windows_64bit.exe
@@ -719,57 +770,6 @@ jobs:
           - id: pnpm.pnpm
             repo: pnpm/pnpm
             url: https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-x64.exe https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-arm64.exe
-          - id: PocketSync.PocketSync
-            repo: neil-morrison44/pocket-sync
-            url: https://github.com/neil-morrison44/pocket-sync/releases/download/v{VERSION}/Pocket.Sync_{VERSION}_x64-setup.exe
-          - id: PolarGoose.CoffeeBean
-            repo: PolarGoose/CoffeeBean
-            url: https://github.com/PolarGoose/CoffeeBean/releases/download/v{VERSION}/CoffeeBean.msi
-          - id: PolarGoose.ShowWhatProcessLocksFile
-            repo: PolarGoose/ShowWhatProcessLocksFile
-            url: https://github.com/PolarGoose/ShowWhatProcessLocksFile/releases/download/v{VERSION}/ShowWhatProcessLocksFile.msi.zip
-          - id: PolyMC.PolyMC
-            repo: PolyMC/PolyMC
-            url: https://github.com/PolyMC/PolyMC/releases/download/{VERSION}/PolyMC-Windows-Setup-{VERSION}.exe
-          - id: Primecount.Primecount
-            repo: kimwalisch/primecount-winget
-            url: https://github.com/kimwalisch/primecount-winget/releases/download/v{VERSION}/Primecount-{VERSION}-win-x64.exe https://github.com/kimwalisch/primecount-winget/releases/download/v{VERSION}/Primecount-{VERSION}-win-arm64.exe
-          - id: printfn.fend
-            repo: printfn/fend
-            url: https://github.com/printfn/fend/releases/download/v{VERSION}/fend-{VERSION}-windows-x64-exe.zip https://github.com/printfn/fend/releases/download/v{VERSION}/fend-{VERSION}-windows-x64.msi
-          - id: Prometheus.WindowsExporter
-            repo: prometheus-community/windows_exporter
-            url: https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-amd64.exe https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-arm64.exe https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-amd64.msi https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-arm64.msi
-          - id: Psenix.OverlayTimer
-            repo: Psenix/OverlayTimer
-            url: https://github.com/Psenix/OverlayTimer/releases/download/v{VERSION}/OverlayTimer-Installer.exe
-          - id: Pulsar-Edit.Pulsar
-            repo: pulsar-edit/pulsar
-            url: https://github.com/pulsar-edit/pulsar/releases/download/v{VERSION}/Windows.Pulsar.Setup.{VERSION}.exe
-          - id: PYPrime.PYPrime
-            repo: monabuntur/PYPrime-2.x
-            url: https://github.com/monabuntur/PYPrime-2.x/releases/download/{VERSION}/PYPrime.{VERSION}.Installer.exe
-          - id: qarmin.czkawka.cli
-            repo: qarmin/czkawka
-            url: https://github.com/qarmin/czkawka/releases/download/{VERSION}/windows_czkawka_cli.exe
-          - id: QGIS.QField
-            repo: opengisch/QField
-            url: https://github.com/opengisch/QField/releases/download/v{VERSION}/qfield-v{VERSION}-windows-x64.exe
-          - id: quotient-im.Quaternion
-            repo: quotient-im/Quaternion
-            url: https://github.com/quotient-im/Quaternion/releases/download/{VERSION}/quaternion-{VERSION}.zip
-          - id: Radius.Radius
-            repo: radius-project/radius
-            url: https://github.com/radius-project/radius/releases/download/v{VERSION}/rad_windows_amd64.exe
-          - id: RadolynLabs.AyuGramDesktop
-            repo: AyuGram/AyuGramDesktop
-            url: https://github.com/AyuGram/AyuGramDesktop/releases/download/v{VERSION}/AyuGram.exe
-          - id: ransome1.sleek
-            repo: ransome1/sleek
-            url: https://github.com/ransome1/sleek/releases/download/v{VERSION}/sleek-{VERSION}-win-Setup.exe https://github.com/ransome1/sleek/releases/download/v{VERSION}/sleek-{VERSION}-win.exe
-          - id: raphamorim.rio
-            repo: raphamorim/rio
-            url: https://github.com/raphamorim/rio/releases/download/v{VERSION}/Rio-installer-x86_64.msi https://github.com/raphamorim/rio/releases/download/v{VERSION}/Rio-installer-aarch64.msi
 
     steps:
     - name: Update Packages
