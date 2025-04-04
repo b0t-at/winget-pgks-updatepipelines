@@ -484,11 +484,14 @@ try {
         $_.LatestVersion -ne (($currentVersion -split '\.')[0..(($currentVersion -split '\.').Count - 2)] -join '.')
     }    
 
-    
+    # only take packages where the versions are valid versions (one or more parts, numbers only, no letters, parts separated by .)
+    $filteredresultsNumbersOnly = $filteredresults | Where-Object { $_.CurrentVersion -match '^\d+(\.\d+)*$' -and $_.LatestVersion -match '^\d+(\.\d+)*$' }
+    write-Output "Filtered results: $($filteredresults.Count) packages with different versions."
+
     # Export to CSV
-    Write-Host "Exporting $($filteredresults.Count) packages to CSV: $OutputPath"
+    Write-Host "Exporting $($filteredresultsNumbersOnly.Count) packages to CSV: $OutputPath"
     #$results | Export-Csv -Path $OutputPath -NoTypeInformation -Encoding UTF8
-    $filteredresults | Export-Csv -Path $OutputPath -NoTypeInformation -Encoding UTF8
+    $filteredresultsNumbersOnly | Export-Csv -Path $OutputPath -NoTypeInformation -Encoding UTF8
     
     $endTime = Get-Date
     $duration = $endTime - $startTime
