@@ -88,6 +88,7 @@ if ($newestGitHubVersion -ne $version) {
     if ($LASTEXITCODE -ne 0) {
         Write-Host "komac update failed"
         write-host "Error: $($_.Exception.Message)"
+
         exit 1
     }
     
