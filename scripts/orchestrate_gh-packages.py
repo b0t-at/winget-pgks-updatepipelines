@@ -11,7 +11,7 @@ template_file = os.path.join(base_dir, "../.github/workflows-templates/github-re
 # Constants
 batch_size = 250
 workflow_prefix = "update-github-packages-"
-workflow_suffix = ".yaml"
+workflow_suffix = ".yml"
 
 # Step 1: Read the monitored file
 with open(monitored_file, "r") as file:
