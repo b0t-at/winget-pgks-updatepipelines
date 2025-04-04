@@ -499,6 +499,24 @@ try {
     Write-Host "Analysis completed in $($duration.TotalMinutes.ToString('0.00')) minutes."
     Write-Host "Found $($results.Count) packages with GitHub installer URLs."
     Write-Host "Results saved to: $OutputPath"
+
+    # filter for packages not already in github-releases-monitored.yml
+    #$ymlPath = "$scriptDirectory/../../github-releases-monitored.yml"
+    #$githubReleasesYml = Get-Content -Path "$ymlPath" -raw
+    #$filteredresultsNumbersOnly = $filteredresultsNumbersOnly | Where-Object { $githubReleasesYml -notmatch $_.PackageId }
+    #$withoutNotFound = @{}
+    $totalcount = $filteredresultsNumbersOnly.Count
+    $counter = 0
+    foreach ($result in $filteredresultsNumbersOnly) {
+        $counter++
+        Write-Progress -Activity "Processing results" -Status ("$counter" + "/" + "$totalcount Complete.") -PercentComplete ([math]::Min(100, [math]::Round(($counter / $totalcount) * 100)))
+        Write-Host "PackageId: $($result.PackageId), CurrentVersion: $($result.CurrentVersion), LatestVersion: $($result.LatestVersion), GitHubUrl: $($result.GitHubUrl), InstallerUrl: $($result.InstallerUrl), ManifestPath: $($result.ManifestPath)"
+        .\scripts\Add-GitHubPackage.ps1 -PackageId $result.PackageId
+        sleep 1
+        #$withoutNotFound[$result.PackageId] = $result
+    }
+
+
 }
 catch {
     Write-Error "An error occurred: $_"
