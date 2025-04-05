@@ -20,6 +20,30 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - id: P-StSoftware.WinSSHTerm
+            repo: WinSSHTerm/WinSSHTerm
+            url: https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-x64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-x64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-arm64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-arm64.msi
+          - id: PasteIntoFile.PasteIntoFile
+            repo: eltos/PasteIntoFile
+            url: https://github.com/eltos/PasteIntoFile/releases/download/v{VERSION}/PasteIntoFile_v{VERSION}_installer.msi
+          - id: PBH-BTN.PeerBanHelper
+            repo: PBH-BTN/PeerBanHelper
+            url: https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-x64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-x64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-arm64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-arm64_{VERSION}.exe
+          - id: peanut996.CloudflareWarpSpeedTest
+            repo: peanut996/CloudflareWarpSpeedTest
+            url: https://github.com/peanut996/CloudflareWarpSpeedTest/releases/download/v{VERSION}/CloudflareWarpSpeedTest-v{VERSION}-windows-amd64.zip
+          - id: PersepolisDownloadManager.Persepolis
+            repo: persepolisdm/persepolis
+            url: https://github.com/persepolisdm/persepolis/releases/download/{VERSION}/persepolis_{VERSION}.0_windows_64bit.exe
+          - id: pinokiocomputer.pinokio
+            repo: pinokiocomputer/pinokio
+            url: https://github.com/pinokiocomputer/pinokio/releases/download/{VERSION}/Pinokio-{VERSION}-win32.zip
+          - id: pluveto.Upgit
+            repo: pluveto/upgit
+            url: https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_386.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_amd64.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm64.exe
+          - id: pnpm.pnpm
+            repo: pnpm/pnpm
+            url: https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-x64.exe https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-arm64.exe
           - id: PocketSync.PocketSync
             repo: neil-morrison44/pocket-sync
             url: https://github.com/neil-morrison44/pocket-sync/releases/download/v{VERSION}/Pocket.Sync_{VERSION}_x64-setup.exe
@@ -98,15 +122,6 @@ jobs:
           - id: SaeraSoft.CaesiumImageCompressor
             repo: Lymphatus/caesium-image-compressor
             url: https://github.com/Lymphatus/caesium-image-compressor/releases/download/v{VERSION}/caesium-image-compressor-{VERSION}-win-setup.exe
-          - id: SagMeinenNamen.eChess
-            repo: SagMeinenNamen/eChess
-            url: https://github.com/SagMeinenNamen/eChess/raw/main/eChess-Installer.exe
-          - id: SagMeinenNamen.OpenStoreInstaller
-            repo: SagMeinenNamen/OpenStore
-            url: https://github.com/SagMeinenNamen/OpenStore/raw/main/OpenStoreInstaller.exe
-          - id: SagMeinenNamen.TypingTest
-            repo: SagMeinenNamen/TypingTest
-            url: https://github.com/SagMeinenNamen/TypingTest/raw/main/TypingTest.exe
           - id: Sayuri.FFFTP
             repo: ffftp/ffftp
             url: https://github.com/ffftp/ffftp/releases/download/v{VERSION}/ffftp-v{VERSION}-x64.msi https://github.com/ffftp/ffftp/releases/download/v{VERSION}/ffftp-v{VERSION}-x86.msi
@@ -179,9 +194,6 @@ jobs:
           - id: stacklok.frizbee
             repo: stacklok/frizbee
             url: https://github.com/stacklok/frizbee/releases/download/v{VERSION}/frizbee_{VERSION}_windows_arm64.zip https://github.com/stacklok/frizbee/releases/download/v{VERSION}/frizbee_{VERSION}_windows_amd64.zip
-          - id: stacklok.minder
-            repo: mindersec/minder
-            url: https://github.com/mindersec/minder/releases/download/v{VERSION}/minder_{VERSION}_windows_amd64.zip https://github.com/mindersec/minder/releases/download/v{VERSION}/minder_{VERSION}_windows_arm64.zip
           - id: stackrox.kube-linter
             repo: stackrox/kube-linter
             url: https://github.com/stackrox/kube-linter/releases/download/v{VERSION}/kube-linter.exe
@@ -347,9 +359,6 @@ jobs:
           - id: VictorIX.BlenderLauncher
             repo: Victor-IX/Blender-Launcher-V2
             url: https://github.com/Victor-IX/Blender-Launcher-V2/releases/download/v{VERSION}/Blender_Launcher_v{VERSION}_Windows_x64.zip
-          - id: vim.vim
-            repo: vim/vim-win32-installer
-            url: https://github.com/vim/vim-win32-installer/releases/download/v{VERSION}/gvim_{VERSION}_x86.exe https://github.com/vim/vim-win32-installer/releases/download/v{VERSION}/gvim_{VERSION}_x64.exe
           - id: Vipre.IPVTest
             repo: vimalraj-adikesavan/IPV-PUBLIC
             url: https://github.com/vimalraj-adikesavan/IPV-PUBLIC/releases/download/Public-Release/GitHubTest.exe

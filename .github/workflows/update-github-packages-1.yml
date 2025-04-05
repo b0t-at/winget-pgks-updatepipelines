@@ -20,6 +20,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - id: 1zilc.FishingFunds
+            repo: 1zilc/fishing-funds
+            url: https://github.com/1zilc/fishing-funds/releases/download/v{VERSION}/Fishing-Funds-Setup-{VERSION}.exe https://github.com/1zilc/fishing-funds/releases/download/v{VERSION}/Fishing-Funds-Setup-{VERSION}.exe
           - id: achannarasappa.ticker
             repo: achannarasappa/ticker
             url: https://github.com/achannarasappa/ticker/releases/download/v{VERSION}/ticker-{VERSION}-windows-amd64.zip
@@ -266,6 +269,9 @@ jobs:
           - id: EdgeTX.Companion
             repo: EdgeTX/edgetx
             url: https://github.com/EdgeTX/edgetx/releases/download/v{VERSION}/edgetx-cpn-win64-v{VERSION}.zip
+          - id: EditorConfig-Checker.EditorConfig-Checker
+            repo: editorconfig-checker/editorconfig-checker
+            url: https://github.com/editorconfig-checker/editorconfig-checker/releases/download/v{VERSION}/ec-windows-386.zip https://github.com/editorconfig-checker/editorconfig-checker/releases/download/v{VERSION}/ec-windows-amd64.zip https://github.com/editorconfig-checker/editorconfig-checker/releases/download/v{VERSION}/ec-windows-armv6.zip https://github.com/editorconfig-checker/editorconfig-checker/releases/download/v{VERSION}/ec-windows-arm64.zip
           - id: eksctl.eksctl
             repo: eksctl-io/eksctl
             url: https://github.com/eksctl-io/eksctl/releases/download/v{VERSION}/eksctl_Windows_amd64.zip https://github.com/eksctl-io/eksctl/releases/download/v{VERSION}/eksctl_Windows_arm64.zip
@@ -290,6 +296,9 @@ jobs:
           - id: errata-ai.Vale
             repo: errata-ai/vale
             url: https://github.com/errata-ai/vale/releases/download/v{VERSION}/vale_{VERSION}_Windows_64-bit.zip
+          - id: etcd-io.etcd
+            repo: etcd-io/etcd
+            url: https://github.com/etcd-io/etcd/releases/download/v{VERSION}/etcd-v{VERSION}-windows-amd64.zip
           - id: EtternaProject.EtternaGame
             repo: etternagame/etterna
             url: https://github.com/etternagame/etterna/releases/download/v{VERSION}/Etterna-{VERSION}-win32.exe https://github.com/etternagame/etterna/releases/download/v{VERSION}/Etterna-{VERSION}-win64.exe
@@ -401,9 +410,15 @@ jobs:
           - id: Gruntwork.Terragrunt
             repo: gruntwork-io/terragrunt
             url: https://github.com/gruntwork-io/terragrunt/releases/download/v{VERSION}/terragrunt_windows_386.exe https://github.com/gruntwork-io/terragrunt/releases/download/v{VERSION}/terragrunt_windows_amd64.exe
+          - id: gurnec.HashCheckShellExtension
+            repo: gurnec/HashCheck
+            url: https://github.com/gurnec/HashCheck/releases/download/v{VERSION}/HashCheckSetup-v{VERSION}.exe
           - id: Gyan.FFmpeg.Essentials
             repo: GyanD/codexffmpeg
             url: https://github.com/GyanD/codexffmpeg/releases/download/{VERSION}/ffmpeg-{VERSION}-essentials_build.zip
+          - id: H2IK.JoystickGremlin
+            repo: WhiteMagic/JoystickGremlin
+            url: https://github.com/WhiteMagic/JoystickGremlin/releases/download/Release_{VERSION}/Joystick.Gremlin.R{VERSION}.msi
           - id: h3poteto.fedistar
             repo: h3poteto/fedistar
             url: https://github.com/h3poteto/fedistar/releases/download/v{VERSION}/fedistar_{VERSION}_x64_en-US.msi
@@ -521,6 +536,9 @@ jobs:
           - id: JustArchiNET.ArchiSteamFarm
             repo: JustArchiNET/ArchiSteamFarm
             url: https://github.com/JustArchiNET/ArchiSteamFarm/releases/download/{VERSION}/ASF-win-x64.zip
+          - id: kangyu-california.PersistentWindows
+            repo: kangyu-california/PersistentWindows
+            url: https://github.com/kangyu-california/PersistentWindows/releases/download/{VERSION}/PersistentWindows{VERSION}.zip
           - id: KeeperSecurity.Commander
             repo: Keeper-Security/Commander
             url: https://github.com/Keeper-Security/Commander/releases/download/v{VERSION}/keeper-commander-windows-v{VERSION}.exe
@@ -635,6 +653,9 @@ jobs:
           - id: Microsoft.Sqlcmd
             repo: microsoft/go-sqlcmd
             url: https://github.com/microsoft/go-sqlcmd/releases/download/v{VERSION}/sqlcmd-amd64.msi https://github.com/microsoft/go-sqlcmd/releases/download/v{VERSION}/sqlcmd-arm.msi https://github.com/microsoft/go-sqlcmd/releases/download/v{VERSION}/sqlcmd-arm64.msi
+          - id: Microsoft.VCLibs.Desktop.14
+            repo: microsoft/winget-cli
+            url: https://github.com/microsoft/winget-cli/releases/download/v{VERSION}/DesktopAppInstaller_Dependencies.zip https://github.com/microsoft/winget-cli/releases/download/v{VERSION}/DesktopAppInstaller_Dependencies.zip https://github.com/microsoft/winget-cli/releases/download/v{VERSION}/DesktopAppInstaller_Dependencies.zip https://github.com/microsoft/winget-cli/releases/download/v{VERSION}/DesktopAppInstaller_Dependencies.zip
           - id: MilkShift.GoofCord
             repo: Milkshiift/GoofCord
             url: https://github.com/Milkshiift/GoofCord/releases/download/v{VERSION}/GoofCord-Setup-ia32.exe https://github.com/Milkshiift/GoofCord/releases/download/v{VERSION}/GoofCord-Setup-x64.exe https://github.com/Milkshiift/GoofCord/releases/download/v{VERSION}/GoofCord-Setup-arm64.exe
@@ -650,15 +671,18 @@ jobs:
           - id: mmanela.markdownoutlook
             repo: mmanela/MarkdownOutlook
             url: https://github.com/mmanela/MarkdownOutlook/releases/download/v{VERSION}/MarkdownOutlookSetup.msi
-          - id: MongoDB.Compass.Community
-            repo: mongodb-js/compass
-            url: https://github.com/mongodb-js/compass/releases/download/v{VERSION}/mongodb-compass-{VERSION}-win32-x64.msi
           - id: MonoGame.MonoGame
             repo: MonoGame/MonoGame
             url: https://github.com/MonoGame/MonoGame/releases/download/v{VERSION}/MonoGameSetup.exe
           - id: Morpheus.Bazarr
             repo: bazarr/bazarr.github.io
             url: https://github.com/bazarr/bazarr.github.io/releases/download/v{VERSION}/bazarr.zip
+          - id: mortenn.BrowserPicker
+            repo: mortenn/BrowserPicker
+            url: https://github.com/mortenn/BrowserPicker/releases/download/v{VERSION}/BrowserPicker-Portable.msi
+          - id: MotionTeam.MotionDesktopApp
+            repo: usemotion/desktopapp
+            url: https://github.com/usemotion/desktopapp/releases/download/{VERSION}/motion.exe
           - id: muffinista.before-dawn
             repo: muffinista/before-dawn
             url: https://github.com/muffinista/before-dawn/releases/download/v{VERSION}/Before-Dawn-Setup-{VERSION}.exe
@@ -746,30 +770,6 @@ jobs:
           - id: oxygendioxide.utaformatix
             repo: oxygen-dioxide/utaformatix-electron
             url: https://github.com/oxygen-dioxide/utaformatix-electron/releases/download/{VERSION}/UtaFormatix-{VERSION}-win32-x64.exe
-          - id: P-StSoftware.WinSSHTerm
-            repo: WinSSHTerm/WinSSHTerm
-            url: https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-x64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-x64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-arm64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-arm64.msi
-          - id: PasteIntoFile.PasteIntoFile
-            repo: eltos/PasteIntoFile
-            url: https://github.com/eltos/PasteIntoFile/releases/download/v{VERSION}/PasteIntoFile_v{VERSION}_installer.msi
-          - id: PBH-BTN.PeerBanHelper
-            repo: PBH-BTN/PeerBanHelper
-            url: https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-x64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-x64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-arm64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-arm64_{VERSION}.exe
-          - id: peanut996.CloudflareWarpSpeedTest
-            repo: peanut996/CloudflareWarpSpeedTest
-            url: https://github.com/peanut996/CloudflareWarpSpeedTest/releases/download/v{VERSION}/CloudflareWarpSpeedTest-v{VERSION}-windows-amd64.zip
-          - id: PersepolisDownloadManager.Persepolis
-            repo: persepolisdm/persepolis
-            url: https://github.com/persepolisdm/persepolis/releases/download/{VERSION}/persepolis_{VERSION}.0_windows_64bit.exe
-          - id: pinokiocomputer.pinokio
-            repo: pinokiocomputer/pinokio
-            url: https://github.com/pinokiocomputer/pinokio/releases/download/{VERSION}/Pinokio-{VERSION}-win32.zip
-          - id: pluveto.Upgit
-            repo: pluveto/upgit
-            url: https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_386.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_amd64.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm64.exe
-          - id: pnpm.pnpm
-            repo: pnpm/pnpm
-            url: https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-x64.exe https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-arm64.exe
 
     steps:
     - name: Update Packages
