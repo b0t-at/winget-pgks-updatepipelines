@@ -437,9 +437,6 @@ jobs:
           - id: hickford.git-credential-oauth
             repo: hickford/git-credential-oauth
             url: https://github.com/hickford/git-credential-oauth/releases/download/v{VERSION}/git-credential-oauth_{VERSION}_windows_386.zip https://github.com/hickford/git-credential-oauth/releases/download/v{VERSION}/git-credential-oauth_{VERSION}_windows_amd64.zip https://github.com/hickford/git-credential-oauth/releases/download/v{VERSION}/git-credential-oauth_{VERSION}_windows_arm64.zip
-          - id: Hiddify.Next.Beta
-            repo: hiddify/hiddify-next
-            url: https://github.com/hiddify/hiddify-next/releases/download/v{VERSION}/Hiddify-Windows-Setup-x64.exe
           - id: HiroshibaKazuyuki.VOICEVOX.CPU
             repo: VOICEVOX/voicevox
             url: https://github.com/VOICEVOX/voicevox/releases/download/{VERSION}/voicevox-windows-cpu-{VERSION}.zip
@@ -465,9 +462,6 @@ jobs:
             repo: igoogolx/lux
             url: https://github.com/igoogolx/lux/releases/download/v{VERSION}/lux-{VERSION}-windows-setup.exe
           - id: InTheLoop.LoopEmail
-            repo: 4thOffice/loopinupdater
-            url: https://github.com/4thOffice/loopinupdater/releases/download/v{VERSION}/Loop-Email-Setup-{VERSION}.exe https://github.com/4thOffice/loopinupdater/releases/download/v{VERSION}/Loop-Email-Setup-{VERSION}.exe
-          - id: InTheLoop.LoopEmail.Beta
             repo: 4thOffice/loopinupdater
             url: https://github.com/4thOffice/loopinupdater/releases/download/v{VERSION}/Loop-Email-Setup-{VERSION}.exe https://github.com/4thOffice/loopinupdater/releases/download/v{VERSION}/Loop-Email-Setup-{VERSION}.exe
           - id: IPEP.Scantailor-Experimental
@@ -575,9 +569,6 @@ jobs:
           - id: Levminer.Authme
             repo: Levminer/authme
             url: https://github.com/Levminer/authme/releases/download/{VERSION}/authme-{VERSION}-windows-x64.msi
-          - id: LGUG2Z.komorebi.Nightly
-            repo: LGUG2Z/komorebi
-            url: https://github.com/LGUG2Z/komorebi/releases/download/nightly/komorebi-nightly-x86_64.msi
           - id: liberodark.ODrive
             repo: liberodark/ODrive
             url: https://github.com/liberodark/ODrive/releases/download/{VERSION}/OpenDrive.Setup.{VERSION}.exe
@@ -770,6 +761,15 @@ jobs:
           - id: P-StSoftware.WinSSHTerm
             repo: WinSSHTerm/WinSSHTerm
             url: https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-x64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-x64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-arm64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-arm64.msi
+          - id: PasteIntoFile.PasteIntoFile
+            repo: eltos/PasteIntoFile
+            url: https://github.com/eltos/PasteIntoFile/releases/download/v{VERSION}/PasteIntoFile_v{VERSION}_installer.msi
+          - id: PBH-BTN.PeerBanHelper
+            repo: PBH-BTN/PeerBanHelper
+            url: https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-x64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-x64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-arm64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-arm64_{VERSION}.exe
+          - id: peanut996.CloudflareWarpSpeedTest
+            repo: peanut996/CloudflareWarpSpeedTest
+            url: https://github.com/peanut996/CloudflareWarpSpeedTest/releases/download/v{VERSION}/CloudflareWarpSpeedTest-v{VERSION}-windows-amd64.zip
 
     steps:
     - name: Update Packages

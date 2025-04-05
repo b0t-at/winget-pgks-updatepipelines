@@ -20,15 +20,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - id: PasteIntoFile.PasteIntoFile
-            repo: eltos/PasteIntoFile
-            url: https://github.com/eltos/PasteIntoFile/releases/download/v{VERSION}/PasteIntoFile_v{VERSION}_installer.msi
-          - id: PBH-BTN.PeerBanHelper
-            repo: PBH-BTN/PeerBanHelper
-            url: https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-x64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-x64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-arm64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-arm64_{VERSION}.exe
-          - id: peanut996.CloudflareWarpSpeedTest
-            repo: peanut996/CloudflareWarpSpeedTest
-            url: https://github.com/peanut996/CloudflareWarpSpeedTest/releases/download/v{VERSION}/CloudflareWarpSpeedTest-v{VERSION}-windows-amd64.zip
           - id: PersepolisDownloadManager.Persepolis
             repo: persepolisdm/persepolis
             url: https://github.com/persepolisdm/persepolis/releases/download/{VERSION}/persepolis_{VERSION}.0_windows_64bit.exe
@@ -407,9 +398,6 @@ jobs:
           - id: WillyJL.F95Checker
             repo: Willy-JL/F95Checker
             url: https://github.com/Willy-JL/F95Checker/releases/download/{VERSION}/F95Checker-Windows.zip
-          - id: WinMerge.WinMerge.Beta
-            repo: WinMerge/winmerge
-            url: https://github.com/WinMerge/winmerge/releases/download/v{VERSION}/WinMerge-{VERSION}-Setup.exe https://github.com/WinMerge/winmerge/releases/download/v{VERSION}/WinMerge-{VERSION}-x64-PerUser-Setup.exe https://github.com/WinMerge/winmerge/releases/download/v{VERSION}/WinMerge-{VERSION}-x64-Setup.exe https://github.com/WinMerge/winmerge/releases/download/v{VERSION}/WinMerge-{VERSION}-ARM64-Setup.exe
           - id: WinsiderSS.SystemInformer
             repo: winsiderss/si-builds
             url: https://github.com/winsiderss/si-builds/releases/download/{VERSION}/systeminformer-{VERSION}-release-setup.exe
