@@ -20,9 +20,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - id: P-StSoftware.WinSSHTerm
-            repo: WinSSHTerm/WinSSHTerm
-            url: https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-x64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-x64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-arm64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-arm64.msi
           - id: PasteIntoFile.PasteIntoFile
             repo: eltos/PasteIntoFile
             url: https://github.com/eltos/PasteIntoFile/releases/download/v{VERSION}/PasteIntoFile_v{VERSION}_installer.msi

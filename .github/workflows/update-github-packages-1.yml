@@ -653,9 +653,6 @@ jobs:
           - id: Microsoft.Sqlcmd
             repo: microsoft/go-sqlcmd
             url: https://github.com/microsoft/go-sqlcmd/releases/download/v{VERSION}/sqlcmd-amd64.msi https://github.com/microsoft/go-sqlcmd/releases/download/v{VERSION}/sqlcmd-arm.msi https://github.com/microsoft/go-sqlcmd/releases/download/v{VERSION}/sqlcmd-arm64.msi
-          - id: Microsoft.VCLibs.Desktop.14
-            repo: microsoft/winget-cli
-            url: https://github.com/microsoft/winget-cli/releases/download/v{VERSION}/DesktopAppInstaller_Dependencies.zip https://github.com/microsoft/winget-cli/releases/download/v{VERSION}/DesktopAppInstaller_Dependencies.zip https://github.com/microsoft/winget-cli/releases/download/v{VERSION}/DesktopAppInstaller_Dependencies.zip https://github.com/microsoft/winget-cli/releases/download/v{VERSION}/DesktopAppInstaller_Dependencies.zip
           - id: MilkShift.GoofCord
             repo: Milkshiift/GoofCord
             url: https://github.com/Milkshiift/GoofCord/releases/download/v{VERSION}/GoofCord-Setup-ia32.exe https://github.com/Milkshiift/GoofCord/releases/download/v{VERSION}/GoofCord-Setup-x64.exe https://github.com/Milkshiift/GoofCord/releases/download/v{VERSION}/GoofCord-Setup-arm64.exe
@@ -770,6 +767,9 @@ jobs:
           - id: oxygendioxide.utaformatix
             repo: oxygen-dioxide/utaformatix-electron
             url: https://github.com/oxygen-dioxide/utaformatix-electron/releases/download/{VERSION}/UtaFormatix-{VERSION}-win32-x64.exe
+          - id: P-StSoftware.WinSSHTerm
+            repo: WinSSHTerm/WinSSHTerm
+            url: https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-x64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-x64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-arm64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-arm64.msi
 
     steps:
     - name: Update Packages
