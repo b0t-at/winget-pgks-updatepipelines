@@ -20,9 +20,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - id: pinokiocomputer.pinokio
-            repo: pinokiocomputer/pinokio
-            url: https://github.com/pinokiocomputer/pinokio/releases/download/{VERSION}/Pinokio-{VERSION}-win32.zip
           - id: pluveto.Upgit
             repo: pluveto/upgit
             url: https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_386.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_amd64.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm64.exe
