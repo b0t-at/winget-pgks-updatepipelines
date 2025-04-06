@@ -1,7 +1,10 @@
 # winget-pgks-updatepipelines
 **PR repo:** [winget-pkgs](https://github.com/microsoft/winget-pkgs.git)  
-**open PRs:** [damn-good-b0t](https://github.com/microsoft/winget-pkgs/pulls/damn-good-b0t)  
 **Fork repo:** [damn-good-b0t/winget-pkgs](https://github.com/damn-good-b0t/winget-pkgs)
+
+### PRs:
+- [**all open PRs**](https://github.com/microsoft/winget-pkgs/pulls/damn-good-b0t)
+- [**need attention**](https://github.com/microsoft/winget-pkgs/pulls?q=is%3Aopen+is%3Apr+author%3Adamn-good-b0t+-label%3AAzure-Pipeline-Passed+)
 
 | Package Version Handling| Count|
 |----------------------------|---------------------------------------------------------------|
