@@ -179,9 +179,6 @@ jobs:
           - id: ciromattia.KCC
             repo: ciromattia/kcc
             url: https://github.com/ciromattia/kcc/releases/download/v{VERSION}/KCC_{VERSION}.exe
-          - id: ClockworkMod.UniversalADBDriver
-            repo: koush/adb.clockworkmod.com
-            url: https://github.com/koush/adb.clockworkmod.com/releases/download/v{VERSION}/UniversalAdbDriverSetup.msi
           - id: cobalt-org.cobalt
             repo: cobalt-org/cobalt.rs
             url: https://github.com/cobalt-org/cobalt.rs/releases/download/v{VERSION}/cobalt-v{VERSION}-x86_64-pc-windows-msvc.zip
@@ -770,6 +767,9 @@ jobs:
           - id: peanut996.CloudflareWarpSpeedTest
             repo: peanut996/CloudflareWarpSpeedTest
             url: https://github.com/peanut996/CloudflareWarpSpeedTest/releases/download/v{VERSION}/CloudflareWarpSpeedTest-v{VERSION}-windows-amd64.zip
+          - id: PersepolisDownloadManager.Persepolis
+            repo: persepolisdm/persepolis
+            url: https://github.com/persepolisdm/persepolis/releases/download/{VERSION}/persepolis_{VERSION}.0_windows_64bit.exe
 
     steps:
     - name: Update Packages
