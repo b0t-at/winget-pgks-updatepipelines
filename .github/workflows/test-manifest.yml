@@ -18,7 +18,7 @@ on:
 jobs:
   test:
     name: "Test manifest - PR #${{ inputs.PRNumber }}"
-    runs-on: windows-latest
+    runs-on: windows-2025
     timeout-minutes: 10
     steps:
       - name: Checkout Repository
@@ -54,10 +54,10 @@ jobs:
           echo "manifestname=$result" >> $env:GITHUB_ENV
           echo "manifesturl=$manifestUrl" >> $env:GITHUB_ENV
 
-      - name: Install winget
-        uses: Cyberboss/install-winget@v1
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #- name: Install winget
+      #  uses: Cyberboss/install-winget@v1
+      #  with:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup FFmpeg
         uses: AnimMouse/setup-ffmpeg@v1
           
