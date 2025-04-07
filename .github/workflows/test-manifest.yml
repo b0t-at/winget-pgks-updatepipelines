@@ -71,9 +71,10 @@ jobs:
         env:
           TIMEOUT: ${{ inputs.Timeout }}
         run: .\scripts\Test-Manifest.ps1 -ManifestURL ${{ env.manifesturl }}
-        continue-on-error: true
+        #continue-on-error: true
 
       - name: Take screenshot using FFmpeg
+        if: always()
         shell: powershell
         run: |
           #start ms-settings:appsfeatures
@@ -99,6 +100,7 @@ jobs:
           }
 
       - name: Upload Screenshot Artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           #name: screenshot-${{ env.date }}-${{ env.manifestname }}
