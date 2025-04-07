@@ -13,7 +13,9 @@ if(!$RedirectUrl) {
 }
 
 $latestVersionUrl = $RedirectUrl.AbsoluteUri
-$latestVersion = [regex]::Match($RedirectUrl.AbsolutePath, '.*.*KindleForPC-installer-(\d+.\d+.\d+).*').Groups[1].Value
+#$latestVersion = [regex]::Match($RedirectUrl.AbsolutePath, '.*.*KindleForPC-installer-(\d+.\d+.\d+).*').Groups[1].Value
+Write-Host "Full download URL: $latestVersionUrl"
+$latestVersion = Get-ProductVersionFromFile -WebsiteURL $latestVersionUrl -VersionInfoProperty "ProductVersion"
 
 return [PSCustomObject]@{
     Version = $latestVersion
