@@ -66,6 +66,7 @@ jobs:
           start ms-settings:appsfeatures
 
       - name: Test installation
+        id: test
         shell: powershell
         env:
           TIMEOUT: ${{ inputs.Timeout }}
@@ -106,7 +107,7 @@ jobs:
           retention-days: 30  # Artifacts will be kept for 30 days
 
       - name: Check if Test Script Failed
-        if: failure()  # This runs only if the previous step failed
+        if: steps.test.conclusion == 'failure' #failure()  # This runs only if the previous step failed
         run: |
           echo "Test Script failed. Marking workflow as failed."
           exit 1
