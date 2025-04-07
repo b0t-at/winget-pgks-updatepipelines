@@ -11,7 +11,7 @@ catch {
 if(!$RedirectUrl) {
     throw "Failed to retrieve the redirect URL."
 }
-KindleForPC-installer-2.7.70978.exe
+
 $latestVersionUrl = $RedirectUrl.AbsoluteUri
 $latestVersion = [regex]::Match($RedirectUrl.AbsolutePath, '.*.*KindleForPC-installer-(\d+.\d+.\d+).*').Groups[1].Value
 
