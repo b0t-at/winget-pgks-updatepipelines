@@ -95,6 +95,7 @@ jobs:
           - PackageName: "glueckkanja.KONNEKT"
           - PackageName: "Ghisler.TotalCommander"
           - PackageName: "Jellyfin.Server"
+          - PackageName: "Amazon.Kindle"
 
     steps:
       - name: Checkout
