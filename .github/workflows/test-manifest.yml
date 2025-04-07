@@ -60,7 +60,11 @@ jobs:
       #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup FFmpeg
         uses: AnimMouse/setup-ffmpeg@v1
-          
+      - name: Open windows settings
+        shell: powershell
+        run: |
+          start ms-settings:appsfeatures
+
       - name: Test installation
         shell: powershell
         env:
@@ -71,7 +75,7 @@ jobs:
       - name: Take screenshot using FFmpeg
         shell: powershell
         run: |
-          start ms-settings:appsfeatures
+          #start ms-settings:appsfeatures
 
           # Wait for the settings app to open
           Start-Sleep -Seconds 5
