@@ -485,9 +485,6 @@ jobs:
           - id: JakobHellermann.Atlas
             repo: jakobhellermann/Atlas
             url: https://github.com/jakobhellermann/Atlas/releases/download/{VERSION}/Atlas.msi
-          - id: JamesCJ60.Universalx86TuningUtility
-            repo: JamesCJ60/Universal-x86-Tuning-Utility
-            url: https://github.com/JamesCJ60/Universal-x86-Tuning-Utility/releases/download/{VERSION}/Universal.x86.Tuning.Utility.V2.msi
           - id: JannisX11.Blockbench
             repo: JannisX11/blockbench
             url: https://github.com/JannisX11/blockbench/releases/download/v{VERSION}/Blockbench_{VERSION}.exe
@@ -770,6 +767,9 @@ jobs:
           - id: pinokiocomputer.pinokio
             repo: pinokiocomputer/pinokio
             url: https://github.com/pinokiocomputer/pinokio/releases/download/{VERSION}/Pinokio-{VERSION}-win32.zip
+          - id: pluveto.Upgit
+            repo: pluveto/upgit
+            url: https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_386.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_amd64.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm64.exe
 
     steps:
     - name: Update Packages
