@@ -639,7 +639,7 @@
             url: "https://github.com/bazarr/bazarr.github.io/releases/download/v{VERSION}/bazarr.zip"
           - id: "mortenn.BrowserPicker"
             repo: "mortenn/BrowserPicker"
-            url: "https://github.com/mortenn/BrowserPicker/releases/download/v{VERSION}/BrowserPicker-Portable.msi"
+            url: "https://github.com/mortenn/BrowserPicker/releases/download/v{VERSION}/BrowserPicker.msi"
           - id: "MotionTeam.MotionDesktopApp"
             repo: "usemotion/desktopapp"
             url: "https://github.com/usemotion/desktopapp/releases/download/{VERSION}/motion.exe"
