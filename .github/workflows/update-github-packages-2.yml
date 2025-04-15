@@ -20,6 +20,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - id: pinokiocomputer.pinokio
+            repo: pinokiocomputer/pinokio
+            url: https://github.com/pinokiocomputer/pinokio/releases/download/{VERSION}/Pinokio-{VERSION}-win32.zip
+          - id: pluveto.Upgit
+            repo: pluveto/upgit
+            url: https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_386.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_amd64.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm64.exe
           - id: pnpm.pnpm
             repo: pnpm/pnpm
             url: https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-x64.exe https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-arm64.exe
@@ -431,9 +437,6 @@ jobs:
           - id: ZugferdCommunity.QubaViewer
             repo: ZUGFeRD/quba-viewer
             url: https://github.com/ZUGFeRD/quba-viewer/releases/download/v{VERSION}/Quba.{VERSION}.msi
-          - id: lubomirkurcak.tend
-            repo: lubomirkurcak/tend
-            url: https://github.com/lubomirkurcak/tend/releases/download/{VERSION}/tend-{VERSION}-x86_64-pc-windows-msvc.zip
 
     steps:
     - name: Update Packages

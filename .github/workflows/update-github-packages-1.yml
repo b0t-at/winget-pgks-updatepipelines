@@ -215,6 +215,9 @@ jobs:
           - id: CueLang.Cue
             repo: cue-lang/cue
             url: https://github.com/cue-lang/cue/releases/download/v{VERSION}/cue_v{VERSION}_windows_amd64.zip https://github.com/cue-lang/cue/releases/download/v{VERSION}/cue_v{VERSION}_windows_arm64.zip
+          - id: CumulusMX.CumulusMX
+            repo: cumulusmx/CumulusMX
+            url: https://github.com/cumulusmx/CumulusMX/releases/download/b4087/CumulusMXDist4087.zip
           - id: Curiosity.Curiosity
             repo: curiosity-ai/curiosity-app-win
             url: https://github.com/curiosity-ai/curiosity-app-win/releases/download/v{VERSION}/Curiosity-Setup-{VERSION}.exe
@@ -587,6 +590,9 @@ jobs:
           - id: LowLevelDesign.ProcessGovernor
             repo: lowleveldesign/process-governor
             url: https://github.com/lowleveldesign/process-governor/releases/download/{VERSION}/procgov.zip
+          - id: lubomirkurcak.tend
+            repo: lubomirkurcak/tend
+            url: https://github.com/lubomirkurcak/tend/releases/download/{VERSION}/tend-{VERSION}-x86_64-pc-windows-msvc.zip
           - id: MarceloLvCabral.BrightScriptEmulator
             repo: lvcabral/brs-emu
             url: https://github.com/lvcabral/brs-emu/releases/download/v{VERSION}-emu/brsEmuApp-{VERSION}-windows.exe
@@ -764,12 +770,6 @@ jobs:
           - id: PersepolisDownloadManager.Persepolis
             repo: persepolisdm/persepolis
             url: https://github.com/persepolisdm/persepolis/releases/download/{VERSION}/persepolis_{VERSION}.0_windows_64bit.exe
-          - id: pinokiocomputer.pinokio
-            repo: pinokiocomputer/pinokio
-            url: https://github.com/pinokiocomputer/pinokio/releases/download/{VERSION}/Pinokio-{VERSION}-win32.zip
-          - id: pluveto.Upgit
-            repo: pluveto/upgit
-            url: https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_386.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_amd64.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm64.exe
 
     steps:
     - name: Update Packages
