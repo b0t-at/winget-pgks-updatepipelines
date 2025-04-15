@@ -431,6 +431,9 @@ jobs:
           - id: ZugferdCommunity.QubaViewer
             repo: ZUGFeRD/quba-viewer
             url: https://github.com/ZUGFeRD/quba-viewer/releases/download/v{VERSION}/Quba.{VERSION}.msi
+          - id: lubomirkurcak.tend
+            repo: lubomirkurcak/tend
+            url: https://github.com/lubomirkurcak/tend/releases/download/{VERSION}/tend-{VERSION}-x86_64-pc-windows-msvc.zip
 
     steps:
     - name: Update Packages
