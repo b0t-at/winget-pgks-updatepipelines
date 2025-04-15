@@ -215,9 +215,6 @@ jobs:
           - id: CueLang.Cue
             repo: cue-lang/cue
             url: https://github.com/cue-lang/cue/releases/download/v{VERSION}/cue_v{VERSION}_windows_amd64.zip https://github.com/cue-lang/cue/releases/download/v{VERSION}/cue_v{VERSION}_windows_arm64.zip
-          - id: CumulusMX.CumulusMX
-            repo: cumulusmx/CumulusMX
-            url: https://github.com/cumulusmx/CumulusMX/releases/download/b4087/CumulusMXDist4087.zip
           - id: Curiosity.Curiosity
             repo: curiosity-ai/curiosity-app-win
             url: https://github.com/curiosity-ai/curiosity-app-win/releases/download/v{VERSION}/Curiosity-Setup-{VERSION}.exe
@@ -770,6 +767,9 @@ jobs:
           - id: PersepolisDownloadManager.Persepolis
             repo: persepolisdm/persepolis
             url: https://github.com/persepolisdm/persepolis/releases/download/{VERSION}/persepolis_{VERSION}.0_windows_64bit.exe
+          - id: pinokiocomputer.pinokio
+            repo: pinokiocomputer/pinokio
+            url: https://github.com/pinokiocomputer/pinokio/releases/download/{VERSION}/Pinokio-{VERSION}-win32.zip
 
     steps:
     - name: Update Packages
