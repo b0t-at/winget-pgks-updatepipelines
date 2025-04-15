@@ -314,9 +314,6 @@ jobs:
           - id: Tyrrrz.DiscordChatExporter.GUI
             repo: Tyrrrz/DiscordChatExporter
             url: https://github.com/Tyrrrz/DiscordChatExporter/releases/download/{VERSION}/DiscordChatExporter.win-x86.zip https://github.com/Tyrrrz/DiscordChatExporter/releases/download/{VERSION}/DiscordChatExporter.win-x64.zip https://github.com/Tyrrrz/DiscordChatExporter/releases/download/{VERSION}/DiscordChatExporter.win-arm64.zip
-          - id: Uahh.ToastFish
-            repo: Uahh/ToastFish
-            url: https://github.com/Uahh/ToastFish/releases/download/{VERSION}/ToastFish.v{VERSION}.msi
           - id: UltimateGadgetLaboratories.UHKAgent
             repo: UltimateHackingKeyboard/agent
             url: https://github.com/UltimateHackingKeyboard/agent/releases/download/v{VERSION}/UHK.Agent-{VERSION}-win-ia32.exe https://github.com/UltimateHackingKeyboard/agent/releases/download/v{VERSION}/UHK.Agent-{VERSION}-win-x64.exe https://github.com/UltimateHackingKeyboard/agent/releases/download/v{VERSION}/UHK.Agent-{VERSION}-win.exe
