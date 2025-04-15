@@ -34,4 +34,4 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Add GitHub Package: ${{ inputs.packageId }}"
-          file_pattern: .github/workflows/github-releases.yml
+          file_pattern: .github/workflows/github-releases-monitored.yml
