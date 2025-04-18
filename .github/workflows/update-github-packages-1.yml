@@ -191,9 +191,6 @@ jobs:
           - id: Concourse.Fly
             repo: concourse/concourse
             url: https://github.com/concourse/concourse/releases/download/v{VERSION}/fly-{VERSION}-windows-amd64.zip
-          - id: ConfluentInc.Confluent-CLI
-            repo: confluentinc/cli
-            url: https://github.com/confluentinc/cli/releases/download/v{VERSION}/confluent_{VERSION}_windows_amd64.zip
           - id: CoolPlayLin.Installer.LANDrop
             repo: CoolPlayLin/Windows-Setups
             url: https://github.com/CoolPlayLin/Windows-Setups/releases/download/v{VERSION}/LANDrop.Setup.ia32.exe https://github.com/CoolPlayLin/Windows-Setups/releases/download/v{VERSION}/LANDrop.Setup.ia32.exe
@@ -770,6 +767,9 @@ jobs:
           - id: PocketSync.PocketSync
             repo: neil-morrison44/pocket-sync
             url: https://github.com/neil-morrison44/pocket-sync/releases/download/v{VERSION}/Pocket.Sync_{VERSION}_x64-setup.exe
+          - id: PolarGoose.CoffeeBean
+            repo: PolarGoose/CoffeeBean
+            url: https://github.com/PolarGoose/CoffeeBean/releases/download/v{VERSION}/CoffeeBean.msi
 
     steps:
     - name: Update Packages

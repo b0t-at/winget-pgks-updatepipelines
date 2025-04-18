@@ -20,9 +20,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - id: PolarGoose.CoffeeBean
-            repo: PolarGoose/CoffeeBean
-            url: https://github.com/PolarGoose/CoffeeBean/releases/download/v{VERSION}/CoffeeBean.msi
           - id: PolarGoose.ShowWhatProcessLocksFile
             repo: PolarGoose/ShowWhatProcessLocksFile
             url: https://github.com/PolarGoose/ShowWhatProcessLocksFile/releases/download/v{VERSION}/ShowWhatProcessLocksFile.msi.zip
