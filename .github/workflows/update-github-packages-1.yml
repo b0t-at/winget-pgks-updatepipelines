@@ -85,7 +85,7 @@ jobs:
             url: https://github.com/AppFlowy-IO/AppFlowy/releases/download/{VERSION}/AppFlowy-{VERSION}-windows-x86_64.exe
           - id: AppiumDevelopers.AppiumInspector
             repo: appium/appium-inspector
-            url: https://github.com/appium/appium-inspector/releases/download/v{VERSION}/Appium-Inspector-windows-{VERSION}-x64.exe
+            url: https://github.com/appium/appium-inspector/releases/download/v{VERSION}/Appium-Inspector-{VERSION}-win-x64.exe
           - id: AquaSecurity.Trivy
             repo: aquasecurity/trivy
             url: https://github.com/aquasecurity/trivy/releases/download/v{VERSION}/trivy_{VERSION}_windows-64bit.zip
@@ -220,7 +220,7 @@ jobs:
             url: https://github.com/curiosity-ai/curiosity-app-win/releases/download/v{VERSION}/Curiosity-Setup-{VERSION}.exe
           - id: DataPLANT.ArcCommander
             repo: nfdi4plants/arcCommander
-            url: https://github.com/nfdi4plants/arcCommander/releases/download/Installer_v{VERSION}/ArcCommanderInstaller.msi
+            url: https://github.com/nfdi4plants/arcCommander/releases/download/v{VERSION}/arc.exe
           - id: dbrgn.tealdeer
             repo: dbrgn/tealdeer
             url: https://github.com/dbrgn/tealdeer/releases/download/v{VERSION}/tealdeer-windows-x86_64-msvc.exe
@@ -280,7 +280,7 @@ jobs:
             url: https://github.com/ente-io/photos-desktop/releases/download/v{VERSION}/ente-{VERSION}.exe https://github.com/ente-io/photos-desktop/releases/download/v{VERSION}/ente-{VERSION}-x64.exe https://github.com/ente-io/photos-desktop/releases/download/v{VERSION}/ente-{VERSION}-arm64.exe
           - id: Envoy49.go-spotify-cli
             repo: Envoy49/go-spotify-cli
-            url: https://github.com/Envoy49/go-spotify-cli/releases/download/v{VERSION}/go-spotify-cli-windows-amd64.exe https://github.com/Envoy49/go-spotify-cli/releases/download/v{VERSION}/go-spotify-cli-windows-amd64.exe
+            url: https://github.com/Envoy49/go-spotify-cli/releases/download/v{VERSION}/go-spotify-cli_windows_amd64.zip https://github.com/Envoy49/go-spotify-cli/releases/download/v{VERSION}/go-spotify-cli_windows_arm64.zip
           - id: EQAditu.AdvancedCombatTracker
             repo: EQAditu/AdvancedCombatTracker
             url: https://github.com/EQAditu/AdvancedCombatTracker/releases/download/{VERSION}/ACTv3-Setup.exe
@@ -343,7 +343,7 @@ jobs:
             url: https://github.com/fossas/fossa-cli/releases/download/v{VERSION}/fossa_{VERSION}_windows_amd64.zip
           - id: FrancisBanyikwa.MediaDownloader
             repo: mhogomchungu/media-downloader
-            url: https://github.com/mhogomchungu/media-downloader/releases/download/{VERSION}/MediaDownloader-{VERSION}.setup.exe
+            url: https://github.com/mhogomchungu/media-downloader/releases/download/{VERSION}/MediaDownloaderQt5-{VERSION}.setup.exe
           - id: FrankBijnen.ExifToolGUI
             repo: FrankBijnen/ExifToolGui
             url: https://github.com/FrankBijnen/ExifToolGui/releases/download/V{VERSION}/ExifToolGUI.exe https://github.com/FrankBijnen/ExifToolGui/releases/download/V{VERSION}/ExifToolGUI_X64.exe
@@ -410,9 +410,6 @@ jobs:
           - id: Gyan.FFmpeg.Essentials
             repo: GyanD/codexffmpeg
             url: https://github.com/GyanD/codexffmpeg/releases/download/{VERSION}/ffmpeg-{VERSION}-essentials_build.zip
-          - id: H2IK.JoystickGremlin
-            repo: WhiteMagic/JoystickGremlin
-            url: https://github.com/WhiteMagic/JoystickGremlin/releases/download/Release_{VERSION}/Joystick.Gremlin.R{VERSION}.msi
           - id: h3poteto.fedistar
             repo: h3poteto/fedistar
             url: https://github.com/h3poteto/fedistar/releases/download/v{VERSION}/fedistar_{VERSION}_x64_en-US.msi
@@ -461,9 +458,6 @@ jobs:
           - id: IPEP.Scantailor-Experimental
             repo: ImageProcessing-ElectronicPublications/scantailor-experimental
             url: https://github.com/ImageProcessing-ElectronicPublications/scantailor-experimental/releases/download/{VERSION}/scantailor-experimental-{VERSION}-X86-32-install.exe https://github.com/ImageProcessing-ElectronicPublications/scantailor-experimental/releases/download/{VERSION}/scantailor-experimental-{VERSION}-X86-64-install.exe https://github.com/ImageProcessing-ElectronicPublications/scantailor-experimental/releases/download/{VERSION}/scantailor-experimental-{VERSION}-ARM64-Qt6-install.exe
-          - id: irzyxa.Volume2Portable
-            repo: irzyxa/Volume2
-            url: https://github.com/irzyxa/Volume2/releases/download/v{VERSION}/Setup_Volume2_1_1_9.zip
           - id: Istio.Istio
             repo: istio/istio
             url: https://github.com/istio/istio/releases/download/{VERSION}/istio-{VERSION}-win.zip
@@ -571,7 +565,7 @@ jobs:
             url: https://github.com/LibreHardwareMonitor/LibreHardwareMonitor/releases/download/v{VERSION}/LibreHardwareMonitor-net472.zip
           - id: LittleTijn.SpookyView
             repo: littletijn/spooky-view
-            url: https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_{VERSION}_x64_Signed_Installer.msi https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_{VERSION}_x86_Signed_Installer.msi https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_{VERSION}_ARM64_Signed_Installer.msi https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_{VERSION}_x64_Signed_Portable.exe https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_{VERSION}_x86_Signed_Portable.exe https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_{VERSION}_ARM64_Signed_Portable.exe
+            url: https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_{VERSION}_x64_Signed_Installer.msi https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_{VERSION}_x86_Signed_Installer.msi https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_{VERSION}_ARM64_Signed_Installer.msi https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_{VERSION}_x64_Signed_Portable.exe https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_1.07_x86_Signed_Portable.exe https://github.com/littletijn/spooky-view/releases/download/v{VERSION}/SpookyView_{VERSION}_ARM64_Signed_Portable.exe
           - id: LiveKit.LiveKitCLI
             repo: livekit/livekit-cli
             url: https://github.com/livekit/livekit-cli/releases/download/v{VERSION}/lk_{VERSION}_windows_arm64.zip https://github.com/livekit/livekit-cli/releases/download/v{VERSION}/lk_{VERSION}_windows_amd64.zip https://github.com/livekit/livekit-cli/releases/download/v{VERSION}/lk_{VERSION}_windows_arm.zip
@@ -592,7 +586,7 @@ jobs:
             url: https://github.com/lubomirkurcak/tend/releases/download/{VERSION}/tend-{VERSION}-x86_64-pc-windows-msvc.zip
           - id: MarceloLvCabral.BrightScriptEmulator
             repo: lvcabral/brs-emu
-            url: https://github.com/lvcabral/brs-emu/releases/download/v{VERSION}-emu/brsEmuApp-{VERSION}-windows.exe
+            url: https://github.com/lvcabral/brs-desktop/releases/download/v{VERSION}/brs-desktop-{VERSION}-windows.exe
           - id: marha.VcXsrv
             repo: marchaesen/vcxsrv
             url: https://github.com/marchaesen/vcxsrv/releases/download/{VERSION}/vcxsrv-64.{VERSION}.0.installer.exe
@@ -625,7 +619,7 @@ jobs:
             url: https://github.com/microsoft/BITS-Manager/releases/download/v{VERSION}/BITSManager.msi
           - id: Microsoft.DotNet.UninstallTool
             repo: dotnet/cli-lab
-            url: https://github.com/dotnet/cli-lab/releases/download/{VERSION}/dotnet-core-uninstall-{VERSION}.msi
+            url: https://github.com/dotnet/cli-lab/releases/download/{VERSION}/dotnet-core-uninstall.msi https://github.com/dotnet/cli-lab/releases/download/{VERSION}/dotnet-core-uninstall-{VERSION}.msi
           - id: Microsoft.Ntttcp
             repo: microsoft/ntttcp
             url: https://github.com/microsoft/ntttcp/releases/download/v{VERSION}/ntttcp.exe https://github.com/microsoft/ntttcp/releases/download/v{VERSION}/ntttcp_arm64.exe
@@ -653,9 +647,6 @@ jobs:
           - id: mmanela.markdownoutlook
             repo: mmanela/MarkdownOutlook
             url: https://github.com/mmanela/MarkdownOutlook/releases/download/v{VERSION}/MarkdownOutlookSetup.msi
-          - id: MonoGame.MonoGame
-            repo: MonoGame/MonoGame
-            url: https://github.com/MonoGame/MonoGame/releases/download/v{VERSION}/MonoGameSetup.exe
           - id: Morpheus.Bazarr
             repo: bazarr/bazarr.github.io
             url: https://github.com/bazarr/bazarr.github.io/releases/download/v{VERSION}/bazarr.zip
@@ -770,6 +761,15 @@ jobs:
           - id: pinokiocomputer.pinokio
             repo: pinokiocomputer/pinokio
             url: https://github.com/pinokiocomputer/pinokio/releases/download/{VERSION}/Pinokio-{VERSION}-win32.zip
+          - id: pluveto.Upgit
+            repo: pluveto/upgit
+            url: https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_386.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_amd64.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm64.exe
+          - id: pnpm.pnpm
+            repo: pnpm/pnpm
+            url: https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-x64.exe https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-arm64.exe
+          - id: PocketSync.PocketSync
+            repo: neil-morrison44/pocket-sync
+            url: https://github.com/neil-morrison44/pocket-sync/releases/download/v{VERSION}/Pocket.Sync_{VERSION}_x64-setup.exe
 
     steps:
     - name: Update Packages

@@ -20,15 +20,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - id: pluveto.Upgit
-            repo: pluveto/upgit
-            url: https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_386.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_amd64.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm64.exe
-          - id: pnpm.pnpm
-            repo: pnpm/pnpm
-            url: https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-x64.exe https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-arm64.exe
-          - id: PocketSync.PocketSync
-            repo: neil-morrison44/pocket-sync
-            url: https://github.com/neil-morrison44/pocket-sync/releases/download/v{VERSION}/Pocket.Sync_{VERSION}_x64-setup.exe
           - id: PolarGoose.CoffeeBean
             repo: PolarGoose/CoffeeBean
             url: https://github.com/PolarGoose/CoffeeBean/releases/download/v{VERSION}/CoffeeBean.msi
@@ -53,9 +44,6 @@ jobs:
           - id: Pulsar-Edit.Pulsar
             repo: pulsar-edit/pulsar
             url: https://github.com/pulsar-edit/pulsar/releases/download/v{VERSION}/Windows.Pulsar.Setup.{VERSION}.exe
-          - id: PYPrime.PYPrime
-            repo: monabuntur/PYPrime-2.x
-            url: https://github.com/monabuntur/PYPrime-2.x/releases/download/{VERSION}/PYPrime.{VERSION}.Installer.exe
           - id: qarmin.czkawka.cli
             repo: qarmin/czkawka
             url: https://github.com/qarmin/czkawka/releases/download/{VERSION}/windows_czkawka_cli.exe
@@ -259,7 +247,7 @@ jobs:
             url: https://github.com/Sonarr/Sonarr/releases/download/v{VERSION}/Sonarr.main.{VERSION}.win-x86-installer.exe https://github.com/Sonarr/Sonarr/releases/download/v{VERSION}/Sonarr.main.{VERSION}.win-x64-installer.exe
           - id: TEdit.TEdit
             repo: TEdit/Terraria-Map-Editor
-            url: https://github.com/TEdit/Terraria-Map-Editor/releases/download/{VERSION}/TEdit_main.zip
+            url: https://github.com/TEdit/Terraria-Map-Editor/releases/download/{VERSION}/TEditAvalonia-{VERSION}-win-x64.zip
           - id: TeraTermProject.teraterm
             repo: TeraTermProject/teraterm
             url: https://github.com/TeraTermProject/teraterm/releases/download/v{VERSION}/teraterm-{VERSION}.exe
