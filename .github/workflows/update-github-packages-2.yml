@@ -392,6 +392,9 @@ jobs:
           - id: WinsiderSS.SystemInformer
             repo: winsiderss/si-builds
             url: https://github.com/winsiderss/si-builds/releases/download/{VERSION}/systeminformer-{VERSION}-release-setup.exe
+          - id: WiXToolset.WiXCLI
+            repo: wixtoolset/wix
+            url: https://github.com/wixtoolset/wix/releases/download/v5.0.2/wix-cli-x64.msi
           - id: wkjarosz.hdrview
             repo: wkjarosz/hdrview
             url: https://github.com/wkjarosz/hdrview/releases/download/v{VERSION}/HDRView-windows.zip
