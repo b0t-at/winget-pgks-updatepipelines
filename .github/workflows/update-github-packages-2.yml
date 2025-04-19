@@ -20,12 +20,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - id: PolarGoose.ShowWhatProcessLocksFile
-            repo: PolarGoose/ShowWhatProcessLocksFile
-            url: https://github.com/PolarGoose/ShowWhatProcessLocksFile/releases/download/v{VERSION}/ShowWhatProcessLocksFile.msi.zip
-          - id: PolyMC.PolyMC
-            repo: PolyMC/PolyMC
-            url: https://github.com/PolyMC/PolyMC/releases/download/{VERSION}/PolyMC-Windows-Setup-{VERSION}.exe
           - id: Primecount.Primecount
             repo: kimwalisch/primecount-winget
             url: https://github.com/kimwalisch/primecount-winget/releases/download/v{VERSION}/Primecount-{VERSION}-win-x64.exe https://github.com/kimwalisch/primecount-winget/releases/download/v{VERSION}/Primecount-{VERSION}-win-arm64.exe
@@ -374,9 +368,6 @@ jobs:
           - id: WillyJL.F95Checker
             repo: Willy-JL/F95Checker
             url: https://github.com/Willy-JL/F95Checker/releases/download/{VERSION}/F95Checker-Windows.zip
-          - id: WinsiderSS.SystemInformer
-            repo: winsiderss/si-builds
-            url: https://github.com/winsiderss/si-builds/releases/download/{VERSION}/systeminformer-{VERSION}-release-setup.exe
           - id: WiXToolset.WiXCLI
             repo: wixtoolset/wix
             url: https://github.com/wixtoolset/wix/releases/download/v{VERSION}/wix-cli-x64.msi

@@ -347,9 +347,6 @@ jobs:
           - id: fselect.fselect
             repo: jhspetersson/fselect
             url: https://github.com/jhspetersson/fselect/releases/download/{VERSION}/fselect-x86_64-win.zip
-          - id: GaetanSencie.Retro-asteroid-war
-            repo: STENS66/Retro-asteroid-war
-            url: https://github.com/STENS66/Retro-asteroid-war/releases/download/V{VERSION}/Retro-asteroid-war.exe
           - id: Gather.Gather
             repo: gathertown/gather-town-desktop-releases
             url: https://github.com/gathertown/gather-town-desktop-releases/releases/download/v{VERSION}/Gather-{VERSION}-Setup.exe
@@ -716,9 +713,6 @@ jobs:
           - id: Open-Component-Model.ocm-cli
             repo: open-component-model/ocm
             url: https://github.com/open-component-model/ocm/releases/download/v{VERSION}/ocm-{VERSION}-windows-amd64.zip https://github.com/open-component-model/ocm/releases/download/v{VERSION}/ocm-{VERSION}-windows-arm64.zip
-          - id: OpenJS.Electron
-            repo: electron/electron
-            url: https://github.com/electron/electron/releases/download/v{VERSION}/electron-v{VERSION}-win32-ia32.zip https://github.com/electron/electron/releases/download/v{VERSION}/electron-v{VERSION}-win32-x64.zip https://github.com/electron/electron/releases/download/v{VERSION}/electron-v{VERSION}-win32-arm64.zip
           - id: openpubkey.opkssh
             repo: openpubkey/opkssh
             url: https://github.com/openpubkey/opkssh/releases/download/v{VERSION}/opkssh-windows-amd64.exe
@@ -770,6 +764,12 @@ jobs:
           - id: PolarGoose.CoffeeBean
             repo: PolarGoose/CoffeeBean
             url: https://github.com/PolarGoose/CoffeeBean/releases/download/v{VERSION}/CoffeeBean.msi
+          - id: PolarGoose.ShowWhatProcessLocksFile
+            repo: PolarGoose/ShowWhatProcessLocksFile
+            url: https://github.com/PolarGoose/ShowWhatProcessLocksFile/releases/download/v{VERSION}/ShowWhatProcessLocksFile.msi.zip
+          - id: PolyMC.PolyMC
+            repo: PolyMC/PolyMC
+            url: https://github.com/PolyMC/PolyMC/releases/download/{VERSION}/PolyMC-Windows-Setup-{VERSION}.exe
 
     steps:
     - name: Update Packages
