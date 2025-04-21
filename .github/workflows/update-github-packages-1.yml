@@ -689,12 +689,6 @@ jobs:
           - id: Odamex.Odamex
             repo: odamex/odamex
             url: https://github.com/odamex/odamex/releases/download/{VERSION}/odamex-win-{VERSION}.exe
-          - id: oleg-shilo.cs-script
-            repo: oleg-shilo/cs-script
-            url: https://github.com/oleg-shilo/cs-script/releases/download/v{VERSION}/cs-script.win.v{VERSION}.zip
-          - id: oleg-shilo.mkshim
-            repo: oleg-shilo/mkshim
-            url: https://github.com/oleg-shilo/mkshim/releases/download/v{VERSION}/mkshim.zip
           - id: OliverSchwendener.ueli
             repo: oliverschwendener/ueli
             url: https://github.com/oliverschwendener/ueli/releases/download/v{VERSION}/Ueli-Setup-{VERSION}.exe
@@ -770,6 +764,12 @@ jobs:
           - id: PolyMC.PolyMC
             repo: PolyMC/PolyMC
             url: https://github.com/PolyMC/PolyMC/releases/download/{VERSION}/PolyMC-Windows-Setup-{VERSION}.exe
+          - id: Primecount.Primecount
+            repo: kimwalisch/primecount-winget
+            url: https://github.com/kimwalisch/primecount-winget/releases/download/v{VERSION}/Primecount-{VERSION}-win-x64.exe https://github.com/kimwalisch/primecount-winget/releases/download/v{VERSION}/Primecount-{VERSION}-win-arm64.exe
+          - id: printfn.fend
+            repo: printfn/fend
+            url: https://github.com/printfn/fend/releases/download/v{VERSION}/fend-{VERSION}-windows-x64-exe.zip https://github.com/printfn/fend/releases/download/v{VERSION}/fend-{VERSION}-windows-x64.msi
 
     steps:
     - name: Update Packages
