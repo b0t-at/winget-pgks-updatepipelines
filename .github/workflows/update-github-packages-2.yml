@@ -221,9 +221,6 @@ jobs:
           - id: Taozuhong.KangarooMultipleAI
             repo: dbkangaroo/kangaroo
             url: https://github.com/dbkangaroo/kangaroo/releases/download/v{VERSION}/Kangaroo-Multiple-AI-{VERSION}-x86_64.exe
-          - id: Task.Task
-            repo: go-task/task
-            url: https://github.com/go-task/task/releases/download/v{VERSION}/task_windows_386.zip https://github.com/go-task/task/releases/download/v{VERSION}/task_windows_arm64.zip https://github.com/go-task/task/releases/download/v{VERSION}/task_windows_amd64.zip
           - id: TeamLidarr.Lidarr
             repo: Lidarr/Lidarr
             url: https://github.com/Lidarr/Lidarr/releases/download/v{VERSION}/Lidarr.master.{VERSION}.windows-core-x86-installer.exe https://github.com/Lidarr/Lidarr/releases/download/v{VERSION}/Lidarr.master.{VERSION}.windows-core-x64-installer.exe
