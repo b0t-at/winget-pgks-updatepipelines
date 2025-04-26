@@ -1,4 +1,4 @@
-name: Selfhost: Test Manifest
+name: Selfhost - Test Manifest
 
 on:
   workflow_dispatch:
