@@ -1,4 +1,4 @@
-name: GH Package Update
+name: GH Packages
 
 on:
   workflow_dispatch:

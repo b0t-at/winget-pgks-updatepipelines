@@ -1,6 +1,7 @@
 import os
 import glob
 import yaml
+from collections import defaultdict
 
 # Paths
 base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -18,7 +19,12 @@ with open(monitored_file, "r") as file:
     monitored_data = yaml.safe_load(file)
 
 # Step 2: Split the objects into batches of 250
-batches = [monitored_data[i:i + batch_size] for i in range(0, len(monitored_data), batch_size)]
+batches_dict = defaultdict(list)
+for item in monitored_data:
+    first_char = item['id'][0].lower()  # Group by the first character of 'id'
+    batches_dict[first_char].append(item)
+
+batches = list(batches_dict.values())
 
 # Step 3: Delete existing workflow files
 existing_workflows = glob.glob(os.path.join(workflows_dir, f"{workflow_prefix}*{workflow_suffix}"))
@@ -29,14 +35,21 @@ for workflow in existing_workflows:
 with open(template_file, "r") as file:
     template_content = file.read()
 
-for index, batch in enumerate(batches, start=1):
-    workflow_file = os.path.join(workflows_dir, f"{workflow_prefix}{index}{workflow_suffix}")
+def create_workflow_file(chunk, workflows_dir, workflow_prefix, workflow_suffix, template_content):
+    start_char = chunk[0]['id'][0].lower()
+    end_char = chunk[-1]['id'][0].lower()
+    
+    # Create a workflow file name with the starting and ending characters
+    workflow_file = os.path.join(
+        workflows_dir, 
+        f"{workflow_prefix}{start_char}-{end_char}{workflow_suffix}"
+    )
     
     # Prepare the include section as a YAML string
     include_section = "\n".join(
         f"          - id: {item['id']}\n"
         f"            repo: {item['repo']}\n"
-        f"            url: {item['url']}" for item in batch
+        f"            url: {item['url']}" for item in chunk
     )
     
     # Replace the placeholder with the include section
@@ -44,9 +57,27 @@ for index, batch in enumerate(batches, start=1):
         "# Orchestrator will insert Packages here",
         include_section
     )
-    
+    # Update filename
+    updated_content = updated_content.replace(
+        "name: GH Packages",
+        f"name: GH Packages {start_char.upper()}-{end_char.upper()}"
+    )   
     # Write the new workflow file
     with open(workflow_file, "w") as file:
         file.write(updated_content)
 
-print(f"Generated {len(batches)} workflow files in {workflows_dir}.")
+chunk = []
+files = 0
+for batch_key, batch_items in batches_dict.items():
+    if len(chunk)+len(batch_items) >= batch_size:
+      create_workflow_file(chunk, workflows_dir, workflow_prefix, workflow_suffix, template_content)
+      chunk = []
+      files += 1
+    for item in batch_items:
+        chunk.append(item)
+
+if chunk:
+  create_workflow_file(chunk, workflows_dir, workflow_prefix, workflow_suffix, template_content)
+  files += 1
+
+print(f"Generated {files} workflow files in {workflows_dir}.")
