@@ -1,4 +1,4 @@
-name: GH Package Update
+name: GH Packages P-Z
 
 on:
   workflow_dispatch:
@@ -20,6 +20,51 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - id: P-StSoftware.WinSSHTerm
+            repo: WinSSHTerm/WinSSHTerm
+            url: https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-x64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-x64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-arm64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-arm64.msi
+          - id: PasteIntoFile.PasteIntoFile
+            repo: eltos/PasteIntoFile
+            url: https://github.com/eltos/PasteIntoFile/releases/download/v{VERSION}/PasteIntoFile_v{VERSION}_installer.msi
+          - id: PBH-BTN.PeerBanHelper
+            repo: PBH-BTN/PeerBanHelper
+            url: https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-x64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-x64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-arm64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-arm64_{VERSION}.exe
+          - id: peanut996.CloudflareWarpSpeedTest
+            repo: peanut996/CloudflareWarpSpeedTest
+            url: https://github.com/peanut996/CloudflareWarpSpeedTest/releases/download/v{VERSION}/CloudflareWarpSpeedTest-v{VERSION}-windows-amd64.zip
+          - id: PersepolisDownloadManager.Persepolis
+            repo: persepolisdm/persepolis
+            url: https://github.com/persepolisdm/persepolis/releases/download/{VERSION}/persepolis_{VERSION}.0_windows_64bit.exe
+          - id: pinokiocomputer.pinokio
+            repo: pinokiocomputer/pinokio
+            url: https://github.com/pinokiocomputer/pinokio/releases/download/{VERSION}/Pinokio-{VERSION}-win32.zip
+          - id: pluveto.Upgit
+            repo: pluveto/upgit
+            url: https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_386.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_amd64.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm64.exe
+          - id: pnpm.pnpm
+            repo: pnpm/pnpm
+            url: https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-x64.exe https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-arm64.exe
+          - id: PocketSync.PocketSync
+            repo: neil-morrison44/pocket-sync
+            url: https://github.com/neil-morrison44/pocket-sync/releases/download/v{VERSION}/Pocket.Sync_{VERSION}_x64-setup.exe
+          - id: PolarGoose.CoffeeBean
+            repo: PolarGoose/CoffeeBean
+            url: https://github.com/PolarGoose/CoffeeBean/releases/download/v{VERSION}/CoffeeBean.msi
+          - id: PolarGoose.ShowWhatProcessLocksFile
+            repo: PolarGoose/ShowWhatProcessLocksFile
+            url: https://github.com/PolarGoose/ShowWhatProcessLocksFile/releases/download/v{VERSION}/ShowWhatProcessLocksFile.msi.zip
+          - id: PolyMC.PolyMC
+            repo: PolyMC/PolyMC
+            url: https://github.com/PolyMC/PolyMC/releases/download/{VERSION}/PolyMC-Windows-Setup-{VERSION}.exe
+          - id: Primecount.Primecount
+            repo: kimwalisch/primecount-winget
+            url: https://github.com/kimwalisch/primecount-winget/releases/download/v{VERSION}/Primecount-{VERSION}-win-x64.exe https://github.com/kimwalisch/primecount-winget/releases/download/v{VERSION}/Primecount-{VERSION}-win-arm64.exe
+          - id: printfn.fend
+            repo: printfn/fend
+            url: https://github.com/printfn/fend/releases/download/v{VERSION}/fend-{VERSION}-windows-x64-exe.zip https://github.com/printfn/fend/releases/download/v{VERSION}/fend-{VERSION}-windows-x64.msi
+          - id: Prometheus.WindowsExporter
+            repo: prometheus-community/windows_exporter
+            url: https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-amd64.exe https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-arm64.exe https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-amd64.msi https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-arm64.msi
           - id: Psenix.OverlayTimer
             repo: Psenix/OverlayTimer
             url: https://github.com/Psenix/OverlayTimer/releases/download/v{VERSION}/OverlayTimer-Installer.exe
@@ -359,9 +404,6 @@ jobs:
           - id: WiXToolset.WiXCLI
             repo: wixtoolset/wix
             url: https://github.com/wixtoolset/wix/releases/download/v{VERSION}/wix-cli-x64.msi
-          - id: IsWiX.IsWiX
-            repo: iswix-llc/iswix
-            url: https://github.com/iswix-llc/iswix/releases/download/v{VERSION}/IsWiX-{VERSION}.0-ARM64.msi https://github.com/iswix-llc/iswix/releases/download/v{VERSION}/IsWiX-{VERSION}.0-x64.msi
           - id: wkjarosz.hdrview
             repo: wkjarosz/hdrview
             url: https://github.com/wkjarosz/hdrview/releases/download/v{VERSION}/HDRView-windows.zip
