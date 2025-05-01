@@ -20,9 +20,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - id: Prometheus.WindowsExporter
-            repo: prometheus-community/windows_exporter
-            url: https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-amd64.exe https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-arm64.exe https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-amd64.msi https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-arm64.msi
           - id: Psenix.OverlayTimer
             repo: Psenix/OverlayTimer
             url: https://github.com/Psenix/OverlayTimer/releases/download/v{VERSION}/OverlayTimer-Installer.exe
