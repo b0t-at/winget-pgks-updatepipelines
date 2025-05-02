@@ -236,9 +236,6 @@ jobs:
           - id: sunfish-shogi.shogihome
             repo: sunfish-shogi/shogihome
             url: https://github.com/sunfish-shogi/shogihome/releases/download/v{VERSION}/release-v{VERSION}-win.zip
-          - id: SurrealDB.SurrealDB
-            repo: surrealdb/surrealdb
-            url: https://github.com/surrealdb/surrealdb/releases/download/v{VERSION}/surreal-v{VERSION}.windows-amd64.exe https://github.com/surrealdb/surrealdb/releases/download/v{VERSION}/surreal-v{VERSION}.windows-amd64.exe
           - id: SUSE.RancherDesktop
             repo: rancher-sandbox/rancher-desktop
             url: https://github.com/rancher-sandbox/rancher-desktop/releases/download/v{VERSION}/Rancher.Desktop.Setup.{VERSION}.msi
