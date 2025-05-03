@@ -3,7 +3,7 @@ name: GH Packages 1-O
 on:
   workflow_dispatch:
   schedule:
-    - cron:  '3 0/4 * * *' # every 4 hours
+    - cron: "3 0/4 * * *" # every 4 hours
   push:
     branches:
       - main
@@ -13,7 +13,8 @@ on:
 jobs:
   update-releasebased:
     name: ${{ matrix.id }}
-    runs-on: ubuntu-latest
+    #runs-on: ubuntu-latest
+    runs-on: windows-latest
     environment: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Test' }}
 
     strategy:
@@ -726,15 +727,30 @@ jobs:
             repo: oxygen-dioxide/utaformatix-electron
             url: https://github.com/oxygen-dioxide/utaformatix-electron/releases/download/{VERSION}/UtaFormatix-{VERSION}-win32-x64.exe
 
-    steps:
-    - name: Update Packages
-      uses: b0t-at/winget-updater@b0t-main
-      with:
-        identifier: ${{ matrix.id }}
-        repo: ${{ matrix.repo }}
-        url: ${{ matrix.url }}
-        komac-token: ${{ secrets.WINGET_PAT }}
-        komac-version: 2.11.2
-        custom-fork-owner: damn-good-b0t
-        submit: ${{ vars.SUBMIT_PR }}
-        pre-release: ${{ matrix.pre-release }}
+# steps:
+# - name: Update Packages
+#   uses: b0t-at/winget-updater@b0t-main
+#   with:
+#     identifier: ${{ matrix.id }}
+#     url: ${{ matrix.url }}
+#     komac-token: ${{ secrets.WINGET_PAT }}
+#     komac-version: 2.11.2
+#     custom-fork-owner: damn-good-b0t
+#     submit: ${{ vars.SUBMIT_PR }}
+#     pre-release: ${{ matrix.pre-release }}
+
+steps:
+  - name: Checkout
+    uses: actions/checkout@v4
+  - name: Update package
+    id: update_version
+    env:
+      GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
+      WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
+      GHURLs: ${{ matrix.url }}
+      GHRepo: ${{ matrix.repo }}
+      PackageName: ${{ matrix.id }}
+      With: ${{ matrix.With }}
+      Submit: ${{ vars.SUBMIT_PR }}
+      IsTemplateUpdate: "true"
+    run: .\scripts\Update-Package.ps1
