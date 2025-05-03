@@ -438,6 +438,9 @@ jobs:
           - id: IanWalton.JellyfinMPVShim
             repo: jellyfin/jellyfin-mpv-shim
             url: https://github.com/jellyfin/jellyfin-mpv-shim/releases/download/v{VERSION}/jellyfin-mpv-shim_{VERSION}_installer.exe https://github.com/jellyfin/jellyfin-mpv-shim/releases/download/v{VERSION}/jellyfin-mpv-shim_{VERSION}_installer.exe https://github.com/jellyfin/jellyfin-mpv-shim/releases/download/v{VERSION}/jellyfin-mpv-shim_{VERSION}_installer.exe https://github.com/jellyfin/jellyfin-mpv-shim/releases/download/v{VERSION}/jellyfin-mpv-shim_{VERSION}_installer.exe
+          - id: icsharpcode.ILSpy
+            repo: icsharpcode/ILSpy
+            url: https://github.com/icsharpcode/ILSpy/releases/download/{TAG}/ILSpy_Installer_{ARPVERSION}-x64.msi https://github.com/icsharpcode/ILSpy/releases/download/{TAG}/ILSpy_Installer_{ARPVERSION}-arm64.msi
           - id: igoogolx.itun2socks
             repo: igoogolx/itun2socks
             url: https://github.com/igoogolx/itun2socks/releases/download/v{VERSION}/itun2socks_{VERSION}_windows_amd64.zip
