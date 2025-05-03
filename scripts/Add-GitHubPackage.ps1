@@ -1,6 +1,8 @@
 param(
     [Parameter(Mandatory = $true)][string]$PackageId,
-    [Parameter(Mandatory = $false)][bool]$forceAdd = $false
+    [Parameter(Mandatory = $false)][bool]$forceAdd = $false,
+    [Parameter(Mandatory = $false)][string]$resolves,
+    [Parameter(Mandatory = $false)][string]$with = "Komac"
 )
 
 function get-yamlSorted {
@@ -112,7 +114,8 @@ if ($newestGitHubVersion -ne $version) {
                 Write-Host "URL is not valid: $url"
                 exit 404
             }
-        } catch {
+        }
+        catch {
             Write-Host "URL is not valid: $url"
             exit 404
         }
@@ -125,6 +128,9 @@ if ($newestGitHubVersion -ne $version) {
         write-host "Error: $($_.Exception.Message)"
 
         exit 1
+    }
+    if ($resolves -match '^\d+$') {
+        komac update "$PackageId" --version "$newestGitHubVersion" --urls $urlsWithVersion --resolves $resolves
     }
     
 }
@@ -141,11 +147,21 @@ if ([string]::IsNullOrWhiteSpace($PackageId) -or [string]::IsNullOrWhiteSpace($g
     exit 1
 }
 
-$releaseBlock = @"
+if ($with -eq "WinGetCreate") {
+    $releaseBlock = @"
           - id: "$PackageId"
             repo: "$githubRepository"
-            url: "$finalTemplateUrlString"  
+            url: "$finalTemplateUrlString"
+            with: "$with"  
 "@
+}
+else {
+    $releaseBlock = @"
+          - id: "$PackageId"
+            repo: "$githubRepository"
+            url: "$finalTemplateUrlString"
+"@
+}
 
 
 # append the releaseblock to the github-releases.yml file before the steps block
@@ -155,7 +171,7 @@ $content = $githubReleasesYml + $releaseBlock
 $output = get-yamlSorted -content $content
 #$output = get-yamlSorted -content $output
 $output | Set-Content -Path "$ymlPath"
-(Get-Content -Path "$ymlPath") | Where-Object {$_.trim() -ne "" } | Set-Content -Path "$ymlPath"
+(Get-Content -Path "$ymlPath") | Where-Object { $_.trim() -ne "" } | Set-Content -Path "$ymlPath"
 
 
 
