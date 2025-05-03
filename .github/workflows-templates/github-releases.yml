@@ -35,18 +35,18 @@ jobs:
 #     submit: ${{ vars.SUBMIT_PR }}
 #     pre-release: ${{ matrix.pre-release }}
 
-steps:
-  - name: Checkout
-    uses: actions/checkout@v4
-  - name: Update package
-    id: update_version
-    env:
-      GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
-      WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
-      GHURLs: ${{ matrix.url }}
-      GHRepo: ${{ matrix.repo }}
-      PackageName: ${{ matrix.id }}
-      With: ${{ matrix.With }}
-      Submit: ${{ vars.SUBMIT_PR }}
-      IsTemplateUpdate: "true"
-    run: .\scripts\Update-Package.ps1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Update package
+        id: update_version
+        env:
+          GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
+          WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
+          GHURLs: ${{ matrix.url }}
+          GHRepo: ${{ matrix.repo }}
+          PackageName: ${{ matrix.id }}
+          With: ${{ matrix.With }}
+          Submit: ${{ vars.SUBMIT_PR }}
+          IsTemplateUpdate: "true"
+        run: .\scripts\Update-Package.ps1
