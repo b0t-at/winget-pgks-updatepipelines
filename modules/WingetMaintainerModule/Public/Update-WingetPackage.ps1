@@ -41,7 +41,7 @@ function Update-WingetPackage {
         $cleanLatestVersion = $versionTag -replace $pattern, ""
         $Latest = @{
             Version = $cleanLatestVersion
-            URLs    = $GHURLs.split(",").trim().split(" ").replace('{VERSION}', $version)
+            URLs    = $GHURLs.split(",").trim().split(" ").replace('{TAG}', $versionTag).replace('{VERSION}', $cleanLatestVersion)
         }
     }
     else {
