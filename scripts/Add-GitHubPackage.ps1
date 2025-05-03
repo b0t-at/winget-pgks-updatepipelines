@@ -1,5 +1,6 @@
 param(
-    [Parameter(Mandatory = $true)][string]$PackageId
+    [Parameter(Mandatory = $true)][string]$PackageId,
+    [Parameter(Mandatory = $false)][bool]$forceAdd = $false
 )
 
 function get-yamlSorted {
@@ -88,7 +89,7 @@ $fullInstallerDetailsContent -split "`n" | Where-Object { $_ -like "*InstallerUR
     # replace version with template
     $url = $url.Replace($Tag, $TagTemplate)
     $url = $url.Replace($version, $versionTemplate)
-    
+
     # add the url to the list
     $urls += $url
     
@@ -97,11 +98,11 @@ $fullInstallerDetailsContent -split "`n" | Where-Object { $_ -like "*InstallerUR
 $finalTemplateUrlString = $urls -join " "
 
 #check if a newer version is available in the github repository
-$newestGitHubRelease = gh release list --repo $githubRepository --json "name,tagName,publishedAt,isLatest,isPrerelease" | ConvertFrom-Json | Where-Object { $_.isPrerelease -eq $false } | Sort-Object -Property publishedAt -Descending | Select-Object -First 1
-$newestGitHubVersion = $newestGitHubRelease.tagName.TrimStart("v","V")
+$newestGitHubVersionTag = Get-LatestGHVersionTag -Repo $githubRepository
+$newestGitHubARPVersion = Get-LatestARPVersion -Repo $githubRepository -Tag $newestGitHubVersionTag -GHURLs $finalTemplateUrlString -ListToTrimFromTag @("v", "V", "RELEASE_")
 if ($newestGitHubVersion -ne $version) {
     
-    $urlsWithVersion = ($urls | ForEach-Object { $_.Replace($versionTemplate, $newestGitHubVersion) })
+    $urlsWithVersion = ($urls | ForEach-Object { $_.Replace($versionTemplate, $newestGitHubARPVersion).Replace($TagTemplate, $newestGitHubVersionTag) })
     # check if the urls are valid
     $urlsWithVersion | ForEach-Object {
         $url = $_
@@ -109,16 +110,6 @@ if ($newestGitHubVersion -ne $version) {
             $response = Invoke-WebRequest -Uri $url -UseBasicParsing -Method Head -ErrorAction Stop
             if ($response.StatusCode -ne 200) {
                 Write-Host "URL is not valid: $url"
-                # trying to find URL in the latest release via API
-                #$latestRelease = gh release view $newestGitHubVersion --repo $githubRepository --json "assets" | ConvertFrom-Json
-                #$asset = $latestRelease.assets | Where-Object { ($_.name -like "*$PackageId*" -or $_.name -like "*$newestGitHubVersion*" -or $_.url -like "*$newestGitHubVersion*") -and ($_.name -like "*.msi" -or $_.name -like "*.exe") }
-                #$_ = $asset.url
-                # try {
-                #     $response = Invoke-WebRequest -Uri $_ -UseBasicParsing -Method Head -ErrorAction Stop
-                # } catch {
-                #     Write-Host "URL is not valid: $url"
-                #     exit 1
-                #}
                 exit 404
             }
         } catch {
@@ -136,6 +127,9 @@ if ($newestGitHubVersion -ne $version) {
         exit 1
     }
     
+}
+elseif ($forceAdd) {
+    Write-Host "No new Version available - adding Package $PackageId anyway"
 }
 else {
     Write-Host "No new version available"
