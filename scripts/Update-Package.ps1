@@ -42,5 +42,11 @@ else {
 if($Env:releaseNotes) {
     $params.Add("releaseNotes", $Env:releaseNotes)
 }
+if ($Env:GHURLs) {
+    $params.Add("GHURLs", $Env:GHURLs)
+}
+if ($Env:GHRepo) {
+    $params.Add("GHRepo", $Env:GHRepo)
+}
 
 Update-WingetPackage @params

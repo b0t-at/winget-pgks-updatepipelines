@@ -8,7 +8,9 @@ function Update-WingetPackage {
         [Parameter(Mandatory = $false)] [string] $latestVersion,
         [Parameter(Mandatory = $false)] [string] $latestVersionURL,
         [Parameter(Mandatory = $false)] [bool] $IsTemplateUpdate = $false,
-        [Parameter(Mandatory = $false)] [string] $releaseNotes
+        [Parameter(Mandatory = $false)] [string] $releaseNotes,
+        [Parameter(Mandatory = $false)] [string] $GHRepo,
+        [Parameter(Mandatory = $false)] [string] $GHURLs
     )
 
     # Custom validation
@@ -28,6 +30,18 @@ function Update-WingetPackage {
             Version      = $latestVersion
             URLs         = $latestVersionURL.split(",").trim().split(" ")
             ReleaseNotes = $releaseNotes
+        }
+    }
+    elseif ($GHRepo -and $GHURLs) {
+        $versionTag = Get-LatestGHVersion -Repo $GHRepo
+        # List of prefixes to trim from the tag name, add as needed
+        $ListToTrimFromTag = @("v", "V", "RELEASE_") 
+        # Create a regex pattern from all prefixes
+        $pattern = "^(" + ($ListToTrimFromTag -join "|") + ")"
+        $cleanLatestVersion = $versionTag -replace $pattern, ""
+        $Latest = @{
+            Version = $cleanLatestVersion
+            URLs    = $GHURLs.split(",").trim().split(" ").replace('{VERSION}', $version)
         }
     }
     else {
@@ -63,6 +77,9 @@ function Update-WingetPackage {
                     komac update $wingetPackage --version $Latest.Version --urls ($Latest.URLs).split(" ") ($Submit -eq $true -and !$Latest.ReleaseNotes ? '-s' : '--dry-run') ($resolves -match '^\d+$' ? "--resolves" : $null ) ($resolves -match '^\d+$' ? $resolves : $null ) -t $gitToken --output "$ManifestOutPath"
                 }
                 "WinGetCreate" {
+                    if ($GHRepo -and $versionTag -and !$Latest.ReleaseNotes) {
+                        $Latest.ReleaseNotes = Get-GHReleaseNotes -Repo $GHRepo -Version $versionTag
+                    }
                     Install-WingetCreate
                     #.\wingetcreate.exe update $wingetPackage -v $Latest.Version -u ($Latest.URLs).split(" ") --prtitle $prMessage -t $gitToken -o $ManifestOutPath
                     .\wingetcreate.exe update $wingetPackage ($Submit -eq $true -and !$Latest.ReleaseNotes ? "-s" : $null ) -v $Latest.Version -u ($Latest.URLs).split(" ") --prtitle $prMessage -t $gitToken -o $ManifestOutPath

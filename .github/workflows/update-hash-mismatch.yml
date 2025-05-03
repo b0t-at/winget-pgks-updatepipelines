@@ -29,6 +29,6 @@ jobs:
           With: ${{ matrix.With }}
           Submit: ${{ vars.SUBMIT_PR }}
           IsTemplateUpdate: "true"
-        run: .\scripts\Update-ScriptPackage.ps1
+        run: .\scripts\Update-Package.ps1
 
 
