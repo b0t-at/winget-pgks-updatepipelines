@@ -272,6 +272,7 @@
           - id: "etcd-io.etcd"
             repo: "etcd-io/etcd"
             url: "https://github.com/etcd-io/etcd/releases/download/v{VERSION}/etcd-v{VERSION}-windows-amd64.zip"
+            with: "wingetcreate"
           - id: "EtternaProject.EtternaGame"
             repo: "etternagame/etterna"
             url: "https://github.com/etternagame/etterna/releases/download/v{VERSION}/Etterna-{VERSION}-win32.exe https://github.com/etternagame/etterna/releases/download/v{VERSION}/Etterna-{VERSION}-win64.exe"
