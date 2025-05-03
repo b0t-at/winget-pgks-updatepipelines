@@ -287,7 +287,7 @@ jobs:
             url: https://github.com/tetratelabs/wazero/releases/download/v{VERSION}/wazero_{VERSION}_windows_amd64.msi
           - id: TeXstudio.TeXstudio
             repo: texstudio-org/texstudio
-            url: https://github.com/texstudio-org/texstudio/releases/download/{VERSION}/texstudio-{VERSION}-win-qt6-signed.exe
+            url:  https://github.com/texstudio-org/texstudio/releases/download/{VERSION}/texstudio-{VERSION}-win-qt6-signed.exe
           - id: ThaddeusMcCleary.Seatsmart
             repo: thaddeusm/seatsmart-FHSU
             url: https://github.com/thaddeusm/seatsmart-FHSU/releases/download/v{VERSION}/Seatsmart-Setup-{VERSION}.exe
@@ -444,6 +444,18 @@ jobs:
           - id: ZugferdCommunity.QubaViewer
             repo: ZUGFeRD/quba-viewer
             url: https://github.com/ZUGFeRD/quba-viewer/releases/download/v{VERSION}/Quba.{VERSION}.msi
+
+# steps:
+# - name: Update Packages
+#   uses: b0t-at/winget-updater@b0t-main
+#   with:
+#     identifier: ${{ matrix.id }}
+#     url: ${{ matrix.url }}
+#     komac-token: ${{ secrets.WINGET_PAT }}
+#     komac-version: 2.11.2
+#     custom-fork-owner: damn-good-b0t
+#     submit: ${{ vars.SUBMIT_PR }}
+#     pre-release: ${{ matrix.pre-release }}
 
     steps:
       - name: Checkout

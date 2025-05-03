@@ -36,7 +36,6 @@ jobs:
           - id: AdaLang.Alire
             repo: alire-project/alire
             url: https://github.com/alire-project/alire/releases/download/v{VERSION}/alr-{VERSION}-installer-x86_64-windows.exe
-            with: wingetcreate
           - id: AdaLang.Alire.Portable
             repo: alire-project/alire
             url: https://github.com/alire-project/alire/releases/download/v{VERSION}/alr-{VERSION}-bin-x86_64-windows.zip
