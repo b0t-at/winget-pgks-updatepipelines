@@ -34,7 +34,7 @@ jobs:
         shell: pwsh
         run: |
           Import-Module .\modules\WingetMaintainerModule
-          .\scripts\Add-GitHubPackage.ps1 -PackageId ${{ inputs.packageId }} -forceAdd ${{ github.event.inputs.forceAdd }}
+          .\scripts\Add-GitHubPackage.ps1 -PackageId ${{ inputs.packageId }} -forceAdd $${{ inputs.forceAdd }}
       - name: Commit and push
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
