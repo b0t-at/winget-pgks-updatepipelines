@@ -1,4 +1,4 @@
-function Get-LatestGHVersion {
+function Get-LatestGHVersionTag {
     param(
         [Parameter(Mandatory = $true)][string]$Repo
     )
@@ -8,7 +8,7 @@ function Get-LatestGHVersion {
     $latestVersionTag = $latestRelease.tagName
 
     if ($latestVersionTag) {
-        Write-Host "Latest Version of $Repo : $latestVersionTag"
+        Write-Host "Latest Tag of $Repo : $latestVersionTag"
         return $latestVersionTag
     } 
     else {

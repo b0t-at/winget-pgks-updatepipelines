@@ -33,15 +33,15 @@ function Update-WingetPackage {
         }
     }
     elseif ($GHRepo -and $GHURLs) {
-        $versionTag = Get-LatestGHVersion -Repo $GHRepo
-        # List of prefixes to trim from the tag name, add as needed
+         # List of prefixes to trim from the tag name, add as needed
         $ListToTrimFromTag = @("v", "V", "RELEASE_") 
-        # Create a regex pattern from all prefixes
-        $pattern = "^(" + ($ListToTrimFromTag -join "|") + ")"
-        $cleanLatestVersion = $versionTag -replace $pattern, ""
+
+        $versionTag = Get-LatestGHVersionTag -Repo $GHRepo
+        $latestVersion = Get-LatestARPVersion -Repo $GHRepo -Tag $versionTag -GHURLs $GHURLs -ListToTrimFromTag $ListToTrimFromTag
+        
         $Latest = @{
-            Version = $cleanLatestVersion
-            URLs    = $GHURLs.split(",").trim().split(" ").replace('{TAG}', $versionTag).replace('{VERSION}', $cleanLatestVersion)
+            Version = $latestVersion
+            URLs    = $GHURLs.split(",").trim().split(" ").replace('{ARPVERSION}', $latestVersion).replace('{TAG}', $versionTag).replace('{VERSION}', $latestVersion)
         }
     }
     else {
