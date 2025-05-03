@@ -50,7 +50,8 @@ if ($githubReleasesYml -match $PackageId) {
     exit 0
 }
 
-$versionTemplate = "{VERSION}"
+$versionTemplate = "{ARPVERSION}"
+$TagTemplate = "{TAG}"
 
 # get the version from the output
 $version = Get-LatestVersionInWinget -PackageId $PackageId
@@ -71,13 +72,26 @@ $fullInstallerDetailsContent -split "`n" | Where-Object { $_ -like "*InstallerUR
     $split = $_.Split(":", 2)
     # get the second part of the split
     $url = $split[1].Trim()
-    # replace version with template
-    $url = $url.Replace($version.TrimStart("v","V"), $versionTemplate)
-    # add the url to the list
-    $urls += $url
     if ($githubRepository -eq $null -and $url -like "https://github.com/*") {
         $githubRepository = $url.Split("/")[3..4] -join "/"
     }
+    # find GH release with this specific URL to get the Tag
+    $Tag = $url.split("/")[7]
+
+    # test if the URL matches a url in the release with the detected tag
+    $existingRelease = gh release view $Tag --repo $githubRepository --json "assets" | ConvertFrom-Json 
+    if (!$existingRelease.assets.url -match $url) {
+        Write-Host "URL not found in release $Tag - wrong tag?"
+        exit 1
+    }
+
+    # replace version with template
+    $url = $url.Replace($Tag, $TagTemplate)
+    $url = $url.Replace($version, $versionTemplate)
+    
+    # add the url to the list
+    $urls += $url
+    
 }
 
 $finalTemplateUrlString = $urls -join " "

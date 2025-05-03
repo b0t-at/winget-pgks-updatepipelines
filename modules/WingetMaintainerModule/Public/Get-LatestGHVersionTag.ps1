@@ -12,7 +12,7 @@ function Get-LatestGHVersionTag {
         return $latestVersionTag
     } 
     else {
-        Write-Host "No Version found for Repo $Repo"
+        Write-Host "No Tag found for Repo $Repo"
         exit 1
     }
 }
