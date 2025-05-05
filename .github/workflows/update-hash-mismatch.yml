@@ -2,20 +2,42 @@ name: Update Hash Mismatch
 
 on:
   workflow_dispatch:
-#  schedule:
-#    - cron: 7 0/4 * * *
+    inputs:
+      identifier:
+        description: Package.Identifier
+        required: true
+      # urls:
+      #   description: URLs space separated
+      #   required: false
+      version:
+        description: Version
+        required: false
+      # WebsiteURL:
+      #   description: WebsiteURL
+      #   required: false
+      submit:
+        description: 'True to auto-submit'
+        required: true
+        type: boolean
+        default: false
+      # resolves: 
+      #   description: 'resolves this issues'
+      #   required: false
+      # With:
+      #   required: true
+      #   type: choice
+      #   description: 'WinGetCreate or komac'
+      #   default: 'komac'
+      #   options:
+      #   - komac
+      #   - WinGetCreate
+
 
 jobs:
-  update-scriptbased:
-    name: ${{ matrix.PackageName }}
+  hash-update:
+    name: Hash update ${{ inputs.identifier }} ${{ inputs.version }} -s ${{ inputs.submit }} 
     runs-on: windows-latest
-    environment: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Test' }}
-    
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - PackageName: "MongoDB.MongoDBAtlasCLI"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,11 +46,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.WINGET_PAT }}
           WINGET_PKGS_FORK_REPO: ${{ vars.WINGET_PKGS_FORK_REPO }}
-          WebsiteURL: ${{ matrix.WebsiteURL }}
-          PackageName: ${{ matrix.PackageName }}
-          With: ${{ matrix.With }}
-          Submit: ${{ vars.SUBMIT_PR }}
-          IsTemplateUpdate: "true"
-        run: .\scripts\Update-Package.ps1
+          #PackageName: ${{ inputs.identifier }}
+          #With: ${{ inputs.With }}
+          #Submit: ${{ inputs.submit }}
+          #resolves: ${{ inputs.resolves }}
+        run: .\scripts\Update-HashMismatch.ps1 -Submit ${{ inputs.submit }} -PackageId ${{ inputs.identifier }} -Version ${{ inputs.version }}
 
 
