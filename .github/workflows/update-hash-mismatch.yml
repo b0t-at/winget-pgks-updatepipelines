@@ -50,6 +50,6 @@ jobs:
           #With: ${{ inputs.With }}
           #Submit: ${{ inputs.submit }}
           #resolves: ${{ inputs.resolves }}
-        run: .\scripts\Update-HashMismatch.ps1 -Submit ${{ inputs.submit }} -PackageId ${{ inputs.identifier }} -Version ${{ inputs.version }}
+        run: .\scripts\Update-HashMismatch.ps1 -Submit $${{ inputs.submit }} -PackageId ${{ inputs.identifier }} -Version ${{ inputs.version }}
 
 
