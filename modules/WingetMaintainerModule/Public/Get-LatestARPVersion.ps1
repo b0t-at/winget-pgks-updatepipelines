@@ -3,7 +3,6 @@ function Get-LatestARPVersion {
     param(
         [Parameter(Mandatory = $true)][string]$Repo,
         [Parameter(Mandatory = $true)][string]$Tag,
-        [Parameter(Mandatory = $false)][object]$ListToTrimFromTag = @("v", "V", "RELEASE_"),
         [Parameter(Mandatory = $true)][string]$GHURLs
     )
     $splittedGHURLs = $GHURLs.split(" ")
@@ -25,9 +24,7 @@ function Get-LatestARPVersion {
         throw "No ARP version found in the assets for tag $Tag in repo $Repo"
     }
     else {
-        # Create a regex pattern from all prefixes
-        $pattern = "^(" + ($ListToTrimFromTag -join "|") + ")"
-        $cleanLatestVersion = $versionTag -replace $pattern, ""
+        $cleanLatestVersion = Remove-GHTagPrefixes $Tag
         return $cleanLatestVersion
     }
     

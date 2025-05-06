@@ -33,11 +33,9 @@ function Update-WingetPackage {
         }
     }
     elseif ($GHRepo -and $GHURLs) {
-         # List of prefixes to trim from the tag name, add as needed
-        $ListToTrimFromTag = @("v", "V", "RELEASE_") 
 
         $versionTag = Get-LatestGHVersionTag -Repo $GHRepo
-        $latestVersion = Get-LatestARPVersion -Repo $GHRepo -Tag $versionTag -GHURLs $GHURLs -ListToTrimFromTag $ListToTrimFromTag
+        $latestVersion = Get-LatestARPVersion -Repo $GHRepo -Tag $versionTag -GHURLs $GHURLs
         
         $Latest = @{
             Version = $latestVersion

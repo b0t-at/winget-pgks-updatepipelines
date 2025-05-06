@@ -101,7 +101,7 @@ $finalTemplateUrlString = $urls -join " "
 
 #check if a newer version is available in the github repository
 $newestGitHubVersionTag = Get-LatestGHVersionTag -Repo $githubRepository
-$newestGitHubARPVersion = Get-LatestARPVersion -Repo $githubRepository -Tag $newestGitHubVersionTag -GHURLs $finalTemplateUrlString -ListToTrimFromTag @("v", "V", "RELEASE_")
+$newestGitHubARPVersion = Get-LatestARPVersion -Repo $githubRepository -Tag $newestGitHubVersionTag -GHURLs $finalTemplateUrlString
 if ($newestGitHubVersion -ne $version) {
     
     $urlsWithVersion = ($urls | ForEach-Object { $_.Replace($versionTemplate, $newestGitHubARPVersion).Replace($TagTemplate, $newestGitHubVersionTag) })
