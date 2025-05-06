@@ -4,6 +4,12 @@ param(
     [Parameter(Mandatory = $false)][bool]$Submit = $false,
     [Parameter(Mandatory = $false)][string]$resolves
 )
+
+$scriptPath = $MyInvocation.MyCommand.Path
+$scriptDirectory = Split-Path -Parent $scriptPath
+Import-Module "$scriptDirectory\..\modules\WingetMaintainerModule"
+
+
 $gitToken = Test-GitHubToken
 # get the version from the output
 if ($Version -eq $null) {
