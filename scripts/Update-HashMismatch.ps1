@@ -16,4 +16,5 @@ if ($Version -eq $null) {
     $Version = Get-LatestVersionInWinget -PackageId $PackageId
 }
 $prMessage = "Update Hash for package $PackageId version $Version"
+Install-WingetCreate
 wingetcreate update $PackageId -r $Version ($Submit -eq $true ? "-s" : $null ) --prtitle $prMessage -t $gitToken
