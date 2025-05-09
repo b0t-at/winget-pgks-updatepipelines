@@ -510,6 +510,9 @@ jobs:
           - id: JustArchiNET.ArchiSteamFarm
             repo: JustArchiNET/ArchiSteamFarm
             url: https://github.com/JustArchiNET/ArchiSteamFarm/releases/download/{VERSION}/ASF-win-x64.zip
+          - id: jj-vcs.jj
+            repo: jj-vcs/jj
+            url: https://github.com/jj-vcs/jj/releases/download/v{VERSION}/jj-v{VERSION}-x86_64-pc-windows-msvc.zip
           - id: kangyu-california.PersistentWindows
             repo: kangyu-california/PersistentWindows
             url: https://github.com/kangyu-california/PersistentWindows/releases/download/{VERSION}/PersistentWindows{VERSION}.zip
@@ -588,9 +591,6 @@ jobs:
           - id: Martchus.syncthingctl
             repo: Martchus/syncthingtray
             url: https://github.com/Martchus/syncthingtray/releases/download/v{VERSION}/syncthingctl-qt5-{VERSION}-i686-w64-mingw32.exe.zip https://github.com/Martchus/syncthingtray/releases/download/v{VERSION}/syncthingctl-{VERSION}-x86_64-w64-mingw32.exe.zip
-          - id: martinvonz.jj
-            repo: martinvonz/jj
-            url: https://github.com/martinvonz/jj/releases/download/v{VERSION}/jj-v{VERSION}-x86_64-pc-windows-msvc.zip
           - id: mentebinaria.retoolkit
             repo: mentebinaria/retoolkit
             url: https://github.com/mentebinaria/retoolkit/releases/download/{VERSION}/retoolkit_{VERSION}_setup.exe
