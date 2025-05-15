@@ -1,10 +1,13 @@
+
+$WebsiteURL = "https://curl.se/windows/"
+
 $versionParts = $wingetPackage.Split('.')
 $PackageName = $versionParts[1]
 
 $ProductName = ($PackageName).Trim().ToLower()
 
 $versionPattern = "$($ProductName)-(\d+\.\d+\.\d+)_(\d+)-win"
-$URLFilter = "$($ProductName)-(\d+\.\d+\.\d+)_(\d+)-win"
+$URLFilter = "curl-(\d+\.\d+\.\d+)_(\d+)-win.*-mingw.zip$"
 
 # Download the webpage
 $website = Invoke-WebRequest -Uri $WebsiteURL
