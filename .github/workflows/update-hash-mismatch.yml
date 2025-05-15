@@ -11,7 +11,7 @@ on:
       #   required: false
       version:
         description: Version
-        required: false
+        required: true
       # WebsiteURL:
       #   description: WebsiteURL
       #   required: false
