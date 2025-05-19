@@ -374,6 +374,8 @@ function Process-Manifest {
                             if ($versionFromFile -ne $currentPkgVersionStr) {
                                 Write-Warning "    WARNING: Version from file ($versionFromFile) does not match current version ($currentPkgVersionStr). Terminating."
                                 return
+                            } else {
+                                Write-Host "    Version from file matches current version: $currentPkgVersionStr"
                             }
 
                             if ($manifestSha256 -ne $actualSha256) {
