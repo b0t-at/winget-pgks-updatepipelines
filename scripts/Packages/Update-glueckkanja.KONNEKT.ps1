@@ -24,7 +24,7 @@ $h3Elements = $htmlDocument.DocumentNode.SelectNodes('//h3')
 $targetElement = $null
 
 foreach ($element in $h3Elements) {
-    if ($element.InnerText -match $latestVersion) {
+    if ($element.InnerText -match $latestVersion -or $element.InnerText -match $latestVersion.trim(".0")) {
         $targetElement = $element
         break
     }
