@@ -37,6 +37,10 @@ function Download-FileContent {
             
             $fileData = $response.Content # Raw byte array
             Write-Host "      Download successful: $($fileData.Length) Bytes from $Url"
+            if ($fileData -match "<!DOCTYPE html>*") {
+                write-host "      WARNING: Downloaded content appears to be HTML, not a file. This may indicate a problem with the URL or server response."    
+                break
+            }
             Start-Sleep -Milliseconds 500 # Brief pause to avoid overwhelming servers
             return $fileData
         }
@@ -108,10 +112,10 @@ function Replace-SHA256 {
         if ($Data.Installers) {
             foreach ($installer in $Data.Installers) {
                 if ($installer.InstallerSha256 -ne $installer.NewSha256) {
-                   $ManifestFileContent = $ManifestFileContent.replace($installer.InstallerSha256, $installer.NewSha256)
-                   Write-Host "   Replacing SHA256 in manifest file: $FilePath"
-                   Write-Host "   Old SHA256: $($installer.InstallerSha256)"
-                   Write-Host "   New SHA256: $($installer.NewSha256)"
+                    $ManifestFileContent = $ManifestFileContent.replace($installer.InstallerSha256, $installer.NewSha256)
+                    Write-Host "   Replacing SHA256 in manifest file: $FilePath"
+                    Write-Host "   Old SHA256: $($installer.InstallerSha256)"
+                    Write-Host "   New SHA256: $($installer.NewSha256)"
                 }
             }
         }
@@ -181,29 +185,30 @@ function Create-GitHubPRPlaceholder {
         [string]$ManifestPath,
         [string]$PackageId,
         [string]$PackageVersion,
-        [string]$OldHash,
-        [string]$NewHash,
         [string]$Reason = "Hash Update"
     )
     process {
         Write-Host "  ACTION REQUIRED: Create GitHub PR for $PackageId v$PackageVersion ($Reason)" -ForegroundColor Yellow
         Write-Host "    Manifest: $ManifestPath"
-        if ($OldHash) {
-            Write-Host "    Old Hash: $OldHash"
+        $existingPR = Test-ExistingPRs -Version $PackageVersion -PackageIdentifier $PackageId -onlyOpen
+        if ($existingPR) {
+            Write-Host "  Existing PR found for $PackageId $PackageVersion. No action needed." -ForegroundColor Green
+            return
         }
-        Write-Host "    New Hash: $NewHash"
-        $branchName = "b0t-at/update-$($PackageId.Replace('.', '-'))-$PackageVersion-hash"
-        $commitMessage = "Update Hash for $PackageId v$PackageVersion"
-        $prTitle = "Auto-update Hash for $PackageId v$PackageVersion"
-        $prBody = "Updated installer hash for $PackageId v$PackageVersion due to mismatch.`nOld: $OldHash`nNew: $NewHash"
-        Write-Host "    Branch suggestion: $branchName"
+        $commitMessage = "Update Hash for $PackageId $PackageVersion"
+        $prTitle = "Auto-update Hash for $PackageId $PackageVersion"
+        $prBody = "Updated installer hash for $PackageId $PackageVersion due to mismatch."
         Write-Host "    Commit message suggestion: $commitMessage"
         Write-Host "    PR title suggestion: $prTitle"
         Write-Host "    PR body suggestion: $prBody"
-        Write-Host "    >>>> INSERT YOUR PR CREATION CODE HERE <<<<" -ForegroundColor Cyan
+        #Write-Host "    >>>> INSERT YOUR PR CREATION CODE HERE <<<<" -ForegroundColor Cyan
+        Write-Host "  No existing PR found for $PackageId $PackageVersion. Proceeding with PR creation." -ForegroundColor Green
+        wingetcreate.exe submit --prtitle $prTitle -t $gitToken $ManifestPath.replace($ManifestPath.split("\")[-1], "")
+        #.\wingetcreate.exe submit --prtitle $prMessage -t $gitToken $ManifestPath
     }
 }
 
+# Function to call our custom scripts to (maybe) detect the version from the installer
 function Call-OtherScriptPlaceholder {
     [CmdletBinding()]
     param (
@@ -228,9 +233,10 @@ function Process-Manifest {
     [CmdletBinding()]
     param (
         [Parameter(Mandatory = $true)]
-        [string]$ManifestFilePath
+        [object]$ManifestObject
     )
     process {
+        $ManifestFilePath = Join-Path -Path $Global:WINGET_PKGS_REPO_PATH -ChildPath $ManifestObject.FilePath
         Write-Host "Processing Manifest: $ManifestFilePath"
         if (-not (Test-Path $ManifestFilePath -PathType Leaf)) {
             Write-Error "ERROR: Manifest file not found: $ManifestFilePath"
@@ -248,8 +254,15 @@ function Process-Manifest {
         $packageId = $manifestData.PackageIdentifier
         $currentPkgVersionStr = $manifestData.PackageVersion
         $installers = $manifestData.Installers
+
+        $existingPR = Test-ExistingPRs -Version $currentPkgVersionStr -PackageIdentifier $packageId -onlyOpen
+        if ($existingPR) {
+            Write-Host "  Existing PR found for $PackageId $PackageVersion. No action needed." -ForegroundColor Green
+            return
+        }
         
-        if (-not $installers) { # Some manifests (e.g., locale) don't have an Installers section
+        if (-not $installers) {
+            # Some manifests (e.g., locale) don't have an Installers section
             Write-Host "No Installers section found in manifest $ManifestFilePath. Skipping."
             return
         }
@@ -273,18 +286,21 @@ function Process-Manifest {
             Write-Host "    URL: $installerUrl"
             if ([string]::IsNullOrEmpty($manifestSha256)) {
                 Write-Host "    Manifest SHA256: Not present"
-            } else {
+            }
+            else {
                 Write-Host "    Manifest SHA256: $manifestSha256"
             }
 
             # Check if the version is in the URL.
             # Important: currentPkgVersionStr could be "Unknown" or other non-standard values.
             $isDirectLink = $false
-            if ($currentPkgVersionStr -and $currentPkgVersionStr.ToLower() -ne "unknown" -and $installerUrl.Contains($currentPkgVersionStr)) {
+            if ($currentPkgVersionStr -and $currentPkgVersionStr.ToLower() -ne "unknown" -and ($installerUrl.Contains($currentPkgVersionStr) -or $installerUrl.Contains($currentPkgVersionStr.trim(".0")) -or $installerUrl.Contains($currentPkgVersionStr.trim(".0.0")))) {
                 $isDirectLink = $true
+                $ManifestObject | Add-Member -MemberType NoteProperty -Name "IsDirectLink" -Value $true
             }
 
             if ($isDirectLink) {
+                #if ($false) {
                 Write-Host "    Type: Direct Link (Version found in URL)"
                 try {
                     $fileContentBytes = Download-FileContent -Url $installerUrl
@@ -295,7 +311,6 @@ function Process-Manifest {
                         Write-Warning "    SHA256 MISMATCH! Updating manifest."
                         $manifestData.Installers[$i].NewSha256 = $actualSha256.ToUpper()
                         $manifestUpdatedOverall = $true
-                        Create-GitHubPRPlaceholder -ManifestPath $ManifestFilePath -PackageId $packageId -PackageVersion $currentPkgVersionStr -OldHash $manifestSha256 -NewHash $actualSha256.ToUpper() -Reason "Direct Link Hash Update"
                         Write-Host "    SUCCESS: Hash for $packageId v$currentPkgVersionStr ($architecture) updated in manifest data." -ForegroundColor Green
                     }
                     else {
@@ -306,8 +321,10 @@ function Process-Manifest {
                     Write-Error "    Error processing direct link $($installerUrl): $($_.Exception.Message)"
                 }
             }
-            else { # Potential Vanity URL
+            else {
+                # Potential Vanity URL
                 Write-Host "    Type: Potential Vanity URL (Version not in URL or PackageVersion is 'Unknown')"
+                #return # Early exit if potential vanity URL URL - This function will be implemented later™️
                 
                 $allPackageManifestFiles = Get-PackageManifestFiles -PackageIdentifier $packageId -RepoPath $Global:WINGET_PKGS_REPO_PATH
                 
@@ -322,12 +339,12 @@ function Process-Manifest {
                         foreach ($otherInstEntry in $otherManifestContent.Installers) {
                             if ($otherInstEntry.InstallerUrl -eq $installerUrl) {
                                 # Ensure each version is added only once
-                                if (-not ($versionsUsingThisUrlInfo | Where-Object {$_.version -eq $otherVersionStr})) {
-                                     $versionsUsingThisUrlInfo.Add([PSCustomObject]@{
-                                        version = $otherVersionStr
-                                        path = (Resolve-Path $otherManifestFilePath).Path
-                                        isCurrentProcessing = ((Resolve-Path $otherManifestFilePath).Path -eq (Resolve-Path $ManifestFilePath).Path)
-                                    })
+                                if (-not ($versionsUsingThisUrlInfo | Where-Object { $_.version -eq $otherVersionStr })) {
+                                    $versionsUsingThisUrlInfo.Add([PSCustomObject]@{
+                                            version             = $otherVersionStr
+                                            path                = (Resolve-Path $otherManifestFilePath).Path
+                                            isCurrentProcessing = ((Resolve-Path $otherManifestFilePath).Path -eq (Resolve-Path $ManifestFilePath).Path)
+                                        })
                                 }
                                 break # URL found in this other manifest
                             }
@@ -339,29 +356,32 @@ function Process-Manifest {
                 }
                 
                 # Ensure current manifest is in the list if it wasn't picked up or to mark it correctly
-                $currentInList = $versionsUsingThisUrlInfo | Where-Object {$_.version -eq $currentPkgVersionStr -and $_.path -eq (Resolve-Path $ManifestFilePath).Path}
+                $currentInList = $versionsUsingThisUrlInfo | Where-Object { $_.version -eq $currentPkgVersionStr -and $_.path -eq (Resolve-Path $ManifestFilePath).Path }
                 if (-not $currentInList -and $currentPkgVersionStr) {
                     $versionsUsingThisUrlInfo.Add([PSCustomObject]@{
-                        version = $currentPkgVersionStr
-                        path = (Resolve-Path $ManifestFilePath).Path
-                        isCurrentProcessing = $true
-                    })
+                            version             = $currentPkgVersionStr
+                            path                = (Resolve-Path $ManifestFilePath).Path
+                            isCurrentProcessing = $true
+                        })
                 }
 
 
                 # Filter out invalid versions (e.g., "Unknown") before sorting
-                $validVersionsInfo = $versionsUsingThisUrlInfo | Where-Object {$_.version -and $_.version.ToLower() -ne "unknown"}
+                $validVersionsInfo = $versionsUsingThisUrlInfo | Where-Object { $_.version -and $_.version.ToLower() -ne "unknown" }
                 
                 # Sort by version (semantic versioning)
-                $sortedVersionsInfo = $validVersionsInfo | Sort-Object -Property @{Expression={ try { [System.Version]$_.version } catch { Write-Warning "Could not parse version '$($_.version)' for sorting."; return ([System.Version]"0.0") } }}
+                $sortedVersionsInfo = $validVersionsInfo | Sort-Object -Property @{Expression = { try { [System.Version]$_.version } catch { Write-Warning "Could not parse version '$($_.version)' for sorting."; return ([System.Version]"0.0") } } }
                 
-                if ($sortedVersionsInfo.Count -gt 1) { # URL is shared by multiple valid versions
+                if ($sortedVersionsInfo.Count -gt 1) {
+                    # URL is shared by multiple valid versions
+                    
                     Write-Host "    Vanity URL $installerUrl is used by multiple versions: $($sortedVersionsInfo.version -join ', ')"
+                    
                     $latestVersionInfoWithUrl = $sortedVersionsInfo[-1]
 
                     # Is the currently processed manifest the latest one using this URL?
                     if ($latestVersionInfoWithUrl.version -eq $currentPkgVersionStr -and `
-                        $latestVersionInfoWithUrl.path -eq (Resolve-Path $ManifestFilePath).Path) {
+                            $latestVersionInfoWithUrl.path -eq (Resolve-Path $ManifestFilePath).Path) {
                         Write-Host "    Current version $currentPkgVersionStr is the LATEST using this vanity URL."
                         try {
                             $fileContentBytes = Download-FileContent -Url $installerUrl
@@ -369,18 +389,23 @@ function Process-Manifest {
                             Write-Host "    Calculated SHA256 for vanity URL (latest version): $actualSha256"
 
                             # try to find Version from downloaded installer file
-                            $versionFromFile = Get-FileVersion -Path $installerUrl
+                            $FileversionFromFile = Get-ProductVersionFromFile $installerUrl -VersionInfoProperty "FileVersion"
+                            $ProductVersionFromFile = Get-ProductVersionFromFile $installerUrl -VersionInfoProperty "ProductVersion"
 
-                            if ($versionFromFile -ne $currentPkgVersionStr) {
+                            if ($FileversionFromFile -ne $currentPkgVersionStr -and $ProductVersionFromFile -ne $currentPkgVersionStr) {
                                 Write-Warning "    WARNING: Version from file ($versionFromFile) does not match current version ($currentPkgVersionStr). Terminating."
                                 return
-                            } else {
+                            }
+                            else {
                                 Write-Host "    Version from file matches current version: $currentPkgVersionStr"
                             }
 
                             if ($manifestSha256 -ne $actualSha256) {
                                 Write-Warning "    SHA256 MISMATCH on vanity URL (latest version)!"
-                                Call-OtherScriptPlaceholder -PackageId $packageId -PackageVersion $currentPkgVersionStr -Architecture $architecture -Url $installerUrl -ManifestSha $manifestSha256 -ActualSha $actualSha256
+                                $manifestData.Installers[$i].NewSha256 = $actualSha256.ToUpper()
+                                $manifestUpdatedOverall = $true
+                                Write-Host "    SUCCESS: Hash for $packageId v$currentPkgVersionStr ($architecture) updated in manifest data." -ForegroundColor Green
+
                             }
                             else {
                                 Write-Host "    SHA256 MATCH on vanity URL (latest version). No changes needed."
@@ -390,29 +415,47 @@ function Process-Manifest {
                             Write-Error "    Error processing vanity URL $installerUrl for current (latest) version: $($_.Exception.Message)"
                         }
                     }
-                    else { # Current manifest is an older version using a vanity URL
+                    else {
+                        # Current manifest is an older version using a vanity URL
                         Write-Warning "    Current version $currentPkgVersionStr uses a vanity URL but is NOT the latest."
                         Write-Warning "    Latest version using this URL ($installerUrl) is $($latestVersionInfoWithUrl.version) (in $($latestVersionInfoWithUrl.path))."
                         Write-Warning "    Manifest $ManifestFilePath (Version $currentPkgVersionStr) should potentially be removed or updated to a version-specific link."
+                        $existingPR = Test-ExistingPRs -Version $currentPkgVersionStr -PackageIdentifier $packageId -onlyOpen
+                        if ($existingPR) {
+                            Write-Host "  Existing PR found for $PackageId $PackageVersion. No action needed." -ForegroundColor Green
+                            return
+                        }
+                        komac remove $packageId --version $currentPkgVersionStr --resolves $ManifestObject --reason "Newer Version with same URL available in winget" --submit
                         # No hash change or PR here as the manifest is considered "outdated" for this URL.
+                        return
                     }
                 }
-                else { # URL is not shared, or this is the only (valid) version. Treat as direct link for this version.
+                else {
+                    # URL is not shared, or this is the only (valid) version. Treat as direct link for this version.
                     Write-Host "    URL $installerUrl appears unique to this version or no other versions share it. Treating as direct link for this version."
                     try {
                         $fileContentBytes = Download-FileContent -Url $installerUrl
                         $actualSha256 = Calculate-SHA256 -Data $fileContentBytes
                         Write-Host "    Calculated SHA256: $actualSha256"
 
+                        # try to find Version from downloaded installer file
+                        $FileversionFromFile = Get-ProductVersionFromFile $installerUrl -VersionInfoProperty "FileVersion"
+                        $ProductVersionFromFile = Get-ProductVersionFromFile $installerUrl -VersionInfoProperty "ProductVersion"
+
+                        if ($FileversionFromFile -ne $currentPkgVersionStr -and $ProductVersionFromFile -ne $currentPkgVersionStr) {
+                            Write-Warning "    WARNING: Version from file ($FileversionFromFile or $ProductVersionFromFile) does not match current version ($currentPkgVersionStr). Terminating."
+                            return
+                        }
+
                         if ($manifestSha256 -ne $actualSha256) {
-                            Write-Warning "    SHA256 MISMATCH! Updating manifest."
+                            Write-Warning "    SHA256 MISMATCH on vanity URL (latest version)!"
                             $manifestData.Installers[$i].NewSha256 = $actualSha256.ToUpper()
                             $manifestUpdatedOverall = $true
-                            Create-GitHubPRPlaceholder -ManifestPath $ManifestFilePath -PackageId $packageId -PackageVersion $currentPkgVersionStr -OldHash $manifestSha256 -NewHash $actualSha256.ToUpper() -Reason "Unique Vanity URL Hash Update"
                             Write-Host "    SUCCESS: Hash for $packageId v$currentPkgVersionStr ($architecture) updated in manifest data." -ForegroundColor Green
+
                         }
                         else {
-                            Write-Host "    SHA256 MATCH. No changes needed for this installer."
+                            Write-Host "    SHA256 MATCH on vanity URL (latest version). No changes needed."
                         }
                     }
                     catch {
@@ -427,6 +470,13 @@ function Process-Manifest {
                 # Save the updated manifest back to the original file
                 Replace-SHA256 -Data $manifestData -FilePath $ManifestFilePath
                 Write-Host "`nManifest $ManifestFilePath has been updated locally." -ForegroundColor Green
+                switch ($isDirectLink) {
+                    $true { $PRReason = "Direct Link Hash Update" }
+                    $false { $PRReason = "Vanity URL Hash Update" }
+                    Default { $PRReason = "Hash Update" }
+                }
+                Create-GitHubPRPlaceholder -ManifestPath $ManifestFilePath -PackageId $packageId -PackageVersion $currentPkgVersionStr -Reason $PRReason
+
             }
             catch {
                 Write-Error "Error saving updated manifest $($ManifestFilePath): $($_.Exception.Message)"
@@ -450,15 +500,20 @@ if ($MyInvocation.MyCommand.CommandType -eq 'ExternalScript') {
         # Example: Path to a manifest you want to check
         # Adjust this path to an existing manifest in your local clone.
         # e.g., manifests/m/Microsoft/PowerToys/0.80.0/Microsoft.PowerToys.installer.yaml
-        #$testManifestRelPath = "manifests/b/beeyev/telegram-owl/1.3.1/beeyev.telegram-owl.installer.yaml" # Example from the request
-        # $testManifestRelPath = "manifests/g/GitHub/cli/2.50.0/GitHub.cli.installer.yaml" # Another example
-        $testManifestRelPath = "manifests/c/ChemTableSoftware/FilesInspector/4.05/ChemTableSoftware.FilesInspector.installer.yaml"
+        #$testManifestRelPath = "manifests/c/ChemTableSoftware/FilesInspector/4.05/ChemTableSoftware.FilesInspector.installer.yaml"
+
+        foreach ($hashmissmatch in $HashIssues) {
+            # Provide a path to a manifest you want to test:
+            # To test the script, uncomment the following line and set a valid path:
+            if ($hashmissmatch.isInPR -eq $false) {Process-Manifest -ManifestObject $hashmissmatch}
+            
+        }
+
+        # # Provide a path to a manifest you want to test:
+        # $manifestToTest = Join-Path -Path $Global:WINGET_PKGS_REPO_PATH -ChildPath $testManifestRelPath
         
-        # Provide a path to a manifest you want to test:
-        $manifestToTest = Join-Path -Path $Global:WINGET_PKGS_REPO_PATH -ChildPath $testManifestRelPath
-        
-        # To test the script, uncomment the following line and set a valid path:
-        Process-Manifest -ManifestFilePath $manifestToTest
+        # # To test the script, uncomment the following line and set a valid path:
+        # Process-Manifest -ManifestFilePath $manifestToTest
         
         Write-Host "`nScript is ready. Please uncomment the Process-Manifest call in the main execution block and provide a valid manifest path to test it."
         Write-Host "Ensure WINGET_PKGS_REPO_PATH ('$($Global:WINGET_PKGS_REPO_PATH)') is correct and the 'powershell-yaml' module is installed."
