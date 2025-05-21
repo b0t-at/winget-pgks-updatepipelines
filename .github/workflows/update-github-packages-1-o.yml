@@ -603,9 +603,6 @@ jobs:
           - id: Micronaut.Launch
             repo: micronaut-projects/micronaut-starter
             url: https://github.com/micronaut-projects/micronaut-starter/releases/download/v{VERSION}/mn-win-amd64-v{VERSION}.zip
-          - id: Microsoft.Azure.IoTExplorer
-            repo: Azure/azure-iot-explorer
-            url: https://github.com/Azure/azure-iot-explorer/releases/download/v{VERSION}/Azure.IoT.Explorer.Preview.{VERSION}.msi
           - id: Microsoft.bitsmanager
             repo: microsoft/BITS-Manager
             url: https://github.com/microsoft/BITS-Manager/releases/download/v{VERSION}/BITSManager.msi
