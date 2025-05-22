@@ -282,6 +282,9 @@ jobs:
           - id: EQAditu.AdvancedCombatTracker
             repo: EQAditu/AdvancedCombatTracker
             url: https://github.com/EQAditu/AdvancedCombatTracker/releases/download/{VERSION}/ACTv3-Setup.exe
+          - id: Equicord.Equibop
+            repo: Equicord/Equibop
+            url: https://github.com/Equicord/Equibop/releases/download/{TAG}/Equibop-win-x64.exe https://github.com/Equicord/Equibop/releases/download/{TAG}/Equibop-win-arm64.exe
           - id: erdemkosk.envolve
             repo: erdemkosk/envolve
             url: https://github.com/erdemkosk/envolve/releases/download/v{VERSION}/envolve_Windows_i386.zip https://github.com/erdemkosk/envolve/releases/download/v{VERSION}/envolve_Windows_arm64.zip https://github.com/erdemkosk/envolve/releases/download/v{VERSION}/envolve_Windows_x86_64.zip
@@ -498,6 +501,9 @@ jobs:
           - id: JGraph.Draw
             repo: jgraph/drawio-desktop
             url: https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-ia32-{VERSION}-windows-32bit-installer.exe https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-{VERSION}-windows-installer.exe https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-arm64-{VERSION}-windows-arm64-installer.exe https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-ia32-{VERSION}-windows-32bit-no-installer.exe https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-{VERSION}-windows-no-installer.exe https://github.com/jgraph/drawio-desktop/releases/download/v{VERSION}/draw.io-arm64-{VERSION}-windows-arm64-no-installer.exe
+          - id: jj-vcs.jj
+            repo: jj-vcs/jj
+            url: https://github.com/jj-vcs/jj/releases/download/v{VERSION}/jj-v{VERSION}-x86_64-pc-windows-msvc.zip
           - id: JohannesMillan.superProductivity
             repo: johannesjo/super-productivity
             url: https://github.com/johannesjo/super-productivity/releases/download/v{VERSION}/Super-Productivity-Setup.exe https://github.com/johannesjo/super-productivity/releases/download/v{VERSION}/Super-Productivity-Setup-x64.exe https://github.com/johannesjo/super-productivity/releases/download/v{VERSION}/Super-Productivity-Setup-arm64.exe
@@ -510,9 +516,6 @@ jobs:
           - id: JustArchiNET.ArchiSteamFarm
             repo: JustArchiNET/ArchiSteamFarm
             url: https://github.com/JustArchiNET/ArchiSteamFarm/releases/download/{VERSION}/ASF-win-x64.zip
-          - id: jj-vcs.jj
-            repo: jj-vcs/jj
-            url: https://github.com/jj-vcs/jj/releases/download/v{VERSION}/jj-v{VERSION}-x86_64-pc-windows-msvc.zip
           - id: kangyu-california.PersistentWindows
             repo: kangyu-california/PersistentWindows
             url: https://github.com/kangyu-california/PersistentWindows/releases/download/{VERSION}/PersistentWindows{VERSION}.zip
