@@ -19,6 +19,7 @@ jobs:
         include:
           - id: "Google.Chrome.Canary"
           - id: "Deezer.Deezer"
+          - id: "glueckkanja.KONNEKT"
 
     steps:
       - name: Run Komac
