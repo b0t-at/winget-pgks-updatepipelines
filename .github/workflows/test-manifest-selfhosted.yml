@@ -51,7 +51,11 @@ jobs:
           echo "manifesturl=$manifestUrl" >> $env:GITHUB_ENV
       - name: Setup 7ip
         run: |
-          winget install --id 7zip.7zip --exact
+          if (-not (Get-Command 7z.exe -ErrorAction SilentlyContinue)) {
+            winget install --id 7zip.7zip --exact
+          } else {
+              Write-Output "7zip is already installed."
+          }
       - name: Setup FFmpeg
         uses: AnimMouse/setup-ffmpeg@v1
       - name: Open windows settings
