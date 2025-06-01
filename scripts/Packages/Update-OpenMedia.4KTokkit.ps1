@@ -1,3 +1,5 @@
+$WebsiteURL = "https://www.4kdownload.com/downloads/34"
+
 $versionParts = $wingetPackage.Split('.')
 $PackageName = $versionParts[1]
 
