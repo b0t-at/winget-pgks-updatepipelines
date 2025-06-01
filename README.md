@@ -1,4 +1,4 @@
-# winget-pgks-updatepipelines
+# winget-pkgs-updates
 **PR repo:** [winget-pkgs](https://github.com/microsoft/winget-pkgs.git)  
 **Fork repo:** [damn-good-b0t/winget-pkgs](https://github.com/damn-good-b0t/winget-pkgs)
 
