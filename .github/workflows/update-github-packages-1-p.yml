@@ -1,4 +1,4 @@
-name: GH Packages 1-O
+name: GH Packages 1-P
 
 on:
   workflow_dispatch:
@@ -306,9 +306,6 @@ jobs:
           - id: Fabio286.antares
             repo: antares-sql/antares
             url: https://github.com/antares-sql/antares/releases/download/v{VERSION}/Antares-{VERSION}-win_x64.exe
-          - id: facebook.watchman
-            repo: facebook/watchman
-            url: https://github.com/facebook/watchman/releases/download/v{VERSION}/watchman-v{VERSION}-windows.zip
           - id: fairdataihub.SODA-for-SPARC
             repo: fairdataihub/SODA-for-SPARC
             url: https://github.com/fairdataihub/SODA-for-SPARC/releases/download/v{VERSION}/soda-for-sparc-{VERSION}-setup.exe
@@ -525,12 +522,6 @@ jobs:
           - id: Kitware.CMake
             repo: Kitware/CMake
             url: https://github.com/Kitware/CMake/releases/download/v{VERSION}/cmake-{VERSION}-windows-i386.msi https://github.com/Kitware/CMake/releases/download/v{VERSION}/cmake-{VERSION}-windows-x86_64.msi https://github.com/Kitware/CMake/releases/download/v{VERSION}/cmake-{VERSION}-windows-arm64.msi
-          - id: Kiwix.WikiMed
-            repo: kiwix/kiwix-js-pwa
-            url: https://github.com/kiwix/kiwix-js-pwa/releases/download/v{VERSION}-WikiMed/WikiMed-by-Kiwix-{VERSION}-E.appx
-          - id: Kiwix.Wikivoyage
-            repo: kiwix/kiwix-js-pwa
-            url: https://github.com/kiwix/kiwix-js-pwa/releases/download/v{VERSION}-Wikivoyage/Wikivoyage-by-Kiwix-{VERSION}-E.appx
           - id: KoalaBear84.OpenDirectoryDownloader
             repo: KoalaBear84/OpenDirectoryDownloader
             url: https://github.com/KoalaBear84/OpenDirectoryDownloader/releases/download/v{VERSION}/OpenDirectoryDownloader-{VERSION}-win-x64.zip
@@ -594,9 +585,6 @@ jobs:
           - id: Martchus.syncthingctl
             repo: Martchus/syncthingtray
             url: https://github.com/Martchus/syncthingtray/releases/download/v{VERSION}/syncthingctl-qt5-{VERSION}-i686-w64-mingw32.exe.zip https://github.com/Martchus/syncthingtray/releases/download/v{VERSION}/syncthingctl-{VERSION}-x86_64-w64-mingw32.exe.zip
-          - id: mentebinaria.retoolkit
-            repo: mentebinaria/retoolkit
-            url: https://github.com/mentebinaria/retoolkit/releases/download/{VERSION}/retoolkit_{VERSION}_setup.exe
           - id: Metanorma.Metanorma
             repo: metanorma/packed-mn
             url: https://github.com/metanorma/packed-mn/releases/download/v{VERSION}/metanorma-windows-x86_64.zip
@@ -726,6 +714,57 @@ jobs:
           - id: oxygendioxide.utaformatix
             repo: oxygen-dioxide/utaformatix-electron
             url: https://github.com/oxygen-dioxide/utaformatix-electron/releases/download/{VERSION}/UtaFormatix-{VERSION}-win32-x64.exe
+          - id: P-StSoftware.WinSSHTerm
+            repo: WinSSHTerm/WinSSHTerm
+            url: https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-x64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-x64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-arm64.msi https://github.com/WinSSHTerm/WinSSHTerm/releases/download/{VERSION}/WinSSHTerm-{VERSION}-arm64.msi
+          - id: PasteIntoFile.PasteIntoFile
+            repo: eltos/PasteIntoFile
+            url: https://github.com/eltos/PasteIntoFile/releases/download/v{VERSION}/PasteIntoFile_v{VERSION}_installer.msi
+          - id: PBH-BTN.PeerBanHelper
+            repo: PBH-BTN/PeerBanHelper
+            url: https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-x64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-x64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-arm64_{VERSION}.exe https://github.com/PBH-BTN/PeerBanHelper/releases/download/v{VERSION}/PeerBanHelper_windows-arm64_{VERSION}.exe
+          - id: peanut996.CloudflareWarpSpeedTest
+            repo: peanut996/CloudflareWarpSpeedTest
+            url: https://github.com/peanut996/CloudflareWarpSpeedTest/releases/download/v{VERSION}/CloudflareWarpSpeedTest-v{VERSION}-windows-amd64.zip
+          - id: PersepolisDownloadManager.Persepolis
+            repo: persepolisdm/persepolis
+            url: https://github.com/persepolisdm/persepolis/releases/download/{VERSION}/persepolis_{VERSION}.0_windows_64bit.exe
+          - id: pinokiocomputer.pinokio
+            repo: pinokiocomputer/pinokio
+            url: https://github.com/pinokiocomputer/pinokio/releases/download/{VERSION}/Pinokio-{VERSION}-win32.zip
+          - id: pluveto.Upgit
+            repo: pluveto/upgit
+            url: https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_386.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_amd64.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm.exe https://github.com/pluveto/upgit/releases/download/v{VERSION}/upgit_win_arm64.exe
+          - id: pnpm.pnpm
+            repo: pnpm/pnpm
+            url: https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-x64.exe https://github.com/pnpm/pnpm/releases/download/v{VERSION}/pnpm-win-arm64.exe
+          - id: PocketSync.PocketSync
+            repo: neil-morrison44/pocket-sync
+            url: https://github.com/neil-morrison44/pocket-sync/releases/download/v{VERSION}/Pocket.Sync_{VERSION}_x64-setup.exe
+          - id: PolarGoose.CoffeeBean
+            repo: PolarGoose/CoffeeBean
+            url: https://github.com/PolarGoose/CoffeeBean/releases/download/v{VERSION}/CoffeeBean.msi
+          - id: PolarGoose.ShowWhatProcessLocksFile
+            repo: PolarGoose/ShowWhatProcessLocksFile
+            url: https://github.com/PolarGoose/ShowWhatProcessLocksFile/releases/download/v{VERSION}/ShowWhatProcessLocksFile.msi.zip
+          - id: PolyMC.PolyMC
+            repo: PolyMC/PolyMC
+            url: https://github.com/PolyMC/PolyMC/releases/download/{VERSION}/PolyMC-Windows-Setup-{VERSION}.exe
+          - id: Primecount.Primecount
+            repo: kimwalisch/primecount-winget
+            url: https://github.com/kimwalisch/primecount-winget/releases/download/v{VERSION}/Primecount-{VERSION}-win-x64.exe https://github.com/kimwalisch/primecount-winget/releases/download/v{VERSION}/Primecount-{VERSION}-win-arm64.exe
+          - id: printfn.fend
+            repo: printfn/fend
+            url: https://github.com/printfn/fend/releases/download/v{VERSION}/fend-{VERSION}-windows-x64-exe.zip https://github.com/printfn/fend/releases/download/v{VERSION}/fend-{VERSION}-windows-x64.msi
+          - id: Prometheus.WindowsExporter
+            repo: prometheus-community/windows_exporter
+            url: https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-amd64.exe https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-arm64.exe https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-amd64.msi https://github.com/prometheus-community/windows_exporter/releases/download/v{VERSION}/windows_exporter-{VERSION}-arm64.msi
+          - id: Psenix.OverlayTimer
+            repo: Psenix/OverlayTimer
+            url: https://github.com/Psenix/OverlayTimer/releases/download/v{VERSION}/OverlayTimer-Installer.exe
+          - id: Pulsar-Edit.Pulsar
+            repo: pulsar-edit/pulsar
+            url: https://github.com/pulsar-edit/pulsar/releases/download/v{VERSION}/Windows.Pulsar.Setup.{VERSION}.exe
 
 # steps:
 # - name: Update Packages
