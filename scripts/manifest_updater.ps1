@@ -196,7 +196,7 @@ function Create-GitHubPRPlaceholder {
             return
         }
         $commitMessage = "Update Hash for $PackageId $PackageVersion"
-        $prTitle = "Auto-update Hash for $PackageId $PackageVersion"
+        $prTitle = "update Hash for $PackageId $PackageVersion"
         $prBody = "Updated installer hash for $PackageId $PackageVersion due to mismatch."
         Write-Host "    Commit message suggestion: $commitMessage"
         Write-Host "    PR title suggestion: $prTitle"
@@ -296,7 +296,7 @@ function Process-Manifest {
             $isDirectLink = $false
             if ($currentPkgVersionStr -and $currentPkgVersionStr.ToLower() -ne "unknown" -and ($installerUrl.Contains($currentPkgVersionStr) -or $installerUrl.Contains($currentPkgVersionStr.trim(".0")) -or $installerUrl.Contains($currentPkgVersionStr.trim(".0.0")))) {
                 $isDirectLink = $true
-                $ManifestObject | Add-Member -MemberType NoteProperty -Name "IsDirectLink" -Value $true
+                if ($ManifestObject.IsDirectLink -ne $isDirectLink) { $ManifestObject | Add-Member -MemberType NoteProperty -Name "IsDirectLink" -Value $true }
             }
 
             if ($isDirectLink) {
@@ -425,7 +425,7 @@ function Process-Manifest {
                             Write-Host "  Existing PR found for $PackageId $PackageVersion. No action needed." -ForegroundColor Green
                             return
                         }
-                        komac remove $packageId --version $currentPkgVersionStr --resolves $ManifestObject --reason "Newer Version with same URL available in winget" --submit
+                        komac remove $packageId --version $currentPkgVersionStr --resolves $ManifestObject.IssueId --reason "Newer Version with same URL available in winget" --submit
                         # No hash change or PR here as the manifest is considered "outdated" for this URL.
                         return
                     }
@@ -439,8 +439,8 @@ function Process-Manifest {
                         Write-Host "    Calculated SHA256: $actualSha256"
 
                         # try to find Version from downloaded installer file
-                        $FileversionFromFile = Get-ProductVersionFromFile $installerUrl -VersionInfoProperty "FileVersion"
-                        $ProductVersionFromFile = Get-ProductVersionFromFile $installerUrl -VersionInfoProperty "ProductVersion"
+                        $FileversionFromFile = Get-ProductVersionFromFile $installerUrl -VersionInfoProperty "FileVersion" -ErrorAction SilentlyContinue
+                        $ProductVersionFromFile = Get-ProductVersionFromFile $installerUrl -VersionInfoProperty "ProductVersion" -ErrorAction SilentlyContinue
 
                         if ($FileversionFromFile -ne $currentPkgVersionStr -and $ProductVersionFromFile -ne $currentPkgVersionStr) {
                             Write-Warning "    WARNING: Version from file ($FileversionFromFile or $ProductVersionFromFile) does not match current version ($currentPkgVersionStr). Terminating."
@@ -505,9 +505,17 @@ if ($MyInvocation.MyCommand.CommandType -eq 'ExternalScript') {
         foreach ($hashmissmatch in $HashIssues) {
             # Provide a path to a manifest you want to test:
             # To test the script, uncomment the following line and set a valid path:
-            if ($hashmissmatch.isInPR -eq $false) {Process-Manifest -ManifestObject $hashmissmatch}
+            if ($hashmissmatch.isInPR -eq $false) { Process-Manifest -ManifestObject $hashmissmatch }
             
         }
+
+        foreach ($hashmissmatch in $HashIssuesWithoutInPr) {
+            # Provide a path to a manifest you want to test:
+            # To test the script, uncomment the following line and set a valid path:
+            if ($hashmissmatch.isInPR -eq $false -and $hashmissmatch.PackageId -ne "LSoftTechnologies.ActiveLiveCD") { Process-Manifest -ManifestObject $hashmissmatch }
+            
+        }
+
 
         # # Provide a path to a manifest you want to test:
         # $manifestToTest = Join-Path -Path $Global:WINGET_PKGS_REPO_PATH -ChildPath $testManifestRelPath

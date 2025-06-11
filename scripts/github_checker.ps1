@@ -228,7 +228,7 @@ function Extract-ManifestPathsFromIssues {
         $body = $issue.body
         $matches = [regex]::Matches($body, $manifestRegex)
         foreach ($match in $matches[0]) {
-            $filePath = $match.Value
+            $filePath = [system.uri]::UnescapeDataString($match.Value)
             Write-Host "    Found manifest file: $filePath"
             #[void]$allManifestPaths.Add($filePath)
             # add Package ID, Version, Issue ID and Path to Object
@@ -290,16 +290,17 @@ if ($MyInvocation.MyCommand.CommandType -eq 'ExternalScript') {
     }
 }
 
-
+$HashIssuesWithoutInPr = $HashIssues | Where-Object { $_.isInPR -eq $false }
 
 
 ### Replace body of PRs with "resolves: #$issueId"
 #First, find all PRs opened by me
-$myPRs = gh pr list --repo microsoft/winget-pkgs --author "@me" --state open --json number, title, state, author, url
+$myPRs = gh pr list --repo microsoft/winget-pkgs --author "@me" --state open --json "number,title,state,author,url,closingIssuesReferences"
 $myPRs = $myPRs | ConvertFrom-Json
+$myunlinkedPRs = $myPRs | Where-Object {!$_.closingIssuesReferences}
 
-foreach ($pr in $myPRs) {
-    foreach ($changedManifest in $HashIssues) {
+foreach ($pr in $myunlinkedPRs) {
+    foreach ($changedManifest in $HashIssues | Where-Object { $_.isInPR -eq $false }) {
         $titleMatch = $pr.title -like "*$($changedManifest.PackageId)*" -and $pr.title -like "*$($changedManifest.Version)*"
         if ($titleMatch) {
             $newBody = "resolves #$($changedManifest.IssueId)"
